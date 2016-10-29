@@ -1,0 +1,58 @@
+#+TITLE: Fourier Series
+#+SUBTITLE:
+#+AUTHOR: Ignacio Cordón Castillo
+#+OPTIONS: toc:nil
+#+LANGUAGE: es
+#+STARTUP: latexpreview
+#+STARTUP: indent
+#+DATE:
+
+#+latex_header: \usepackage{amsmath}
+#+latex_header: \usepackage{amsthm}
+#+latex_header: \newtheorem{theorem}{Teorema}
+#+latex_header: \newtheorem{fact}{Proposición}
+#+latex_header: \newtheorem{definition}{Definición}
+#+latex_header: \setlength{\parindent}{0pt}
+#+latex_header: \setlength{\parskip}{1em}
+
+#+attr_latex: :float t :width 4cm
+[[../by-nc-sa.petit.png]]
+
+* Introducción
+
+** Demuestra que $u_{xx} = u_{tt}$ tiene infinitas soluciones
+
+La pregunta surge como parte de la motivación de la introducción a series de Fourier. Se trata de un ejercicio propuesto y no resuelto en clase. Hay ecuaciones diferenciales cuyo espacio de soluciones es finito, como por ejemplo:
+
+\[x'(t) = f(t), \qquad f\in \mathcal{C}^{1}\]
+
+que tiene por soluciones un espacio afín de dimensión 1.
+
+Sin embargo, la ecuación diferencial $u_{xx} = u_{tt}$ [fn:derivadas] tiene como soluciones un espacio de dimensión infinita.
+
+Probémoslo.
+
+Claramente las funciones $v_n(x,t) = cos(nt)sen(nx)$ verifican la ecuación diferencial.
+
+Supongamos que podemos encontrar una combinación lineal finita de estas funciones y nula.
+
+\[\sum_{i=i}^k a_i v_i(x,t) = 0\]
+
+Haciendo $t=0$, obtenemos: 
+
+\[f(x) = \sum_{i=i}^k a_i sen(ix) = 0\]
+
+Podemos hacer:
+
+\[\int_{-\pi}^{\pi} f^2(x) dx = \sum_{i=1} a_i^2 \int_{-\pi}^{\pi}sen^2(ix) = 0\]
+
+donde se ha usado que $\int_{-\pi}^{\pi} sen(ix)sen(jx) = 0$ para $i\neq j$ y que $\int_{-\pi}^{\pi}sen^2(ix) > 0$ para todo $i\in\mathbb{N}$
+
+Y por tanto debe tenerse $a_i = 0, \quad i=1\ldots k$. Luego $\{v_n\}_{n\in \mathbb{N}}$ son infinitas soluciones de la ecuación diferencial linealmente independientes. 
+
+
+
+
+[fn:derivadas] Entendemos por $u_{xx} = \frac{\partial^2{u(x,t)}}{\partial x^2}$ con $u(x,t)$ campo escalar de dos variables
+
+
