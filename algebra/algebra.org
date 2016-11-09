@@ -14,7 +14,9 @@
 #+latex_header: \newtheorem*{definition}{Definición}
 #+latex_header: \setlength{\parindent}{0pt}
 #+latex_header: \setlength{\parskip}{1em}
+#+latex_header: \usepackage{color}
 #+latex_header: \newenvironment{wording}{\rule{\textwidth}{1pt}}{\rule{\textwidth}{1pt}}
+#+latex_header: \newcommand{\todo}[1]{\textcolor{red}{#1}}
 
 #+attr_latex: :float t :width 4cm
 [[../by-nc-sa.petit.png]]
@@ -23,13 +25,56 @@
 
 ** Resumen
 
+
 ** Ejercicios
+
+*** Ejercicio 1.16
+
+#+begin_wording
+Un anillo $R$ se dice anillo de Boole si $x^2=x$ para todo $x\in R$. Probar que en un anillo de Boole se tiene:
+1. $2x=0$ para todo $x\in R$
+2. Cada ideal primo $\Pi$ es maximal y $R/\Pi$ es un cuerpo con dos elementos.
+\todo{3. Cada ideal finitamente generado es principal.}
+#+end_wording
+
+1.
+Se tiene:
+
+\[ 2x^2 = 2x = (2x)^2 = 4x^2 \]
+
+Luego $2x^2 = 0$.
+
+2.
+Sea $\Pi$ ideal primo. Entonces $R/\Pi$ es dominio de integridad. Pero dado $x+\Pi \in R/\Pi$, $x$ no unidad, se tiene $(x+\Pi)+(x+\Pi) = (2x+\Pi) = \Pi$ que por ser dominio de integridad $x\in Pi$. Luego $R/\Pi$ es cuerpo con dos elementos y $\Pi$ maximal.
+
+3. 
+Solución propuesta por [M42](https://github.com/M42):
+
+Por inducción, $(a,b)=(a+b+ab)$ ya que $a(a+b+ab)=a^2 = a$ y análogo $b$.
+
+Y el paso de inducción es trivial.
+
+*** \todo{Ejercicio 1.17}
+
+#+begin_wording
+En un anillo $R$ sea $\Sigma$ el conjunto de todos los ideales en los que cada elemento es un divisor de cero. Probar que el conjunto $\Sigma$ tiene elementos maximales y que cada elemento maximal de $\Sigma$ es un ideal primo. Por tanto el conjunto de los divisores de cero en $R$ es una unión de ideales primos.
+#+end_wording
+
+*** Ejercicio 1.18
+
+#+begin_wording
+Sea $K$ un cuerpo, demuestra que el ideal $(X^3-Y^2)\subseteq K[X,Y]$ es un ideal primo del anillo $K[X,Y]$.
+#+end_wording
+
+Se puede probar, con una discusión de casos, escribiendo $X^3-Y^2$ como producto de dos polinomios en $K[X,Y]$ que no puede ocurrir esta circunstancia, luego $X^3-Y^2$ es irreducible en $K[X,Y]$ y por tanto, al ser $K$ cuerpo, $(X^3-Y^2)$ es primo.
+
+
 *** Ejercicio 1.25
 
 #+begin_wording
 Sean $\alpha$ y $\beta$ ideales de un anillo $R$
 
-1. Demuestra que $\alpha + \beta = R$ si y sólo si $\alpha^n + \beta^n = R para cada natural n$
+1. Demuestra que $\alpha + \beta = R$ si y sólo si $\alpha^n + \beta^n = R$ para cada natural n$
 2. Demuestra que si $\alpha, \beta$ son ideales comaximales propios entonces $\alpha,\beta \subsetneq J(R)$
 3. Demuestra que si $\alpha_1, \ldots \alpha_t$ son ideales comaximales dos a dos, entonces $\alpha_1+(\alpha_2, \cdots \alpha_t)^n = R$ para cada $n\in \mathbb{N}$.
 #+end_wording
@@ -79,6 +124,9 @@ $2\Longrightarrow 3$. Trivialmente, ya que todo elemento no nulo es invertible.
 $3\Longrightarrow 1$. Los ideales primos de $R/\mathcal{N}$ son de la forma $\alpha + \mathcal{N}$ con $\alpha$ ideal primo de $R$. Pero como $R/\mathcal{N}$ es cuerpo, se tiene que sus únicos ideales son el total y $\mahcal{N}\equiv 0$. Es decir $\alpha\subseteq \mathcal N \subseteq \alpha$ donde el último contenido viene dado por ser $\mathcal{N1}= \bigcap_{\Pi\in Spec(R)} \Pi$.
 
 Luego $\alpha = \mathcal{N}$ único ideal primo de $R$.
+
+
+
 * Resumen de Álgebra III
 
 \begin{fact}
