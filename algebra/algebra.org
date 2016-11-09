@@ -64,7 +64,21 @@ con $z\in\alpha_1$. Luego $1\in \alpha_1 + (\alpha_1, \cdots \alpha_t)$. Y la ca
 
 *** Ejercicio 1.24
 
+#+begin_wording
+Sea $R$ un anillo y $\mathcal{N}$ su nilradical. Demostrar que son equivalentes:
 
+1. $R$ tiene exactamente un ideal primo.
+2. Cada elemento de $R$ es o una unidad o nilpotente.
+3. $R/\mathcal{N}$ es un cuerpo.
+#+end_wording
+
+$1\Longrightarrow 2$. Entonces $\mathcal{N}$ es maximal en $R$, por existir los ideales maximales en un anillo, ser todo ideal maximal primo y ser $Nil(R)=\{x\in\mathbb{R}: \exists n, x^n=0\} = \bigcap_{\Pi\in Spec(R)} \Pi$ y en particular $R$ es anillo local con maximal $\mathcal{N}\Longleftrightarrow R-\mathcal{N}\subseteq U(R)$ lo que nos da el resultado.
+
+$2\Longrightarrow 3$. Trivialmente, ya que todo elemento no nulo es invertible.
+
+$3\Longrightarrow 1$. Los ideales primos de $R/\mathcal{N}$ son de la forma $\alpha + \mathcal{N}$ con $\alpha$ ideal primo de $R$. Pero como $R/\mathcal{N}$ es cuerpo, se tiene que sus únicos ideales son el total y $\mahcal{N}\equiv 0$. Es decir $\alpha\subseteq \mathcal N \subseteq \alpha$ donde el último contenido viene dado por ser $\mathcal{N1}= \bigcap_{\Pi\in Spec(R)} \Pi$.
+
+Luego $\alpha = \mathcal{N}$ único ideal primo de $R$.
 * Resumen de Álgebra III
 
 \begin{fact}
