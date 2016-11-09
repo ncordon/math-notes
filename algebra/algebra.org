@@ -1,0 +1,103 @@
+#+TITLE: Álgebra
+#+SUBTITLE:
+#+AUTHOR: Ignacio Cordón Castillo
+#+OPTIONS: toc:nil num:nil
+#+LANGUAGE: es
+#+STARTUP: latexpreview
+#+STARTUP: indent
+#+DATE:
+
+#+latex_header: \usepackage{amsmath} 
+#+latex_header: \usepackage{amsthm}
+#+latex_header: \newtheorem*{theorem}{Teorema}
+#+latex_header: \newtheorem*{fact}{Proposición}
+#+latex_header: \newtheorem*{definition}{Definición}
+#+latex_header: \setlength{\parindent}{0pt}
+#+latex_header: \setlength{\parskip}{1em}
+#+latex_header: \newenvironment{wording}{\rule{\textwidth}{1pt}}{\rule{\textwidth}{1pt}}
+
+#+attr_latex: :float t :width 4cm
+[[../by-nc-sa.petit.png]]
+
+* Álgebra conmutativa
+
+** Resumen
+
+** Ejercicios
+*** Ejercicio 1.25
+
+#+begin_wording
+Sean $\alpha$ y $\beta$ ideales de un anillo $R$
+
+1. Demuestra que $\alpha + \beta = R$ si y sólo si $\alpha^n + \beta^n = R para cada natural n$
+2. Demuestra que si $\alpha, \beta$ son ideales comaximales propios entonces $\alpha,\beta \subsetneq J(R)$
+3. Demuestra que si $\alpha_1, \ldots \alpha_t$ son ideales comaximales dos a dos, entonces $\alpha_1+(\alpha_2, \cdots \alpha_t)^n = R$ para cada $n\in \mathbb{N}$.
+#+end_wording
+
+
+1- 
+
+La implicación hacia la izquierda es trivial tomando $n=1$.
+
+Hacia la derecha, $n=1$ obvio
+
+Por inducción, supuesto que se cumple hasta $n\in\mathbb{N}$
+
+Existen $u+v = 1, \quad u\in\alpha^n, v\in\beta^n$. Desarrollando $(u+v)^{n+1}=1$ es fácil comprobar que pertenece a $\alpha^n + \beta^n$
+
+2-
+ 
+Supuesto sin pérdida de generalidad que $\alpha\subset J(R)$.
+
+Como existen $x\in\alpha$, $y\in\beta$ verificando $x+y=1$ por ser comaximales, $y=1-x\in U(R)$ por caracterización de radical de Jacobson, luego $\beta = R$, contradicción.
+
+3-
+
+Si son primos dos a dos $\exists x_{i1}\in\alpha_1, y_{i}\in\alpha_i$ verificando $1=x_i+y_i$ para todo $i\ge 2$. Luego:
+
+\[\prod_{i=1}^t (1-x_{i1}) = 1 + z = y_1\cdots y_n \in \alpha_1, \cdots \alpha_t\]
+
+con $z\in\alpha_1$. Luego $1\in \alpha_1 + (\alpha_1, \cdots \alpha_t)$. Y la caracterización del apartado 1 acaba teniendo en cuenta que:
+
+\[ \alpha_1^n + (\alpha_1, \cdots \alpha_t)^n \subset \alpha_1 + (\alpha_1, \cdots \alpha_t)^n \]
+
+
+*** Ejercicio 1.24
+
+
+* Resumen de Álgebra III
+
+\begin{fact}
+El elemento $\alpha$ es algebraico sobre $F$ si y solo si la extension $F(\alpha)/F$ es finito. 
+\end{fact}
+
+\begin{fact}
+Si la extensión $K/F$ es finita, entonces es algebraica
+\end{fact}
+
+\begin{definition}
+La extensión $K/F$ es finita si y solo si $K$ está generado por un número finito de elementos algebraicos sobre $F$. De hecho, una extensión generada por elementos de grado $n_1, \ldots, n_k$ tiene grado menor o igual $n_1 n_2 \ldots n_k$
+\end{definition}
+
+\begin{theorem}
+$K$ algebraico sobre $F$ y $L$ algebraico sobre $K$ entonces $L$ es algebraico sobre $F$
+\end{theorem}
+
+** Cuerpos de descomposición
+
+\begin{definition}
+Sea $K$ cuerpo, $E/K$ extensión. $f(X)\in K[X]$ descompone en $E$ si en $E[X]$ se factoriza como: 
+\[f(X)=a(X-a_1)\cdots(X-a_n), \qquad a\in K, \quad a_1,\ldots a_n\in E\]
+
+Cada $(X-a_i)$ es un factor lineal.
+
+Si no existe $F$ verificando $K\subseteq F\subseteq E$ y que $f(X)$ descompone en $F[X]$, $E[X]$ se llama cuerpo de descomposición.
+
+Se deduce que $E=K(\alpha_1, \ldots, \alpha_n)$ donde $\alpha_i$ son raíces de $f(X)$ en $E[X]$. Por tanto todo polinomio $f(X)\in K[X]$ tiene un cuerpo de descomposición sobre $K$
+\end{definition}
+
+
+\begin{fact}
+Un cuerpo de descomposición de un polinomio de grado $n$ sobre $F$ es de grado como mucho $n!$ sobre $F$. Si el grado es $n!$ entonces el polinomio es irreducible. El recíproco no se verifica.
+\end{fact}
+
