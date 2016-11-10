@@ -23,10 +23,83 @@
 
 * Álgebra conmutativa
 
-** Resumen
+** Tema 1: Anillos e ideales
 
+** Tema 3: Bases de Groebner y algoritmos básicos
+
+#+begin_definition
+$R$ anillo. Un $R$ módulo (izquierda) es un grupo abeliano $M$, junto a una operación externa
+$\begin{array}{lcr}
+R \times M & \longrightarrow & M\\
+(r,x) & \mapsto & rx
+$\end{array} 
+
+verificando, $\forall x,y\in M, \forall r,s\in R$
+\begin{itemize}
+\item $r(x+y)=rx+ry$
+\item $(r+s)x=rx+sx$
+\item $r(sx)=(rs)x$
+\item $1x=x$
+\end{itemize}
+ 
+#+end_definition
+
+
+#+begin_definition
+Una $R$ álgebra es un anillo $S$ que tiene estructura de $R$ módulo tal que $(rx)y=r(xy)=x(ry) \quad \forall r\in R, \quad\forall x,y\in S$
+
+También puede caracterizarse una $R$ álgebra como un anillo $S$ junto a un homomorfismo de anillos $\lambda:R\longrightarrow S$. El homomorfismo $\lambda$ se llama homomorfismo de estructura de la $R$ álgebra $S$.
+#+end_definition
+
+Si $R=K$ cuerpo, $\lambda$ es inyectiva, $S$ es $K$ álgebra que contiene a $K$ como subanillo.
+
+Como caso particular, todo anillo es una $\mathbb{Z}$ álgebra.
+
+#+begin_definition
+Dadas $S_1, S_2$ $R-$álgebras. Un homomorfismo de $R-$álgebras de $S_1$ en $S_2$ es un homomorfismo de anillos $f:S_1 \longrightarrow S_2$ que es también homomorfismo de $R$ módulos.
+#+end_definition
+
+#+begin_fact 
+*Propiedad universal de $R[X_1,\ldots X_n]$*
+
+Sea $S$ anillo, $f:R\longrightarrow S$ homomorfismo de anillos. Sean $s_1, \ldots s_n\in S$ elementos arbitrarios. Entonces $\exists f_{s_1, \ldots s_n}: R[X_1,\ldots X_n]\longrightarrow S$ homomorfismo de R álgebras verificando $f_{s_1, \ldots s_n}(X_i)=s_i$ y $f_{s_1,\ldots s_n} \circ \lambda = f$ que además es único.
+#+end_fact
+
+#+begin_definition
+Una $R$ álgebra $S$ se llama finitamente generada si existe un homomorfismo de $R$ álgebras sobreyectivo $f:R[X_1, \ldots X_n] \longrightarrow S$
+#+end_definition
+
+\hrule
+
+Dado $F\in K[X_1,\ldots X_n], \qquad F=\sum_{\alpha \in \mathbb{N}^n} a_{\alpha}X^{\alpha}$
+
+$\{X^{\alpha}: \alpha\in\mathbb{N}^n\}$ es $K$ base de $K[X_1, \ldots, X_n]$
+
+Cualquier orden en $\mathbb{N}^n$ induce un orden en $\{X^{\alpha}: \alpha\in\mathbb{N}^n\}$
+
+#+begin_definition
+Un orden $\le$ en $\mathbb{N}^n$ diremos que es *compatible* si siempre que $\alpha \ge \beta$ entonces $\alpha + \gamma \ge \beta + \gamma \qquad \forall \gamma\in\mathbb{N}^n$.
+
+Diremos que es *monótono* si 0 es mínimo en $\mathbb{N}^n$
+
+Diremos que un orden es *monomial* si es compatible, total y monótono.
+#+end_definition
+
+#+begin_fact
+Si $\le$ es orden monomial en $\mathbb{N}^n$ entonces se verifica que dados $\alpha, \beta \in \mathbb{N}^n$:
+\[ \alpha \le_{pr} \beta \Longrightarrow \alpha \le \beta \]
+#+end_fact
 
 ** Ejercicios
+
+
+*** \todo{Ejercicio 1.12}
+
+#+begin_wording
+Demuestra que si un anillo verifica que cada elmento $x$ verifica $x^n=x$ para algún $n\ge 2$ (dependiente de $x$) entonces todo ideal primo es maximal.
+#+end_wording
+ 
+
 
 *** Ejercicio 1.16
 
@@ -34,21 +107,24 @@
 Un anillo $R$ se dice anillo de Boole si $x^2=x$ para todo $x\in R$. Probar que en un anillo de Boole se tiene:
 1. $2x=0$ para todo $x\in R$
 2. Cada ideal primo $\Pi$ es maximal y $R/\Pi$ es un cuerpo con dos elementos.
-\todo{3. Cada ideal finitamente generado es principal.}
+3. \todo{Cada ideal finitamente generado es principal.}
 #+end_wording
 
-1.
+1-
+
 Se tiene:
 
 \[ 2x^2 = 2x = (2x)^2 = 4x^2 \]
 
 Luego $2x^2 = 0$.
 
-2.
+2-
+
 Sea $\Pi$ ideal primo. Entonces $R/\Pi$ es dominio de integridad. Pero dado $x+\Pi \in R/\Pi$, $x$ no unidad, se tiene $(x+\Pi)+(x+\Pi) = (2x+\Pi) = \Pi$ que por ser dominio de integridad $x\in Pi$. Luego $R/\Pi$ es cuerpo con dos elementos y $\Pi$ maximal.
 
-3. 
-Solución propuesta por [M42](https://github.com/M42):
+3-
+
+Solución propuesta por [[https://github.com/M42][M42]]
 
 Por inducción, $(a,b)=(a+b+ab)$ ya que $a(a+b+ab)=a^2 = a$ y análogo $b$.
 
@@ -129,17 +205,17 @@ Luego $\alpha = \mathcal{N}$ único ideal primo de $R$.
 
 * Resumen de Álgebra III
 
-\begin{fact}
+#+begin_fact
 El elemento $\alpha$ es algebraico sobre $F$ si y solo si la extension $F(\alpha)/F$ es finito. 
-\end{fact}
+#+end_fact
 
-\begin{fact}
+#+begin_fact
 Si la extensión $K/F$ es finita, entonces es algebraica
-\end{fact}
+#+end_fact
 
-\begin{definition}
+#+begin_definition
 La extensión $K/F$ es finita si y solo si $K$ está generado por un número finito de elementos algebraicos sobre $F$. De hecho, una extensión generada por elementos de grado $n_1, \ldots, n_k$ tiene grado menor o igual $n_1 n_2 \ldots n_k$
-\end{definition}
+#+end_definition
 
 \begin{theorem}
 $K$ algebraico sobre $F$ y $L$ algebraico sobre $K$ entonces $L$ es algebraico sobre $F$
@@ -147,7 +223,7 @@ $K$ algebraico sobre $F$ y $L$ algebraico sobre $K$ entonces $L$ es algebraico s
 
 ** Cuerpos de descomposición
 
-\begin{definition}
+#+begin_definition
 Sea $K$ cuerpo, $E/K$ extensión. $f(X)\in K[X]$ descompone en $E$ si en $E[X]$ se factoriza como: 
 \[f(X)=a(X-a_1)\cdots(X-a_n), \qquad a\in K, \quad a_1,\ldots a_n\in E\]
 
@@ -156,10 +232,10 @@ Cada $(X-a_i)$ es un factor lineal.
 Si no existe $F$ verificando $K\subseteq F\subseteq E$ y que $f(X)$ descompone en $F[X]$, $E[X]$ se llama cuerpo de descomposición.
 
 Se deduce que $E=K(\alpha_1, \ldots, \alpha_n)$ donde $\alpha_i$ son raíces de $f(X)$ en $E[X]$. Por tanto todo polinomio $f(X)\in K[X]$ tiene un cuerpo de descomposición sobre $K$
-\end{definition}
+#+end_definition
 
 
-\begin{fact}
+#+begin_fact
 Un cuerpo de descomposición de un polinomio de grado $n$ sobre $F$ es de grado como mucho $n!$ sobre $F$. Si el grado es $n!$ entonces el polinomio es irreducible. El recíproco no se verifica.
-\end{fact}
+#+end_fact
 
