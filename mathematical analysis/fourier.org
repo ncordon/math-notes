@@ -9,16 +9,81 @@
 
 #+latex_header: \usepackage{amsmath}
 #+latex_header: \usepackage{amsthm}
-#+latex_header: \newtheorem{theorem}{Teorema}
+#+latex_header: \newtheorem*{theorem}{Teorema}
 #+latex_header: \newtheorem{fact}{Proposición}
 #+latex_header: \newtheorem{definition}{Definición}
 #+latex_header: \setlength{\parindent}{0pt}
 #+latex_header: \setlength{\parskip}{1em}
+#+latex_header: \everymath{\displaystyle}
 
 #+attr_latex: :float t :width 4cm
 [[../by-nc-sa.petit.png]]
 
-* Introducción
+* Resumen
+
+
+** Aplicaciones de las series de Fourier
+
+Tenemos que hallar 
+$\begin{array}{rrcl}
+u: & \Omega \times [0, \infty] & \longrightarrow & \mathbb{R}\\
+   & (x,t) & \longmapsto & u(x,t)
+\end{array}$ que describe la temperatura en cada punto $x\in\Omega$, $t>0$
+
+$u: [0,l]\times[0,\infty] \longrightarrow \mathbb{R}$ verifica que:
+
+\[\left\{
+\begin{array}{lr}
+u_t - u_{xx} = 0 & \forall (x,t) \in ]0,l[ \times ]0,\infty[\\
+u(x,0) = u_0(x) & \forall x\in ]0,l[\\
+u(0,t) = u(l,t) = 0 & \forall t>0
+\end{array}\right.\]
+
+donde $u_0$ es la distribución inicial de temperaturas, $l$ distancia de la varilla.
+
+Suponiendo variables separadas: $u(x,t)=X(x)T(t)$ [fn:supt] y resolviendo:
+
+\[\left\{
+\begin{array}{l}
+X^{''}(x)+\lambda X(x)=0\\
+X(0) = X(l) = 0
+\end{array}\right.\]
+
+
+\[\left\{
+\begin{array}{l}
+T^{'}(x)+\lambda T(t)=0\\
+T(0) = 1
+\end{array}\right.\]
+
+[fn:supt] Podemos suponer sin pérdida de generalidad $T(0)=1$
+
+
+llegamos a $u(x,t)=Ae^{\frac{-n^2 \pi^2 t}{l^2}} sen(\frac{n\pi x}{l})$
+
+Por linealidad ya tenemos la solución si $u_0$ es una combinación finita de senos.
+
+#+begin_theorem
+
+Sea $u_0\in L^2(0,l)$ y consideramoslos coeficientes de Fourier en serie de senos $A_n = \frac{2}{l} \int_0^l u_0(x) sen\left(\frac{n\pi x}{l}\right) dx$  para todo $n\in\mathbb{N}$
+
+Entonces:
+
+i. $u:[0,l]\times ]0,\infty[$ donde $u(x,t) = \sum_{n=1}^{\infty} A_n e^{\frac{-n^2\pi^2 t}{l^2}} sen\left(\frac{n\pi x}{l}\right)$ es continua y tiene derivadas parciales continuas  en $[0,l]\times ]0,\infty[$ verificándose además:
+
+
+\[\left\{
+\begin{array}{lr}
+u_t - u_{xx} = 0 & \forall (x,t) \in ]0,l[ \times ]0,\infty[\\
+u(0,t) = u(l,t) = 0 & \forall t>0
+\end{array}\right.\]
+
+
+ii.Además si $u_0 \in \mathcal{C}^1(0,l)$ con $u_0(l)=u_0(0)$ entonces dicha función está definida en $u:[0,l]\times [0,\infty[$ y es continua con $u(x,0) = u_0(x) \quad \forall x\in[0,l]$ es decir, $u$ es solucion única al problema.
+
+#+end_theorem
+
+* Ejercicios
 
 ** Demuestra que $u_{xx} = u_{tt}$ tiene infinitas soluciones
 
