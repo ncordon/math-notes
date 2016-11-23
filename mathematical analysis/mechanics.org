@@ -1,0 +1,63 @@
+#+TITLE: Mechanics
+#+SUBTITLE:
+#+AUTHOR: Ignacio Cordón Castillo
+#+OPTIONS: toc:nil, num:nil
+#+LANGUAGE: es
+#+STARTUP: latexpreview
+#+STARTUP: indent
+#+DATE:
+
+#+latex_header: \usepackage{amsmath}
+#+latex_header: \usepackage{amsthm}
+#+latex_header: \newtheorem*{theorem}{Teorema}
+#+latex_header: \newtheorem{fact}{Proposición}
+#+latex_header: \newtheorem{definition}{Definición}
+#+latex_header: \setlength{\parindent}{0pt}
+#+latex_header: \setlength{\parskip}{1em}
+#+latex_header: \everymath{\displaystyle}
+
+#+attr_latex: :float t :width 4cm
+[[../by-nc-sa.petit.png]]
+
+* Resumen
+
+** Tema 2
+
+#+begin_fact
+
+Sea $I\subseteq \mathbb{R}$ intervalo $\alpha: I \rightarrow \mathbb{R}^2$ una curva de clase $k\ge 1$ con $\alpha(t) \neq 0$. Entonces existen $\Gamma, \Theta: I \rightarrow \mathbb{R}$ de clase $\mathcal{C}^k$ tales que $\Gamma > 0$ y $\alpha(t) = \Gamma(t)(cos(\Theta(t)), sen(\Theta(t))) \quad \forall t\in I$
+
+$\Gamma, \Theta$ son únicas salvo sumas de múltiplos de $2\pi$ a $t$. Además: $|x(t)| = \Gamma(t)$
+
+#+end_fact
+
+
+Tenemos, dada $\alpha(t) = \Gamma(t)(cos\Theta(t), sen\Theta(t))$, que el área encerrada por $\alpha$ entre $t_0$ y $t_1$ es $A = \left\{s\alpha(t): s\in [0,1], t\in [t_0,t_1]\right\}$. Suponemos además que $\Theta$ verifica $\Theta'(t)>0$, $\Theta(t_1)-\Theta(t_0) < 2\pi$.
+
+\begin{eqnarray*}
+Area(A) & = & \int_A 1 \partial \Omega = \frac{1}{2} \int_A div(id) \partial \Omega = \frac{1}{2} \int_{t_0}^{t_1} \alpha_1(t) \alpha_2'(t) - \alpha_2(t) \alpha_1'(t) dt = \\
+& = &\frac{1}{2} \int_{t_0}^{t_1} \Gamma^2(t) \Theta'(t) dt
+\end{eqnarray*}
+
+Del momento angular en problemas de fuerzas centrales:
+
+\[c(t) = c = x(t)\wedge x'(t) = \Gamma^2(t) \Theta'(t)(0,0,1)\]
+
+que es constante, deducimos $\Gamma^2(t) \Theta'(t)$ constante. Así en fuerzas centrales:  
+
+\[Area(A) = \frac{1}{2} \int_{t_0}^{t_1}|c| = |c|(t_1 - t_0) dt\]
+
+Teniéndose que:
+
+\[\left\{\begin{array}{lcl}
+x(t) & = & \Gamma(t)(cos\Theta(t), sen\Theta(t))\\
+e & = & \epsilon (cos \omega, sen \omega)
+\end{array}\right.\]
+
+Reescribimos $|x(t)| + <x(t),e> = k$ como:
+
+\[\Gamma(t)[1+\epsilon \cdot cos(w-\Theta)] = k>0 \Leftrightarrow \Theta(t) = \frac{k}{1+\epsilon \cdot cos(w-\Theta)}\]
+
+La distancia más cercana al foco (pericentro, -helio, -geo, -lácteo) $|x(t)| = \Gamma(t)$ se alcanza cuando $\Theta = w$. La más lejanda (apocentro) cuando $\Theta = \omega + \pi$.
+
+
