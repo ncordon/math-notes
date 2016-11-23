@@ -61,3 +61,6 @@ Reescribimos $|x(t)| + <x(t),e> = k$ como:
 La distancia más cercana al foco (pericentro, -helio, -geo, -lácteo) $|x(t)| = \Gamma(t)$ se alcanza cuando $\Theta = w$. La más lejanda (apocentro) cuando $\Theta = \omega + \pi$.
 
 
+#+begin_fact
+Si una partícula, sujeta a la acción de un campo gravitacional se mueve en una elipse, entonces la recorre entera y pasa por el mismo punto infinitas veces.
+#+end_fact
