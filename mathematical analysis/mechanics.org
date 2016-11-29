@@ -7,17 +7,20 @@
 #+STARTUP: indent
 #+DATE:
 
-#+latex_header: \usepackage{amsmath}
+#+latex_header: \usepackage{amsmath} 
 #+latex_header: \usepackage{amsthm}
 #+latex_header: \newtheorem*{theorem}{Teorema}
-#+latex_header: \newtheorem{fact}{Proposición}
-#+latex_header: \newtheorem{definition}{Definición}
+#+latex_header: \newtheorem*{fact}{Proposición}
+#+latex_header: \newtheorem*{definition}{Definición}
 #+latex_header: \setlength{\parindent}{0pt}
 #+latex_header: \setlength{\parskip}{1em}
+#+latex_header: \usepackage{color}
+#+latex_header: \newenvironment{wording}{\setlength{\parskip}{0pt}\rule{\textwidth}{0.5em}}{~\\\rule{\textwidth}{0.5em}}
 #+latex_header: \everymath{\displaystyle}
 
 #+attr_latex: :float t :width 4cm
-[[../by-nc-sa.petit.png]]
+[[../by-nc-sa.png]]
+
 
 * Resumen
 
@@ -58,9 +61,42 @@ Reescribimos $|x(t)| + <x(t),e> = k$ como:
 
 \[\Gamma(t)[1+\epsilon \cdot cos(w-\Theta)] = k>0 \Leftrightarrow \Theta(t) = \frac{k}{1+\epsilon \cdot cos(w-\Theta)}\]
 
-La distancia más cercana al foco (pericentro, -helio, -geo, -lácteo) $|x(t)| = \Gamma(t)$ se alcanza cuando $\Theta = w$. La más lejanda (apocentro) cuando $\Theta = \omega + \pi$.
+La distancia $|x(t)| = \Gamma(t)$ más cercana al foco (pericentro, -helio, -geo, -lácteo) se alcanza cuando $\Theta = w$. La más lejanda (apocentro) cuando $\Theta = \omega + \pi$.
 
+Como caso particular, en una elipse, llamando $a,b$ al los semiejes mayor y menor respectivamente, tenemos:
+
+\[ a = \frac{k}{1-\epsilon^2} \qquad b = a \sqrt{1-\epsilon^2} \]
+
+*En el caso gravitacional \(k=\frac{|c|^2}{\mu}\)*
+
+Llamando $\beta(t), u(t)$ a las anomalías intrínsecas y extrínsecas, respectivamente, llegamos a que siendo $x(t) = \frac{k}{1+\epsilon cos \beta(t)}(cos \beta(t), sen \beta(t))$ es una parametrización de la elipse, la siguiente también es una parametrización de la elipse en función de la anomalía excéntrica:
+
+\[x(t) = (a[cos(u(t)) -\epsilon], b\cdot sen(u(t)))\]
+
+También se puede probar que $u'(t)> K > 0$ y que por tanto $u(\mathbb{R})=\mathbb{R}$.
+
+#+begin_definition
+*Ecuación de Kepler*: 
+
+\[ u(t) - \epsilon sen(u(t)) = \frac{\sqrt{\mu}}{a^{3/2}}(t-t_0) \]
+
+Viendo $t$ en función de $u$:
+
+\[ t(u) = \frac{a^{3/2}}{\sqrt{\mu}} \cdot (u - \epsilon \cdot sen(u)) + t_0 \]
+#+end_definition
 
 #+begin_fact
 Si una partícula, sujeta a la acción de un campo gravitacional se mueve en una elipse, entonces la recorre entera y pasa por el mismo punto infinitas veces.
 #+end_fact
+
+
+#+begin_theorem
+*3ª ley de Kepler*: Sea $X:\mathbb{R} \rightarrow \mathbb{R}^2 \setminus {0}$ una solución de $x^{''}=\frac{-\mu}{|x|^3}x$ que se mueve en una elipse $(c\neq 0, h<0)$, entonces $x$ es periódica y su periodo mínimo es $p=\frac{2\pi}{\sqrt{\mu}}a^{3/2}$ donde $a$ es la longitud del semieje mayor de la elipse.
+
+*Observaciones:*
+
+i. $p$ sólo depende de $\mu$ y de $a$.
+
+ii. $x(t)=a(cos(\omega t), sen(\omega(t))$ es solución $\Leftrightarrow |\omega| = \frac{\sqrt{\mu}}{a^{3/2}}$ (es decir, si y solo si se verifica la 3ª ley de Kepler).
+
+#+end_theorem

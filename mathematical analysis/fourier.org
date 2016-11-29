@@ -7,17 +7,19 @@
 #+STARTUP: indent
 #+DATE:
 
-#+latex_header: \usepackage{amsmath}
+#+latex_header: \usepackage{amsmath} 
 #+latex_header: \usepackage{amsthm}
 #+latex_header: \newtheorem*{theorem}{Teorema}
-#+latex_header: \newtheorem{fact}{Proposición}
-#+latex_header: \newtheorem{definition}{Definición}
+#+latex_header: \newtheorem*{fact}{Proposición}
+#+latex_header: \newtheorem*{definition}{Definición}
 #+latex_header: \setlength{\parindent}{0pt}
 #+latex_header: \setlength{\parskip}{1em}
+#+latex_header: \usepackage{color}
+#+latex_header: \newenvironment{wording}{\setlength{\parskip}{0pt}\rule{\textwidth}{0.5em}}{~\\\rule{\textwidth}{0.5em}}
 #+latex_header: \everymath{\displaystyle}
 
 #+attr_latex: :float t :width 4cm
-[[../by-nc-sa.petit.png]]
+[[../by-nc-sa.png]]
 
 * Resumen
 

@@ -15,11 +15,11 @@
 #+latex_header: \setlength{\parindent}{0pt}
 #+latex_header: \setlength{\parskip}{1em}
 #+latex_header: \usepackage{color}
-#+latex_header: \newenvironment{wording}{\rule{\textwidth}{1pt}}{\rule{\textwidth}{1pt}}
-#+latex_header: \newcommand{\todo}[1]{\textcolor{red}{#1}}
+#+latex_header: \newenvironment{wording}{\setlength{\parskip}{0pt}\rule{\textwidth}{0.5em}}{~\\\rule{\textwidth}{0.5em}}
+#+latex_header: \everymath{\displaystyle}
 
 #+attr_latex: :float t :width 4cm
-[[../by-nc-sa.petit.png]]
+[[../by-nc-sa.png]]
 
 * Álgebra conmutativa
 
@@ -93,13 +93,12 @@ Si $\le$ es orden monomial en $\mathbb{N}^n$ entonces se verifica que dados $\al
 ** Ejercicios
 
 
-*** \todo{Ejercicio 1.12}
+*** Ejercicio 1.12
 
 #+begin_wording
 Demuestra que si un anillo verifica que cada elmento $x$ verifica $x^n=x$ para algún $n\ge 2$ (dependiente de $x$) entonces todo ideal primo es maximal.
 #+end_wording
  
-
 
 *** Ejercicio 1.16
 
@@ -107,7 +106,7 @@ Demuestra que si un anillo verifica que cada elmento $x$ verifica $x^n=x$ para a
 Un anillo $R$ se dice anillo de Boole si $x^2=x$ para todo $x\in R$. Probar que en un anillo de Boole se tiene:
 1. $2x=0$ para todo $x\in R$
 2. Cada ideal primo $\Pi$ es maximal y $R/\Pi$ es un cuerpo con dos elementos.
-3. \todo{Cada ideal finitamente generado es principal.}
+3. Cada ideal finitamente generado es principal.
 #+end_wording
 
 1-
@@ -130,7 +129,7 @@ Por inducción, $(a,b)=(a+b+ab)$ ya que $a(a+b+ab)=a^2 = a$ y análogo $b$.
 
 Y el paso de inducción es trivial.
 
-*** \todo{Ejercicio 1.17}
+*** Ejercicio 1.17
 
 #+begin_wording
 En un anillo $R$ sea $\Sigma$ el conjunto de todos los ideales en los que cada elemento es un divisor de cero. Probar que el conjunto $\Sigma$ tiene elementos maximales y que cada elemento maximal de $\Sigma$ es un ideal primo. Por tanto el conjunto de los divisores de cero en $R$ es una unión de ideales primos.
@@ -244,9 +243,9 @@ Un cuerpo de descomposición de un polinomio de grado $n$ sobre $F$ es de grado 
 
 ** Ejercicios
 
-*** Semana 1
+*** Ejercicio 1.24
 
-** Ejercicio 1
+#+begin_wording
 Dado un término $X_1^{e_1} \cdots X_n^{e_n}$ con $e_1 \ge \ldots \ge e_n$, el polinomio simétrico
 mínimo que contiene a $X_1^{e_1} \cdots X_n^{e_n}$ lo representamos por $(X_1^{e_1} \cdots X_n^{e_n})$, y podemos 
 escribirlo fácilmente como
@@ -254,6 +253,7 @@ escribirlo fácilmente como
 de términos $X_{\sigma(1)}^{e_1} \cdots X_{\sigma(n)}^{e_n}$ que son iguales a
  $X_1^{e_1} \cdots X_n^{e_n}$.
 Calcula el valor de $k$, y el número de monomios de $(X_1^{e_1} \cdots X_n^{e_n})$.\\
+#+end_wording
 
 Notamos $d_1, \ldots d_m$, $d_1 > \ldots > d_m$, donde $d_1, \ldots d_m \in \{e_1, \ldots e_n\}$
 
@@ -262,10 +262,12 @@ y $k_i = card(\{e_j : e_j = d_i\})$ \\
 Por combinatoria, sabemos por tanto que $k=\prod{k_i!}$ y que tendremos un número $\frac{k}{n}$
 de monomios de tipo $(X_1^{e_1} \cdots X_n^{e_n})$.\\
 
-** Ejercicio 2
+*** Ejercicio 1.25
 
+#+begin_wording
 Se considera el polinomio $p(x)= x^3 - 5x - 5$ con raíces $\alpha,\beta,\gamma$. Calcula el 
 valor de $\left(\frac{1}{\alpha+1}\right)^3 + \left(\frac{1}{\beta+1}\right)^3 + \left(\frac{1}{\gamma+1}\right)^3$ \\
+#+end_wording
 
 $\frac{1}{\alpha+1}, \frac{1}{\beta+1}, \frac{1}{\gamma+1}$ anulan a $p(\frac{1}{x}-1)$ donde:
 
@@ -298,12 +300,19 @@ Por otro lado, igualando los coeficientes de $q$ factorizado y sin factorizar:
 
 Así $a^3+b^3+c^3 = 13$
 
-*** Semana 2
-* Ejercicio 1
-*Sea $A$ un anillo y $\phi: A[X] \rightarrow A[X]$ un homomorfismo tal que $\phi(a)=a$ para cada $a\in A$. Supongamos que $\phi(X) = f(X) \in A[X]$.*
 
-** Primer apartado
-*Si $A$ es un dominio de integridad (DI), ¿qué condición tiene que verificar $f(X)$ para que $\phi$ sea un isomorfismo?*
+
+*** Ejercicio 2.14
+
+#+begin_wording
+Sea $A$ un anillo y $\phi: A[X] \rightarrow A[X]$ un homomorfismo tal que $\phi(a)=a$ para cada $a\in A$. Supongamos que $\phi(X) = f(X) \in A[X]$.
+
+1. Si $A$ es un dominio de integridad (DI), ¿qué condición tiene que verificar $f(X)$ para que $\phi$ sea un isomorfismo?*
+2. ¿Qué ocurre cuando $A$ no es un DI?
+#+end_wording
+
+
+1- 
 
 Se tiene $\phi(\sum_{i=0}^n a_i X^i) = \sum_{i=0}^n a_i f(X)^i$, si $f(X) = ux+a$ con $u$ unidad en $A$. 
 
@@ -317,18 +326,20 @@ Si $gr(f(X)) = m = \ge 2$, puesto que al ser dominio de integridad, no se anula 
 
 Y por tanto la función $\phi$ no podría ser sobreyectiva, ya que en $Img(\phi)$ sólo estarían contenidos los polinomios de grado un múltiplo de m. También se verifica que en $f(X) = ux + a$, u no puede ser no unidad, puesto que en dicho caso tendríamos que el término líder de un polinomio $\phi(p(x))$ debería estar en el ideal generado por $u$, que sería todo $A$ si y solo si $u$ es unidad.
 
-** Segundo apartado
-*¿Qué ocurre cuando $A$ no es un DI?*
+2-
 
 Podría ocurrir que si el coeficiente líder de $f(X)$ es nilpotente, $\phi$ fuera isomorfismo, como por ejemplo con $f(X) = 2X^2 + X$ en $\mathbb{Z}_4$. Con dicho $f$, tendríamos $\phi(X^2+2X) = X$, lo que asegura sobreyectividad, y como $gr(\phi(x)) \ge gr(p(x))$, el kernel de $\phi$ debería ser $\{0\}$, lo que asegura inyectividad.
 
 
-* Ejercicio 2
+*** Ejercicio 2.15 
 
-*Consideramos $\mathbb{Z} \subset \mathbb{Q}$*
+#+begin_wording
+Consideramos $\mathbb{Z} \subset \mathbb{Q}$
 
-** Primer apartado
-*Si $f(X) \in \mathbb{Z}[X]$ es irreducible, prueba que $f(X)$ es irreducible sobre $\mathbb{Q}$*
+1. Si $f(X) \in \mathbb{Z}[X]$ es irreducible, prueba que $f(X)$ es irreducible sobre $\mathbb{Q}$
+2. Si $f(X) \in \mathbb{Z}[X]$ es irreducible, entonces $F = \frac{\mathbb{Q}[X]}{(f(X))}$ es un cuerpo y tenemos inclusiones $\mathbb{Z} \subset \mathbb{Q} \subset F$.
+3. Si llamamos $x=X+(f(X))\in F$, prueba que $x$ es una raíz de $f(X)\in F[X]$
+#+end_wording
 
 Supongamos que $f(X)$ es reducible sobre $\mathbb{Q}$. Entonces:
 
@@ -348,8 +359,7 @@ Pero como $p\mid b_{k+t}c_0, p\mid b_{k+t-1}c_1, \ldots b_{k+1}c_{t-1}, b_{k-1}c
 
 Por tanto $n=1$.
 
-** Segundo apartado
-*Si $f(X) \in \mathbb{Z}[X]$ es irreducible, entonces $F = \frac{\mathbb{Q}[X]}{(f(X))}$ es un cuerpo y tenemos inclusiones $\mathbb{Z} \subset \mathbb{Q} \subset F$.*
+2-
 
 Sabemos que $A/I$ con $A$ anillo, $I$ ideal, es cuerpo si y solo si $I$ es maximal.
 
@@ -359,8 +369,7 @@ Luego $(f(X))$ es maximal y $F$ cuerpo.
 
 Además, a cada elemento $q \in \mathbb{Q}$ podemos asignarle un elemento $q+(f(X))$. Dados $q,q'\in \mathbb{Q}$, se tiene que $q + \mathbb{Q} \neq q' + \mathbb{Q}$, ya que caso opuesto tendríamos $q-q' \in (f(X))$, lo que es imposible, puesto que $q-q' \neq 0$ y es una constante.
 
-** Tercer apartado
-*Si llamamos $x=X+(f(X))\in F$, prueba que $x$ es una raíz de $f(X)\in F[X]$*
+3-
 
 Sea $f(X) = \sum a_i X^i$ en $\mathbb{Q[X]}$. Entonces tenemos que en $F[X]$:
 
@@ -370,10 +379,11 @@ Sea $f(X) = \sum a_i X^i$ en $\mathbb{Q[X]}$. Entonces tenemos que en $F[X]$:
 Luego es una raíz del polinomio.
 
 
-* Ejercicio 3
+*** Ejercicio 2.16
 
+#+begin_wording
 Describe los elementos del cuerpo $\frac{\mathbb{F}_2[X]}{(X^3+X+1)}$, completando las tablas de la suma y el producto.
-
+#+end_wording
 
 Los elementos del cuerpo citado son de la forma $p(X) + (X^3+X+1)$ con $p(X)$ un polinomio producto de irreducibles en $\mathbb{F}_2[X]$. Así, los elementos de este cuerpo son:
 
@@ -386,9 +396,9 @@ Los elementos del cuerpo citado son de la forma $p(X) + (X^3+X+1)$ con $p(X)$ un
 \[e = X^2 + (X^3+X+1)\]
 \[f = X^2 + 1 + (X^3+X+1)\]
 
-** Tabla del producto
+**** Tabla del producto
 | $\cdot$ || $0$ | $1$ | $a$ | $b$ | $c$ | $d$ | $e$ | $f$ |
-|---------+-----+-----+-----+-----+-----+-----+-----+-----|
+|---------+------+-----+-----+-----+-----+-----+-----+-----|
 | $0$     || $0$ | $0$ | $0$ | $0$ | $0$ | $0$ | $0$ | $0$ |
 | $1$     || $0$ | $1$ | $a$ | $b$ | $c$ | $d$ | $e$ | $f$ |
 | $a$     || $0$ | $a$ | $e$ | $d$ | $f$ | $c$ | $b$ | $1$ |
@@ -399,10 +409,10 @@ Los elementos del cuerpo citado son de la forma $p(X) + (X^3+X+1)$ con $p(X)$ un
 | $f$     || $0$ | $f$ | $1$ | $e$ | $d$ | $b$ | $a$ | $c$ |
 
 
-** Tabla de la suma
+**** Tabla de la suma
 
 | $+$     || $0$ | $1$ | $a$ | $b$ | $c$ | $d$ | $e$ | $f$ |
-|---------+-----+-----+-----+-----+-----+-----+-----+-----|
+|---------+------+-----+-----+-----+-----+-----+-----+-----|
 | $0$     || $0$ | $1$ | $a$ | $b$ | $c$ | $d$ | $e$ | $f$ |
 | $1$     || $1$ | $0$ | $b$ | $a$ | $d$ | $c$ | $f$ | $e$ |
 | $a$     || $a$ | $b$ | $0$ | $1$ | $f$ | $e$ | $d$ | $c$ |
@@ -413,14 +423,17 @@ Los elementos del cuerpo citado son de la forma $p(X) + (X^3+X+1)$ con $p(X)$ un
 | $f$     || $f$ | $e$ | $c$ | $d$ | $a$ | $b$ | $1$ | $0$ |
 
 
+*** Ejercicio 2.17
 
-*** Semana 3
+#+begin_wording
+Se considera $\alpha = \sqrt{2} + \sqrt{3} + \sqrt{5} \in F = \mathbb{Q}(\sqrt{2}, \sqrt{3}, \sqrt{5})$
+1. Prueba que $[\mathbb{Q}(\sqrt{2}, \sqrt{3}, \sqrt{5}): \mathbb{Q}] = 8$
+2. Prueba que $F = \mathbb{Q}(\alpha)$
+3. Calcula $Irr(\alpha, \mathbb{Q})$
+4. Encuentra elementos $\beta\in F$, de grado cuatro sobre $\mathbb{Q}$
+#+end_wording
 
-*Se considera $\alpha = \sqrt{2} + \sqrt{3} + \sqrt{5} \in F = \mathbb{Q}(\sqrt{2}, \sqrt{3}, \sqrt{5})$*
-
-
-** Primer apartado
-*Prueba que $[\mathbb{Q}(\sqrt{2}, \sqrt{3}, \sqrt{5}): \mathbb{Q}] = 8$*
+1-
 
 Tenemos la torre de cuerpos:
 
@@ -445,9 +458,7 @@ $$[\mathbb{Q}(\sqrt{2})(\sqrt{3})(\sqrt{5}) : \mathbb{Q}(\sqrt{2})(\sqrt{3})] = 
 
 ya que es conocido que $[\mathbb{Q}(\sqrt{2}):\mathbb{Q}] = 2$, y además se tienen las otras dos igualdades, al no poder expresar $\sqrt{2} = a+b\sqrt{3}, \quad a,b\in\mathbb{Q}$ ni $\sqrt{2} = a+b\sqrt{2}+c\sqrt{3}+d\sqrt{6}, \quad a,b,c,d\in\mathbb{Q}$
 
-
-** Segundo apartado
-*Prueba que $F = \mathbb{Q}(\alpha)$*
+2-
 
 Claramente $\mathbb{Q}(\alpha) \subseteq \mathbb{Q}(\sqrt{2},\sqrt{3},\sqrt{5})$
 Se tiene que:
@@ -471,11 +482,9 @@ $$\delta^2 = 10 + 9\cdot 6 + 4\sqrt{15}$$
 $$\theta^2 = 15 + 4\cdot 6 - 12\sqrt{10}$$
 
 
-
 Juntando toda esta información con que $\{1,\sqrt{2},\sqrt{3},\sqrt{5},\sqrt{6},\sqrt{10},\sqrt{15},\sqrt{30}\}$ es base de $\mathbb{Q}(\sqrt{2},\sqrt{3},\sqrt{5})$ deducimos que $1, \sqrt{15}, \sqrt{10}, \sqrt{6}, \sqrt{2} + \sqrt{3} + \sqrt{5} \in F$, 5 elementos linealmente independientes, y $F$ sólo puede tener grado 8,4 o 2 luego debe ser 8.
 
-** Tercer apartado
-*Calcula $Irr(\alpha, \mathbb{Q})$*
+3-
 
 \begin{eqnarray*}
 & \beta = & \sqrt{5}+\sqrt{2}+\sqrt{3} \Leftrightarrow (\beta-\sqrt{5})^2 - (\sqrt{2}+\sqrt{3})^2 = 0 \Leftrightarrow \beta^2-2\sqrt{5}\beta - 2\sqrt{6} = 0 \Leftrightarrow\\
@@ -486,8 +495,7 @@ Juntando toda esta información con que $\{1,\sqrt{2},\sqrt{3},\sqrt{5},\sqrt{6}
 
 Por tanto $X^8 - 40 X^6+352 X^4-960 X^2+576$, al ser polinomio de grado 8, que es el grado de la extensión, debe ser irreducible, $Irr(\alpha, \mathbb{Q})$
 
-** Cuarto apartado
- *Encuentra elementos $\beta\in F$, de grado cuatro sobre $\mathbb{Q}$*
+4-
 
 Nos basta demostrar que $\mathbb{Q}(\sqrt{2})(\sqrt{3}) = \mathbb{Q}(\sqrt{2}+\sqrt{3})$ y por tanto $\sqrt{2} + \sqrt{3} = \omega$ sería elemento de grado 4.
 
@@ -500,14 +508,16 @@ $$\omega^3 = 9\sqrt{3} + 11\sqrt{2}$$
 y podemos obtener a partir de combinaciones de $\omega, \omega^2, \omega^3$ los elementos $\sqrt{2},\sqrt{3},\sqrt{6}$, que pertenecen a $\mathbb{Q}(\omega)$, y que están en la base $\{1,\sqrt{2},\sqrt{3},\sqrt{6}\}$ de $\mathbb{Q}(\sqrt{2},\sqrt{3})$. Por tanto $\omega$ es elemento de grado 4.
 
 
-*** Semana 4
+*** Ejercicio 3.11
 
-* Ejercicio 1
-*Sea $K$ una extensión de $\mathbb{F}_2$ de grado $n>1$, y $f(X)\in\mathbb{F}_2[X]$ un polinomio no constante*
+#+begin_wording
+Sea $K$ una extensión de $\mathbb{F}_2$ de grado $n>1$, y $f(X)\in\mathbb{F}_2[X]$ un polinomio no constante*
+1. Prueba que si $\alpha\in K$ es una raíz de $f(X)$, entonces $\{\alpha^2, \alpha^4, \alpha^{2n-1}\}$ son raíces de $f(X)$ en $K$
+2. Prueba que en general $\{\alpha,\alpha^2, \alpha^4, \alpha^{2n-1}\}$ no son todas las raíces de $f(X)$
+3. Prueba que si $\beta$ es una raíz primitiva de $K$, que es raíz de $f(X)$, entonces el grado de $f(X)$ es mayor o igual que $n$
+#+end_wording
 
-
-** Primer apartado
-*Prueba que si $\alpha\in K$ es una raíz de $f(X)$, entonces $\{\alpha^2, \alpha^4, \alpha^{2n-1}\}$ son raíces de $f(X)$ en $K$*
+1-
 
 Trivialmente, en $\mathbb{F}_2$ tenemos que: $\left(\sum_{i=1}^{k} a_i\right)^2 = \sum_{i=1}^{k}a_i^2$
 
@@ -517,13 +527,11 @@ Así:
  
 \[f(\alpha^{2n}) = \sum_{i=1}^m \alpha^{2ni} = \left(\sum_{i=1}^m \alpha^{i}\right)^{2n} = f(\alpha)^{2n} = 0\]
 
-** Segundo apartado
-*Prueba que en general $\{\alpha,\alpha^2, \alpha^4, \alpha^{2n-1}\}$ no son todas las raíces de $f(X)$*
+2-
 
 Tenemos el caso trivial $x(x+1)$, en el que las raíces $0,1$ están en $\mathbb{F}_2 \subseteq K$, pero 0 no es potencia de 1 (entendiendo como 0 y como 1 los del cuerpo $K$ que cojamos como extensión, que puede ser por ejemplo $\frac{\mathbb{F}_2[X]}{x^2+x+1}$ con $x^2+x+1$ irreducible en $\mathbb{F}_2[X]$)
 
-** Tercer apartado
-*Prueba que si $\beta$ es una raíz primitiva de $K$, que es raíz de $f(X)$, entonces el grado de $f(X)$ es mayor o igual que $n$*
+3-
 
 Si $\beta$ es raíz primitiva de $K$, se tiene que $\{1,\beta,\ldots,\beta^{n-1}\}$ es base de $K$ sobre $\mathbb{F}_2$.
 
@@ -531,11 +539,12 @@ Si el grado de $f(X)$ fuese menor que $n$, tendríamos que $f(\beta)=0$ es una c
 
 
 
-*** Semana 5
 
-* Ejercicio 4.17
+*** Ejercicio 4.17
 
-*Sea $K\subseteq E\subseteq F$ una torre de cuerpos y supongamos que $\alpha_1,\ldots\alpha_r$ son algunas de las raíces de $f(X)\in K[X]$ y $E=K(\alpha_1,\ldots,\alpha_r)$. Demuestra que $F$ es el cuerpo de descomposición de $f(X)$ sobre $K$ si, y sólo si, $F$ es el cuerpo de descomposición de $f(X)$ sobre $E$*
+#+begin_wording
+Sea $K\subseteq E\subseteq F$ una torre de cuerpos y supongamos que $\alpha_1,\ldots\alpha_r$ son algunas de las raíces de $f(X)\in K[X]$ y $E=K(\alpha_1,\ldots,\alpha_r)$. Demuestra que $F$ es el cuerpo de descomposición de $f(X)$ sobre $K$ si, y sólo si, $F$ es el cuerpo de descomposición de $f(X)$ sobre $E$
+#+end_wording
 
 Sean $\alpha_1,\ldots, \alpha_n$ todas las raíces de $f(X)$ con $n>r$
 
@@ -547,28 +556,26 @@ Y el de $f(X)$ sobre $E$:
 
 \[G'=E(\alpha_1,\ldots, \alpha_n) = K(\alpha_1,\ldots,\alpha_r)(\alpha_1,\ldots, \alpha_n) = K(\alpha_1, \ldots, \alpha_n) = G\]
 
-* Ejercicio 4.18
+*** Ejercicio 4.18
 
-*Sea $a\in\mathbb{Q}$ y $n$ un número entero positivo impar tal que $\sqrt[n]{a}\in\mathbb{R}\setminus\mathbb{Q}$. Demuestra que la extensión $\mathbb{Q}(\sqrt[n](a))/\mathbb{Q}$ no es normal*
+#+begin_wording
+Sea $a\in\mathbb{Q}$ y $n$ un número entero positivo impar tal que $\sqrt[n]{a}\in\mathbb{R}\setminus\mathbb{Q}$. Demuestra que la extensión $\mathbb{Q}(\sqrt[n](a))/\mathbb{Q}$ no es normal
+#+end_wording
 
 La extensión no es normal ya que si lo fuese, como $x^n-a$ es un polinomio que divide a $p(X)=Irr(\alpha,K)$ sobre $\mathbb{Q}[X]$, y como $n$ es impar, $x^n-a$ sólo puede tener una raíz real, por ser sus raíces de la forma $\omega^k \sqrt[n]{a}$, con $\omega$ raíz $n-$ oésima de la unidad. Luego todas las raíces de $p(X)$ deberían estar en la extensión $E=\mathbb{Q}(\sqrt[n](a))/\mathbb{Q}$. Además $E\subseteq \mathbb{R}$, luego $\sqrt[n]{a}\in\mathbb{Q}$, es decir, el polinomio debería ser forzosamente $x-\sqrt[n]{a}$, que implica que $\sqrt[n]{a}\in\mathbb{Q}$, ¡contradicción!
 
-* Ejercicio 4.19
+*** Ejercicio 4.19
 
-*Sea $E/K$ una extensión normal y $f(X)\in K[X]$ un polinomio(mónico) irreducible. Si $f(X)$ se factoriza en $E$ como producto de dos polinomios(mónicos) irreducibles $f_1(X)$ y $f_2(X)$. Demuestra que existe un homomorfismo $\sigma: E/K \longrightarrow E/K$ tal que $f_1^{\sigma}(X)=f_2(X)$*
+#+begin_wording
+Sea $E/K$ una extensión normal y $f(X)\in K[X]$ un polinomio(mónico) irreducible. Si $f(X)$ se factoriza en $E$ como producto de dos polinomios(mónicos) irreducibles $f_1(X)$ y $f_2(X)$. Demuestra que existe un homomorfismo $\sigma: E/K \longrightarrow E/K$ tal que $f_1^{\sigma}(X)=f_2(X)$
+#+end_wording
 
 Sea $\alpha$ raíz de $f_1$ y $\beta$ raíz de $f_2$ en una clausura de $K$. Como $f=Irr(\alpha, K)$, $f=Irr(\beta,K)$, tenemos que existe un isomorfismo $\sigma: \overline{K}/K \longrightarrow \overline{K}/K$ verificando $\sigma(\alpha)=\beta$.
 
 Por ser $E$ extensión normal, luego finita, $\overline{K}$ es también su clausura algebraica, y por tanto $E\subseteq \overline{K}$. Así $E^{\sigma}=E$, luego $\sigma_{|E}$ es isomorfismo. Y como $f_1^{\sigma}(\beta) = f_1(\alpha) = 0$, tenemos que $f_1^{\sigma} | f_2$, pero un isomorfismo se lleva polinomios irreducibles en irreducibles, luego $f_1^{\sigma} = f_2$
 
-
-
-
-
-*** Semana 6
-
  
-* Ejercicio 5.10
+*** Ejercicio 5.10
 
 #+begin_wording
 Sea $K$ un cuerpo de característica $p\neq 0$ y $t$ una indeterminada sobre $K$. Prueba que el polinomio $X^p-t^p\in K(t^p)[X]$ es irreducible.
@@ -578,7 +585,7 @@ En una extensión $K'=K(t)$ de $K$ tenemos $X^p-t^p=(X-t)^p$, ya que los términ
 
 Como $K(t^p) \subseteq K'$, tenemos que los únicos factores que pueden dividir a $X^p-t^p$ son de la forma $(X-t)^m$. Supongamos que alguno tuviese coeficientes en $K(t^p)$. Entonces tendríamos que sus coeficientes también están en $K'$, y por tanto podríamos reescribir $t^m$ como raíz de un polinomio con coeficientes en $K$, pero $t$ era trascendente.
 
-* Ejercicio 5.11
+*** Ejercicio 5.11
 
 #+begin_wording
 Estudiar si son o no ciertas las siguientes afirmaciones:
@@ -603,7 +610,8 @@ El cuerpo $\mathbb{F}_p$ tiene característica $p$ y su extensión $\mathbb{F}_{
 
 Por el primer ejercicio $X^{p}-t^{p}=(X-t)^p = Irr(t, \mathbb{F}_{p^2}(t^p))$, luego $t$ no es separable.
 
-* Ejercicio 5.12
+
+*** Ejercicio 5.12
 
 #+begin_wording
 Sea $E$ un cuerpo y $\{\phi_1,\ldots, \phi_n\}$ un conjunto de $n$ automorfismos distintos de $E$. llamamos $K=\{e\in e| \phi_i(e)=e, 1\le i \le n\}$. demuestra que $[E:K]\ge n$
@@ -612,16 +620,13 @@ Sea $E$ un cuerpo y $\{\phi_1,\ldots, \phi_n\}$ un conjunto de $n$ automorfismos
 El teorema de Artin nos afirma que $[E:K]=n$
 
 
-*** Semana 7
-
-* Ejercicio 7.25
+*** Ejercicio 7.25
 
 #+begin_wording
 Sea $f \in K[X]$ un polinomio no constante sin raíces múltiples y $G = Gal(f/K)$. Prueba que son equivalentes:
-
-a. $f(X)$ es irreducible
-
-b. $G$ actúa transitivamente sobre las raíces de $f$
+list-style-type: lower-roman
+1. $f(X)$ es irreducible
+2. $G$ actúa transitivamente sobre las raíces de $f$
 #+end_wording
 
 Llamamos $E$ al cuerpo de descomposición de $f$ sobre $K$. Se tiene $Gal(f/K) = Gal(E/K)$.
@@ -629,7 +634,7 @@ Sabemos que $E/K$ es de Galois $\Longleftrightarrow$ $E/K$ es normal y separable
 
 \[ f(x) = \alpha (x-\alpha_i)\cdots(x-\alpha_n) \qquad \alpha, \alpha_i \in E, \qquad \alpha_i \neq \alpha_j \quad i\neq j\]
 
-$b\implies a$.
+$2\implies 1$.
 
 Supongamos que $f$ no es irreducible.
 
@@ -646,7 +651,7 @@ Tomo $\varphi_{1,n}$. Se tiene que $\varphi_{1,n}(p) = p$, $\varphi_{1,n}(q) = q
 
 Pero $\varphi_{1,n}(p(\alpha(n))) = p(\varphi_{1,n}(\alpha(n))) = p(\alpha(1)) = 0$, lo que es contradición, ya que $\alpha_1$ no era raíz de $p$. Luego $f$ es irreducible.
 
-$a\implies b$.
+$1\implies 2$.
 
 Si $f$ es irreducible, ninguna de sus raíces puede estar en $K$, ya que en ese caso $f(x)/(x-\alpha_i)$ estaría en $K[x]$ y eso entra en contradicción con que sea irreducible. 
 
