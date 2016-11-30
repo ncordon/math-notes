@@ -1,7 +1,7 @@
 #+TITLE: Álgebra
 #+SUBTITLE:
 #+AUTHOR: Ignacio Cordón Castillo
-#+OPTIONS: toc:nil num:nil
+#+OPTIONS: toc:nil, num:nil
 #+LANGUAGE: es
 #+STARTUP: latexpreview
 #+STARTUP: indent
@@ -11,6 +11,7 @@
 #+latex_header: \usepackage{amsthm}
 #+latex_header: \newtheorem*{theorem}{Teorema}
 #+latex_header: \newtheorem*{fact}{Proposición}
+#+latex_header: \newtheorem*{corollary}{Corolario}
 #+latex_header: \newtheorem*{definition}{Definición}
 #+latex_header: \setlength{\parindent}{0pt}
 #+latex_header: \setlength{\parskip}{1em}
@@ -239,6 +240,73 @@ Se deduce que $E=K(\alpha_1, \ldots, \alpha_n)$ donde $\alpha_i$ son raíces de 
 #+begin_fact
 Un cuerpo de descomposición de un polinomio de grado $n$ sobre $F$ es de grado como mucho $n!$ sobre $F$. Si el grado es $n!$ entonces el polinomio es irreducible. El recíproco no se verifica.
 #+end_fact
+
+*** Automorfismos
+
+Un automorfismo $\sigma \in Aut(K)$ decimos que fija un elemento $\alpha \in K$ si $\sigma \alpha = \alpha$. Fija $K$ si fija todos sus elementos.
+
+Denotamos $Aut(K/F)$ los automorfismos de $K$ que fijan $F$. Si $F=(1)$ entonces $Aut(K/F) = Aut(K)$.
+
+#+begin_fact
+$Aut(K)$ es grupo bajo la composición y $Aut(K/F)$ es un subgrupo.
+#+end_fact
+
+#+begin_fact
+Dado un polinomio con coeficientes en $K$, $\sigma\in K$, si $\alpha$ es raíz del polinomio, entonces $\sigma \alpha$ es raíz del polinomio.
+#+end_fact
+
+#+begin_fact
+Si $H$ es un subgrupo del grupo de automorfismos de $K$, los elementos de $K$ fijos por $H$ son subcuerpo de $K$, con $K$ cuerpo.
+#+end_fact
+
+#+begin_fact
+1. $F_1 \subseteq F_2 \subseteq K$ son dos subcuerpos de $K$ entonces $Aut(K/F_2) \le Aut(K/F_1)$
+2. $H_1 \le H_2 \le Aut(K)$ son dos subgrupos de automorfismos con cuerpos fijos asociados $F_1$ y $F_2$, resp. entonces $F_2 \subseteq F_1$
+#+end_fact
+
+
+#+begin_fact
+Sea $E$ el cuerpo de descomposición sobre $F$ del polinomio $f(x)\in F[x]$. Entonces:
+\[|Aut(E/F)|\le [E:F]\]
+con igualdad si $f(x)$ es separable sobre $F$
+
+Nótese que este número da la cantidad de diagramas de la forma que se detalla a continuación que pueden construirse.
+#+end_fact
+
+Conviene tener presente siempre el diagrama:
+
+
+\[\begin{array}{lccc}
+\sigma: & E         & \xrightarrow{\sim} & E'\\
+        & \vert     &                    & \vert\\
+\tau:   & F(\alpha) & \xrightarrow{\sim} & F'(\beta)\\
+        & \vert &                    & \vert\\
+\phi:   & F & \xrightarrow{\sim} & F'\\
+\end{array}\]
+
+donde la anterior proposición es un caso particular con $F=F'$, y $E=E'$
+
+#+begin_definition
+$K/F$ extensión finita. Entonces $K$ se llama de Galois sobre $F$ y $K/F$ es una extensión de Galois si
+$|Aut(K/F)| = [K:F]$. Si $K/F$ es de Galois el grupo de automorfismos $Aut(K/F)$ es llamada grupo de Galois de
+$K/F$, denominada $Gal(K/F)$.
+#+end_definition
+
+#+begin_corollary
+Si $K$ es el cuerpo de descomposición sobre $F$ de un polinomio separable $f(x)$ entonces $K/F$ es de Galois.
+#+end_corollary
+
+Esto motiva la siguiente definición:
+
+#+begin_definition
+Si $f(x)$ es un polinomio separable sobre $F$, entonces se llama grupo de Galois de $f(x)$ sobre $F$ a $E/F$ con
+$E$ cuerpo de descomposición de $f$ sobre $F$
+#+end_definition
+
+Como ejemplo, 
+
+1. $\mathbb{Q}(\sqrt{2})/\mathbb{Q}$ es extensión de Galois con grupo de Galois  $Gal(\mathbb{Q}(\sqrt{2})/ \mathbb{Q}) = \{1,\sigma\} \equiv \mathbb{Z}_2$
+2. $\mathbb{Q}(\sqrt[3]{2})/ \mathbb{Q}$ no es de Galois ya que dado un $\sigma\in Aut(\mathbb{Q}(\sqrt[3]{2})/ \mathbb{Q})$, debe conservar raíces del polinomio $Irr(\sqrt[3]{2}, \mathbb{Q}) = x^3-2$, pero dos de ellas son complejas, luego no pertenecientes a $\mathbb{Q}{\sqrt[3]{2}}$ por tanto, y no podemos construir más que un elemento de $Aut(\mathbb{Q}(\sqrt[3]{2})/ \mathbb{Q})$, la identidad. Nótese que aunque todas las raices de $x^3-2$ estuviesen en $\mathbb{Q}(\sqrt[3]{2})$, ello no nos garantiza que podamos construir siempre "suficientes" automorfismos (por ejempo si el polinomio no tiene factores lineales de grado 1 sobre la extensión).
 
 
 ** Ejercicios
