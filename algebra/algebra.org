@@ -241,7 +241,7 @@ Se deduce que $E=K(\alpha_1, \ldots, \alpha_n)$ donde $\alpha_i$ son raíces de 
 Un cuerpo de descomposición de un polinomio de grado $n$ sobre $F$ es de grado como mucho $n!$ sobre $F$. Si el grado es $n!$ entonces el polinomio es irreducible. El recíproco no se verifica.
 #+end_fact
 
-*** Automorfismos
+*** Teoría de Galois
 
 Un automorfismo $\sigma \in Aut(K)$ decimos que fija un elemento $\alpha \in K$ si $\sigma \alpha = \alpha$. Fija $K$ si fija todos sus elementos.
 
@@ -264,6 +264,7 @@ Si $H$ es un subgrupo del grupo de automorfismos de $K$, los elementos de $K$ fi
 2. $H_1 \le H_2 \le Aut(K)$ son dos subgrupos de automorfismos con cuerpos fijos asociados $F_1$ y $F_2$, resp. entonces $F_2 \subseteq F_1$
 #+end_fact
 
+Esto último establecerá una relación entre los subgrupos del grupo de Galois y los subcuerpos de una extensión.
 
 #+begin_fact
 Sea $E$ el cuerpo de descomposición sobre $F$ del polinomio $f(x)\in F[x]$. Entonces:
@@ -305,9 +306,17 @@ $E$ cuerpo de descomposición de $f$ sobre $F$
 
 Como ejemplo, 
 
-1. $\mathbb{Q}(\sqrt{2})/\mathbb{Q}$ es extensión de Galois con grupo de Galois  $Gal(\mathbb{Q}(\sqrt{2})/ \mathbb{Q}) = \{1,\sigma\} \equiv \mathbb{Z}_2$
-2. $\mathbb{Q}(\sqrt[3]{2})/ \mathbb{Q}$ no es de Galois ya que dado un $\sigma\in Aut(\mathbb{Q}(\sqrt[3]{2})/ \mathbb{Q})$, debe conservar raíces del polinomio $Irr(\sqrt[3]{2}, \mathbb{Q}) = x^3-2$, pero dos de ellas son complejas, luego no pertenecientes a $\mathbb{Q}{\sqrt[3]{2}}$ por tanto, y no podemos construir más que un elemento de $Aut(\mathbb{Q}(\sqrt[3]{2})/ \mathbb{Q})$, la identidad. Nótese que aunque todas las raices de $x^3-2$ estuviesen en $\mathbb{Q}(\sqrt[3]{2})$, ello no nos garantiza que podamos construir siempre "suficientes" automorfismos (por ejempo si el polinomio no tiene factores lineales de grado 1 sobre la extensión).
+a. $\mathbb{Q}(\sqrt{2})/\mathbb{Q}$ es extensión de Galois con grupo de Galois  $Gal(\mathbb{Q}(\sqrt{2})/ \mathbb{Q}) = \{1,\sigma\} \equiv \mathbb{Z}_2$
+b. $\mathbb{Q}(\sqrt[3]{2})/ \mathbb{Q}$ no es de Galois ya que dado un $\sigma\in Aut(\mathbb{Q}(\sqrt[3]{2})/ \mathbb{Q})$, debe conservar raíces del polinomio $Irr(\sqrt[3]{2}, \mathbb{Q}) = x^3-2$, pero dos de ellas son complejas, luego no pertenecientes a $\mathbb{Q}{\sqrt[3]{2}}$ por tanto, y no podemos construir más que un elemento de $Aut(\mathbb{Q}(\sqrt[3]{2})/ \mathbb{Q})$, la identidad. Nótese que aunque todas las raices de $x^3-2$ estuviesen en $\mathbb{Q}(\sqrt[3]{2})$, ello no nos garantiza que podamos construir siempre "suficientes" automorfismos (por ejempo si el polinomio no tiene factores lineales de grado 1 sobre la extensión).
+c. *El cuerpo de descomposición de cualquier polinomio sobre $\mathbb{Q}$ es de Galois* según el corolario anterior. Por ejemplo , $\mathbb{Q}(\sqrt{2}, \sqrt{3})$ donde como sabemos que el grupo de Galois tiene dimensión 4 (la de $\mathbb{Q}(\sqrt{2}, \sqrt{3})$, cuerpo de descomposición del polinomio $(x^2-2)(x^2-3)$), y los únicos automorfismos posibles se obtienen de asignar $\sqrt{2}\mapsto \pm \sqrt{2}$ y $\sqrt{3}\mapsto \pm \sqrt{3}$
+d. El cuerpo de descomposición de $x^3-2$ sobre $\mathbb{Q}$ es Galois de grado 6. Las raíces de esta ecuación son $\sqrt[3]{2}, \rho\sqrt[3]{2}, \rho^2\sqrt[3]{2}$, y esto da 9 combinaciones distintas de raíces para formar automorfismos, pero como el grupo de Galois tiene orden 6, no todos ellos serán realmente automorfismos.
+e. \[\mathbb{Q} \subset \mathbb{Q}(\sqrt{2}) \subset \mathbb{Q}(\sqrt[4]{2})\] muestra que no toda extensión de Galois de una extensión de Galois lo es (ya que tenemos *una extensión de grado 2, es de Galois por tanto*), pero las raíces de $x^4-2 = Irr(\sqrt[4]{2}, \mathbb{Q})$ son $\{\pm \sqrt[4]{2}, \pm i \sqrt[4]{2}\}$ y de esas 4 raíces hay 2 que no están en $\mathbb{Q}{\sqrt[4]{2}}$
+f. Automorfismo de Frobenius
 
+*NOTA:*  Conveniente para efectuar demostraciones de estructura de subgrupos de Galois:
+
+\[<\sigma, \tau: \sigma^2 = 1, \tau^2 = 1, \sigma\tau = \tau\sigma > = K_4\]
+\[<\sigma, \tau: \sigma\tau = \tau\sigma^2, \tau^2=1, \sigma^3=1 > = S_3\]
 
 ** Ejercicios
 

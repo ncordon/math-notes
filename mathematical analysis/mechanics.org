@@ -1,4 +1,4 @@
-#+TITLE: Mechanics
+#+TITLE: Mecánica Celeste
 #+SUBTITLE:
 #+AUTHOR: Ignacio Cordón Castillo
 #+OPTIONS: toc:nil, num:nil
@@ -95,8 +95,97 @@ Si una partícula, sujeta a la acción de un campo gravitacional se mueve en una
 
 *Observaciones:*
 
-i. $p$ sólo depende de $\mu$ y de $a$.
+1. $p$ sólo depende de $\mu$ y de $a$.
 
-ii. $x(t)=a(cos(\omega t), sen(\omega(t))$ es solución $\Leftrightarrow |\omega| = \frac{\sqrt{\mu}}{a^{3/2}}$ (es decir, si y solo si se verifica la 3ª ley de Kepler).
+2. $x(t)=a(cos(\omega t), sen(\omega(t))$ es solución $\Leftrightarrow |\omega| = \frac{\sqrt{\mu}}{a^{3/2}}$ (es decir, si y solo si se verifica la 3ª ley de Kepler).
 
 #+end_theorem
+
+* Ejercicios
+
+** Ejercicio 2.13
+
+#+begin_wording
+Demuestra que la función de Bessel:
+
+\[J_n(x):= \frac{1}{\pi}\int_0^\pi cos(nu-xsenu) du \qquad \forall n\in\mathbb{N}du\]
+
+cumple la ecuación:
+
+\[x^2 J_n^{''}(x) + xJ_n'(x) + (n^2-x^2)J_n(x) = 0\]
+#+end_wording
+
+Se tiene:
+
+\[\begin{array}{rcl}
+J_n^{'}(x)  & = & \frac{1}{\pi} \int_0^\pi \frac{\partial}{\partial x} cos(nu-xsen(u))du = \frac{1}{\pi} \int_0^\pi sen(nu-xsen(u))sen(u)\\ 
+& & \\
+J_n^{''}(x) & = & \frac{-1}{\pi}\int_0^\pi -cos(nu-xsen(u))sen^2(u) du \\
+\end{array}\]
+
+
+Fijado $x$, tomo $f(u) = cos(nu-xsen(u))$. Se tiene:
+
+\[\begin{array}{rcl}
+f{'}(u)  & = & -sen(nu-xsen(u))(n-xcos(u))\\
+& & \\
+f^{''}(u) & = & -cos(nu-xsen(u))(n-xcos(u))^2 + sen(nu-xsen(u))xsen(u) \\
+\end{array}\]
+
+Nótese que $f^{'}(0) = 0\cdot(n-xcos(u)) = 0$ y análogamente $f^{'}(\pi) = 0$
+
+Tomo 
+
+\begin{equation}
+\int_0^\pi f^{''}(u)du = f^{'}(u)\big]_0^\pi = 0 = \int_0^\pi -cos(nu-xsen(u))(n-xcos(u))^2 du + \pi x J_n^{'}(x)
+\label{bessel}
+\end{equation}
+
+\begin{eqnarray}
+&& \int_0^\pi -cos(nu-x\cdot sen(u))(n-x\cdot cos(u))^2 du = \nonumber\\ 
+& = &\int_0^\pi -cos(nu-x\cdot sen(u))(n^2-2nx\cdot cos(u) + x^2 cos^2(u)) du = \nonumber\\
+& = &\int_0^\pi -cos(nu-x\cdot sen(u))\left[2n^2 - n^2-2nx\cdot cos(u) + x^2(1-sen^2(u))\right] du = \nonumber \\
+& = &\int_0^\pi cos(nu-xsen(u))\left[(n^2-x^2) - x^2 sen^2(u))\right] + \nonumber\\
+& + & \int_0^\pi -cos(nu-xsen(u))(2n(n-x\cdot cos(u))) = \nonumber \\
+& = & \pi(n^2-x^2)J_n(x) + \pi x^2 J_n^{''}(x) \nonumber \label{deduccion}\\
+\end{eqnarray}
+
+donde se ha usado que:
+
+\begin{eqnarray*}
+& & \int_0^\pi -cos(nu-xsen(u))(2n(n-x\cdot cos(u))) =  \\
+& = & -2n \int_0^\pi cos(nu-xsen(u))(n-x\cdot cos(u)) = \\
+& = & -2n \big[sen(nu-x sen(u)\big]_0^\pi = 0
+\end{eqnarray*}
+
+Juntando \ref{bessel} y \ref{deduccion} hemos llegado a que 
+
+\[\pi x^2 J_n^{''}(x) + \pi x J_n'(x) + \pi(n^2-x^2)J_n(x) = 0\]
+
+lo que dividiendo por $\pi$ nos da el resultado buscado.
+
+** TODO 2.14
+
+#+begin_wording
+Aplicando método de Newton-Raphson a $u-\epsilon sen(u) = \xi$, ¿converge el método $\forall u_0\in ]0,\pi[$ si $\epsilon$ es pequeño?
+#+end_wording
+
+Fijados \(u_0\in ]0,\pi[ \xi\):
+
+\[f_{\epsilon}(u) = u-\epsilon sen u \]
+
+\[\phi(u) = u - \frac{f_{\epsilon}(u)-\xi}{f'(u)} = \frac{\epsilon[-u cos(u)+sen(u)]+\xi}{1-\epsilon cos(u)} \]
+
+Así:
+
+\[u_1 = \phi(u_0) = \frac{\epsilon[-u_0 cos(u_0)+sen(u_0)]+\xi}{1-\epsilon cos(u_0)} = h(\epsilon) \]
+
+Como $\tau(u) = sen(u) -u\cdot cos(u) \ge 0, \quad \forall u\in]0,\pi[$, por ser $\tau'(u) = u\cdot sen(u) \ge 0, \quad \forall u\in]0,\pi[$ y $\tau(0) = 0$
+
+Y por tanto $h(0) = \xi$ y $h$ es creciente.
+
+Por continuidad de $h$ podemos tomar $\epsilon > 0$ suficientemente pequeño para que: 
+
+\[h(\epsilon) < \pi \]
+
+Probando así que $u_1 \in [0,\pi]$ y por tanto Newton-Raphson converge.
