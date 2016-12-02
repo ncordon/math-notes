@@ -253,3 +253,12 @@ Sea $x=x(t)$ un movimiento elíptico en un campo gravitatorio Newtoniano. Expres
 a. El semieje mayor y la excentricidad.
 b. El periodo mínimo y el momento angular. 
 #+end_wording
+
+Llamamos $a$ al semieje mayor, $b$ al semieje menor, $e$ a la excentricidad.
+
+Sabemos $\frac{|b|}{|a|} = \sqrt{1-|e|^2}$, y que el área encerrada por dicha elipse es $A = \pi |a||b|$
+
+Llamamos $p$ al periodo y $c$ al momento angular.
+
+a. $A = \pi |a||b| = \pi |a|^2\sqrt{1-|e|^2}$
+b. $A = \frac{1}{2} \int_0^{p/2} |c| + \frac{1}{2} \int_{p/2}^{p} |c| = \frac{1}{2} p|c|$
