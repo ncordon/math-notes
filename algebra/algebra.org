@@ -9,9 +9,10 @@
 
 #+latex_header: \usepackage{amsmath} 
 #+latex_header: \usepackage{amsthm}
-#+latex_header: \newtheorem*{theorem}{Teorema}
-#+latex_header: \newtheorem*{fact}{Proposición}
-#+latex_header: \newtheorem*{corollary}{Corolario}
+#+latex_header: \newtheorem{theorem}{Teorema}
+#+latex_header: \newtheorem{fact}{Proposición}
+#+latex_header: \newtheorem{lemma}{Proposición}
+#+latex_header: \newtheorem{corollary}{Corolario}
 #+latex_header: \newtheorem*{definition}{Definición}
 #+latex_header: \setlength{\parindent}{0pt}
 #+latex_header: \setlength{\parskip}{1em}
@@ -207,6 +208,7 @@ Luego $\alpha = \mathcal{N}$ único ideal primo de $R$.
 
 ** Resumen
 
+*** Elementos algebraicos
 #+begin_fact
 El elemento $\alpha$ es algebraico sobre $F$ si y solo si la extension $F(\alpha)/F$ es finito. 
 #+end_fact
@@ -223,7 +225,39 @@ La extensión $K/F$ es finita si y solo si $K$ está generado por un número fin
 $K$ algebraico sobre $F$ y $L$ algebraico sobre $K$ entonces $L$ es algebraico sobre $F$
 \end{theorem}
 
+
+
 *** Cuerpos de descomposición
+
+**** Cuerpo de descomposición
+
+#+begin_fact
+Sea $\alpha : K_1 \rightarrow K_2$ un isomorfismo de cuerpos. Existe una única extensión a un isomorfismo $\sigma : K_1[X] \rightarrow K_2[X]$ definido por $\sigma(x) = x$
+#+end_fact
+
+La demostración se basa en la propiedad universal del anillo de polinomios.
+
+#+begin_fact
+En las condiciones de la proposición anterior si $F_i/K_i$ son extensiones algebraicas, $\tau : F_1 \rightarrow F_2$ un homomorfismo sobre $\sigma$ y $u\in F_1$ una raíz de $f_1$. Entonces $\tau(u)$ es una raíz de $f_2 = \sigma(f_1)$
+#+end_fact
+
+Sea $f_1 = \sum_{i=1}^n a_i X^i$
+
+Entonces:
+
+\begin{eqnarray*}
+f_2(\tau(u)) = \sum_{i=1}^n \sigma(a_i) \tau(u)^i = \sum_{i=1}^n \tau(a_i) \tau(u)^i\\
+= \tau \big(\sum_{i=1}^n a_i u^i\big) = \tau(0) = 0
+\end{eqnarray*}
+
+
+#+begin_fact
+En las condiciones de la proposición anterior sea $u_i$ raíz de $f_i$ en alguna extensión $F_i/K_i$. Entonces existe un único isomorfismo $\tau : K_1(u_1) \rightarrow K_2(u_2)$ sobre $\sigma$ tal que $\tau(u_1) = u_2$
+\label{prev_zorn}
+#+end_fact
+
+Existen isomorfismos $\rho_i: K_i[X]/(f_i)\cong K_i(u_i)$ y vienen dados por $X + (f_i)\mapsto u_i$. $\bar{\sigma}$ viene dado por la proposición anterior llevándonos $(f_1)$ en $(f_2)$. La aplicación buscada será $\tau = \rho_2 \bar{\sigma} \rho_1^{-1}$
+
 
 #+begin_definition
 Sea $K$ cuerpo, $E/K$ extensión. $f(X)\in K[X]$ descompone en $E$ si en $E[X]$ se factoriza como: 
@@ -241,9 +275,159 @@ Se deduce que $E=K(\alpha_1, \ldots, \alpha_n)$ donde $\alpha_i$ son raíces de 
 Un cuerpo de descomposición de un polinomio de grado $n$ sobre $F$ es de grado como mucho $n!$ sobre $F$. Si el grado es $n!$ entonces el polinomio es irreducible. El recíproco no se verifica.
 #+end_fact
 
+
+#+begin_theorem
+Sea una torre de cuerpos $K\subset F\subset E$ con $E/K$ algebraica y sea $\bar{K}$ clausura algebraica de $K$. Entonces todo homomorfismo $\sigma : F\rightarrow \bar{K}$ sobre $K$ tiene una extensión $\tau : E\rightarrow \bar{K}$ (¡ojo! extensión del homomorfismo
+\label{zorn}
+#+end_theorem
+
+
+Tomamos:
+
+\[S=\{(E_i, \sigma_i) : F\subset E_i \subset E, \sigma_i : E_i\rightarrow \bar{K} \qquad \sigma_{i|F} = \sigma \}\]
+
+$S$ es no vacío y es inductivamente ordenado por inclusión, considerando como orden la inclusión y la igualdad en la restricción de aplicaciones.
+
+Por lema de Zorn existe por tanto un elemento maximal $(E_1, \sigma_1)$. Supongamos $E_1\subsetneq E$ existe un $u\in E, u\neq E_1$ del que podemos tomar $f=Irr(u,K)$ (porque $E/K$ es algebraica) y por la proposición \ref{prev_zorn}, como todos los $\alpha_i$ mantienen $K$, llamando $f_1 = f_2 = f$ en dicha proposición, tengo que existen un a $\sigma_2 : E_1(u) \rightarrow (\sigma_1(E_1))(u)$ que extiende $\sigma_1' : E_1 \mapsto \sigma(E_1)$ y el par $(E_1(u), \sigma_2)$ sería entonces maximal, contradicción, luego $E_1 = E$ y $\tau = \sigma_1$.
+
+
+*** Extensiones normales
+
+#+begin_fact
+Sean $u,v\in\bar{K}$.Los siguientes enunciados equivalen:
+
+1. $Irr(u,K) = Irr(v,K)$
+2. Existe isomorfismo $\tau : K(u)/K \rightarrow K(v)/K$ tal que $\tau(u) = v$
+3. Existe homomorfismo $\alpha_1 : K(u)/K \rightarrow \bar{K}/K$ tal que $\sigma(u)=v$
+4. Existe un automorfismo $\alpha: \bar{K}/K \rightarrow \bar{K}/K$ tal que $\sigma(u) = v$ 
+#+end_fact
+
+*$1\Rightarrow 2$* Por 1 se tiene que:
+
+\[K(u) \cong K/(Irr(u,K)) = K/(Irr(v,K)) \cong K(v)\]
+
+Donde llevamos $u\mapsto p(x)$ y $v\mapsto p(x)$ en los isomorfismos correspondientes.
+
+*$2\Rightarrow 3$* Componemos $i\circ \tau$
+
+*$3\Rightarrow 4$* implica que si tenemos $p(x)$ irreducible tal que $p(u)=0$. Entonces $\sigma(p(x))=p(x)$ y $p(v) = \sigma(p(v)) = 0$
+
+*$4\Rightarrow 1$* por el teorema \ref{zorn}
+
 *** Teoría de Galois
 
+#+begin_lemma
+Dados $n$ homomorfismos $\sigma_1\ldots \sigma_n$ de $G$ grupo al grupo multiplicativo de un cuerpo $F$, entonces son linealmente independientes.
+#+end_lemma
+
+Supongamos una combinación de longitud mínima $s$ de homomorfismos independientes de entre esos $n$. Podemos suponer s.p.g. que son los $s$ primeros.
+
+\[\sum_{i=1}^s a_i\sigma_i = 0\]
+
+Entonces, podemos despejar $\sigma_s = \sum_{i=1}^{s-1} a_i/a_s \sigma_i$.
+
+Sea $y\in G$ fijo tal que $\sigma_1(y) \neq \sigma_s(y)$ (existe por ser homomorfismos distintos).
+
+Entonces:
+
+\[\sigma_s(xy) = \sigma_s(x) \sigma_s(y) = \sum_{i=1}^{s-1} a_i/a_s \sigma_i(x) \sigma_i(y)\]
+
+Y multiplicando por $\sigma_s(y)$:
+
+\[\sigma_s(x) \sigma_s(y) = \sum_{i=1}^{s-1} a_i/a_s \sigma_i(x) \sigma_s(y) \]
+
+Restando ambas igualdades llegamos a una combinación lineal finita nula y con el primer coeficiente no cero de longitud $s-1$, contradicción.
+
+
+A partir del lema anterior deducimos:
+
+#+begin_lemma
+*Lema de Dedekind*
+Dados $n$ homomorfismos distintos de $F_1$ a $F_2$, con $F_i$ cuerpos, entonces son linealmente independientes sobre $F_2$
+#+end_lemma
+
+#+begin_corollary
+Si $[F_1:K]=n$ existen a lo sumo $n$ homomorfismos distintos de $F_1$ a $F_2$ que fijan $K$. Es decir $|Hom(F_1/K, F_2/K)| \le n$
+#+end_corollary
+
+Sea una base de $F_1$ sobre $K$ $\{u_1, \ldots u_n\}$. Supongamos que existen $(n+1)$ homomorfismos distintos $\alpha_i :F_i \rightarrow F_2$ sobre $K$. El sistema de ecuaciones:
+
+\[\sum_{i=1}^{n+1} x_i \sigma_{i}(u_j) = 0 \qquad j=1\ldots n\]
+
+tiene una solución no trivial (ninguna columna contiene el elemento 0 por tener homomorfismos de cuerpos y podemos triangular por Gauss, luego hay una solución $c_1\ldots c_{n+1} \in F_2$ al sistema.
+
+Y por tanto al conseguir la misma combinación lineal que anula a todos los elementos por separado de la base, tenemos que $\forall u\in F_1$:
+
+
+\[\sum_{i}^{n+1} c_i\sigma_i(u) = 0\]
+
+Lo que entra en contradicción con el corolario anteriormente probado.
+
+#+begin_definition
+Para toda extensión finita $F/K$ llamamos *grupo de la extensión* al grupo:
+
+\[G(F/K) = \{\sigma\in Aut(F) | \forall u\in \quad F \sigma(u) = u\}\
+#+end_definition
+
+#+begin_corollary
+Para toda extensión finita $F/K$ se verifica $|G(F/K)| \le [F:K]$
+#+end_corollary
+
+Trivial a partir del corolario anterior.
+
+#+begin_definition
+Sea $E$ cuerpo arbitrario y $G < Aut(E)$ subgrupo del grupo de automorfismos de $E$. Llamamos subcuerpo de $E$ fijo por $G$.
+\[E^{G} = \{u\in E|\forall \sigma \in G \sigma(u) = u\}\
+#+end_definition
+
+
+#+begin_theorem
+*Teorema de Artin*
+Sea $G$ subgrupo finito de $Aut(E)$. Entonces $[E:E^G] = |G|$
+#+end_theorem
+
+Llamo $K = E^G$. Por el corolario anterior sabemos que $|Aut(E/K)| \le [E:K]$ y $G\subseteq |Aut(E/K)|$, luego $n=|G| \le [E:E^{G}]$.
+
+LLamamos $G = \{\alpha_1, \ldots \alpha_n\}$
+
+Supongamos la desigualdad estricta. Tomamos $n+1$ elementos linealmente independientes sobre $E^{G}$. Formamos el sistema:
+
+\[\sum_{i=1}^{n+1} x_i \sigma_j(u_i) = 0 \qquad j=1,\ldots n\]
+
+Sea $a_1,\ldots a_{n+1}\in E$ solución con el mínimo número de elementos no nulos. Sea
 Un automorfismo $\sigma \in Aut(K)$ decimos que fija un elemento $\alpha \in K$ si $\sigma \alpha = \alpha$. Fija $K$ si fija todos sus elementos.
+
+
+#+begin_definition
+Una extensión $E/K$ se llama extensión de Galois si exsite un grupo $G < Aut(E)$ tal que $E^{G}=K$. En este caso, el grupo se representa por $Gal(E/K)$ y se llama grupo de Galois de la extensión $E/K$
+#+end_definition
+
+
+#+begin_fact
+Una extensión finita $E/K$ es de Galois si y sólo si es normal y separable.
+#+end_fact
+
+Por ser de Galois, $K = E^{G}$ para algún grupo $G$. Cada automorfismo $\sigma \in G$ se extiende a un homomorfismo $\sigma : E\rightarrow \bar{K}$, luego $[E:K]_S \ge |G| = [E:K] \ge [E:K]_S$
+
+Por tanto $[E:K]_{S} = [E:K] = |G|$ (Por Artin)
+
+Como para cada homomorfismo $\tau: E \rightarrow K$ puedo tomarme $i\circ \tau$ extensión a $\bar{K}$
+
+Hacia el lado opuesto. Sea $E/K$ extensión normal y separable. Existen $n=[E:K]_{S} = [E:K]$ homomorfismos $\tau: E\rightarrow \bar{K}$ sobre $K$ y para todos ellos $\tau(E) = E$. Por ello $G=G(E/K)$ tiene orden $n$. Por el teorema de Artin $[E:E^G] = [E:K]$.
+
+Además tenemos la torre de cuerpos $K\subset E^{G} \subset E$, lo que sumado a lo anterior da $[E^{G}:K] = 1$ y por tanto $E^{G} = K$ y la extensión $E/K$ es de Galois.
+
+
+*** ???
+
+
+
+
+
+
+
+
+
 
 Denotamos $Aut(K/F)$ los automorfismos de $K$ que fijan $F$. Si $F=(1)$ entonces $Aut(K/F) = Aut(K)$.
 
@@ -317,6 +501,7 @@ f. Automorfismo de Frobenius
 
 \[<\sigma, \tau: \sigma^2 = 1, \tau^2 = 1, \sigma\tau = \tau\sigma > = K_4\]
 \[<\sigma, \tau: \sigma\tau = \tau\sigma^2, \tau^2=1, \sigma^3=1 > = S_3\]
+
 
 ** Ejercicios
 

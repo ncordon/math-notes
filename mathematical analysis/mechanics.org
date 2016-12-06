@@ -230,18 +230,18 @@ Fijado \xi\in]0,\pi[:
 
 \[f_{\epsilon}(u) = u-\epsilon sen u \]
 
-\[\phi(u) = u - \frac{f_{\epsilon}(u)-\xi}{f'(u)} = \frac{\epsilon[-u cos(u)+sen(u)]+\xi}{1-\epsilon cos(u)} \]
+\[\phi(u) = u - \frac{f_{\epsilon}(u)-\xi}{f_\epsilon'(u)} = \frac{\epsilon[-u cos(u)+sen(u)]+\xi}{1-\epsilon cos(u)} \]
 
-Así, como \[\phi'(u) = \frac{\epsilon sen(u) (u-sen(u)-\xi)}{u-\epsilon cos(u)} = 0 \Leftrightarrow
+Así, como \[\phi'(u) = \frac{\epsilon sen(u) (u-sen(u)-\xi)}{(u-\epsilon cos(u))^2} = 0 \Leftrightarrow
 \left\{\begin{array}{l}
 f_\epsilon (u) = \xi\\
 o\\
 u \in \{0,\pi\}
 \end{array}\right.\]
 
-y $\phi(0) = \frac{\xi}{1-\epsilon} = h(\epsilon)$, $\phi(\pi) = \frac{\epsilon\pi+\xi}{1+\epsilon} = g(\epsilon)$
+y llamamos $\phi(0) = \frac{\xi}{1-\epsilon} = h(\epsilon)\qquad \phi(\pi) = \frac{\epsilon\pi+\xi}{1+\epsilon} = g(\epsilon)$
 
-Como $h(0)=\xi \in]0,\pi[$, $g(0)=\xi$ se tiene que por continuidad, si $\epsilon$ es lo suficientemente pequeño, Newton-Raphson convergerá siempre, por tenerse
+Como $h(0)=\xi \in]0,\pi[$, $g(0)=\xi$ se tiene que por continuidad, si $\epsilon$ es lo suficientemente pequeño $h(\epsilon), g(\epsilon) \in [0,\pi]$, y Newton-Raphson convergerá siempre, por tenerse
 que el máximo que alcanza $\phi$ está entre alguno de esos puntos (son puntos críticos).
 
 
