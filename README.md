@@ -1,4 +1,4 @@
-# math-miscelanea
+# math-miscellany
 
 Math exercises and demonstrations
 
@@ -8,7 +8,13 @@ An important problem of studying a Math degree is that most of your work gets lo
 
 # License
 
-All the code is licensed in GPL3. I intend to make all content CC licensed.
+All the code is licensed in GPL3. I intend to make all content Creative Commons licensed. You're free to share and adapt my work as long as you do it under the following terms of the CC license:
+
+* Attribution — You must give appropriate credit, provide a link to the license, and indicate if changes were made. You may do so in any reasonable manner, but not in any way that suggests the licensor endorses you or your use.
+
+* NonCommercial — You may not use the material for commercial purposes.
+
+* ShareAlike — If you remix, transform, or build upon the material, you must distribute your contributions under the same license as the original. 
 
 # Language
 
