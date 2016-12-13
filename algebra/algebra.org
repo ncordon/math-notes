@@ -3,7 +3,7 @@
 #+AUTHOR: Ignacio Cordón Castillo
 #+OPTIONS: toc:nil, num:nil
 #+LANGUAGE: es
-#+STARTUP: latexpreview
+#+STARTUP: nolatexpreview
 #+STARTUP: indent
 #+DATE:
 
@@ -204,28 +204,184 @@ Luego $\alpha = \mathcal{N}$ único ideal primo de $R$.
 
 
 
+
+
+\newpage
+
+
 * Álgebra III
 
 ** Resumen
 
-*** Elementos algebraicos
-#+begin_fact
-El elemento $\alpha$ es algebraico sobre $F$ si y solo si la extension $F(\alpha)/F$ es finito. 
-#+end_fact
+*** TODO
+**** TODO \ref{dim-compuesto} de dónde sale?
+**** 
+
+*** Extensiones de cuerpos
+
+#+begin_definition
+Una extensión de cuerpos $F/K$ es un par de cuerpos $F,K$ tales que $K$ es un sucuerpo de $F$. $K$ se llama cuerpo base y $F$ cuerpo extensión .
+#+end_definition
+
+#+begin_definition
+Llamamos grado de la extensión $F/K$ y lo representamos por $[F:K]$ a la dimensión de $F$ como $K$ espacio vectorial. La extensión es finita si su grado es finito.
+#+end_definition
+
+#+begin_definition
+Una torre de cuerpos es una sucesión de subcuerpos: $F_n \supset F_{n-1} \supset \ldots \supset F_0$
+#+end_definition
 
 #+begin_fact
-Si la extensión $K/F$ es finita, entonces es algebraica
+Sea $E\supset F\supset K$ torre de inclusiones. Entonces:
+
+Sean $\{u_i\in E:i\in I\}$ un sistema de generadores (linealmente independientes, base, resp.) de $E$ como espacio vectorial sobre $F$ y $\{v_j\in F:j\in J\}$ un sistema de generadores (linealmente independientes, base, resp.) de $F$ como espacio vectorial sobre $K$. Entonces $\{u_i v_j: i,j\in I\times J\}$ es sistema de generadores (linealmente indep., base) de $E$ como espacio vectorial sobre $K$.
+#+end_fact
+
+#+begin_theorem
+*Teorema del grado:* Sea $E\supset F\supset K$ torre de cuerpos. Entonces:
+\[[E:F][F:K] = [E:K]\]
+#+end_theorem
+
+La demostración se puede deducir de la proposición anterior.
+
+
+#+begin_corollary
+Se cumple:
+1. $E\supset F\supset K$ torre de cuerpos. La extensión $E/K$ es finita sii las extensiones $E/F$ y $F/K$ son ambas finitas.
+2. Sea $F/K$ extensión tal que $[F:K]= p$ es primo. Entonces no existe ningún cuerpo intermedio distinto de $F$ o $K$.
+#+end_corollary
+
+
+*** Elementos algebraicos
+
+#+begin_lemma
+Para todo anillo $A$ existe un único homomorfismo $\upsilon: \mathbb{Z}\rightarrow A$ llamado homomorfismo unital.
+#+end_lemma
+
+Este homomorfismo se define por inducción como $1_{\mathbb{Z}}\mapsto 1_A$ y $n_{\mathbb{Z}}\mapsto 1+\ldots 1_{n)}$
+
+
+#+begin_definition
+Si el kernel del homomorfismo unital es $n\mathbb{Z}$, la característica del anillo $A$, se define como $car(A)=n$. Además $n$ queda *caracterizado* por ser el menor número que verifica $na = 0 \quad\forall a\in A$
+#+end_definition
+
+La demostración se hace basándonos en el primer teorema de isomorfía. Si su característica fuese $n\neq 0$, tendríamos que $\mathbb{Z}/\mathbb{Z}_n \cong Img(\upsilon)$ y si $n$ no es primo, tenemos un subanillo de $A$, $Img(\upsilon)$ isomorfo a algo que no es dominio de integridad.
+
+#+begin_fact
+La intersección de subanillos es subanillo. La intersección se subcuerpos es subcuerpo.
+#+end_fact
+
+#+begin_lemma
+*Estructura del subanillo imagen del homomorfismo unital*
+El menor subanillo de un anillo $A$ es la intersección de todos sus subanillos. Se llama /anillo primo/. Se cumple:
+
+1. Este subanillo es isomorfo a $\mathbb{Z}$ si $car(A)=0$ y a $\mathbb{Z}_n$ si $car(A) = n\neq 0$. 
+2. Si $A$ es dominio de integridad, entonces o bien $car(A) = 0$ o bien $car(A)=p$ primo.
+#+end_lemma
+
+#+begin_lemma
+Al menor subcuerpo de de un cuerpo $K$ lo llamamos /subcuerpo primo/, que es la intersección de todos los subcuerpos de $K$.
+
+El subcuerpo primo de un cuerpo $K$ es isomorfo a $\mathbb{Q}$ cuando $car(K)=0$ y a $\mathbb{Z}/p\mathbb{Z}$ cuando $car(K)=p\neq 0$
+#+end_lemma
+
+Se deduce del lema anterior sin más que pensar que un cuerpo es un anillo en el que hay una operación inversa. Y como $\mathbb{Q}$ es dominio de integridad, la característica debe ser un primo.
+
+#+begin_definition
+Sea $F/K$ extensión, $S$ un subconjunto de $F$. LLamamos subanillo (resp. subcuerpo) generado por $S$ sobre $K$ y lo representamos por $K[S]$ (resp. $K(S)$) a la intersección de todos los subanillos (resp. cuerpos) de $F$ que contengan a $K$ y a $S$.
+
+Para los casos $S=\{u_1, \ldots u_n\}$ notamos $K[u_1, \ldots u_n]$ en lugar de $K[\{u_1, \ldots u_n\}]$. Análogo para $K(S)$
+#+end_definition
+
+
+#+begin_lemma
+Se verifica:
+1. $K[S\cap T] = K[S][T] = K[T][S]$
+2. $K(S\cap T) = K(S)(T) = K(T)(S)$
+#+end_lemma
+
+
+#+begin_definition
+*Subcuerpo compuesto*. pDados los cuerpos $L\supset E\supset K$, $L\supset F\supset K$, llamamos /compuesto de $E$ y $F$/ al cuerpo $EF = E(F) = F(E)$. Es decir, el menor subcuerpo de $L$ que contiene a $E$ y $F$.
+#+end_definition
+
+
+#+begin_definition
+*Conjunto de generadores*. Sea $F/K$ extensión, $S$ subconjunto de $F$. Diremos que $S$ es conjunto de generadores para $F$ sobre $K$ si $F=K(S)$.
+
+$F/K$ extensión se dice *finitamente generada* si existe un conjunto finito de generadores de $F$ sobre $K$, es decir $S=\{u_1\ldots u_n\}$ con $F=K(S)$
+
+$F/K$ exntesión se dice *simple* si existe un único elemento $u\in F$ tal que $F=K(u)$. $u$ se llama elemento primitivo para la extensión $u$.
+#+end_definition
+
+
+Sea $F/K$ extensión y $u\in F$. La *propiedad universal del anillo de polinomios* nos da un homomorfismo de anillos $\lambda: K[X] \rightarrow K[u]$ tal que conserva $K$ y $\lambda(X)=u$. Por el primer teorema de isomorfía para anillos $K[u] \cong K[X]/ker(\lambda)$
+
+1. Si $Ker(\lambda)=0$, existe un isomorfismo $K[X]\cong K[u]$. Entonces $u$ se dirá *trascendente* sobre $K$. $K(u)$ se llama cuerpo de fracciones de $K[u]$ y es isomorfo a $K(X)$ (cuerpo de fracciones de $K[X]$).
+2. Si $Ker(\lambda)\neq 0$ se dice que $u$ es *algebraico* sobre $K$ y al ser $K[X]$ dominio de ideales principales, se tendrá $Ker(\lambda) = (p(X))$ para algún polinomio que además podemos considerar mónico. Además $p(X) = Irr(u,K)$ y por tanto $K[X]/Ker(\lambda)$ es dominio de integridad (tanto por ser $p(X)$ irreducible y por tanto $(p(X))$ ideal primo, como por tenerse que $K[u]$ es un subanillo de $F$, cuerpo).
+
+
+#+begin_fact
+Sea $F/K$ extensión de cuerpos y sea $u\in F$ elemento algebraico sobre $K$ con polinomio mínimo $p(X) = Irr(u,K)$. Entonces:
+
+1. $K(u) = K[u] \cong K[X]/(p(X))$
+2. $[K(u):K] = gr(p(X))\equiv$ grado de $u$ sobre $K$ y una base de $K[u]$ como $K$ espacio vectorial es $\{1,u,u^2,\ldots u^{n-1}\}.
+3. Para $f\in K[X]$ se verifica $f(u)=0$ si y solo si $p|f$
+
+\label{bases_extensiones}
+#+end_fact
+
+
+#+begin_lemma
+*Elementos algebraicos en torres de cuerpos*
+
+Sea $F\supset E\supset K$ y sea $u\in F$ algebraico sobre $K$. Entonces $u$ es algebraico sobre $E$ y $Irr(u,E)$ divide a $Irr(u,K)$
+#+end_lemma
+
+
+#+begin_fact
+*Caracterización de elementos algebraicos*
+
+Sea $F/K$ extensión. El elemento $\alpha\in F$ es algebraico sobre $K$ si y solo si la extension $K(\alpha)/K$ es finita. 
+#+end_fact
+
+Se deduce a partir de 3 y 4 desde \ref{bases_extensiones}
+
+
+*** Extensiones algebraicas
+
+#+begin_definition
+Una extensión $F/K$ se llama /algebraica/ si todos los elementos de $F$ son algebraicos sobre $K$
+Una extensión $F/K$ se llama /trascendente/ si existe algún elemento $u\in F$ que es trascendente sobre $K$.
+#+end_definition
+
+
+#+begin_fact
+Si la extensión $F/K$ es finita, entonces es algebraica
 #+end_fact
 
 #+begin_definition
 La extensión $K/F$ es finita si y solo si $K$ está generado por un número finito de elementos algebraicos sobre $F$. De hecho, una extensión generada por elementos de grado $n_1, \ldots, n_k$ tiene grado menor o igual $n_1 n_2 \ldots n_k$
 #+end_definition
 
-\begin{theorem}
+#+begin_theorem
 $K$ algebraico sobre $F$ y $L$ algebraico sobre $K$ entonces $L$ es algebraico sobre $F$
-\end{theorem}
+#+end_theorem
 
 
+#+begin_lemma
+Sea $F/K$ extensión arbitraria y sea $S$ un subconjunto de $F$.
+1. Para todo $u\in K[S]$ existe un subconjunto finito $\{u_1,\ldots, u_n\}\subset S$ tal que $u\in K[u_1,\ldots,u_n]$
+2. Para todo $u\in K(S)$ existe un subconjunto finito $\{u_1,\ldots, u_n\}\subset S$ tal que $u\in K(u_1\ldots u_n)$.
+#+end_lemma
+
+
+#+begin_lemma
+\ref{dim-compuesto}
+Sean $L\supset E,F\supset K$. Entonces:
+1. Si $F=K(S)$ entonces $EF = E(S)$
+2. \([EF:K]\le [E:K][F:K]\)
+#+end_lemma
 
 *** Cuerpos de descomposición
 
@@ -300,6 +456,8 @@ Sean $u,v\in\bar{K}$.Los siguientes enunciados equivalen:
 2. Existe isomorfismo $\tau : K(u)/K \rightarrow K(v)/K$ tal que $\tau(u) = v$
 3. Existe homomorfismo $\alpha_1 : K(u)/K \rightarrow \bar{K}/K$ tal que $\sigma(u)=v$
 4. Existe un automorfismo $\alpha: \bar{K}/K \rightarrow \bar{K}/K$ tal que $\sigma(u) = v$ 
+
+\label{norm_extension}
 #+end_fact
 
 *$1\Rightarrow 2$* Por 1 se tiene que:
@@ -312,7 +470,8 @@ Donde llevamos $u\mapsto p(x)$ y $v\mapsto p(x)$ en los isomorfismos correspondi
 
 *$3\Rightarrow 4$* implica que si tenemos $p(x)$ irreducible tal que $p(u)=0$. Entonces $\sigma(p(x))=p(x)$ y $p(v) = \sigma(p(v)) = 0$
 
-*$4\Rightarrow 1$* por el teorema \ref{zorn}
+*$4\Rightarrow 1$* por el teorema \ref{zorn} 
+
 
 *** Teoría de Galois
 
@@ -399,7 +558,7 @@ Un automorfismo $\sigma \in Aut(K)$ decimos que fija un elemento $\alpha \in K$ 
 
 
 #+begin_definition
-Una extensión $E/K$ se llama extensión de Galois si exsite un grupo $G < Aut(E)$ tal que $E^{G}=K$. En este caso, el grupo se representa por $Gal(E/K)$ y se llama grupo de Galois de la extensión $E/K$
+Una extensión $E/K$ se llama extensión de Galois si existe un grupo $G < Aut(E)$ tal que $E^{G}=K$. En este caso, el grupo se representa por $Gal(E/K)$ y se llama grupo de Galois de la extensión $E/K$
 #+end_definition
 
 
@@ -416,6 +575,88 @@ Como para cada homomorfismo $\tau: E \rightarrow K$ puedo tomarme $i\circ \tau$ 
 Hacia el lado opuesto. Sea $E/K$ extensión normal y separable. Existen $n=[E:K]_{S} = [E:K]$ homomorfismos $\tau: E\rightarrow \bar{K}$ sobre $K$ y para todos ellos $\tau(E) = E$. Por ello $G=G(E/K)$ tiene orden $n$. Por el teorema de Artin $[E:E^G] = [E:K]$.
 
 Además tenemos la torre de cuerpos $K\subset E^{G} \subset E$, lo que sumado a lo anterior da $[E^{G}:K] = 1$ y por tanto $E^{G} = K$ y la extensión $E/K$ es de Galois.
+
+**** Correspondencia de Galois
+
+Sea $E/K$ extensión finita de Galois, $G=Gal(E/K)$. Definimos una correspondencia entre el conjunto $\mathcal{S}(G)$ de subgrupos de $G$ y el conjunto $\mathcal{F}(E/K)$ de cuerpos intermedios de $E/K$. Para $H<G$ definimos $E^{H} = H^{*}$. A cada cuerpo intermedio $F$ entre $E$ y $K$ le hacemos corresponder el grupo de Galois de la extensión $E/F$ y llamamos $G^{F} = F^{*}$
+
+
+A $F\mapsto F^{*}, H\mapsto H^{*}$ las denominamos correspondencia de Galois para la extensión $E/K$
+
+#+begin_fact
+Sean $F,F_1, F_2$ cuerpos intermedios de $E/K$ y $H,H_1, H_2$ subgrupos de $G=Gal(E/K)$. Entonces:
+
+1. $F_1 \subset F_2 \implies F_2^{*} \subset F_1^{*}$; $H_1 \subset H_2 \implies H_2^{*} \subset H_1^{*}$
+2. $F \subset F^{**}$; $H<H^{**}$
+3. $F^{*} = F^{***}$; $H^{*} = H^{***}$
+#+end_fact
+
+
+#+begin_theorem
+*Teorema fundamental*
+Sea $E/K$ una extensión de Galois finita con grupo $G=Gal(E/K)$
+
+1. La correspondencia de Galois establece una biyección $\mathcal{F}(E/K)\cong \mathcal{S}(G)$ dada por $F=H^{*} \leftrightarrow H=F^{*}$. Además $F_1 \subset F_2$ si y solo si $H_1 \subset H_2$ 
+2. Dicha biyección es antiisomorfismo de retículos: $(F_1\cdot F_2)^{*} = F_1^{*} \cap F_2^{*}$ y $(F_1\cap F_2)^{*} = F_1* \vee F_2^{*}$
+3. $F_1/K, F_2/K$ son conjugadas si y sólo si los subgrupos $F_1^{*}$ y $F_2^{*}$ son conjugados en $G$.
+4. $F/K$ es normal sii $F^{*}$ es un subgrupo normal de $G$. En este caso $Gal(F/K) \cong G/F^{*}$
+5. Para todo subgrupo $H<G$ se tiene $|H| = [E:H^{*}]$ y $[G:H] = [H^{*}:K]$. Para todo $F\in \mathcal{F}(E/K)$ se verifica $[E:F] = |F^{*}|$ y $[F:K] = [G:F^{*}]$
+#+end_theorem
+
+Demostración de 5.
+
+$|G| = [E:E^{G}] = [E:K]$ y $|H| = [E:E^{H}] = [E:H^{*}]$ por tereoma de Artin. 
+
+Por Lagrange $|G| = [G:H]|H|$. Simplificando factores $[F:K]=[G:F^{*}]$
+
+Por el grado de las extensiones: $[E:K] = [E:H^{*}][H^{*}:K]$
+
+Demostración de 1.
+
+Tenemos la torre $G > H^\ast^\ast > H$ y:
+
+\[ [G : H^{\ast\ast}] = [H^{\ast\ast\ast} : K] = [H^\ast : K] = [G : H] \]
+
+Tenemos la torre $E \supset F^\ast^\ast \supset F$ y:
+
+\[ [E:F] = |F^\ast| = |F^{\ast\ast\ast}| = [E : F^{\ast\ast}] \]
+
+La segunda parte sale de la proposición anterior y de haber probado que la conexión de Galois nos da una biyección.
+
+Demostración de 2.
+
+Por ser antiisomorfismos de conjuntos ordenados (son biyecciones de conjuntos que invierten el orden).
+
+/Demostración de 3./
+
+Sea $f: E/K \rightarrow E/K$ isomorfismo que conjuga $F_2$ y $F_1$ (esto es $f(F_1) = F_2$. Sea $u = f(v)\in F_2; v\in F_1$. Así, dado $\tau \in F_1^{*}$ automorfismo, se tiene $f\tau f^{-1}(u) = f\tau(v) = f(v)$ , luego $f F_1^{*} f^{-1} \subset F_2^{*}$
+
+El otro contenido es igual.
+
+/Demostración de 4./
+
+Desde 3.
+
+Para demostrar la isomorfía: $\Phi: G = Gal(E/K) \rightarrow Gal(F/K)$ dado por restricción. Aplicando primer teorema de isomorfía:
+
+\[Img(\Phi) = Gal(F/K) \cong Gal(E/K)/Ker(\Phi)\]
+
+Y $Ker(\Phi) = F^{*}$. Estamos usando \ref{norm_extension} y que $E$ es normal por ser de Galois.
+
+
+**** Propiedades de extesniones de Galois
+
+#+begin_fact
+Sea $K\subset F \subset E$ una torre de cuerpos tal que $E/K$ es una extensión de Galois finita. Entonces la extensión $E/F$ es de Galois finita y el grupo $Gal(E/F)$ es un subgrupo de $Gal(E/K)$
+#+end_fact
+
+#+begin_definition
+Una extensión finita $E/K$ *de Galois* se dice:
+
+1. *Abeliana* si el gupo $G=Gal(E/K)$ es abeliano.
+2. *Cíclica* si $G=Gal(E/K)$ es cíclica.
+3  *Soluble* si $G$ es soluble
+#+end_definition
 
 
 *** ???
@@ -481,6 +722,7 @@ $K/F$, denominada $Gal(K/F)$.
 Si $K$ es el cuerpo de descomposición sobre $F$ de un polinomio separable $f(x)$ entonces $K/F$ es de Galois.
 #+end_corollary
 
+
 Esto motiva la siguiente definición:
 
 #+begin_definition
@@ -503,6 +745,7 @@ f. Automorfismo de Frobenius
 \[<\sigma, \tau: \sigma\tau = \tau\sigma^2, \tau^2=1, \sigma^3=1 > = S_3\]
 
 
+
 ** Ejercicios
 
 *** Ejercicio 1.24
@@ -523,6 +766,7 @@ y $k_i = card(\{e_j : e_j = d_i\})$ \\
 
 Por combinatoria, sabemos por tanto que $k=\prod{k_i!}$ y que tendremos un número $\frac{k}{n}$
 de monomios de tipo $(X_1^{e_1} \cdots X_n^{e_n})$.\\
+
 
 *** Ejercicio 1.25
 
@@ -818,6 +1062,7 @@ Y el de $f(X)$ sobre $E$:
 
 \[G'=E(\alpha_1,\ldots, \alpha_n) = K(\alpha_1,\ldots,\alpha_r)(\alpha_1,\ldots, \alpha_n) = K(\alpha_1, \ldots, \alpha_n) = G\]
 
+
 *** Ejercicio 4.18
 
 #+begin_wording
@@ -825,6 +1070,7 @@ Sea $a\in\mathbb{Q}$ y $n$ un número entero positivo impar tal que $\sqrt[n]{a}
 #+end_wording
 
 La extensión no es normal ya que si lo fuese, como $x^n-a$ es un polinomio que divide a $p(X)=Irr(\alpha,K)$ sobre $\mathbb{Q}[X]$, y como $n$ es impar, $x^n-a$ sólo puede tener una raíz real, por ser sus raíces de la forma $\omega^k \sqrt[n]{a}$, con $\omega$ raíz $n-$ oésima de la unidad. Luego todas las raíces de $p(X)$ deberían estar en la extensión $E=\mathbb{Q}(\sqrt[n](a))/\mathbb{Q}$. Además $E\subseteq \mathbb{R}$, luego $\sqrt[n]{a}\in\mathbb{Q}$, es decir, el polinomio debería ser forzosamente $x-\sqrt[n]{a}$, que implica que $\sqrt[n]{a}\in\mathbb{Q}$, ¡contradicción!
+
 
 *** Ejercicio 4.19
 
@@ -846,6 +1092,7 @@ Sea $K$ un cuerpo de característica $p\neq 0$ y $t$ una indeterminada sobre $K$
 En una extensión $K'=K(t)$ de $K$ tenemos $X^p-t^p=(X-t)^p$, ya que los términos intermedios del desarrollo valen $0$, al ser $p$ la característica de $K$.
 
 Como $K(t^p) \subseteq K'$, tenemos que los únicos factores que pueden dividir a $X^p-t^p$ son de la forma $(X-t)^m$. Supongamos que alguno tuviese coeficientes en $K(t^p)$. Entonces tendríamos que sus coeficientes también están en $K'$, y por tanto podríamos reescribir $t^m$ como raíz de un polinomio con coeficientes en $K$, pero $t$ era trascendente.
+
 
 *** Ejercicio 5.11
 
@@ -922,3 +1169,87 @@ En esas condiciones es claro que $\exists \varphi: K(\alpha_i)/K \longrightarrow
 Por tanto $\sigma$ es automorfismo sobre $E$ que conserva $K$ y cumple $\sigma(\alpha_i) = \varphi(\alpha_i) = \alpha_j$
 
 
+
+*** Ejercicio 7.27
+
+#+begin_wording
+Prueba que los subgrupos transitivos de $S_4$ son los subgrupos siguientes:
+
+1. $S_4$, que es normal.
+2. $A_4$, que es normal.
+3. $D_4 = <(1 2 3 4),(1 3)>$ y todos sus conjugados.
+4. $C_4 = <(1 2 3 4)>$, y todos son conjugados.
+5. $V = \{1,(1 2)(3 4),(1 3)(2 4),(1 4)(2 3)\}$ que es normal.
+
+Como consecuencia, si $f(X)\in\mathbb{Q}[X]$ es un polinomio irreducilbe de grado cuatro, el grupo de Galois de $\mathbb{Q}(f)/\mathbb{Q}$ es isomorfo a uno de estos.
+#+end_wording
+
+
+1. Es claro que $S_4$ es transitivo, ya que $E={(1 2)(3 4),(1 3)(2 4),(1 4)(2 4),id}\subseteq S_4$ y con alguno de estos elementos, dado $x,y\in\{1,2,3,4\}$ puedo tomar un $\tau\in E$ verificando $\tau(x)=y$.
+
+2. $A_4$ es transitivo, ya que dado $x,y\in{1,2,3,4}$, si $x\neq y$, siempre me puedo tomar $z,u\in\{1,2,3,4\}\setminus\{x,y\}$ con $z\neq u$ y la permutación $\tau = (x y)(z u)$ está en $A_4$, y cumple $\tau(x) = y$
+
+3. $D_4$ es transitivo porque contiene a $C_4$ que lo es, ya que uno de sus generadores es $(1 2 3 4)$.
+
+4. $C_4$ es transitivo porque:
+
+\begin{eqnarray*}
+&& \tau_0 = (1 2 3 4)\\
+&& \tau_1 = (1 2 3 4)^2 = (1 3)(2 4)\\
+&& \tau_2 = (1 2 3 4)^3 = (1 2 3 4)(1 3)(2 4) = (1 4 3 2)\\
+&& \tau_3 = (1 2 3 4)^4 = id\\
+\end{eqnarray*}
+
+Estos elementos pertenecen a $C_4$ y se tiene:
+
+\begin{eqnarray*}
+&& \tau_0(1) = 2, \tau_0(2) = 3, \tau_0(3) = 4, \tau_0(4) = 1\\
+&& \tau_1(1) = 3, \tau_1(2) = 4, \tau_1(3) = 1, \tau_1(4) = 2\\
+&& \tau_2(1) = 4, \tau_2(2) = 1, \tau_2(3) = 2, \tau_2(4) = 3\\
+&& \tau_3(x) = x \qquad \forall x \in\{1,2,3,4\}
+\end{eqnarray*}
+
+5. $V = \{\sigma_0 = 1, \sigma_1 = (1 2)(3 4),\sigma_2 = (1 3)(2 4), \sigma_3 = (1 4)(2 3)\}$
+
+\begin{eqnarray*}
+&& \sigma_0(x) = x \qquad \forall x \in\{1,2,3,4\}\\
+&& \sigma_1(1) = 2, \sigma_1(2) = 1, \sigma_1(3) = 4, \sigma_1(4) = 3\\
+&& \sigma_2(1) = 3, \sigma_2(2) = 4, \sigma_2(3) = 1, \sigma_2(4) = 2\\
+&& \sigma_3(1) = 4, \sigma_3(2) = 3, \sigma_3(3) = 2, \sigma_3(4) = 1\\
+\end{eqnarray*}
+
+
+Veamos por otro lado que el conjugado de un subgrupo transitivo, es transitivo, ya que si tengo $H<S_4$ subgrupo transitivo, $\sigma\in S_4$, $A = \sigma^{-1}H\sigma$, y dados $x,y\in \{1,2,3,4\}$.
+
+Si $\sigma(y)=z\neq y$, tomo $\tau\in H$ verificando $\tau(\sigma(x))=z$, que existe por ser $H$ transitivo y se tendrá que $\sigma^{-1}\tau\sigma(x) = \sigma^{-1}(z) = y$
+
+Veamos ahora que son los únicos subgrupos transitivos. El orden de un subgrupo $H<G$ debe dividir a $|G|$. Además, un subgrupo transitivo debe tener necesariamente 4 o más elementos, ya que hay 4 posibles mapeos $x \mapsto y$ con $x,y\in\{1,2,3,4\}$ y 3 elementos sólo pueden darme 12 mapeos diferentes (4 cada uno).
+
+
+Los posibles subgrupos, salvo conjugación e isomorfismo, de $S_4$ son:
+
+
+| Subgrupo                             |
+|--------------------------------------|
+| $A_4$                                |
+| $D_4$                                |
+| $S_3$                                |
+| $C_4$                                |
+| $V$                                  |
+| $V_4 = \{1,(1 2),(3 4),(1 2)(3 4)\}$ |
+| $\{1,(1 2 3),(1 3 2)\}$              |
+| $\{1,(1 2)\}$                        |
+| $\{1,(1 2),(3 4)\}$                  |
+| $\{1\}$                              |
+
+
+Claramente, $S_3$ es intransitivo, puesto que $\sigma(4)=4, \forall\sigma\in S_3$; $V_4$ también es intransitivo, puesto que $\sigma(1)\neq 3, \forall\sigma\in V_4$. Y el resto de subgrupos tienen menos de 4 elementos.
+
+
+*** Ejercicio 7.28
+
+#+begin_wording
+Sea $f(X)\in K[X]$ un polinomio separable y $g$ un factor irreducible de $f$. ¿Actúa transitivamente $G=Gal(f/K)$ sobre las raíces de $g$?
+#+end_wording
+
+Sean $u,v$ raíces de $g$ en $E$ cuerpo de descomposición de $f$. Entonces como $K[X]/(Irr(u,K))=K[X]/(g)\cong K(u)$ y $K[X]/(Irr(v,K))=K[X]/(g)\cong K(v)$ dados por $X+(g)\mapsto u$ y $X+(g)\mapsto v$ respectivamente. Entonces existe un isomorfismo $\tau : K(u)\rightarrow K(v)$ verificando $\tau(u)=v$. Este isomorfismo puede extenderse a un automorfismo $\sigma : E\rightarrow E$ y por tanto tenemos un automorfismo que fija $K$ y que lleva una raíz en otra. Pero la elección de las raíces la hemos hecho arbitrariamente.

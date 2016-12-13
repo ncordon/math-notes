@@ -23,7 +23,6 @@
 
 * Resumen
 
-
 ** Aplicaciones de las series de Fourier
 
 Tenemos que hallar 
@@ -84,6 +83,7 @@ u(0,t) = u(l,t) = 0 & \forall t>0
 ii.Además si $u_0 \in \mathcal{C}^1(0,l)$ con $u_0(l)=u_0(0)$ entonces dicha función está definida en $u:[0,l]\times [0,\infty[$ y es continua con $u(x,0) = u_0(x) \quad \forall x\in[0,l]$ es decir, $u$ es solucion única al problema.
 
 #+end_theorem
+
 
 * Ejercicios
 

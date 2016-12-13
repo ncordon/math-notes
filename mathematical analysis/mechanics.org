@@ -163,6 +163,7 @@ Juntando \ref{bessel} y \ref{deduccion} hemos llegado a que
 
 lo que dividiendo por $\pi$ nos da el resultado buscado.
 
+
 ** Ejercicio 2.9 (Pollard)
 
 #+begin_wording
