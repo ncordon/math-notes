@@ -207,7 +207,7 @@ Aplicando 2 veces 2^{a} regla de L'Hôpital, por ser $t^2 \rightarrow \infty (t\
 \end{eqnarray*}
 
 
-Por ser $2h = |x'|^2 -\frac{2\mu}{|x|}$ y $-\frac{\mu}{|x|}$ convergente a 0, se tiene que $ lim_{t\rightarrow \infty} |x'|^2 = 2h$
+Por ser $2h = |x'|^2 -\frac{2\mu}{|x|}$ y $-\frac{\mu}{|x|}$ convergente a 0, se tiene que $lim_{t\rightarrow \infty} |x'|^2 = 2h$
 
 
 ** Ejercicio 2.11
@@ -263,3 +263,4 @@ Llamamos $p$ al periodo y $c$ al momento angular.
 
 a. $A = \pi |a||b| = \pi |a|^2\sqrt{1-|e|^2}$
 b. $A = \frac{1}{2} \int_0^{p/2} |c| + \frac{1}{2} \int_{p/2}^{p} |c| = \frac{1}{2} p|c|$
+   

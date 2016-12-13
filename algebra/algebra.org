@@ -94,7 +94,6 @@ Si $\le$ es orden monomial en $\mathbb{N}^n$ entonces se verifica que dados $\al
 
 ** Ejercicios
 
-
 *** Ejercicio 1.12
 
 #+begin_wording
@@ -131,11 +130,13 @@ Por inducción, $(a,b)=(a+b+ab)$ ya que $a(a+b+ab)=a^2 = a$ y análogo $b$.
 
 Y el paso de inducción es trivial.
 
+
 *** Ejercicio 1.17
 
 #+begin_wording
 En un anillo $R$ sea $\Sigma$ el conjunto de todos los ideales en los que cada elemento es un divisor de cero. Probar que el conjunto $\Sigma$ tiene elementos maximales y que cada elemento maximal de $\Sigma$ es un ideal primo. Por tanto el conjunto de los divisores de cero en $R$ es una unión de ideales primos.
 #+end_wording
+
 
 *** Ejercicio 1.18
 
@@ -208,6 +209,118 @@ Luego $\alpha = \mathcal{N}$ único ideal primo de $R$.
 
 \newpage
 
+
+*** Ejercicio 2.2
+
+1. Tomamos:
+
+\[F=X^2Y+XY^2 = XY(X+Y)\]
+
+\[G=XY^4\]
+
+$mcd(F,G) = XY$, pero sin embargo $XY \neq (F,G)$, luego no se verifica la identidad de Bezout. En general, dados dos polinomios cualesquiera, dicha identidad no se verifica
+
+2. Queda como ejercicio.
+
+
+*** TODO Ejercicio 2.15
+
+
+*** Ejercicio 2.16
+
+#+begin_wording
+Sea $\le$ un orden en $\mathbb{N}^n$ que es total y compatible. Haciendo usod e la teoría de ideales monoiales, probad que $\le$ es un buen orden sii es monótono.
+#+end_wording
+
+Hacia la izquierda, como $\le$ es monomial, entonces es buen orden.
+
+Hacia la derecha, si 0 no fuese mínimo, $\exists x\in \mathbb{N}^n$ verificando $x<0$. Como el orden es compatible tendríamos que $x+x<x$, lo que es contradicción.
+
+
+*** Ejercicio 2.17
+
+#+begin_wording
+Sean $I,J\subset K[X_1,\ldots X_n]$ ideales monomiales generados por $\{A_1,\ldots A_s\}$ y $\{B_1\ldots B_t\}$, $A_i, B_j$ monomios:
+
+1. Demuestra que $I\cap J$ es un ideal monomial.
+2. Prueba que $\{M_{ij: i=1\ldots s, j=1\ldots t\}$ donde $M_{ij} = mcm(A_i, B_j)$ es un sistema de generadores de $I\cap J$
+#+end_wording
+
+
+1. Se tiene $F\in I$ sii todos los monomios de $F\in I4.
+
+Además $I\cap J = (F_1, \ldots F_r)$, con $F_i = \sum_{j=1}^{n_i} a_{ij}R_ij$ monomios.
+
+Si $F_i \in I\cap J$, entonces $F_i\in I$ y $F_i\in J$. Lueg $R_{ij}\in I$, $R_{ij}\in J$ y por tanto $R_{ij}\in I\cap J$
+
+Por tanto $I\cap J = (R_{ij}: i=1\ldots r, 1\le j \le n_i )$, luego $I\cap J$ es monomial.
+
+2. Es claro que $(M_{ij}) \subset I\cap J$
+
+Para el otro contenido, si $X^\alpha \in I\cap J$ entonces $X\alpha\in I \implies X^\alpha = FA_i$ y análogo para $X^\alpha \in J$, luego $M_{ij}|X^\alpha$.
+
+3. $I = (X=A_1, Y^2 Z = A_2, YZ^2=A_3)$, y por otor lado $J=(X^3 YZ = B_1, X^2Y = B_2, Y^2 Z^3 = B_3)$
+
+Calculando $M_{11} = mcm(A_1, B_1)$, $M_{12} = X^2 Y$.
+
+Al final $I\cap J = (X^2Y, Y^2 Z^3)$
+
+
+*** Ejercicio 2.18
+
+#+begin_wording
+Sean $I_1, I_2$ ideales monomiales con sistema de generadores $G_1, G_2$ resp. Demuestra que:
+
+1.$I_1 + I_2$ está generado por $G_1\cup G_2$
+2.$I_1 I_2$ está generado por $\{HL: H\in G_1, L\in G_2\}$
+#+end_wording
+
+Hay que comprobar que si $I_1 = (G_1,\ldots G_k)$, $I_2 = (H_1, \ldots H_s)$ entonces:
+
+\[I_1 + I_2 = (G_1,\ldots G_k, H_1,\ldots H_s)\]
+\[I_1 I_2 = (G_i H_j: i=1\ldots k,j=1\ldots s)\]
+
+
+*** Ejercicio 2.21
+
+#+begin_wording
+Demostrar que si $I,J$ son dos ideales monomiales entonces $(I:J)$ es un ideal monomial.
+#+end_wording
+
+
+#+begin_definition
+Llamo soporte de $F\in K[X_1,\ldots X_n]$ a $Sop(F) = \{X^{\alpha : \alpha\in N(F)\}$
+#+end_definition
+
+Dado $F\in (I:J) \implies FJ\subset I$. En particular $FX^{\beta} \forall X^\beta \in J$
+
+Esto implica que $X\alpha X\beta\in I \forall\alpha \in N(F) X^\alpha\in J$. Entonces $X\alpha J\subset I \implies X^\alpha\in(I:J) \forall \alpha\in N(F)$. Luego $(I:J)$ es monomial.
+
+
+*** Ejercicio 2.22
+1. Veamos la implicación hacia la izquierda: 
+
+$I=(X_{i1},\ldots X_{is)$ para $\{X_{1i},\ldots X_{is}\} \subset \{X_1,\ldots X_n\}$
+Entonces $K[X_1 \ldots X_n]/I \cong K[X_j : j\notin \{i_1,\lxdots i_s\}]$ es un DI. Luego $I$ es primo.
+
+Veamos la implicación hacia la derecha.
+
+Sea $I$ monomial y primo. $I = (X^\alpha(1), \ldots X^\alpha(s))$.
+
+$X^\alpha(j)\in I$ luego $\exists i_j$ tal que $X_{ij}\in I$. 
+
+Todo esto nos da $(X_{i1}, \ldots X_{is}) = I$
+
+2. Queda como ejercicio.
+
+3. $\mathcal{M} = (X_1 \ldots X_n)$ es el único maximal que es monomial.
+
+\[K[X_1\ldots X_n]/\mathcal{M} \cong K\]
+
+Luego $\mathcal{M}$ es maximal.
+
+
+Es el único porque si tenemos $I=(A)$, $I'=(A')$ entonces $A\subset A' \LeftRightarrow I\subset I'$
 
 * Álgebra III
 
