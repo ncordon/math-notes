@@ -214,8 +214,7 @@ Luego $\alpha = \mathcal{N}$ único ideal primo de $R$.
 ** Resumen
 
 *** TODO
-**** TODO \ref{dim-compuesto} de dónde sale?
-**** 
+**** TODO \ref{fg-implies-finita} de dónde sale?
 
 *** Extensiones de cuerpos
 
@@ -356,9 +355,6 @@ Una extensión $F/K$ se llama /trascendente/ si existe algún elemento $u\in F$ 
 #+end_definition
 
 
-#+begin_fact
-Si la extensión $F/K$ es finita, entonces es algebraica
-#+end_fact
 
 #+begin_definition
 La extensión $K/F$ es finita si y solo si $K$ está generado por un número finito de elementos algebraicos sobre $F$. De hecho, una extensión generada por elementos de grado $n_1, \ldots, n_k$ tiene grado menor o igual $n_1 n_2 \ldots n_k$
@@ -377,11 +373,50 @@ Sea $F/K$ extensión arbitraria y sea $S$ un subconjunto de $F$.
 
 
 #+begin_lemma
-\ref{dim-compuesto}
 Sean $L\supset E,F\supset K$. Entonces:
 1. Si $F=K(S)$ entonces $EF = E(S)$
 2. \([EF:K]\le [E:K][F:K]\)
+3. Si $[E:K]$ y $[F:K]$ son primos relativos, se da la igualdad.
+
+\label{comp-deg}
 #+end_lemma
+
+La primera parte se deduce de que $EF=E(F)=E(K(S))=E(S)$
+
+Para deducir la segunda parte: $[EF:K] = [EF:F][F:K]$ por el teorema del grado. Además si tenemos $B$ base de $E$ como $K$ espacio vectorial, y $B'$ base de $F$ como $K$ espacio vectorial, tendremos que $B\cap B'$ es sistema de generadores de $EF =F(E)$ y por tanto $[EF:F] < |B| = [E:K]$. Además, del argumento hecho se deduce 3.
+
+#+begin_fact
+\label{fg-implies-finita}
+Sea $F=K(u_1,\ldots u_n)$ una extensión finitamente generada por elementos $u_i$ algebraicos. Entonces la extensión $F/K$ es finita.
+#+end_fact
+
+La demostración se deduce de 2 de \ref{comp-deg} sin más que tener en cuenta que $K(u1,\ldots u_n)$ estará contenido en $\prod_{i=1}^n K(u_i)$ y esa extensión es finita.
+
+#+begin_corollary
+Sea $F=K(S)$ con $S\subset F$ arbitrario. Entonces $F/K$ es algebraica si y sólo si todo elemento $u\in S$ es algebraico sobre $K$
+#+end_corollary
+
+La implicación hacia la derecha es trivial. Para la implicación hacia la izquierda basta usar que dado $s\in K(S)$, existirán finitos $\{u_{1,s}, \ldots u_{n,s}\}\subset S$ algebraicos verificando $s\in K(\{u_{1,s},\ldots u_{n,s}\}$ y la proposición anterior acaba, al tener una extensión finitamente generada por elementos algebraicos, lo que implica que la extensión es finita, y que $s$ es algebraico sobre $K$.
+
+#+begin_corollary
+*Relación de extensiones finitas y algebraicas*
+
+Se tiene:
+1. Si la extensión $F/K$ es finita, entonces es algebraica (y finitamente generada por ser finita)
+2. Una extensión $F/K$ es algebraica y finitamente generada, entonces es finita.
+#+end_corollary
+
+
+#+begin_corollary
+Un elemento $u\in F$ es algebraico sobre $K$ si y solo si existe un cuerpo intermedio $E$ verificando que $E/K$ es extensión finita y $u\in E$.
+#+end_corollary
+
+
+#+begin_corollary
+Dada una torre de cuerpos $E\supset F\supset K$ la extensión $E/K$ es algebraica si y solo las extensiones $E/F$ y $F/K$ son algebraicas.
+#+end_corollary
+
+
 
 *** Cuerpos de descomposición
 
