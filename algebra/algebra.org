@@ -27,6 +27,7 @@
 
 ** Tema 1: Anillos e ideales
 
+
 ** Tema 3: Bases de Groebner y algoritmos básicos
 
 #+begin_definition
@@ -91,6 +92,7 @@ Diremos que un orden es *monomial* si es compatible, total y monótono.
 Si $\le$ es orden monomial en $\mathbb{N}^n$ entonces se verifica que dados $\alpha, \beta \in \mathbb{N}^n$:
 \[ \alpha \le_{pr} \beta \Longrightarrow \alpha \le \beta \]
 #+end_fact
+
 
 ** Ejercicios
 
@@ -243,7 +245,7 @@ Hacia la derecha, si 0 no fuese mínimo, $\exists x\in \mathbb{N}^n$ verificando
 Sean $I,J\subset K[X_1,\ldots X_n]$ ideales monomiales generados por $\{A_1,\ldots A_s\}$ y $\{B_1\ldots B_t\}$, $A_i, B_j$ monomios:
 
 1. Demuestra que $I\cap J$ es un ideal monomial.
-2. Prueba que $\{M_{ij: i=1\ldots s, j=1\ldots t\}$ donde $M_{ij} = mcm(A_i, B_j)$ es un sistema de generadores de $I\cap J$
+2. Prueba que $\{M_{ij}: i=1\ldots s, j=1\ldots t\}$ donde $M_{ij} = mcm(A_i, B_j)$ es un sistema de generadores de $I\cap J$
 #+end_wording
 
 
@@ -289,7 +291,7 @@ Demostrar que si $I,J$ son dos ideales monomiales entonces $(I:J)$ es un ideal m
 
 
 #+begin_definition
-Llamo soporte de $F\in K[X_1,\ldots X_n]$ a $Sop(F) = \{X^{\alpha : \alpha\in N(F)\}$
+Llamo soporte de $F\in K[X_1,\ldots X_n]$ a $Sop(F) = \{X^\alpha : \alpha\in N(F)\}$
 #+end_definition
 
 Dado $F\in (I:J) \implies FJ\subset I$. En particular $FX^{\beta} \forall X^\beta \in J$
@@ -300,8 +302,8 @@ Esto implica que $X\alpha X\beta\in I \forall\alpha \in N(F) X^\alpha\in J$. Ent
 *** Ejercicio 2.22
 1. Veamos la implicación hacia la izquierda: 
 
-$I=(X_{i1},\ldots X_{is)$ para $\{X_{1i},\ldots X_{is}\} \subset \{X_1,\ldots X_n\}$
-Entonces $K[X_1 \ldots X_n]/I \cong K[X_j : j\notin \{i_1,\lxdots i_s\}]$ es un DI. Luego $I$ es primo.
+$I=(X_{i1},\ldots X_{is})$ para $\{X_{1i},\ldots X_{is}\} \subset \{X_1,\ldots X_n\}$
+Entonces $K[X_1 \ldots X_n] / I \cong K[X_j : j\notin \{i_1,\ldots i_s\}]$ es un DI. Luego $I$ es primo.
 
 Veamos la implicación hacia la derecha.
 
@@ -320,7 +322,8 @@ Todo esto nos da $(X_{i1}, \ldots X_{is}) = I$
 Luego $\mathcal{M}$ es maximal.
 
 
-Es el único porque si tenemos $I=(A)$, $I'=(A')$ entonces $A\subset A' \LeftRightarrow I\subset I'$
+Es el único porque si tenemos $I=(A)$, $I'=(A')$ entonces $A\subset A' \Leftrightarrow I\subset I'$
+
 
 * Álgebra III
 
@@ -328,6 +331,10 @@ Es el único porque si tenemos $I=(A)$, $I'=(A')$ entonces $A\subset A' \LeftRig
 
 *** TODO
 **** TODO \ref{fg-implies-finita} de dónde sale?
+
+**** TODO \ref{decomp-field} ¿Qué es exactamente $F$?
+**** TODO \ref{exist-decomp} Demostrar el teorema de existencia de cuerpos de descomposición.
+**** TODO Ejemplo X^p-t, pág 52 apuntes de Miranda, ¿criterio de Eisenstein?
 
 *** Extensiones de cuerpos
 
@@ -519,21 +526,33 @@ Se tiene:
 2. Una extensión $F/K$ es algebraica y finitamente generada, entonces es finita.
 #+end_corollary
 
+Se deduce trivialmente de las proposiciones y corolarios anteriores.
 
 #+begin_corollary
 Un elemento $u\in F$ es algebraico sobre $K$ si y solo si existe un cuerpo intermedio $E$ verificando que $E/K$ es extensión finita y $u\in E$.
 #+end_corollary
 
+La implicación hacia la izquierda es trivial sin más que considerar $K(u)$. La implicación hacia la derecha se deduce de ser $E$ extensión finita, luego algebraica sobre $K$.
 
 #+begin_corollary
 Dada una torre de cuerpos $E\supset F\supset K$ la extensión $E/K$ es algebraica si y solo las extensiones $E/F$ y $F/K$ son algebraicas.
 #+end_corollary
 
 
-
 *** Cuerpos de descomposición
 
-**** Cuerpo de descomposición
+#+begin_theorem
+*Teorema de Kronecker*
+
+Sea $f$ un polinomio de grado positivo sobre un cuerpo $K$. Entonces existe una extensión $F/K$ y un $u\in F$ verificando $f(u)=0$. Esta extensión viene dada por $K[X]/(f_1)$ con $f_1$ un factor irreducible del polinomio sobre $K$.
+#+end_theorem
+
+#+begin_definition
+*Extensión de homomorfismos*
+
+Sean $F_i/K_i$ dos extensiones de cuerpos y sean $\tau : F_1 \rightarrow F_2$ y $\sigma : K_1 \rightarrow K_2$ homomorfismos verificando $\tau(a) = \sigma(a)$. A $\tau$ lo llamamos *extensión de $\sigma$*. Si $\sigma = id$, lo llamamos *homomorfismo sobre $K$*
+#+end_definition
+
 
 #+begin_fact
 Sea $\alpha : K_1 \rightarrow K_2$ un isomorfismo de cuerpos. Existe una única extensión a un isomorfismo $\sigma : K_1[X] \rightarrow K_2[X]$ definido por $\sigma(x) = x$
@@ -542,7 +561,7 @@ Sea $\alpha : K_1 \rightarrow K_2$ un isomorfismo de cuerpos. Existe una única 
 La demostración se basa en la propiedad universal del anillo de polinomios.
 
 #+begin_fact
-En las condiciones de la proposición anterior si $F_i/K_i$ son extensiones algebraicas, $\tau : F_1 \rightarrow F_2$ un homomorfismo sobre $\sigma$ y $u\in F_1$ una raíz de $f_1$. Entonces $\tau(u)$ es una raíz de $f_2 = \sigma(f_1)$
+En las condiciones de la proposición anterior si $F_i/K_i$ son extensiones algebraicas, $\tau : F_1 \rightarrow F_2$ un homomorfismo sobre $\sigma : K_1 \rightarrow K_2$ y $u\in F_1$ una raíz de $f_1$. Entonces $\tau(u)$ es una raíz de $f_2 = \sigma(f_1)$
 #+end_fact
 
 Sea $f_1 = \sum_{i=1}^n a_i X^i$
@@ -555,12 +574,32 @@ f_2(\tau(u)) = \sum_{i=1}^n \sigma(a_i) \tau(u)^i = \sum_{i=1}^n \tau(a_i) \tau(
 \end{eqnarray*}
 
 
+
+#+begin_corollary
+Sea $F/K$ extensión algebraica y $\sigma : F\rightarrow F$ un homomorfismo sobre $K$. Entonces $\sigma$ es un automorfismo.
+#+end_corollary
+
+Para demostrar esto, veamos que la aplicación es sobreyectiva (es inyectiva por ser homomorfismo de cuerpos). Consideramos $u\in F$. Tomo $f=Irr(u,K)$, que puedo hacerlo por tratarse de una extensión algebraica, y se tiene que $\sigma(f) = f$. Tomo todas las raíces $\{u_1, \ldots u_k\}$ de $f$ que hay en $F$. Tomo $F_1 = K(u_1\ldots u_k)$ el subcuerpo de $F$ generado por todas ellas. La extensión $F_1/K$ es finita y para cualquier homomorfismo $\sigma : F \rightarrow F$ verifica que $\sigma(u_i)$ es raíz de $f$. Así, $\sigma|F_{1}$ e una aplicación lineal inyectiva, luego sobreyectiva y eso nos lleva a decir que $\exists v\in F_1$ verificando $\sigma(v)=u$.
+
 #+begin_fact
 En las condiciones de la proposición anterior sea $u_i$ raíz de $f_i$ en alguna extensión $F_i/K_i$. Entonces existe un único isomorfismo $\tau : K_1(u_1) \rightarrow K_2(u_2)$ sobre $\sigma$ tal que $\tau(u_1) = u_2$
 \label{prev_zorn}
 #+end_fact
 
-Existen isomorfismos $\rho_i: K_i[X]/(f_i)\cong K_i(u_i)$ y vienen dados por $X + (f_i)\mapsto u_i$. $\bar{\sigma}$ viene dado por la proposición anterior llevándonos $(f_1)$ en $(f_2)$. La aplicación buscada será $\tau = \rho_2 \bar{\sigma} \rho_1^{-1}$
+Existen isomorfismos $\rho_i: K_i[X]/(f_i)\cong K_i(u_i)$ y vienen dados por $X + (f_i)\mapsto u_i$. $\bar{\sigma}$ lo obtenemos por la proposición anterior llevándonos $(f_1)$ en $(f_2)$. La aplicación buscada será $\tau = \rho_2 \bar{\sigma} \rho_1^{-1}$
+
+
+
+#+begin_definition
+*Cuerpo de descomposición*
+Un cuerpo extensión $F\supset K$ se llama /cuerpo de descomposición de $f$ sobre $K$ sii existen $u_1\ldots u_n\in F$ tales que $f(X) = (X-u_1)\cdots (X-u_n)$, y $F = K(u_1,\ldots u_n)$. Es decir, esta última condición nos dice que es el menor cuerpo en que descompone el polinomio.
+#+end_definition
+
+
+#+begin_fact
+*Cuerpo de descomposición sobre cuerpos intermedios*
+Sea $E\supset F\supset K$ torre de cuerpos tal que $$ es cuerpo de descomposición de un polinomio $f$ sobre $K$. Entonces $E$ es también cuerpo de descomposición de $f$ sobre $F$.
+#+end_fact
 
 
 #+begin_definition
@@ -575,10 +614,30 @@ Se deduce que $E=K(\alpha_1, \ldots, \alpha_n)$ donde $\alpha_i$ son raíces de 
 #+end_definition
 
 
-#+begin_fact
-Un cuerpo de descomposición de un polinomio de grado $n$ sobre $F$ es de grado como mucho $n!$ sobre $F$. Si el grado es $n!$ entonces el polinomio es irreducible. El recíproco no se verifica.
-#+end_fact
+#+begin_theorem
+*Grado del cuerpo de descomposición*
+Un cuerpo de descomposición $F$ de un polinomio de grado $n$ sobre $K$ es de grado como mucho $n!$ sobre $K$. Si el grado es $n!$ entonces el polinomio es irreducible. El recíproco no se verifica.
+#+end_theorem
 
+El recíproco no se verifica en el caso de $(X^2-2)(X^2-3)\in \mathbb{Q}(X)$ que es irreducible, pero su cuerpo de descomposición es $\mathbb{Q}(\sqrt{2}, \sqrt{3})$ que tiene grado 4.
+
+#+begin_theorem
+*Extensión a cuerpos de descomposición*
+Sea $\sigma: K_1 \rightarrow K_2$ isomorfismo de cuerpos, $f_1\in K_1[X]$ y sea $f_2 = \sigma(f_1)$. Sea $F_i$ cuerpo de descomposición de $f_i$ sobre $K_i$. Entonces existe un isomorfismo $\tau : F_1 \rightarrow F_2$ que es una extensión de $\sigma$. De aquí se deuce que dos cuerpos de descomposición de un $f\in K[X]$ son isomorfos.
+#+end_theorem
+
+
+#+begin_definition
+*Cuerpo de descomposición*
+Sea $\mathcal{F}\subset K[X]$ cualquier conjunto de polinomios no constantes. Una extensión $E/K$ se llama cuerpo de descomposición de $\mathcal{F}$ si es cuerpo de descomposición de cada uno de sus polinomios. Además $E = K(\{u\in F: \exists f\in \mathcal{F}, f(u)=0\})$
+\label{decomp-field}
+#+end_definition
+
+#+begin_theorem
+*Existencia de cuerpo de descomposición*
+Para todo conjunto de polinomios no constantes $\mathcal{F}\subset K[X]$ existe un cuerpo de descomposición sobre $K$
+\label{exist-decomp}
+#+end_theorem
 
 #+begin_theorem
 Sea una torre de cuerpos $K\subset F\subset E$ con $E/K$ algebraica y sea $\bar{K}$ clausura algebraica de $K$. Entonces todo homomorfismo $\sigma : F\rightarrow \bar{K}$ sobre $K$ tiene una extensión $\tau : E\rightarrow \bar{K}$ (¡ojo! extensión del homomorfismo
