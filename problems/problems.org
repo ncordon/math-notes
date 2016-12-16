@@ -1,0 +1,33 @@
+#+TITLE: Fourier Series
+#+SUBTITLE:
+#+AUTHOR: Ignacio Cordón Castillo
+#+OPTIONS: toc:nil
+#+LANGUAGE: es
+#+STARTUP: indent
+#+DATE:
+
+#+latex_header: \usepackage{amsmath} 
+#+latex_header: \usepackage{amsthm}
+#+latex_header: \newtheorem*{theorem}{Teorema}
+#+latex_header: \newtheorem*{fact}{Proposición}
+#+latex_header: \newtheorem*{definition}{Definición}
+#+latex_header: \setlength{\parindent}{0pt}
+#+latex_header: \setlength{\parskip}{1em}
+#+latex_header: \usepackage{color}
+#+latex_header: \newenvironment{wording}{\setlength{\parskip}{0pt}\rule{\textwidth}{0.5em}}{~\\\rule{\textwidth}{0.5em}}
+#+latex_header: \everymath{\displaystyle}
+
+#+attr_latex: :float t :width 4cm
+[[../by-nc-sa.png]]
+
+* Olimpiadas
+
+#+begin_wording
+Dados $x,y \in \mathbb{R}$, $p,q > 0$ verificando $p+q < 1$. Prueba:
+\[(px+qy)^2 \le px^2 + qy^2 \]
+#+end_wording
+
+Por Cauchy-Schwarz: 
+
+\[<(\sqrt(p)x, \sqrt(q)y), (\sqrt(p), \sqrt(q))>^2\le (px^2+qy^2)(p+q) \le (px^2+qy^2)\]
+
