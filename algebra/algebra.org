@@ -3,7 +3,6 @@
 #+AUTHOR: Ignacio Cordón Castillo
 #+OPTIONS: toc:nil, num:nil
 #+LANGUAGE: es
-#+STARTUP: nolatexpreview
 #+STARTUP: indent
 #+DATE:
 
@@ -336,6 +335,12 @@ Es el único porque si tenemos $I=(A)$, $I'=(A')$ entonces $A\subset A' \Leftrig
 **** TODO \ref{exist-decomp} Demostrar el teorema de existencia de cuerpos de descomposición.
 **** TODO Ejemplo X^p-t, pág 52 apuntes de Miranda, ¿criterio de Eisenstein?
 
+**** TODO ¿Es toda extensión algebraica un cuerpo de descomposición?
+
+**** TODO Raíz de un polinomio con coeficientes algebraicos, entonces es algebraico \ref{algebraico}
+**** TODO Mirarme demostraciones de cuerpos de descomposición
+
+
 *** Extensiones de cuerpos
 
 #+begin_definition
@@ -477,7 +482,7 @@ Una extensión $F/K$ se llama /trascendente/ si existe algún elemento $u\in F$ 
 
 
 #+begin_definition
-La extensión $K/F$ es finita si y solo si $K$ está generado por un número finito de elementos algebraicos sobre $F$. De hecho, una extensión generada por elementos de grado $n_1, \ldots, n_k$ tiene grado menor o igual $n_1 n_2 \ldots n_k$
+La extensión $F/K$ es finita si y solo si $F$ está generado por un número finito de elementos algebraicos sobre $F$. De hecho, una extensión generada por elementos de grado $n_1, \ldots, n_k$ tiene grado menor o igual $n_1 n_2 \ldots n_k$
 #+end_definition
 
 #+begin_theorem
@@ -539,6 +544,7 @@ Dada una torre de cuerpos $E\supset F\supset K$ la extensión $E/K$ es algebraic
 #+end_corollary
 
 
+
 *** Cuerpos de descomposición
 
 #+begin_theorem
@@ -591,7 +597,7 @@ Existen isomorfismos $\rho_i: K_i[X]/(f_i)\cong K_i(u_i)$ y vienen dados por $X 
 
 
 #+begin_definition
-*Cuerpo de descomposición*
+*Cuerpo de descomposición de un polinomio*
 Un cuerpo extensión $F\supset K$ se llama /cuerpo de descomposición de $f$ sobre $K$ sii existen $u_1\ldots u_n\in F$ tales que $f(X) = (X-u_1)\cdots (X-u_n)$, y $F = K(u_1,\ldots u_n)$. Es decir, esta última condición nos dice que es el menor cuerpo en que descompone el polinomio.
 #+end_definition
 
@@ -628,7 +634,7 @@ Sea $\sigma: K_1 \rightarrow K_2$ isomorfismo de cuerpos, $f_1\in K_1[X]$ y sea 
 
 
 #+begin_definition
-*Cuerpo de descomposición*
+*Cuerpo de descomposición de un conjunto de polinomios*
 Sea $\mathcal{F}\subset K[X]$ cualquier conjunto de polinomios no constantes. Una extensión $E/K$ se llama cuerpo de descomposición de $\mathcal{F}$ si es cuerpo de descomposición de cada uno de sus polinomios. Además $E = K(\{u\in F: \exists f\in \mathcal{F}, f(u)=0\})$
 \label{decomp-field}
 #+end_definition
@@ -639,7 +645,91 @@ Para todo conjunto de polinomios no constantes $\mathcal{F}\subset K[X]$ existe 
 \label{exist-decomp}
 #+end_theorem
 
+
+*** Clausura algebraica
+
+#+begin_fact
+*Caracterizaciones de cuerpos algebraicamente cerrados* 
+
+Sea $K$ un cuerpo. Los siguientes enunciados son equivalentes:
+
+1. Todo polinomio *no constante* $f\in K[X]$ tiene una raíz en $K$.
+2. Para todo $f\in K[X]$ existen $u_1, \ldots, u_n \in K$ tales que $f=a_n(X-u_1)\cdots (X-u_n)$
+3. Un polinomio $f\in K[X]$ es irreducible si y sólo si $gr(f) = 1$.
+4. Toda extensión algebraica de $K$ es trivial. Es decir, $K$ es la única extensión algebraica.
+#+end_fact
+
+Para demostrar $1\implies 2$ tenemos que podemos escribir $f = (X-u_1)f_1$ y $f_1=a_{n-1}X^{n-1} + \ldots + a_0$. Basta demostrar que los coeficientes de $f_1$ están en $K$ para aplicar inducción.
+
+La implicación de 2 a 3 es trivial.
+
+Veamos $3\implies 4$. Sea $E/K$ extensión algebraica $u\in K$. Entonces $f=Irr(u,K)$ es de grado 1. Por tanto $f=a(X-u)$ con $a, au\in K, lo que implica $$u\in K$.
+
+Veamos $4\implies 1$. Supongamos que existe un polinomio $f \in K[X]$ no constante. Por teorema de Kronecker, existe una extensión $F/K$ en la que $f$ tiene una raíz $u \in F$. Pero por hipótesis, $K = F$, luego $u\in K$.
+
+#+begin_fact
+Todo cuerpo algebraicamente cerrado es infinito
+#+end_fact
+
+Sea $K=\{u_1,\ldots u_n\}$ cuerpo finito. Entonces $K$ no puede ser algebraicamente cerrado puesto que el polinomio $f=(X-u_1)\cdots (X-u_n) + 1$ incumple la caracterización 2 de cuerpos algebraicos, ya que $f(u_i)=1\neq 0$
+
+#+begin_fact
+Sea $E/K$ extensión con $E$ algebraicamente cerrado. Entonces el conjunto de elementos de $E$ algebraicos sobre $K$ forman un cuerpo algebraicamente cerrado.
+#+end_fact
+
+(Esta proposición nos dice que podemos "reducir" el tamaño de la extensión algebraicamente cerrada)
+
+Sea $F$ el conjunto de elementos algebraicos sobre $K$ de $E$. $F$ es cuerpo. Sea $f\in F[X]$. Entonces existe $u\in E$ tal que $f(u) = 0$. Luego $u$ es algebraico sobre $F$...
+
+\label{algebraico}
+
+#+begin_definition
+*Clausura algebraica*
+
+Decimos que $E$ es clausura algebraica de $K$ si $E/K$ es una extensión algebraica y $E$ es algebraicamente cerrado.
+#+end_definition
+
+#+begin_definition
+*Caracterización clausura algebraica*
+1. $E$ es clausura algebraica de $K$.
+2. La extensión $E/K$ es algebraica y todo polinomio no constante $f\in K[X]$ descompone en factores lineales en $E[X]$
+3. $E$ es cuerpo de descomposición sobre $K$ de los polinomios de $K[X]$
+4. La extensión $E/K$ es algebraica y todo polinomio no constante tiene una raíz en $E$.
+#+end_definition
+
+1,2 y 4 equivalen por las proposiciones anteriores.
+
+Para probar la equivalencia entre 2 y 3. De 3 a 2 es trivial. Veamos $2\implies 3$
+
+LLamando $S=\{u\in E: \exists f\in K[X]: f(u)=0\}$. Como $E/K$ es algebraica, $S=E$, y $K(S)=E$. Luego $E$ es cuerpo de descomposición de los polinomios con coeficientes en $K$ sobre $K$.
+
+
+#+begin_fact
+Sea $E\supset F \supset K$ torre de cuerpos con $F/K$ algebraica. Entonces $E$ es clausura algebraica de $F$ si y sólo si $E$ es clausura algebraica de $K$.
+#+end_fact
+
+$E/F$ y $F/K$ son extensiones algebraicas si y solo si $E/K$ es extensión algebraica. el hecho de que todo polinomio de $e[x]$ descompone en $e[x]$ se mantiene en ambas implicaciones por tener que $E$ es clausura algebraica de un cuerpo.
+
 #+begin_theorem
+*Teorema de Steinitz*
+
+Para todo cuerpo $K$ existe una clausura algebraica $\bar{K}$
+#+end_theorem
+
+Es consencuencia del teorema de existencia de cuerpos de descomposición \ref{exist-decomp}
+
+
+#+begin_theorem
+*Isomorfía entre clausuras algebraicas*
+
+Dos clausuras algebraicas $E_1$ y $E_2$ del mismo cuerpo $K$ son isomorfas sobre $K$.
+#+end_theorem
+
+Consecuencia del teorema de isomorfía de cuerpos de descomposición.
+
+
+#+begin_theorem
+*Extensión a una clausura algebraica*
 Sea una torre de cuerpos $K\subset F\subset E$ con $E/K$ algebraica y sea $\bar{K}$ clausura algebraica de $K$. Entonces todo homomorfismo $\sigma : F\rightarrow \bar{K}$ sobre $K$ tiene una extensión $\tau : E\rightarrow \bar{K}$ (¡ojo! extensión del homomorfismo
 \label{zorn}
 #+end_theorem
@@ -652,6 +742,15 @@ Tomamos:
 $S$ es no vacío y es inductivamente ordenado por inclusión, considerando como orden la inclusión y la igualdad en la restricción de aplicaciones.
 
 Por lema de Zorn existe por tanto un elemento maximal $(E_1, \sigma_1)$. Supongamos $E_1\subsetneq E$ existe un $u\in E, u\neq E_1$ del que podemos tomar $f=Irr(u,K)$ (porque $E/K$ es algebraica) y por la proposición \ref{prev_zorn}, como todos los $\alpha_i$ mantienen $K$, llamando $f_1 = f_2 = f$ en dicha proposición, tengo que existen un a $\sigma_2 : E_1(u) \rightarrow (\sigma_1(E_1))(u)$ que extiende $\sigma_1' : E_1 \mapsto \sigma(E_1)$ y el par $(E_1(u), \sigma_2)$ sería entonces maximal, contradicción, luego $E_1 = E$ y $\tau = \sigma_1$.
+
+
+#+begin_fact
+*Cardinal clausura algebraica*
+Sea $K$ cuerpo, $\bar{K}$ su clausura algebraica.
+
+1. Si $K$ es finito, entonces su clausura es infinito numerable.
+2. Si $K$ es infinito, entonces su clausura tiene el mismo cardinal que $K$.
+#+end_fact
 
 
 *** Extensiones normales
