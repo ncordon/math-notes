@@ -330,15 +330,158 @@ Es el único porque si tenemos $I=(A)$, $I'=(A')$ entonces $A\subset A' \Leftrig
 
 *** TODO
 **** TODO \ref{fg-implies-finita} de dónde sale?
-
 **** TODO \ref{decomp-field} ¿Qué es exactamente $F$?
 **** TODO \ref{exist-decomp} Demostrar el teorema de existencia de cuerpos de descomposición.
 **** TODO Ejemplo X^p-t, pág 52 apuntes de Miranda, ¿criterio de Eisenstein?
-
 **** TODO ¿Es toda extensión algebraica un cuerpo de descomposición?
-
 **** TODO Raíz de un polinomio con coeficientes algebraicos, entonces es algebraico \ref{algebraico}
 **** TODO Mirarme demostraciones de cuerpos de descomposición
+
+**** TODO ¿Por qué en la resultante meto los coeficientes iniciales?
+
+
+*** Polinomios simétricos, resultante, discriminante
+
+**** Polinomios simétricos
+
+#+begin_definition
+*Polinomio simétrico*
+
+Un polinomio $f\in A[X_1, \ldots X_n]$ se llama simétrico si para toda $\sigma\in S_n$ se verifica $\sigma \cdot f = f$
+#+end_definition
+
+#+begin_lemma
+El conjunto de polinomios simétricos es subanillo de $A[X_1, \ldots X_n]$ que contiene al anillo $A$.
+#+end_lemma
+
+#+begin_definition
+En $A[X_1, \ldots X_n]$ se llaman polinomios simétricos a:
+
+\[s_1 = X_1 + \ldots + X_n\]
+\[s_2 = X_1 X_2 + X_1X_3 + \ldots X_{n-1}X_n\]
+\[s_n = X_1\cdot X_2 \cdots X_n\]
+#+end_definition
+
+#+begin_definition
+*Peso de un monomio*
+
+Sea $a X_1^{e_1}\cdots X_n^{e_n}$ monomio no nulo. Se llama peso del monomio a $e_1 + 2e_2 + \ldots + ne_n$
+#+end_definition
+
+Esta definición del peso está justificada por el teorema \ref{poly-fund} donde $X_i$ lo sustituimos por $s_i$ que es de grado $i$.
+
+#+begin_definition
+El peso de un polinomio es el mayor de los pesos de sus monomios.
+#+end_definition
+
+
+#+begin_theorem
+*Teorema fundamental de polinomios simétricos*
+
+Sea $A$ dominio de integridad y $f\in A[X_1, \ldots X_n]$ polinomio simétrico de grado $d$. Entonces existe un único $g\in A[X_1, \ldots X_n]$ de peso menor o igual que $d$, verificando:
+
+\[f(X(_1, \ldots X_n) = g(s_1, \ldots s_n)\]
+
+\label{poly-fund}
+#+end_theorem
+
+
+#+begin_theorem
+Sea $g\in A[X_1, \ldots X_n]$. Entonces $g(s_1, \ldots s_n)=0$ si y solo si $g(X_1, \ldots X_n) = 0$
+#+end_theorem
+
+
+**** Resultante
+
+La motivación de la resultante son los problemas de eliminación de la forma:
+
+Sean:
+
+\[f = a_n x^n + a_{n-1}x^{n-1} + \ldots a_0 \qquad a_0\neq 0\]
+\[g = b_m x^m + b_{m-1}x^{m-1} + \ldots b_0 \qquad b_0\neq 0\]
+
+¿tienen alguna raíz común en una extensión (o clausura) de $F$? La resultante será una expresión que se anula cuando $f$ y $g$ tienen una raíz común, y calculable como función racional de los coeficientes de ambos polinomios.
+
+#+begin_definition
+*Resultante*
+
+Sea $K$ cuerpo de descomposición para $fg$. En $K[X]$:
+
+\[f= a_n \prod_{i=1}^n(X-\alpha_i) \label{poly-simpl}\]
+\[g= b_m \prod_{j=1}^m(X-\beta_j)\]
+
+Definimos la resultante como:
+
+\[R(f,g) = a_n^m b_m^n \prod_{i=1}^n\prod_{j=1}^m (\alpha_i - \beta_j)\]
+#+end_definition
+
+
+#+begin_fact
+Se verifican las siguientes propiedades:
+
+1. $R(f,g) = 0 \Leftrightarrow$ $f,g$ tienen alguna raíz en común
+2. $R(g,f) = (-1)^{nm}R(f,g)$
+3. $R(f,g) = a_n^m \prod_{i=1}^n g(\alpha_i) = (-1)^{nm} b_m^n \prod_{j=1}^m f(\beta_j)$
+4. $R(fg,h) = R(f,h)R(g,h)$. Análogamente, $R(h,fg) = R(h,f)R(h,g)$
+5. $R(f,g) = b^n$ con $g=b$ escalar.
+6. $R(X^k,f) = a_0^k$ y $R(f,X^k) = (-1)^{nk}a_0^k$
+7. $g = fq +r$, entonces $R(f,g)=a_n^{gr(g)-gr(r)}R(f,r)$
+8. $R(f,g)$ es un polinomio simétrico en los $\alpha_i$ y las $\beta_j$
+9. $R(f,g)$ es un polinomio homogéneo en las $b_j$ y en las $a_i$
+#+end_fact
+
+Las demostraciones de 1,2,3,4,5 son obvias.
+
+6 se demuestra desde \ref{poly-simpl} haciendo $a_0 = f(0) = (-1)^n\prod_{i=1}^n \alpha_i$ y  $R(X^k, f) = a_n^k(\prod_{i=1}^n -\alpha_i)^k$ y sustituyendo. Para la segunda parte, basta aplciar el apartado 3.
+
+
+Para probar 7:
+
+\begin{align*}
+R(f,g) &= a_n^m\prod_{i=1}^n g(\alpha_i) = a_n^m \prod_{i=1}^n(f(\alpha_i)q(\alpha_i) + r(\alpha_i)) = \\ 
+&= a_n^m\prod_{i=1}^n r(\alpha_i) = a_n^{m-gr(r)}R(f,r)
+\end{align*}
+
+
+**** Discriminante
+
+Cuando $g=f'$. En este caso $R(f,f')=0 \Leftrightarrow f$ tiene raíces múltiples.
+
+\begin{align*}
+f &= a_n\prod_{i=1}^n(X-\alpha_i)\\
+f'&= a_n\sum_{j=1}^n \prod{i\neq j}^n(X-\alpha_i)
+\end{align*}
+
+Entonces:
+
+\[R(f,f') = a_n^{n-1} \prod_{j=1}^n f'(\alpha_j) = a_n^{2n-1} \prod_{j=1}^n \prod_{i\neq j}^n (\alpha_j - \alpha_i)\]
+
+
+#+begin_definition
+*Discriminante*
+
+LLamamos $f$ a $D(f)=a_n^{2n-2}\prod_{i<j}(\alpha_i-\alpha_j)^2$.
+#+end_definition
+
+#+begin_fact
+*Relación entre discrimiannte y resultante*
+
+Se verifica $R(f,f') = (-1)^\frac{n(n-1)}{2} a_n D(f)$.
+#+end_fact
+
+
+#+begin_fact
+\[R(f,g) = \left|\begin{array}{ccccccc}
+a_n    & a_{n-1}   & \ldots  & a_0    & 0       & \ldots  & 0 \\
+0      & a_n       & a_{n-1} & \ldots & a_0     & \ldots  & 0 \\
+\vdots & \vdots    & \vdots  & \vdots & \vdots  & \vdots  & \vdots \\
+0      & 0         & \ldots  & a_n    & a_{n-1} & \ldots  & a_0 \\
+b_m    & b_{m-1}   & \ldots  & b_0    & 0       & \ldots  & 0 \\
+0      & b_m       & b_{m-1} & \ldots & b_0     & \ldots  & 0 \\
+0      & 0         & \ldots  & b_m    & b_{m-1} & \ldots  & b_0
+\end{array}\right|\]
+#+end_fact
+
 
 *** Extensiones de cuerpos
 
@@ -944,6 +1087,105 @@ donde $\bar{K}$ es una clausura algebraica de $K$. Entonces:
 Sea $F/K$ extensión finita. Entonces $[F:K]_s$ divide a $[F:K]$.
 #+end_fact
 
+#+begin_fact
+*Caracterización de separabilidad*
+Sea $E/K$ *extensión finita*. La extensión $E/K$ es separable si y sólo si $[E:K]_s = [E:K]$
+#+end_fact
+
+
+#+begin_fact
+Sea $E\supset F\supset K$ torre de cuerpos con $E/K$ finita. Entonces $[E:K]_s = [E:K]$ si y solo si $[E:F]_s = [E:F]$ y $[F:K]_s = [F:K]$.
+#+end_fact
+
+
+#+begin_fact
+Sea $F/K$ extensión algebraica y $S\subset F$ tal que $F=K(S)$. Entonces la extensión $F/K$ es separable sii todo elemento es separable sobre $K$
+#+end_fact
+
+#+begin_fact
+1. Sea $E\supset F\supset K$ torre de cuerpos con $E/K$ *algebraica*. La extensión $E/K$ es separable sii lo son las extensiones $E/F$ y $F/K$
+2. Sean $E/K$ extensión algebraica separable y $F/K$ extensión arbitraria. Etnocnes $EF/F$ es separable.
+3. Sean $E/K, F/K$ dos extensiones algebraicas separables. Entonces $EF/K$ es separable.
+#+end_fact
+
+#+begin_corollary
+*La clausura normal de una extensión separable es separable*
+#+end_corollary
+
+#+begin_definition
+Definimos como clausura separable de $K$ cuerpo, y lo notamos como $K^{sep}$ al subcuerpo formado por todos los elementos de $\bar{K}$ separables sobre $K$ forman un subcuerpo de $\bar{K}$
+#+end_definition
+
+
+#+begin_theorem
+*Teorema del elemento primitivo*
+Sea $F/K$ extensión finita. La extensión es *simple* sii el conjunto de cuerpos intermedios $\{E: F\supset E\supset K\}$ es finito.
+
+Si una extensión $F/K$ es finita y separable, entonces es simple.
+#+end_theorem
+
+#+begin_definition
+*Endomorfismo de Frobenius*
+Sea $K$ un cuerpo de característica $p$. El homomorfismo $\phi : K\rightarrow K$ definido por $\phi(u) = u^p$ se llama endomorfismo de Frobenius del cuerpo $K$.
+#+end_definition
+
+
+#+begin_theorem
+*Caracterizaciones de cuerpos perfectos*
+
+Para un cuerpo $K$ son equivalentes:
+
+1. Todo polinomio $f\in K[X]$ irreducible tiene sólo raíces simples.
+2. Toda extensión algebraica es separable.
+3. Toda extensión finita es separable.
+4. $car(K)=0$ o $car(K) = p$ y el endomorfismo de Frobenius es sobreyectivo.
+
+En este caso el cuerpo se llama *cuerpo perfecto*
+#+end_theorem
+
+Las implicaciones $1\implies 2\implies 3$ son claras. Para la implicación $3\implies 1$, dado $f\in K[X]$ polinomio irreducible, con raíces $\alpha_1, \ldots \alpha_n$ en una extensión algebraica, $K(\alpha_1, \ldots \alpha_n)$ es finita, y 3 acaba.
+
+Como ejemplos: cuerpos de característica 0, cuerpos finitos, cuerpos algebraicamente cerrados.
+
+**** Derivada y raíces multiples
+
+#+begin_definition
+*Multiplicidad de raíces*
+
+Sea $f\in F[X]$ polinomio, $u\in F$ es raíz de $f$ de multiplicidad $k$ si $f=(X-u)^k f_1$ con $f_1(u)\neq 0$.
+
+El elemento $u$ es una raíz simple si $k=1$ y es una raíz múltiple si $k>1$.
+#+end_definition
+
+
+#+begin_definition
+*Derivada de un polinomio en un cuerpo $K$*
+
+Dado $f = \sum_{i=0}^n a_iX^i$ definimos la derivada de $f$ como:
+
+\[f' = \sum_{i=0}^n ia_iX^{i-1}\]
+#+end_definition
+
+#+begin_fact
+1. $(f+g)' = f' + g'$
+2. $(fg)' = f'g + fg'$
+3. $(f^m)' = mf^{m-1}f'$
+#+end_fact
+
+#+begin_corollary
+*Condiciones para que las raíces sean simples*
+1. $f$ irreducible, $f'\neq 0$. Entonces las raíces de $f$ son simples.
+2. $car(K)=0$ y $f$ irreducible sobre $K$. Entonces las raíces de $f$ son simples.
+3. $car(K)=p > 0$. El polinomio $f$ irreducible tiene raíces múltiples sii $f(X) = g(X^p)$
+#+end_corollary
+
+#+begin_definition
+*Polinomio separable*
+
+Un polinomio $f\in K[X]$ se llama separable sobre $K$ si sus factores irreducibles tienen solo raíces múltiples.
+#+end_definition
+
+
 *** Teoría de Galois
 
 #+begin_lemma
@@ -996,7 +1238,7 @@ Lo que entra en contradicción con el corolario anteriormente probado.
 #+begin_definition
 Para toda extensión finita $F/K$ llamamos *grupo de la extensión* al grupo:
 
-\[G(F/K) = \{\sigma\in Aut(F) | \forall u\in \quad F \sigma(u) = u\}\
+\[G(F/K) = \{\sigma\in Aut(F) | \forall u\in \quad F \sigma(u) = u\}\]
 #+end_definition
 
 #+begin_corollary
@@ -1007,7 +1249,7 @@ Trivial a partir del corolario anterior.
 
 #+begin_definition
 Sea $E$ cuerpo arbitrario y $G < Aut(E)$ subgrupo del grupo de automorfismos de $E$. Llamamos subcuerpo de $E$ fijo por $G$.
-\[E^{G} = \{u\in E|\forall \sigma \in G \sigma(u) = u\}\
+\[E^{G} = \{u\in E|\forall \sigma \in G \sigma(u) = u\}\]
 #+end_definition
 
 
@@ -1724,3 +1966,70 @@ Sea $f(X)\in K[X]$ un polinomio separable y $g$ un factor irreducible de $f$. ¿
 #+end_wording
 
 Sean $u,v$ raíces de $g$ en $E$ cuerpo de descomposición de $f$. Entonces como $K[X]/(Irr(u,K))=K[X]/(g)\cong K(u)$ y $K[X]/(Irr(v,K))=K[X]/(g)\cong K(v)$ dados por $X+(g)\mapsto u$ y $X+(g)\mapsto v$ respectivamente. Entonces existe un isomorfismo $\tau : K(u)\rightarrow K(v)$ verificando $\tau(u)=v$. Este isomorfismo puede extenderse a un automorfismo $\sigma : E\rightarrow E$ y por tanto tenemos un automorfismo que fija $K$ y que lleva una raíz en otra. Pero la elección de las raíces la hemos hecho arbitrariamente.
+
+
+*** Ejercicio 7.29
+
+#+begin_wording
+Sea $f(X) = X^4 + bX^2 + c\in \mathbb{Q}[X]$ un polinomio bicuadrático irreducible.
+
+1. Prueba que $Gal(\mathbb{Q}(f)/\mathbb{Q}$ es isomorfo a $V$, $C_4$ o $D_4$
+2. Se considera $n,m\in \mathbb{Q}$ tales que $n,m,nm$ no son cuadrados. Prueba que $Gal(\mathbb{Q}(\sqrt{n}, \sqrt{m})/\mathbb{Q})$ es isomorfo a $V$.
+3. Determina el polinomio $Irr(\sqrt{n}+\sqrt{m}, \mathbb{Q})$ y prueba que es un polinomio bicuadrático.
+4. (Opcional) Prueba que si $Gal(F/\mathbb{Q})\cong V$ entonces existen $n,m$ como en (1) verificando $F=\mathbb{Q}(\sqrt{n}, \sqrt{m})$
+5. Da ejemplos de polinomios bicuadráticos $f_i\in \mathbb{Q}[X]$ tales que:
+
+   \[Gal(\mathbb{Q}(f_1)/\mathbb{Q}) \cong V, \quad Gal(\mathbb{Q}(f_2)/\mathbb{Q})\cong C_4, \quad Gal(\mathbb{Q}(f_3)/\mathbb{Q}) \cong D_4\].
+6. Prueba que si $\sqrt{c}\in \mathbb{Q}$ entonces $Gal(\mathbb{Q}(f)/\mathbb{Q}) \cong V$
+7. Prueba que si $\sqrt{b^2-4c}\sqrt{c} \in \mathbb{Q}$, entonces $Gal(\mathbb{Q}(f)/\mathbb{Q}) \cong C_4$ (estos dos casos son excluyentes, ya que $\sqrt{b^2-4c}\notin \mathbb{Q}$).
+#+end_wording
+
+1. Por el ejercicio de la semana anterior, $G = Gal(\mathbb{Q}(f))/\mathbb{Q}$ es isomorfo a $S_4, A_4, V, C_4$ o $D_4$
+
+   Podemos identificar por tanto $G$ con uno de esos subgrupos. Además el polinomio será de la forma $f=(x^2-\alpha^2)(x^2-\beta^2)$ y tendrá por raíces $\{\alpha,-\alpha, \beta, -\beta\}$.
+
+   Dado $\sigma \in G$ se cumplirá $\sigma(-\alpha) = -\sigma(\alpha), \sigma(-\beta) = -\sigma(\beta)$. $S_4, A_4$ no verifican esta propiedad ya que $\sigma = (\alpha, \beta) \in S_4, A_4$, y se tendría por tanto $-\beta = \sigma(-\beta) = -\sigma(\beta) = -\alpha$, que contradiría el hecho del que $f$ es irreducible al tenerse $\alpha = \beta$ y por tanto $f=X^4-2\alpha^2 x^2+\alpha^4 = (x^2-\alpha^2)^2$ con $\alpha^2\in \mathbb{Q}$. Luego solo podemos tener isomorfía a $V$, $C_4$, o $D_4$
+
+2. Por las hipótesis $\mathbb{Q}(\sqrt{n}, \sqrt{m})$ es cuerpo de descomposición sobre $\mathbb{Q}$ del polinomio
+
+   \[(x^2-n)(x^2-m) = x^4 -(n+m)x^2 + nm = f\]
+
+   Por el apartado 1, $Q(f)$ es isomorfo a $V, C_4$ o $D_4$
+
+   Como $nm$ no es cuadrado tenemos $n\neq m$. Luego $\sigma = (\begin{array}{lccr}\alpha & -\alpha & \beta & -\beta\end{array}) \in C_4, D_4$ no puede estar en el grupo de Galois de $\mathbb{Q}(f)$ porque $\sigma(-\alpha) = \beta \neq -\sigma(\alpha) = \alpha$
+
+   Forzosamente $Gal(\mathbb{Q}(f)/\mathbb{Q}) = V$
+
+3. $\sqrt{n} + \sqrt{m}$ es raíz de $x^4 - 2(n+m)x^2 + (n-m)^2$ ya que:
+
+   \[x = \sqrt{m} + \sqrt{n}\implies x^2 = n+m + 2\sqrt{n}\sqrt{m} \implies (x^2-n-m)^2 = 4nm\implies \] 
+   \[\implies x^4 -2(n+m)x^2 + (n-m)^2 = 0\]
+   
+   El polinomio es irreducible ya que es de la forma $(x^2-(\sqrt{n}+\sqrt{m})^2)(x^2-a^2)$ y si tuviésemos $a^2\in\mathbb{Q}$ se tendría $a^2(m+n+2\sqrt{nm}) = (n-m)^2$, es decir:
+
+   \[2\sqrt{nm} = \frac{(n-m)^2}{a^2} - m -n\]
+
+   Lo que es contradicción porque $\sqrt{nm}$ es irracional.
+
+4. 
+
+5. Por el apartado 2, podemos tomar $f_1 = (x^2-2)(x^2-3) = x^4-5x^2+6$
+
+   Por el apartado 7, podemos tomar $f_2 = x^4 + 5x^2 + 5$, que es irreducible por criterio de Eisenstein y verifica $\sqrt{5^2-4\cdot 5}\sqrt{5} = 5\in \mathbb{Q}$
+
+   Podemos tomar $f_3 = x^4+3$, irreducible por criterio de Eisenstein.
+   Expresando $f_3 = (x^2-\alpha^2)(x^2-\beta^2)$, como $\sqrt{3}, \sqrt{-12}\sqrt{3} \notin \mathbb{Q}$ no estamos ni en el caso 6 ni 7. Estos elementos no quedan fijos por todos los automorfismos de $G = Gal(\mathbb{Q}(f_3)/\mathbb{Q})$, y la única posibilidad entonces es que $G\cong D_4$
+
+6. El polinomio bicuadrático lo podemos expresar de la forma $f = (x^2-\alpha^2)(x^2-\beta^2)$ con $\{\alpha, -\alpha, \beta, -\beta\}$ sus raíces.
+   
+   Como $\sqrt{c} = \alpha\beta\in \mathbb{Q}$  $\sigma = (\begin{array}{lccr}\alpha & -\alpha & \beta & -\beta\end{array}) \in C_4, D_4$ no puede estar en el grupo de Galois de $\mathbb{Q}(f)$ porque $\sigma(\alpha)^2 = \sigma(\alpha\alpha) = \alpha^2 = -\sigma(\alpha)\sigma(-\alpha) = \alpha\beta$. Pero esto implicaría que $\alpha^2 \in \mathbb{Q}$, y análogamente $\beta^2\in\mathbb{Q}$ y que $f$ no es irreducible.
+
+   Forzosamente $Gal(\mathbb{Q}(f)/\mathbb{Q}) = V$
+  
+7. Como se tiene $\sqrt{b^2-4c}\notin \mathbb{Q}$ y $\sqrt{b^2-4c}\sqrt{c}\in \mathbb{Q}$ se deduce $\sqrt{c}\notin \mathbb{Q}$ y no estamos en el caso 6.
+
+   Si tenemos $f = x^4+bx^2+c$ y llamamos $x^2=y$, tenemos $f=(x^2-\alpha^2)(x^2-\beta^2)$ $y = \frac{-b\pm\sqrt{b^2-4c}}{2}$, por tanto $\alpha^2-\beta^2 = \sqrt{b^2-4c}$, con $\alpha, \beta$ tomados convenientemente.
+
+   Por otro lado es obvio $\alpha^2\beta^2 = c$ mirando las dos expresiones de $f$.
+
+   Como $\sigma = (\alpha & \beta)(-\alpha -\beta) \in V, D_4$, y $\omega = \sqrt{c}\sqrt{b^2-4c} = \alpha\beta (\alpha^2-\beta^2) \in\mathbb{Q}$, tendríamos que $\sigma(\omega) = -\omega$ que es contradicción por estar $\omega$ en el cuerpo base, y no poder anularse, porque en ese caso $\sqrt{c} = 0$ o $\sqrt{b^2-4c}=0$ y eso es contradicción con que ninguno es racional y $\sigma$ automorfismo del grupo de Galois que mantiene el cuerpo base. 
