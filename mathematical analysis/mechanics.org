@@ -264,3 +264,64 @@ Llamamos $p$ al periodo y $c$ al momento angular.
 a. $A = \pi |a||b| = \pi |a|^2\sqrt{1-|e|^2}$
 b. $A = \frac{1}{2} \int_0^{p/2} |c| + \frac{1}{2} \int_{p/2}^{p} |c| = \frac{1}{2} p|c|$
    
+
+** Ejercicio 3.2
+
+#+begin_wording
+En un problema de 2 cuerpos que se mueven en un plano se tiene que :
+
+1. $m_1=2m_2, \quad x(0)=(1,0), x'(0)=(0,-\lambda), \quad y(0)=(-1,0), y'(0) = (0,\lambda)$
+2. $m_1=m_2, \quad x(0)=(1,0), x'(0)=(\lambda,0), \quad y(0)=(0,1), y'(0)=(\lambda,0)$
+
+describe el tipo de movimiento en ambos casos
+#+end_wording
+
+1.
+
+\[c_m(t) = \frac{m_1}{m_1+m_2}x(t)+\frac{m_2}{m_1+m_2}y(t)\]
+
+Sabemos $c'_m=0$ y por tanto $c_m(t)=\alpha+\beta t$
+
+Por tanto: $c_m(0) = \frac{2}{3}x(0) + \frac{1}{3}y(0) = (\frac{1}{3},0)$
+
+Análogamente: $c_m'(0) = \frac{2}{3}x'(0) + \frac{1}{3}y'(0) = (0,\frac{-\lambda}{3})$
+
+Así $c_m(t) =  (\frac{1}{3},0) + (0,\frac{-\lambda}{3}) t$
+
+
+
+Llamo $\bar{x}(t) = x(t)-c_m(t)$, $\bar{y}(t) = y(t)-c_m(t)$
+
+\begin{align*}
+c_{\bar{x}} &= \bar{x}(0)\wedge \bar{x}'(0) = (\frac{2}{3},0)\wedge (0, \frac{-4}{3}\lambda) = (0,0,\frac{-8}{9}\lambda)\\
+c_{\bar{y}} &= (0,0,\frac{-16}{9}\lambda)
+\end{align*}
+
+
+El movimiento es rectilíneo sii $\lambda = 0$
+
+
+Si $\lambda\neq 0$, $\bar{x}, \bar{y}$ se mueven en una cónica.
+
+$h_x = \frac{1}{2}|\bar{x}'(0)|^2 - \frac{m_2G}{|\bar{x}(0)|} = \frac{2}{3}\lambda - \frac{3}{2}m_2$
+
+** Ejercicio 3.5
+
+#+begin_wording
+Sea un par $(x,y): I\rightarrow \mathbb{R}^2$ una solución del problema de dos cuerpos con masas respectivas $m_1, m_2$. Su energía se define como sigue:
+
+Su energía se define como sigue:
+
+$E = G \frac{m_1 m_2}{|x(t)-y(t)|}$
+
+Probar que es constante.
+#+end_wording
+
+
+** Ejercicio 3.6
+
+#+begin_wording
+Sea un problema de dos cuerpos con centro de masas en el origen.
+
+¿Qué relación hay entre la expresión de la energía del ejercicio anterior y la suma de $E_x + E_y$?
+#+end_wording
