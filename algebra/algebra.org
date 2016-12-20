@@ -343,6 +343,7 @@ Es el único porque si tenemos $I=(A)$, $I'=(A')$ entonces $A\subset A' \Leftrig
 **** TODO [#A] Mirar ejemplo de cuerpo normal no separable.
 
 **** TODO [#B] Teorema del grado, extensiones de cuerpos
+**** TODO [#B] Teorema de Kronecker
 
 *** Polinomios simétricos, resultante, discriminante
 
@@ -749,7 +750,7 @@ Sea $f$ un polinomio de grado positivo sobre un cuerpo $K$. Entonces existe una 
 #+begin_definition
 *Extensión de homomorfismos*
 
-Sean $F_i/K_i$ dos extensiones de cuerpos y sean $\tau : F_1 \rightarrow F_2$ y $\sigma : K_1 \rightarrow K_2$ homomorfismos verificando $\tau(a) = \sigma(a)$. A $\tau$ lo llamamos *extensión de $\sigma$*. Si $\sigma = id$, lo llamamos *homomorfismo sobre $K$*
+Sean $F_i/K_i$ dos extensiones de cuerpos y sean $\tau : F_1 \rightarrow F_2$ y $\sigma : K_1 \rightarrow K_2$ homomorfismos verificando $\tau(a) = \sigma(a) \forall a\in A$. A $\tau$ lo llamamos *extensión de $\sigma$*. Si $\sigma = id$, lo llamamos *homomorfismo sobre $K$*
 #+end_definition
 
 
@@ -792,53 +793,88 @@ Existen isomorfismos $\rho_i: K_i[X]/(f_i)\cong K_i(u_i)$ y vienen dados por $X 
 
 #+begin_definition
 *Cuerpo de descomposición de un polinomio*
-Un cuerpo extensión $F\supset K$ se llama /cuerpo de descomposición de $f$ sobre $K$ sii existen $u_1\ldots u_n\in F$ tales que $f(X) = (X-u_1)\cdots (X-u_n)$, y $F = K(u_1,\ldots u_n)$. Es decir, esta última condición nos dice que es el menor cuerpo en que descompone el polinomio.
+
+Una extensión $F\supset K$ se llama cuerpo de descomposición de $f$ sobre $K$ sii existen $u_1\ldots u_n\in F$ tales que $f(X) = (X-u_1)\cdots (X-u_n)$, $a\in K$, y $F = K(u_1,\ldots u_n)$. Es decir, esta última condición nos dice que es el menor cuerpo en que descompone el polinomio.
 #+end_definition
 
 
 #+begin_fact
 *Cuerpo de descomposición sobre cuerpos intermedios*
-Sea $E\supset F\supset K$ torre de cuerpos tal que $$ es cuerpo de descomposición de un polinomio $f$ sobre $K$. Entonces $E$ es también cuerpo de descomposición de $f$ sobre $F$.
+
+Sea $E\supset F\supset K$ torre de cuerpos tal que $E$ es cuerpo de descomposición de un polinomio $f$ sobre $K$. Entonces $E$ es también cuerpo de descomposición de $f$ sobre $F$.
 #+end_fact
-
-
-#+begin_definition
-Sea $K$ cuerpo, $E/K$ extensión. $f(X)\in K[X]$ descompone en $E$ si en $E[X]$ se factoriza como: 
-\[f(X)=a(X-a_1)\cdots(X-a_n), \qquad a\in K, \quad a_1,\ldots a_n\in E\]
-
-Cada $(X-a_i)$ es un factor lineal.
-
-Si no existe $F$ verificando $K\subseteq F\subseteq E$ y que $f(X)$ descompone en $F[X]$, $E[X]$ se llama cuerpo de descomposición.
-
-Se deduce que $E=K(\alpha_1, \ldots, \alpha_n)$ donde $\alpha_i$ son raíces de $f(X)$ en $E[X]$. Por tanto todo polinomio $f(X)\in K[X]$ tiene un cuerpo de descomposición sobre $K$
-#+end_definition
 
 
 #+begin_theorem
 *Grado del cuerpo de descomposición*
-Un cuerpo de descomposición $F$ de un polinomio de grado $n$ sobre $K$ es de grado como mucho $n!$ sobre $K$. Si el grado es $n!$ entonces el polinomio es irreducible. El recíproco no se verifica.
+
+Un cuerpo de descomposición $F$ de un polinomio $f$ de grado $n$ sobre $K$ es de grado como mucho $n!$ sobre $K$. Si el grado es $n!$ entonces el polinomio es irreducible. El recíproco no se verifica.
 #+end_theorem
+
+La demostración la hacemos por inducción sobre $n$. Para $n=1$, tenemos que el cuerpo de descomposición de $f$ será el propio $K$.
+
+Supuesto cierto para un polinomio de hasta grado $n-1$, y sea $f$ polinomio de grado $n$ sobre $K$. Sean $\{u_1, \ldots u_n\}$ raíces de $f$ en $F$. Podemos tomar $K(u_1)$ extensión de $K$ donde se verifica $f(u_1)=0$. Descompongo $f=(X-u_1)g$ y por hipótesis de inducción el cuerpo de descomposición $F$ de $g$ sobre $K_1=K(u_1)$ tiene grado menor o igual a $(n-1)!$.
+
+Por tanto: $[F:K] = [F:K_1][K_1:K] \le (n-1)! n = n!$
+
+Si se tiene la igualdad, $[K_1:K] = gr(Irr(u_1, K)) = n = gr(f)$ y por tanto $f$ debe ser irreducible, puesto que $u_1$ es raíz suya.
 
 El recíproco no se verifica en el caso de $(X^2-2)(X^2-3)\in \mathbb{Q}(X)$ que es irreducible, pero su cuerpo de descomposición es $\mathbb{Q}(\sqrt{2}, \sqrt{3})$ que tiene grado 4.
 
 #+begin_theorem
 *Extensión a cuerpos de descomposición*
-Sea $\sigma: K_1 \rightarrow K_2$ isomorfismo de cuerpos, $f_1\in K_1[X]$ y sea $f_2 = \sigma(f_1)$. Sea $F_i$ cuerpo de descomposición de $f_i$ sobre $K_i$. Entonces existe un isomorfismo $\tau : F_1 \rightarrow F_2$ que es una extensión de $\sigma$. De aquí se deuce que dos cuerpos de descomposición de un $f\in K[X]$ son isomorfos.
+
+Sea $\sigma: K_1 \rightarrow K_2$ isomorfismo de cuerpos, $f_1\in K_1[X]$ y sea $f_2 = \sigma(f_1)$. Sea $F_i$ cuerpo de descomposición de $f_i$ sobre $K_i$. Entonces existe un isomorfismo $\tau : F_1 \rightarrow F_2$ que es una extensión de $\sigma$. De aquí se deduce que dos cuerpos de descomposición de un $f\in K[X]$ son isomorfos.
+
+\label{iso-fin-decomp}
 #+end_theorem
 
+Por inducción sobre el grado de $f_1$, que se conserva por $\sigma$, por ser este isomorfismo. Para $gr(f_1)=1$ tomamos $\sigma = \tau$.
+
+Suponemos el resultado cierto para un polinomio de grado hasta $n-1$, y sea $f=(X-u_1)\cdots (X-u_n)$  en $F_1$. Tomamos $g=Irr(u_1,K)$ y existe $\tau: K_1(u_1) \rightarrow K_2(f(u_1))$ isomorfismo extensión de $\sigma$ por la proposición \ref{prev_zorn}. Aplicándole hipótesis de inducción a $f/(X-u_1)$ que es de grado $n-1$ sobre $K_1(u_1)$ y a $\tau$ llegamos al resultado buscado.
 
 #+begin_definition
 *Cuerpo de descomposición de un conjunto de polinomios*
+
 Sea $\mathcal{F}\subset K[X]$ cualquier conjunto de polinomios no constantes. Una extensión $E/K$ se llama cuerpo de descomposición de $\mathcal{F}$ si es cuerpo de descomposición de cada uno de sus polinomios. Además $E = K(\{u\in F: \exists f\in \mathcal{F}, f(u)=0\})$
 \label{decomp-field}
 #+end_definition
 
+
 #+begin_theorem
 *Existencia de cuerpo de descomposición*
+
 Para todo conjunto de polinomios no constantes $\mathcal{F}\subset K[X]$ existe un cuerpo de descomposición sobre $K$
 \label{exist-decomp}
 #+end_theorem
 
+
+Si el cardinal $\mathcal{F}$ es finito, tomo el cuerpo de descomposición sobre $K$ de $\prod_{f\in \mathcal{F}} f$
+Caso opuesto, con $\mathcal{F} = \{f_i : i\in I\}$ tomamos comamos para cada $J\subset I$ finito $F_J$ cuerpo de descomposición de $\{f_j : j\in J\}$. Ahora tomamos $\mathcal{F} = \cup_{J\subset I\quad finito} F_J$ ya que un $f\in \mathcal{F}$ arbitrario, tomando el tamaño de $I$ convenientemente grande, tendrá todas sus raíces en $F_I$.
+
+También es claro en este último caso que $E=K(\{u\in F: \exists f\in \mathcal{F}, f(u)=0\}$
+
+
+#+begin_theorem
+*Isomorfía entre cuerpos de descomposición*
+
+Cualesquiera dos cuerpos de descomposición sobre $K$ de un conjunto $\mathcal{F}$ de polinomios son isomorfos por un isomorfismo sobre $K$.
+#+end_theorem
+
+Por teorema \ref{iso-fin-decomp}, en el caso $\mathcal{F}$ finito, tenemos el resultado, tomando el producto de todos los polinomios de $\mathcal{F}$, del que el mismo es cuerpo de descomposición.
+
+
+Sea $\mathcal{F}$ arbitrario. Tomo $\sigma = id_K$
+
+Tomamos $\epsilon = \{(E,\tau):F_1 \supset E \supset K, \tau$ extensión de $\sigma$ a $F_1$ y a $F_2$ respectivamente $\}$
+
+Ordenamos los pares $(E,\tau)\in \epsilon$ por inclusión del primer elemento y extensión del segundo, tomando como hipótesis que siempre extiendo igual.
+
+Las extensiones $E/K$ finitas están en ese conjunto, por tenerse que si $E=K(S)$, $S=\{u_1, \ldots u_n\}$ conjunto finito, puedo tomar $f = \prod_{i=1}^nIrr(u_i, K)$ que existe por ser extensión finita luego algebraica, y tendría que $E$ es cuerpo de descomposición de $f$ y un isomorfismo $E\rightarrow E$ que extiende a $id_K$
+
+Sea $(F,\sigma)$ elemento maximal. Si $F\subsetneq F_1$, existiría una extensión de $\sigma$ a algún $F(u)$ con $u\in F_1\setminus F$, lo que contradiría el carácter maximal del elemento.
+
+Como $F_1 = K(\{u\in F_1: f(u)=0, f\in\mathcal{F}\})$, y $\sigma$ se lleva raíces de un polinomio en raíces de ese mismo polinomio, tenemos que $\sigma$ es sobreyectiva.
 
 *** Clausura algebraica
 
@@ -865,7 +901,7 @@ Veamos $4\implies 1$. Supongamos que existe un polinomio $f \in K[X]$ no constan
 Todo cuerpo algebraicamente cerrado es infinito
 #+end_fact
 
-Sea $K=\{u_1,\ldots u_n\}$ cuerpo finito. Entonces $K$ no puede ser algebraicamente cerrado puesto que el polinomio $f=(X-u_1)\cdots (X-u_n) + 1$ incumple la caracterización 2 de cuerpos algebraicos, ya que $f(u_i)=1\neq 0$
+Sea $K=\{u_1,\ldots u_n\}$ cuerpo finito. Entonces $K$ no puede ser algebraicamente cerrado puesto que el polinomio $f=(X-u_1)\cdots (X-u_n) + 1$ incumple la caracterización 2 de cuerpos algebraicos, por ser $f(u_i)=1\neq 0$
 
 #+begin_fact
 Sea $E/K$ extensión con $E$ algebraicamente cerrado. Entonces el conjunto de elementos de $E$ algebraicos sobre $K$ forman un cuerpo algebraicamente cerrado.
@@ -893,16 +929,22 @@ Decimos que $E$ es clausura algebraica de $K$ si $E/K$ es una extensión algebra
 
 1,2 y 4 equivalen por las proposiciones anteriores.
 
-Para probar la equivalencia entre 2 y 3. De 3 a 2 es trivial. Veamos $2\implies 3$
+Para probar la equivalencia entre 2 y 3: 
 
-LLamando $S=\{u\in E: \exists f\in K[X]: f(u)=0\}$. Como $E/K$ es algebraica, $S=E$, y $K(S)=E$. Luego $E$ es cuerpo de descomposición de los polinomios con coeficientes en $K$ sobre $K$.
+De 3 a 2 se prueba con 4 de la caracterización de cuerpos algebraicamente cerrados. 
+
+Veamos $2\implies 3$. LLamando $S=\{u\in E: \exists f\in K[X]: f(u)=0\}$. Como $E/K$ es algebraica, $S=E$, y $K(S)=E$. Luego $E$ es cuerpo de descomposición de los polinomios con coeficientes en $K$ sobre $K$.
 
 
 #+begin_fact
 Sea $E\supset F \supset K$ torre de cuerpos con $F/K$ algebraica. Entonces $E$ es clausura algebraica de $F$ si y sólo si $E$ es clausura algebraica de $K$.
 #+end_fact
 
-$E/F$ y $F/K$ son extensiones algebraicas si y solo si $E/K$ es extensión algebraica. el hecho de que todo polinomio de $e[x]$ descompone en $e[x]$ se mantiene en ambas implicaciones por tener que $E$ es clausura algebraica de un cuerpo.
+$E/F$ y $F/K$ son extensiones algebraicas si y solo si $E/K$ es extensión algebraica.
+
+Si $E/F$ es clausura algebraica, todo polinomio de $F[X]$ descompone en $E[X]$, y en particular todo polinomio de $K[X]$, luego $E/K$ es algebraicamente cerrada y algebraica, luego clausura algebraica.
+
+Si $E/K$ es clausura algebraica, supongamos que existe $f\in F[X]$ tal que $f$ no tiene raíces en $E$, esto es $E/F$ no es algebraicamente cerada, pero sí algebraica por un argumento anterior. Por teorema de Kronecker habría una extensión $E'$ en la que $f$ tendría una raíz $u$, y por tanto $E(u)$ sería una extensión algebraica de $K$, lo que contradice que $E/K$ sea clausura algebraica.
 
 #+begin_theorem
 *Teorema de Steinitz*
@@ -924,7 +966,7 @@ Consecuencia del teorema de isomorfía de cuerpos de descomposición.
 
 #+begin_theorem
 *Extensión a una clausura algebraica*
-Sea una torre de cuerpos $K\subset F\subset E$ con $E/K$ algebraica y sea $\bar{K}$ clausura algebraica de $K$. Entonces todo homomorfismo $\sigma : F\rightarrow \bar{K}$ sobre $K$ tiene una extensión $\tau : E\rightarrow \bar{K}$ (¡ojo! extensión del homomorfismo)
+Sea una torre de cuerpos $K\subset F\subset E$ con $E/K$ algebraica y sea $\bar{K}$ clausura algebraica de $K$. Entonces todo homomorfismo $\sigma : F\rightarrow \bar{K}$ sobre $K$ tiene una extensión $\tau : E\rightarrow \bar{K}$ 
 \label{zorn}
 #+end_theorem
 
@@ -954,8 +996,8 @@ Sean $u,v\in\bar{K}$.Los siguientes enunciados equivalen:
 
 1. $Irr(u,K) = Irr(v,K)$
 2. Existe isomorfismo $\tau : K(u)/K \rightarrow K(v)/K$ tal que $\tau(u) = v$
-3. Existe homomorfismo $\alpha_1 : K(u)/K \rightarrow \bar{K}/K$ tal que $\sigma(u)=v$
-4. Existe un automorfismo $\alpha: \bar{K}/K \rightarrow \bar{K}/K$ tal que $\sigma(u) = v$ 
+3. Existe homomorfismo $\sigma : K(u)/K \rightarrow \bar{K}/K$ tal que $\sigma(u)=v$
+4. Existe un automorfismo $\sigma: \bar{K}/K \rightarrow \bar{K}/K$ tal que $\sigma(u) = v$ 
 
 \label{norm_extension}
 #+end_fact
@@ -968,9 +1010,9 @@ Donde llevamos $u\mapsto p(x)$ y $v\mapsto p(x)$ en los isomorfismos correspondi
 
 *$2\Rightarrow 3$* Componemos $i\circ \tau$
 
-*$3\Rightarrow 4$* implica que si tenemos $p(x)$ irreducible tal que $p(u)=0$. Entonces $\sigma(p(x))=p(x)$ y $p(v) = \sigma(p(v)) = 0$
+*$3\Rightarrow 4$* por el teorema \ref{zorn} 
 
-*$4\Rightarrow 1$* por el teorema \ref{zorn} 
+*$4\Rightarrow 1$* implica que si tenemos $p(x)$ irreducible tal que $p(u)=0$. Entonces $\sigma(p(x))=p(x)$ y $p(v) = \sigma(p(v)) = 0$
 
 #+begin_definition
 Dos elementos $u,v \in \bar{K}$ se llaman conjugados sobre $K$ si verifican las propiedades de la proposición anterior.
@@ -980,33 +1022,34 @@ Dos elementos $u,v \in \bar{K}$ se llaman conjugados sobre $K$ si verifican las 
 Sean $F_1/K, F_2/K$ dos extensiones algebraicas. Equivalen:
 
 1. Existe un isomorfismo $\sigma : F_1 \rightarrow F_2$ sobre $K$.
-2. Existe un homomorfismo $\sigma_1: F_1 \rightarrow \bar{K}$ sobre $K$ tal que $\sigma_1(F_1)=F_2$
-3. Existe un isomorfismo $\sigma_2: \bar{K} \rightarrow \bar{K}$ sobre $K$ tal que $\sigma_2(F_1)=F_2$.
+2. Existe un homomorfismo $\sigma: F_1 \rightarrow \bar{K}$ sobre $K$ tal que $\sigma(F_1)=F_2$
+3. Existe un isomorfismo $\sigma: \bar{K} \rightarrow \bar{K}$ sobre $K$ tal que $\sigma(F_1)=F_2$.
 #+end_fact
 
-$1 \implies 2$ trivialmente, y $3 \implies 1$, componiendo $i$ en el primer caso, y restringiendo $F_1$
+$1 \implies 2$ trivialmente, y $3 \implies 1$, componiendo $i$ en el primer caso, y restringiendo a $F_1$
 
 La implicación $2\implies 3$ viene dada por \ref{zorn} y \ref{conds-isomorfismo}
 
 #+begin_definition
 *Extensiones conjugadas*
 
-Dos extensiones $F_1/K$ y  $F_2/K$ se llaman conjugadas si verifican las propiedades de la proposición anterior.
+Dos extensiones $F_1/K$ y  $F_2/K$ algebraicas se llaman conjugadas si verifican las propiedades de la proposición anterior.
 #+end_definition
 
+Por la proposición anterior, deducimos que las raíces de un polinomio son conjugadas entre sí.
 
 #+begin_theorem
 Sea $F/K$ una extensión algebraica, con $F$ subcuerpo de $\bar{K}$.Equivalen.
-1. $\sigma : F\rightarrow \bar{K}$ homomorfismo sobre $K$, entonces $\sigma(F)=F$
+1. Para todo $\sigma : F\rightarrow \bar{K}$ homomorfismo sobre $K$, entonces $\sigma(F)=F$
 2. Todo polinomio irreducible de $K[X]$ con una raíz en $F$ descompone en factores lineales en $F[X]$.
 3. $F$ es el cuerpo de descomposición sobre $K$ de una familia de polinomios de $K[X]$
 #+end_theorem
 
 Para la implicación $1\implies 2$, las raíces de un polinomio irreducible $u,v$ son conjugadas con $u\in F$, luego existe un homomorfismo $\sigma_1: K(u) \rightarrow \bar{K}$ verificando $\sigma_1(u)=v$, pero como por el primer punto, $\sigma_1(F) = F$, entonces $v\in F$
 
-Para $2\implies 3$ tenemos que podemos coger como familia todos los polinomios irreducibles de $K[X]$ con una raíz en $F$, y es todo $F$ porque para cada elemento de $F$ podemos coger su polinomio irreducible.
+Para $2\implies 3$ podemos tomar que $F$ es el cuerpo de descomposición de la familia de polinomios $\{Irr(u,K): u\in F\}$
 
-Para $3\implies 1$, tenemos que todo elemento $k\in F$ está en la clausura algebraica, porque la clausura algebraica contiene más elementos que $F$ al ser el cuerpo de descomposición de *todos* los polinomios de $K[X]$, luego $k$ tiene un polinomio irreducible $f$ en $K$, al estar en la clausura. $\sigma$ por tanto se lleva raíces de $f$ en raíces de $f$ por tener que $F$ será por 3 cuerpo de descompoisición de $f$. Luego $\sigma(F)\subset F$ y tenemos un homomorfismo $\sigma: F \rightarrow F$ con $F$ extensión algebraica, luego por \ref{conds-isomorfismo} es isomorfismo y $\sigma(F)=F$
+Para $3\implies 1$, sea $F=K(S)$ con $S\subset F$. Para $u\in S$, $\sigma(Irr(u,K)) = Irr(u,K)$. Es decir, los elementos de $F$ se los lleva en elementos de $F$ y $\sigma(F)\subset F$. Pero eso quiere decir que la familia de polinomios descompone en $\sigma(F)$, luego $F=\sigma(F)$
 
 #+begin_definition
 Una extensión $F/K$ se llama normal si verifica las propiedades de la proposición anterior.
