@@ -345,6 +345,7 @@ Es el único porque si tenemos $I=(A)$, $I'=(A')$ entonces $A\subset A' \Leftrig
 **** TODO [#B] Teorema del grado, extensiones de cuerpos
 **** TODO [#B] Teorema de Kronecker
 
+
 *** Polinomios simétricos, resultante, discriminante
 
 **** Polinomios simétricos
@@ -876,6 +877,7 @@ Sea $(F,\sigma)$ elemento maximal. Si $F\subsetneq F_1$, existiría una extensi�
 
 Como $F_1 = K(\{u\in F_1: f(u)=0, f\in\mathcal{F}\})$, y $\sigma$ se lleva raíces de un polinomio en raíces de ese mismo polinomio, tenemos que $\sigma$ es sobreyectiva.
 
+
 *** Clausura algebraica
 
 #+begin_fact
@@ -1028,7 +1030,7 @@ Sean $F_1/K, F_2/K$ dos extensiones algebraicas. Equivalen:
 
 $1 \implies 2$ trivialmente, y $3 \implies 1$, componiendo $i$ en el primer caso, y restringiendo a $F_1$
 
-La implicación $2\implies 3$ viene dada por \ref{zorn} y \ref{conds-isomorfismo}
+La implicación $2\implies 3$ viene dada por teorema \ref{zorn} y el corolario \ref{conds-isomorfismo}
 
 #+begin_definition
 *Extensiones conjugadas*
@@ -1049,10 +1051,12 @@ Para la implicación $1\implies 2$, las raíces de un polinomio irreducible $u,v
 
 Para $2\implies 3$ podemos tomar que $F$ es el cuerpo de descomposición de la familia de polinomios $\{Irr(u,K): u\in F\}$
 
-Para $3\implies 1$, sea $F=K(S)$ con $S\subset F$. Para $u\in S$, $\sigma(Irr(u,K)) = Irr(u,K)$. Es decir, los elementos de $F$ se los lleva en elementos de $F$ y $\sigma(F)\subset F$. Pero eso quiere decir que la familia de polinomios descompone en $\sigma(F)$, luego $F=\sigma(F)$
+Para $3\implies 1$, sea $F=K(S)$ con $S\subset F$. Para $u\in S$, $\sigma(Irr(u,K)) = Irr(u,K)$. Es decir, los elementos de $F$ se los lleva en elementos de $F$ y $\sigma(F)\subset F$. Pero entonces tenemos un homomorfismo de cuerpos $\sigma : F\rightarrow F$, luego es automorfismo.
 
 #+begin_definition
-Una extensión $F/K$ se llama normal si verifica las propiedades de la proposición anterior.
+*Extensión normal*
+
+Una extensión $F/K$ algebraica se llama normal si verifica las propiedades de la proposición anterior.
 #+end_definition
 
 Nótese la diferencia con la definición dada en clase, donde se definía una extensión normal como una extensión finita. Con la definición que hemos dado aquí, $\mathbb{Q}(\sqrt{2}, \sqrt{3}, \sqrt{5}, \ldots, \sqrt{7}, \ldots)$ es una extensión infinita y normal.
@@ -1067,25 +1071,27 @@ Nótese la diferencia con la definición dada en clase, donde se definía una ex
 \label{props-normales}
 #+end_fact
 
-1. La extensión $EF/F$ es normal ya que dado un homomorfismo $\sigma: EF/F \sigma \bar{K}/F$ puedo restringirlo a $E$ y por ser $E$ normal, como $\sigma_{|E}$ fija $K$, entonces debe fijar $E$ (caracterización de normal). Luego $\sigma$ fija $E,F$, y por tanto fija $EF$.
-2. Cualquier homomorfismo que fija $F$ fija también $K$ y por ser $E/K$ normal, fijará $E$, luego $E/F$ es normal.
+1. La extensión $EF/F$ es normal ya que dado un homomorfismo $\sigma: EF/F \rightarrow \bar{K}/F$ puedo restringirlo a $E$ y por ser $E$ normal, como $\sigma_{|E}$ fija $K$, entonces debe fijar $E$ (caracterización de normal). Luego $\sigma$ fija $E,F$, y por tanto fija $EF$.
+2. Por restricción de cualquier homomorfismo a $K$
 3. Dado un homomorfismo $F_1 F_2/K \rightarrow \bar{K}/K$ al restringirlo a $F_i$, debe fijar $F_i$, por ser $F_i/K$ normal, luego fija $F_1F_2$
-4. Dado un homomorfismo $E/K \rightarrow $\bar{K}/K$ lo puedo extender a $\bar{K}$ y restringirlo a $F_\lambda$ para todo $\lambda$ y fijaría $F_\lambda$ por ser $F_\lambda/K$ normal, luego fijaría la intersección.
+4. Dado un homomorfismo $E/K \rightarrow \bar{K}/K$ lo puedo extender a $\bar{K}$ y restringirlo a $F_\lambda$ para todo $\lambda$ y fijaría $F_\lambda$ por ser $F_\lambda/K$ normal, luego fijaría la intersección.
 
 #+begin_definition
 *Clausura normal*
 
-Sea $F/K$ extensión algebraica arbitraria. LLamamos /clausura normal/ de $F/K$ a la extensión $E/K$ donde:
+Sea $F/K$ extensión algebraica arbitraria. LLamamos clausura normal de $F/K$ a la extensión $E/K$ donde:
 
 \[E=\cap\{F_1 : F_1\supset F, F_1/K \quad normal\}\]
 
-La estamos definiendo como la menor extensión normal y *existe* porque la clausura algebraica es normal.
+La estamos definiendo como la menor extensión normal y *existe* porque la clausura algebraica es normal (por la primera caracterización de normalidad, dado un homomorfismo $\sigma : \bar{K} \rightarrow \bar{K}$ tendríamos que es sobreyectivo por ser homomorfismo de cuerpos con mismo espacio de salida y entrada).
 #+end_definition
 
-NOTA: hay que percatarse que la definición es para una extensión, no para un cuerpo.
+NOTA: hay que percatarse que la definición es para una extensión, no para un cuerpo. Si la extensión es normal, su clausura normal coincide con ella misma.
 
 #+begin_theorem
-Dos clausuras algebraicas $E_1, E_2$ del mismo cuerpo $K$ son isomorfas sobre $K$.
+*Isomorfía de clausuras normales*
+
+Dos clausuras normales $E_1, E_2$ del mismo cuerpo $K$ son isomorfas sobre $K$.
 #+end_theorem
 
 #+begin_fact
@@ -1094,7 +1100,7 @@ Sea $K\subset F\subset E$ una torre de cuerpos tal que la extensión $E/K$ es no
 
 Tomo $\sigma_1 = i\circ \sigma : F\rightarrow \bar{K}$.
 
-Extiendo por \ref{zorn} a un isomorfismo $\sigma_2 : E \rightarrow \bar{K}$ por ser $E/K$ algebraica, y por tanto $E/F$ algebraica.
+Extiendo por \ref{zorn} a un isomorfismo $\sigma_2 : E \rightarrow \bar{K}$ por ser $E/K$ algebraica, y por tanto $E/F$ algebraica. Estamos usando que la extensión es normal porque de esa forma la imagen del homomorfismo es $E$
 
 
 #+begin_fact
@@ -1105,8 +1111,9 @@ Sea $F=K(u_1,\ldots u_n)$ una extensión finita y sea $f_i = Irr(u_i,K)$ para $i
 
 $E/K$ es normal por la caracterización 3 de extensiones normales (es cuerpo de descomposición de un polinomio). Veamos que es la mínima extensión normal.
 
-Sea $N/K$ clausura normal de $F/K$. Entonces debe contener a los $u_i$ y por tanto las raíces de los $f_i$ deberían estar en $N/K$, y descomponer ahí por segunda caracterización de extensión normal. Ello me dice que el cuerpo de decomposición debe ser $N\subset E$, que unido a lo anterior me da el resultado buscado.
+Sea $N/K$ clausura normal de $F/K$. Entonces debe contener a los $u_i$ y los $f_i$ descomponem ahí por segunda caracterización de extensión normal. Ello me dice que el cuerpo de decomposición debe ser $N\subset E$, que unido a lo anterior me da el resultado buscado.
 
+Es extensión finita porque su grado está acotado por la suma de los grados de los $f_i$.
 
 #+begin_definition
 *Polinomio normal*
@@ -1117,6 +1124,7 @@ Sea $f\in K[X]$ polinomio irreducible. Decimos que $f$ es /polinomio normal/ sob
 
 #+begin_fact
 *Caracterización de polinomios normales*
+
 Sea $f$ un polinomio irreducible en $K[X]$. Los siguientes enunciados son equivalentes:
 
 1. El polinomio $f$ es normal sobre $K$.
@@ -1150,13 +1158,17 @@ Una extensión algebraica $F/K$ se llama separable si todo elemento de $F$ es se
 Sea $E\supset F\supset K$ torre de cuerpos tal que $E/K$ es extensión separable. Entonces $E/F$ y $F/K$ son extensiones separables.
 #+end_fact
 
-$F/K$ es separable, por tener menos elementos que $E$. $E/F$ es separable porque $Irr(u,F)|Irr(u,K)$ y $Irr(u,K)$ no tiene raíces múltiples, pero $Irr(u,F)$ sí.
+$F/K$ es separable, por tener menos elementos que $E$. $E/F$ es separable porque $Irr(u,F)|Irr(u,K)$ y $Irr(u,K)$ no tiene raíces múltiples, luego $Irr(u,F)$ tampoco.
 
-NOTA: Pongamos un ejemplo de cuerpo normal no separable.
+Pongamos un ejemplo de cuerpo normal no separable.
 
 \[\mathbb{Z}_p(t^p)(t) \supset \mathbb{Z}_p(t^p)\]
 
 con $p$ primo y $t$ trascendente sobre $\mathbb{Z}_p$
+
+Tenemos que es extensión normal, por tenerse que $\mathbb{Z}_p(t^p)(t)$ es cuerpo de descomposición de $(X^p-t^p) = (X-t)^p$. 
+
+Y no es separable puesto que 4$Irr(t, \mathbb{Z}_p) = (X-t)^p$ con raíces repetidas. Para demostrar esto último, supongamos $gr(Irr(t, \mathbb{Z}_p))=m < p$. Entonces se tendría $(X-t)^m$ = f(t^p)$, lo que negaría que $t$ fuera transitivo sobre $\mathbb{Z}_p$
 
 #+begin_definition
 *Grado separable*
@@ -1179,17 +1191,36 @@ LLamamos *grado separable* de $F$ sobre $K$ al conjunto:
 donde $\bar{K}$ es una clausura algebraica de $K$. Entonces:
 
 \[[E:K]_s = [E:F]_s[F:K]_s\]
+
+\label{degree-separable}
 #+end_fact
 
 
 #+begin_fact
-Sea $F/K$ extensión finita. Entonces $[F:K]_s$ divide a $[F:K]$.
+Sea $F/K$ *extensión finita*. Entonces $[F:K]_s$ divide a $[F:K]$.
 #+end_fact
 
 #+begin_fact
 *Caracterización de separabilidad*
+
 Sea $E/K$ *extensión finita*. La extensión $E/K$ es separable si y sólo si $[E:K]_s = [E:K]$
 #+end_fact
+
+Por inducción sobre el grado de la extensión. Si $[E:K]=1$ se cumple trivialmente.
+
+Supuesto cierto para extensiones de hasta grado $n-1$:
+
+Si $E/K$ es separable debe tenerse $E/K(u), K(u)/K$ separables y por hipótesis de inducción 
+
+\[[E:K] = [E:K(u)][K(u):K] = [E:K(u)]_s[K(u):K]_s = [E:K]_s\]
+
+Supuesto $[E:K]_s = [E:K]$ entonces dado $u\in F\setminus K$, 
+
+$[E:K(u)][K(u):K] = [E:K(u)]_s[K(u):K]_s$ y por la proposición anterior $[E:K(u)]_s \le [E:K(u)]$ y $[K(u):K]_s \le [K(u):K]$ deberíamos tener la igualdad
+
+Entonces $Irr(u,K)$ no podría tener raíces múltiples, porque en ese caso el grado de separabilidad sería menor que $[K(u):K]$ porque tendríamos menos formas de permutar las raíces para obtener homomorfismos $K(u)/K \rightarrow \bar{K}/K$ distintos.
+
+Luego todo polinomio irreducible sobre $K$ tiene raíces únicas.
 
 
 #+begin_fact
