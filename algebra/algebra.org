@@ -10,7 +10,7 @@
 #+latex_header: \usepackage{amsthm}
 #+latex_header: \newtheorem{theorem}{Teorema}
 #+latex_header: \newtheorem{fact}{Proposición}
-#+latex_header: \newtheorem{lemma}{Proposición}
+#+latex_header: \newtheorem{lemma}{Lema}
 #+latex_header: \newtheorem{corollary}{Corolario}
 #+latex_header: \newtheorem*{definition}{Definición}
 #+latex_header: \setlength{\parindent}{0pt}
@@ -340,6 +340,10 @@ Es el único porque si tenemos $I=(A)$, $I'=(A')$ entonces $A\subset A' \Leftrig
 **** TODO ¿Por qué en la resultante meto los coeficientes iniciales?
 
 
+**** TODO [#A] Mirar ejemplo de cuerpo normal no separable.
+
+**** TODO [#B] Teorema del grado, extensiones de cuerpos
+
 *** Polinomios simétricos, resultante, discriminante
 
 **** Polinomios simétricos
@@ -357,9 +361,12 @@ El conjunto de polinomios simétricos es subanillo de $A[X_1, \ldots X_n]$ que c
 #+begin_definition
 En $A[X_1, \ldots X_n]$ se llaman polinomios simétricos a:
 
-\[s_1 = X_1 + \ldots + X_n\]
-\[s_2 = X_1 X_2 + X_1X_3 + \ldots X_{n-1}X_n\]
-\[s_n = X_1\cdot X_2 \cdots X_n\]
+\[\begin{array}{c}
+s_1 = X_1 + \ldots + X_n\\
+s_2 = X_1 X_2 + X_1X_3 + \ldots X_{n-1}X_n\\
+\vdots \\
+s_n = X_1\cdot X_2 \cdots X_n
+\end{array}\]
 #+end_definition
 
 #+begin_definition
@@ -380,7 +387,7 @@ El peso de un polinomio es el mayor de los pesos de sus monomios.
 
 Sea $A$ dominio de integridad y $f\in A[X_1, \ldots X_n]$ polinomio simétrico de grado $d$. Entonces existe un único $g\in A[X_1, \ldots X_n]$ de peso menor o igual que $d$, verificando:
 
-\[f(X(_1, \ldots X_n) = g(s_1, \ldots s_n)\]
+\[f(X_1, \ldots X_n) = g(s_1, \ldots s_n)\]
 
 \label{poly-fund}
 #+end_theorem
@@ -432,7 +439,7 @@ Se verifican las siguientes propiedades:
 
 Las demostraciones de 1,2,3,4,5 son obvias.
 
-6 se demuestra desde \ref{poly-simpl} haciendo $a_0 = f(0) = (-1)^n\prod_{i=1}^n \alpha_i$ y  $R(X^k, f) = a_n^k(\prod_{i=1}^n -\alpha_i)^k$ y sustituyendo. Para la segunda parte, basta aplciar el apartado 3.
+6 se demuestra desde \ref{poly-simpl} haciendo $a_0 = f(0) = (-1)^n\prod_{i=1}^n \alpha_i$ y  $R(X^k, f) = a_n^k(\prod_{i=1}^n -\alpha_i)^k$ y sustituyendo. Para la segunda parte, basta aplicar el apartado 3.
 
 
 Para probar 7:
@@ -449,7 +456,7 @@ Cuando $g=f'$. En este caso $R(f,f')=0 \Leftrightarrow f$ tiene raíces múltipl
 
 \begin{align*}
 f &= a_n\prod_{i=1}^n(X-\alpha_i)\\
-f'&= a_n\sum_{j=1}^n \prod{i\neq j}^n(X-\alpha_i)
+f'&= a_n\sum_{j=1}^n \prod_{i\neq j}^n(X-\alpha_i)
 \end{align*}
 
 Entonces:
@@ -460,7 +467,7 @@ Entonces:
 #+begin_definition
 *Discriminante*
 
-LLamamos $f$ a $D(f)=a_n^{2n-2}\prod_{i<j}(\alpha_i-\alpha_j)^2$.
+LLamamos discriminante de $f$ a $D(f)=a_n^{2n-2}\prod_{i<j}(\alpha_i-\alpha_j)^2$.
 #+end_definition
 
 #+begin_fact
@@ -486,7 +493,7 @@ b_m    & b_{m-1}   & \ldots  & b_0    & 0       & \ldots  & 0 \\
 *** Extensiones de cuerpos
 
 #+begin_definition
-Una extensión de cuerpos $F/K$ es un par de cuerpos $F,K$ tales que $K$ es un sucuerpo de $F$. $K$ se llama cuerpo base y $F$ cuerpo extensión .
+Una extensión de cuerpos $F/K$ es un par de cuerpos $F,K$ tales que $K$ es un subcuerpo de $F$. $K$ se llama cuerpo base y $F$ cuerpo extensión .
 #+end_definition
 
 #+begin_definition
@@ -494,7 +501,8 @@ Llamamos grado de la extensión $F/K$ y lo representamos por $[F:K]$ a la dimens
 #+end_definition
 
 #+begin_definition
-Una torre de cuerpos es una sucesión de subcuerpos: $F_n \supset F_{n-1} \supset \ldots \supset F_0$
+Una torre de cuerpos es una sucesión de subcuerpos:
+\[F_n \supset F_{n-1} \supset \ldots \supset F_0\]
 #+end_definition
 
 #+begin_fact
@@ -528,62 +536,89 @@ Este homomorfismo se define por inducción como $1_{\mathbb{Z}}\mapsto 1_A$ y $n
 
 
 #+begin_definition
+*Característica*
+
 Si el kernel del homomorfismo unital es $n\mathbb{Z}$, la característica del anillo $A$, se define como $car(A)=n$. Además $n$ queda *caracterizado* por ser el menor número que verifica $na = 0 \quad\forall a\in A$
 #+end_definition
 
-La demostración se hace basándonos en el primer teorema de isomorfía. Si su característica fuese $n\neq 0$, tendríamos que $\mathbb{Z}/\mathbb{Z}_n \cong Img(\upsilon)$ y si $n$ no es primo, tenemos un subanillo de $A$, $Img(\upsilon)$ isomorfo a algo que no es dominio de integridad.
+La demostración se hace basándonos en el primer teorema de isomorfía. Si su característica fuese $n\neq 0$, tendríamos que $\mathbb{Z}/n\mathbb{Z} = \mathbb{Z}_n \cong Img(\upsilon)$ y si $n$ no es primo, tenemos un subanillo de $A$, $Img(\upsilon)$ isomorfo a algo que no es dominio de integridad, por lo que la característica de un dominio de integridad siempre será siempre prima.
 
 #+begin_fact
 La intersección de subanillos es subanillo. La intersección se subcuerpos es subcuerpo.
 #+end_fact
 
+#+begin_definition
+El menor subanillo de un anillo $A$ es la intersección de todos sus subanillos propios. Se llama *anillo primo*.
+#+end_definition
+
+
 #+begin_lemma
-*Estructura del subanillo imagen del homomorfismo unital*
-El menor subanillo de un anillo $A$ es la intersección de todos sus subanillos. Se llama /anillo primo/. Se cumple:
+*Estructura del subanillo primo*
+
+El subanillo primo cumple:
 
 1. Este subanillo es isomorfo a $\mathbb{Z}$ si $car(A)=0$ y a $\mathbb{Z}_n$ si $car(A) = n\neq 0$. 
 2. Si $A$ es dominio de integridad, entonces o bien $car(A) = 0$ o bien $car(A)=p$ primo.
 #+end_lemma
 
-#+begin_lemma
-Al menor subcuerpo de de un cuerpo $K$ lo llamamos /subcuerpo primo/, que es la intersección de todos los subcuerpos de $K$.
+#+begin_definition
+*Subcuerpo primo*
 
-El subcuerpo primo de un cuerpo $K$ es isomorfo a $\mathbb{Q}$ cuando $car(K)=0$ y a $\mathbb{Z}/p\mathbb{Z}$ cuando $car(K)=p\neq 0$
+Al menor subcuerpo de de un cuerpo $K$ lo llamamos *subcuerpo primo*, que es la intersección de todos los subcuerpos propios de $K$.
+#+end_definition
+
+#+begin_lemma
+*Estructura del subcuerpo primo*
+
+El subcuerpo primo de un cuerpo $K$ es isomorfo a $\mathbb{Q}$ cuando $car(K)=0$ y a $\mathbb{Z}/p\mathbb{Z}$ cuando $car(K)=p\neq 0$ con $p$ primo.
 #+end_lemma
 
-Se deduce del lema anterior sin más que pensar que un cuerpo es un anillo en el que hay una operación inversa. Y como $\mathbb{Q}$ es dominio de integridad, la característica debe ser un primo.
+Se deduce del lema anterior sin más que pensar que un cuerpo es un anillo en el que hay una operación inversa. Y como $K$ es dominio de integridad, la característica debe ser un primo.
 
 #+begin_definition
 Sea $F/K$ extensión, $S$ un subconjunto de $F$. LLamamos subanillo (resp. subcuerpo) generado por $S$ sobre $K$ y lo representamos por $K[S]$ (resp. $K(S)$) a la intersección de todos los subanillos (resp. cuerpos) de $F$ que contengan a $K$ y a $S$.
 
-Para los casos $S=\{u_1, \ldots u_n\}$ notamos $K[u_1, \ldots u_n]$ en lugar de $K[\{u_1, \ldots u_n\}]$. Análogo para $K(S)$
+Para el caso $S=\{u_1, \ldots u_n\}$ notamos $K[u_1, \ldots u_n]$ en lugar de $K[\{u_1, \ldots u_n\}]$. Análogo para $K(S)$
 #+end_definition
 
 
 #+begin_lemma
 Se verifica:
-1. $K[S\cap T] = K[S][T] = K[T][S]$
-2. $K(S\cap T) = K(S)(T) = K(T)(S)$
+
+1. $K[S\cup T] = K[S][T] = K[T][S]$
+2. $K(S\cup T) = K(S)(T) = K(T)(S)$
 #+end_lemma
 
 
 #+begin_definition
-*Subcuerpo compuesto*. pDados los cuerpos $L\supset E\supset K$, $L\supset F\supset K$, llamamos /compuesto de $E$ y $F$/ al cuerpo $EF = E(F) = F(E)$. Es decir, el menor subcuerpo de $L$ que contiene a $E$ y $F$.
+*Subcuerpo compuesto*. 
+
+Dados los cuerpos $L\supset E\supset K$ y $L\supset F\supset K$, llamamos compuesto de $E$ y $F$ al cuerpo $EF = E(F) = F(E)$. Es decir, el menor subcuerpo de $L$ que contiene a $E$ y $F$.
 #+end_definition
 
 
 #+begin_definition
-*Conjunto de generadores*. Sea $F/K$ extensión, $S$ subconjunto de $F$. Diremos que $S$ es conjunto de generadores para $F$ sobre $K$ si $F=K(S)$.
+*Conjunto de generadores*. 
 
-$F/K$ extensión se dice *finitamente generada* si existe un conjunto finito de generadores de $F$ sobre $K$, es decir $S=\{u_1\ldots u_n\}$ con $F=K(S)$
+Sea $F/K$ extensión, $S$ subconjunto de $F$. Diremos que $S$ es conjunto de generadores para $F$ sobre $K$ si $F=K(S)$.
+#+end_definition
 
-$F/K$ exntesión se dice *simple* si existe un único elemento $u\in F$ tal que $F=K(u)$. $u$ se llama elemento primitivo para la extensión $u$.
+#+begin_definition
+*Extensión finitamente generada*
+
+$F/K$ extensión se dice finitamente generada si existe un conjunto finito de generadores de $F$ sobre $K$, es decir $S=\{u_1\ldots u_n\}$ con $F=K(S)$
+#+end_definition
+
+#+begin_definition
+*Extensión simple, elemento primitivo*
+
+$F/K$ exntesión se dice simple si existe un único elemento $u\in F$ tal que $F=K(u)$. $u$ se llama elemento primitivo para la extensión $u$.
 #+end_definition
 
 
 Sea $F/K$ extensión y $u\in F$. La *propiedad universal del anillo de polinomios* nos da un homomorfismo de anillos $\lambda: K[X] \rightarrow K[u]$ tal que conserva $K$ y $\lambda(X)=u$. Por el primer teorema de isomorfía para anillos $K[u] \cong K[X]/ker(\lambda)$
 
-1. Si $Ker(\lambda)=0$, existe un isomorfismo $K[X]\cong K[u]$. Entonces $u$ se dirá *trascendente* sobre $K$. $K(u)$ se llama cuerpo de fracciones de $K[u]$ y es isomorfo a $K(X)$ (cuerpo de fracciones de $K[X]$).
+1. Si $Ker(\lambda)=0$, es decir, no existe ningún polinomio con coeficientes en $K$ del que $u$ es raíz, entonces existe un isomorfismo $K[X]\cong K[u]$. Entonces $u$ se dirá *trascendente* sobre $K$. $K(u)$ se llama cuerpo de fracciones de $K[u]$ y es isomorfo a $K(X)$ (cuerpo de fracciones de $K[X]$).
 2. Si $Ker(\lambda)\neq 0$ se dice que $u$ es *algebraico* sobre $K$ y al ser $K[X]$ dominio de ideales principales, se tendrá $Ker(\lambda) = (p(X))$ para algún polinomio que además podemos considerar mónico. Además $p(X) = Irr(u,K)$ y por tanto $K[X]/Ker(\lambda)$ es dominio de integridad (tanto por ser $p(X)$ irreducible y por tanto $(p(X))$ ideal primo, como por tenerse que $K[u]$ es un subanillo de $F$, cuerpo).
 
 
@@ -591,12 +626,17 @@ Sea $F/K$ extensión y $u\in F$. La *propiedad universal del anillo de polinomio
 Sea $F/K$ extensión de cuerpos y sea $u\in F$ elemento algebraico sobre $K$ con polinomio mínimo $p(X) = Irr(u,K)$. Entonces:
 
 1. $K(u) = K[u] \cong K[X]/(p(X))$
-2. $[K(u):K] = gr(p(X))\equiv$ grado de $u$ sobre $K$ y una base de $K[u]$ como $K$ espacio vectorial es $\{1,u,u^2,\ldots u^{n-1}\}.
+2. $[K(u):K] = gr(p(X))\equiv$ grado de $u$ sobre $K$ y una base de $K[u]$ como $K$ espacio vectorial es $\{1,u,u^2,\ldots u^{n-1}\}$
 3. Para $f\in K[X]$ se verifica $f(u)=0$ si y solo si $p|f$
 
 \label{bases_extensiones}
 #+end_fact
 
+La demostración de 1 viene dada por ser $(p(X))$ ideal maximal, y por tanto $K[X]/(p(X))$ cuerpo.
+
+El segundo apartado se demuestra teniendo en cuenta que los elementos de $K[X]/(p(X))$ son las clases de equivalencia módulo $p(X)$, y por tanto una base es $\{1, X, X^2, \ldots X^{gr(p)}\}$. Además hay un isomorfismo entre $K[u]$ y $K[X]/(p(X))$ dado por $u\mapsto X+(p(X))$
+
+Tres es trivial puesto que estamos en un dominio euclídeo y tenemos algoritmo de la división.
 
 #+begin_lemma
 *Elementos algebraicos en torres de cuerpos*
@@ -617,19 +657,11 @@ Se deduce a partir de 3 y 4 desde \ref{bases_extensiones}
 *** Extensiones algebraicas
 
 #+begin_definition
-Una extensión $F/K$ se llama /algebraica/ si todos los elementos de $F$ son algebraicos sobre $K$
-Una extensión $F/K$ se llama /trascendente/ si existe algún elemento $u\in F$ que es trascendente sobre $K$.
+*Extensión algebraica, extensión trascendente*
+
+Una extensión $F/K$ se llama algebraica si todos los elementos de $F$ son algebraicos sobre $K$
+Una extensión $F/K$ se llama trascendente si existe algún elemento $u\in F$ que es trascendente sobre $K$.
 #+end_definition
-
-
-
-#+begin_definition
-La extensión $F/K$ es finita si y solo si $F$ está generado por un número finito de elementos algebraicos sobre $F$. De hecho, una extensión generada por elementos de grado $n_1, \ldots, n_k$ tiene grado menor o igual $n_1 n_2 \ldots n_k$
-#+end_definition
-
-#+begin_theorem
-$K$ algebraico sobre $F$ y $L$ algebraico sobre $K$ entonces $L$ es algebraico sobre $F$
-#+end_theorem
 
 
 #+begin_lemma
@@ -650,41 +682,60 @@ Sean $L\supset E,F\supset K$. Entonces:
 
 La primera parte se deduce de que $EF=E(F)=E(K(S))=E(S)$
 
-Para deducir la segunda parte: $[EF:K] = [EF:F][F:K]$ por el teorema del grado. Además si tenemos $B$ base de $E$ como $K$ espacio vectorial, y $B'$ base de $F$ como $K$ espacio vectorial, tendremos que $B\cap B'$ es sistema de generadores de $EF =F(E)$ y por tanto $[EF:F] < |B| = [E:K]$. Además, del argumento hecho se deduce 3.
+Para deducir la segunda parte: $[EF:K] = [EF:F][F:K]$ por el teorema del grado. Además si tenemos $B$ base de $E$ como $K$ espacio vectorial, y $B'$ base de $F$ como $K$ espacio vectorial, tendremos que $B\cup B'$ es sistema de generadores de $EF =F(E)$ sobre $K$ y por tanto $[EF:F] \le |B| = [E:K]$. 
+
+Además, del argumento hecho se deduce 3, ya que en dicho caso tendríamos, por ser:
+
+\[[EF:F][F:K] = [EF:E][E:K]\]
+
+Y por consiguiente $[E:K] | [EF:F] \implies [E:K]=[EF:F]$
 
 #+begin_fact
 \label{fg-implies-finita}
 Sea $F=K(u_1,\ldots u_n)$ una extensión finitamente generada por elementos $u_i$ algebraicos. Entonces la extensión $F/K$ es finita.
 #+end_fact
 
-La demostración se deduce de 2 de \ref{comp-deg} sin más que tener en cuenta que $K(u1,\ldots u_n)$ estará contenido en $\prod_{i=1}^n K(u_i)$ y esa extensión es finita.
+La demostración se deduce del aparatado 2 de la proposición \ref{comp-deg} sin más que tener en cuenta que $K(u_1,\ldots u_n)$ estará contenido en $\prod_{i=1}^n K(u_i)$ y esa extensión es finita. El hecho de que los elementos sean algebraicos interviene en que $K(u_i)$ será finita en ese caso con $[K(u_i):K] = gr(Irr(u_i,K))$
 
 #+begin_corollary
+*Caracterización de extensiones algebraicas*
+
 Sea $F=K(S)$ con $S\subset F$ arbitrario. Entonces $F/K$ es algebraica si y sólo si todo elemento $u\in S$ es algebraico sobre $K$
 #+end_corollary
 
-La implicación hacia la derecha es trivial. Para la implicación hacia la izquierda basta usar que dado $s\in K(S)$, existirán finitos $\{u_{1,s}, \ldots u_{n,s}\}\subset S$ algebraicos verificando $s\in K(\{u_{1,s},\ldots u_{n,s}\}$ y la proposición anterior acaba, al tener una extensión finitamente generada por elementos algebraicos, lo que implica que la extensión es finita, y que $s$ es algebraico sobre $K$.
+La implicación hacia la derecha es trivial. Para la implicación hacia la izquierda basta usar que dado $s\in K(S)$, existirán finitos $\{u_{1,s}, \ldots u_{n,s}\}\subset S$ algebraicos verificando $s\in K(u_{1,s},\ldots u_{n,s})\subset K(S)$ y la proposición anterior acaba, al tener una extensión finitamente generada por elementos algebraicos, lo que implica que la extensión es finita, y que $s$ es algebraico sobre $K$.
 
 #+begin_corollary
 *Relación de extensiones finitas y algebraicas*
 
 Se tiene:
-1. Si la extensión $F/K$ es finita, entonces es algebraica (y finitamente generada por ser finita)
+1. Si la extensión $F/K$ es finita, entonces es algebraica (y finitamente generada por ser finita). 
 2. Una extensión $F/K$ es algebraica y finitamente generada, entonces es finita.
 #+end_corollary
 
 Se deduce trivialmente de las proposiciones y corolarios anteriores.
 
+NOTA: Hay extensiones algebraicas no finitamente generadas, como por ejemplo la clausura algebraica de un cuerpo.
+
 #+begin_corollary
-Un elemento $u\in F$ es algebraico sobre $K$ si y solo si existe un cuerpo intermedio $E$ verificando que $E/K$ es extensión finita y $u\in E$.
+*Caracterización de elementos algebraicos*
+
+Sea $E\supset F\supset K$ torre de cuerpos.
+
+Un elemento $u\in E$ es algebraico sobre $K$ si y solo si existe un cuerpo intermedio $F$ verificando que $F/K$ es extensión finita y $u\in F$.
 #+end_corollary
 
 La implicación hacia la izquierda es trivial sin más que considerar $K(u)$. La implicación hacia la derecha se deduce de ser $E$ extensión finita, luego algebraica sobre $K$.
 
 #+begin_corollary
+*Transitividad de algebraicidad en torres de cuerpos*
+
 Dada una torre de cuerpos $E\supset F\supset K$ la extensión $E/K$ es algebraica si y solo las extensiones $E/F$ y $F/K$ son algebraicas.
 #+end_corollary
 
+Si $E/K$ es algebraica, $F/K$ es algebraica trivialmente, por tenerse $x\in F\implies x\in E$; y $E/F$ también es algebraica por tenerse que si para todo $x\in E$ existe $Irr(x,K)$, entonces $\exists Irr(x,F)$ por ser $K\subset F$ y de hecho el segundo polinomio divide al primero. 
+
+Una simple reducción al absurdo nos da la implicación contraria.
 
 
 *** Cuerpos de descomposición
@@ -1052,6 +1103,7 @@ Una extensión algebraica $F/K$ se llama separable si todo elemento de $F$ es se
 
 #+begin_fact
 *Torres separables*
+
 Sea $E\supset F\supset K$ torre de cuerpos tal que $E/K$ es extensión separable. Entonces $E/F$ y $F/K$ son extensiones separables.
 #+end_fact
 
@@ -1071,14 +1123,18 @@ Sea una torre de cuerpos
 
 donde $\bar{K}$ es una clausura algebraica de $K$
 
-LLamamos *grado separable* de $F$ sobre $K$ al conjunto $[F:K]_s = |\{\sigma : F/K \rightarrow \bar{K}/K \}|$
+LLamamos *grado separable* de $F$ sobre $K$ al conjunto:
+
+\[[F:K]_s = |\{\sigma : F/K \rightarrow \bar{K}/K \quad homomorfismo\}|\]
 #+end_definition
 
 #+begin_fact
 *Grado separable de una torre de cuerpos*
+
 \[\bar{K}\supset E\supset F\supset K\]
 
 donde $\bar{K}$ es una clausura algebraica de $K$. Entonces:
+
 \[[E:K]_s = [E:F]_s[F:K]_s\]
 #+end_fact
 
