@@ -345,6 +345,7 @@ Es el único porque si tenemos $I=(A)$, $I'=(A')$ entonces $A\subset A' \Leftrig
 **** TODO [#B] Teorema del grado, extensiones de cuerpos
 **** TODO [#B] Teorema de Kronecker
 
+**** TODO \ref{perfect-fields} Falta la equivalencia con 4.
 
 *** Polinomios simétricos, resultante, discriminante
 
@@ -991,7 +992,7 @@ Sea $K$ cuerpo, $\bar{K}$ su clausura algebraica.
 #+end_fact
 
 
-*** Extensiones normales y conjuntos separables
+*** Extensiones normales
 
 #+begin_fact
 Sean $u,v\in\bar{K}$.Los siguientes enunciados equivalen:
@@ -1041,6 +1042,8 @@ Dos extensiones $F_1/K$ y  $F_2/K$ algebraicas se llaman conjugadas si verifican
 Por la proposición anterior, deducimos que las raíces de un polinomio son conjugadas entre sí.
 
 #+begin_theorem
+*Caracterización de extensiones normales*
+
 Sea $F/K$ una extensión algebraica, con $F$ subcuerpo de $\bar{K}$.Equivalen.
 1. Para todo $\sigma : F\rightarrow \bar{K}$ homomorfismo sobre $K$, entonces $\sigma(F)=F$
 2. Todo polinomio irreducible de $K[X]$ con una raíz en $F$ descompone en factores lineales en $F[X]$.
@@ -1107,6 +1110,8 @@ Extiendo por \ref{zorn} a un isomorfismo $\sigma_2 : E \rightarrow \bar{K}$ por 
 *Clausura normal de una extensión finita*
 
 Sea $F=K(u_1,\ldots u_n)$ una extensión finita y sea $f_i = Irr(u_i,K)$ para $i=1, \ldots n$. Entonces la clausura normal es $E/K$ donde $E$ es el cuerpo de descomposición de $f=f_1 \cdots f_n$ sobre $K$. Además $E/K$ es finita.
+
+\label{finite-nclosure}
 #+end_fact
 
 $E/K$ es normal por la caracterización 3 de extensiones normales (es cuerpo de descomposición de un polinomio). Veamos que es la mínima extensión normal.
@@ -1168,7 +1173,7 @@ con $p$ primo y $t$ trascendente sobre $\mathbb{Z}_p$
 
 Tenemos que es extensión normal, por tenerse que $\mathbb{Z}_p(t^p)(t)$ es cuerpo de descomposición de $(X^p-t^p) = (X-t)^p$. 
 
-Y no es separable puesto que 4$Irr(t, \mathbb{Z}_p) = (X-t)^p$ con raíces repetidas. Para demostrar esto último, supongamos $gr(Irr(t, \mathbb{Z}_p))=m < p$. Entonces se tendría $(X-t)^m$ = f(t^p)$, lo que negaría que $t$ fuera transitivo sobre $\mathbb{Z}_p$
+Y no es separable puesto que $Irr(t, \mathbb{Z}_p) = (X-t)^p$ con raíces repetidas. Para demostrar esto último, supongamos $gr(Irr(t, \mathbb{Z}_p))=m < p$. Entonces se tendría $(X-t)^m$ = f(t^p)$, lo que negaría que $t$ fuera transitivo sobre $\mathbb{Z}_p$
 
 #+begin_definition
 *Grado separable*
@@ -1227,14 +1232,20 @@ Luego todo polinomio irreducible sobre $K$ tiene raíces únicas.
 Sea $E\supset F\supset K$ torre de cuerpos con $E/K$ finita. Entonces $[E:K]_s = [E:K]$ si y solo si $[E:F]_s = [E:F]$ y $[F:K]_s = [F:K]$.
 #+end_fact
 
+La demostración se basa en propiedades anteriores. De aquí se deduce que una extesión es separable sii lo son sus cuerpos intermedios.
 
 #+begin_fact
-Sea $F/K$ extensión algebraica y $S\subset F$ tal que $F=K(S)$. Entonces la extensión $F/K$ es separable sii todo elemento es separable sobre $K$
+Sea $F/K$ extensión algebraica y $S\subset F$ tal que $F=K(S)$. Entonces la extensión $F/K$ es separable sii todo elemento de $S$ es separable sobre $K$
 #+end_fact
 
+La implicación hacia la derecha es obvia.
+
+
 #+begin_fact
+Se verifica:
+
 1. Sea $E\supset F\supset K$ torre de cuerpos con $E/K$ *algebraica*. La extensión $E/K$ es separable sii lo son las extensiones $E/F$ y $F/K$
-2. Sean $E/K$ extensión algebraica separable y $F/K$ extensión arbitraria. Etnocnes $EF/F$ es separable.
+2. Sean $E/K$ extensión algebraica separable y $F/K$ extensión arbitraria. Entonces $EF/F$ es separable.
 3. Sean $E/K, F/K$ dos extensiones algebraicas separables. Entonces $EF/K$ es separable.
 #+end_fact
 
@@ -1249,6 +1260,7 @@ Definimos como clausura separable de $K$ cuerpo, y lo notamos como $K^{sep}$ al 
 
 #+begin_theorem
 *Teorema del elemento primitivo*
+
 Sea $F/K$ extensión finita. La extensión es *simple* sii el conjunto de cuerpos intermedios $\{E: F\supset E\supset K\}$ es finito.
 
 Si una extensión $F/K$ es finita y separable, entonces es simple.
@@ -1256,6 +1268,7 @@ Si una extensión $F/K$ es finita y separable, entonces es simple.
 
 #+begin_definition
 *Endomorfismo de Frobenius*
+
 Sea $K$ un cuerpo de característica $p$. El homomorfismo $\phi : K\rightarrow K$ definido por $\phi(u) = u^p$ se llama endomorfismo de Frobenius del cuerpo $K$.
 #+end_definition
 
@@ -1271,11 +1284,20 @@ Para un cuerpo $K$ son equivalentes:
 4. $car(K)=0$ o $car(K) = p$ y el endomorfismo de Frobenius es sobreyectivo.
 
 En este caso el cuerpo se llama *cuerpo perfecto*
+
+\label{perfect-fields}
 #+end_theorem
 
 Las implicaciones $1\implies 2\implies 3$ son claras. Para la implicación $3\implies 1$, dado $f\in K[X]$ polinomio irreducible, con raíces $\alpha_1, \ldots \alpha_n$ en una extensión algebraica, $K(\alpha_1, \ldots \alpha_n)$ es finita, y 3 acaba.
 
-Como ejemplos: cuerpos de característica 0, cuerpos finitos, cuerpos algebraicamente cerrados.
+Como ejemplos: 
+
+***** Cuerpos de característica 0
+Desde la última caracterización de cuerpos perfectos.
+***** Cuerpos finitos, donde el endomorfismo de Frobenius será sobreyectivo
+(Sea $n$ el tamaño del cuerpo, entonces las $n$ imágenes distintas que obtenemos están en $K$, luego debe haber sobreyectividad)
+***** Cuerpos algebraicamente cerrados
+Ya que los únicos polinomios irreducibles son de grado
 
 **** Derivada y raíces multiples
 
@@ -1312,31 +1334,33 @@ Dado $f = \sum_{i=0}^n a_iX^i$ definimos la derivada de $f$ como:
 #+begin_definition
 *Polinomio separable*
 
-Un polinomio $f\in K[X]$ se llama separable sobre $K$ si sus factores irreducibles tienen solo raíces múltiples.
+Un polinomio $f\in K[X]$ se llama separable sobre $K$ si sus factores irreducibles tienen solo raíces simples.
 #+end_definition
 
 
 *** Teoría de Galois
 
 #+begin_lemma
-Dados $n$ homomorfismos $\sigma_1\ldots \sigma_n$ de $G$ grupo al grupo multiplicativo de un cuerpo $F$, entonces son linealmente independientes.
+*Lema de independencia de homomorfismos*
+
+Dados $n$ homomorfismos distintos $\sigma_1\ldots \sigma_n : G \rightarrow F^x$ con $G$ grupo y $F^x$ grupo multiplicativo de un cuerpo, entonces son linealmente independientes.
 #+end_lemma
 
 Supongamos una combinación de longitud mínima $s$ de homomorfismos independientes de entre esos $n$. Podemos suponer s.p.g. que son los $s$ primeros.
 
 \[\sum_{i=1}^s a_i\sigma_i = 0\]
 
-Entonces, podemos despejar $\sigma_s = \sum_{i=1}^{s-1} a_i/a_s \sigma_i$.
+Entonces, podemos despejar $\sigma_s = \sum_{i=1}^{s-1} \frac{a_i}{a_s} \sigma_i$.
 
 Sea $y\in G$ fijo tal que $\sigma_1(y) \neq \sigma_s(y)$ (existe por ser homomorfismos distintos).
 
 Entonces:
 
-\[\sigma_s(xy) = \sigma_s(x) \sigma_s(y) = \sum_{i=1}^{s-1} a_i/a_s \sigma_i(x) \sigma_i(y)\]
+\[\sigma_s(xy) = \sigma_s(x) \sigma_s(y) = \sum_{i=1}^{s-1} \frac{a_i}{a_s} \sigma_i(x) \sigma_i(y)\]
 
 Y multiplicando por $\sigma_s(y)$:
 
-\[\sigma_s(x) \sigma_s(y) = \sum_{i=1}^{s-1} a_i/a_s \sigma_i(x) \sigma_s(y) \]
+\[\sigma_s(x) \sigma_s(y) = \sum_{i=1}^{s-1} \frac{a_i}{a_s} \sigma_i(x) \sigma_s(y) \]
 
 Restando ambas igualdades llegamos a una combinación lineal finita nula y con el primer coeficiente no cero de longitud $s-1$, contradicción.
 
@@ -1345,41 +1369,50 @@ A partir del lema anterior deducimos:
 
 #+begin_lemma
 *Lema de Dedekind*
-Dados $n$ homomorfismos distintos de $F_1$ a $F_2$, con $F_i$ cuerpos, entonces son linealmente independientes sobre $F_2$
+
+Dados $n$ homomorfismos de cuerpos distintos $\sigma_1\ldots \sigma_n : F_1 \rightarrow F_2$, entonces son linealmente independientes sobre $F_2$
 #+end_lemma
 
 #+begin_corollary
-Si $[F_1:K]=n$ existen a lo sumo $n$ homomorfismos distintos de $F_1$ a $F_2$ que fijan $K$. Es decir $|Hom(F_1/K, F_2/K)| \le n$
+Si $[F_1:K]=n$ existen a lo sumo $n$ homomorfismos distintos de $F_1$ a $F_2$ que fijan $K$.
 #+end_corollary
 
-Sea una base de $F_1$ sobre $K$ $\{u_1, \ldots u_n\}$. Supongamos que existen $(n+1)$ homomorfismos distintos $\alpha_i :F_i \rightarrow F_2$ sobre $K$. El sistema de ecuaciones:
+Sea una base de $F_1$ sobre $K$ $\{u_1, \ldots u_n\}$. Supongamos que existen $(n+1)$ homomorfismos distintos $\alpha_i :F_1 \rightarrow F_2$ sobre $K$. El sistema de ecuaciones:
 
 \[\sum_{i=1}^{n+1} x_i \sigma_{i}(u_j) = 0 \qquad j=1\ldots n\]
 
-tiene una solución no trivial (ninguna columna contiene el elemento 0 por tener homomorfismos de cuerpos y podemos triangular por Gauss, luego hay una solución $c_1\ldots c_{n+1} \in F_2$ al sistema.
+tiene una solución no trivial (podemos triangular por Gauss), luego hay una solución $c_1\ldots c_{n+1} \in F_2$ al sistema.
 
 Y por tanto al conseguir la misma combinación lineal que anula a todos los elementos por separado de la base, tenemos que $\forall u\in F_1$:
 
 
-\[\sum_{i}^{n+1} c_i\sigma_i(u) = 0\]
+\[\sum_{i=1}^{n+1} c_{i}\sigma_i(u) = 0\]
 
-Lo que entra en contradicción con el corolario anteriormente probado.
+Es decir, hay dependencia lineal de los $\sigma_i$, lo que entra en contradicción con el corolario anteriormente probado.
+
 
 #+begin_definition
-Para toda extensión finita $F/K$ llamamos *grupo de la extensión* al grupo:
+*Grupo de la extensión*
 
-\[G(F/K) = \{\sigma\in Aut(F) | \forall u\in \quad F \sigma(u) = u\}\]
+Para toda extensión finita $F/K$ llamamos grupo de la extensión al grupo:
+
+\[G(F/K) = \{\sigma\in Aut(F) | \forall u\in K, \sigma(u) = u\}\]
 #+end_definition
 
 #+begin_corollary
+*Cota para el cardinal de grupo de la extensión*
+
 Para toda extensión finita $F/K$ se verifica $|G(F/K)| \le [F:K]$
 #+end_corollary
 
 Trivial a partir del corolario anterior.
 
 #+begin_definition
+*Cuerpo fijo*
+
 Sea $E$ cuerpo arbitrario y $G < Aut(E)$ subgrupo del grupo de automorfismos de $E$. Llamamos subcuerpo de $E$ fijo por $G$.
-\[E^{G} = \{u\in E|\forall \sigma \in G \sigma(u) = u\}\]
+
+\[E^{G} = \{u\in E|\forall \sigma \in G ,\sigma(u) = u\}\]
 #+end_definition
 
 
@@ -1392,36 +1425,53 @@ Llamo $K = E^G$. Por el corolario anterior sabemos que $|Aut(E/K)| \le [E:K]$ y 
 
 LLamamos $G = \{\alpha_1, \ldots \alpha_n\}$
 
-Supongamos la desigualdad estricta. Tomamos $n+1$ elementos linealmente independientes sobre $E^{G}$. Formamos el sistema:
+Supongamos la desigualdad estricta. Tomamos $n+1$ elementos linealmente independientes sobre $E^{G}$, $\{u_1,\ldots u_{n+1}\}$. Formamos el sistema:
 
 \[\sum_{i=1}^{n+1} x_i \sigma_j(u_i) = 0 \qquad j=1,\ldots n\]
 
-Sea $a_1,\ldots a_{n+1}\in E$ solución con el mínimo número de elementos no nulos. Sea
-Un automorfismo $\sigma \in Aut(K)$ decimos que fija un elemento $\alpha \in K$ si $\sigma \alpha = \alpha$. Fija $K$ si fija todos sus elementos.
+Sea $a_1,\ldots a_{n+1}\in E$ solución con el mínimo número de elementos no nulos, y supongamos s.p.g. $a_1\neq 0$. Despejando $\sigma_j(u_1)$:
 
+\[\sigma_j(u_1) = b_2\sigma_j(u_2) + \ldots + b_n\sigma_j(u_{n+1}) \qquad j=1\ldots n\]
+
+Para $\sigma_j = 1_E$ (que debe estar en cualquier subgrupo), obtenemos $u_1 = b_2u_2 + \ldots b_{n+1}u_{n+1}$. Pero los $u_i$ eran linealmente independientes sobre $E^G$, luego alguno de los $b_i$ no está en $E^G$
+
+
+Supongamos s.p.g. $b_2\notin E^G$. Así, existe $\tau\in G$ verificando $\tau(b_2)\neq b_2$. Tenemos entonces que $\{\tau \sigma_j : \sigma_j\in G\} = G$, y aplicando $\tau$ a las desigualdades anteriores (reordenamos para que $\tau \sigma_i = \sigma_j$):
+
+\[\sigma_j(u_1) = \tau(b_2)\sigma_j(u_2) + \ldots + \tau(b_n)\sigma_j(u_{n+1}) \qquad j=1\ldots n\]
+
+Restando ambos sistemas obtendríamos:
+
+\[0 = (b_2-\tau(b_2))\sigma_j(u_2) + \ldots + \tau(b_n)\sigma_j(u_{n+1})\qquad j=1\ldots n\]
+
+Una solución al sistema con menos coeficientes nulos que la que habíamos tomado, ¡contradicción!
 
 #+begin_definition
-Una extensión $E/K$ se llama extensión de Galois si existe un grupo $G < Aut(E)$ tal que $E^{G}=K$. En este caso, el grupo se representa por $Gal(E/K)$ y se llama grupo de Galois de la extensión $E/K$
+*Extensión de Galois*
+
+Una extensión finita $E/K$ se llama extensión de Galois si existe un grupo $G < Aut(E)$ tal que $E^{G}=K$. En este caso, el grupo se representa por $Gal(E/K)$ y se llama grupo de Galois de la extensión $E/K$
 #+end_definition
 
 
 #+begin_fact
+*Caracterización de extensiones de Galois*
+
 Una extensión finita $E/K$ es de Galois si y sólo si es normal y separable.
 #+end_fact
 
 Por ser de Galois, $K = E^{G}$ para algún grupo $G$. Cada automorfismo $\sigma \in G$ se extiende a un homomorfismo $\sigma : E\rightarrow \bar{K}$, luego $[E:K]_S \ge |G| = [E:K] \ge [E:K]_S$
 
-Por tanto $[E:K]_{S} = [E:K] = |G|$ (Por Artin)
+Por tanto $[E:K]_{S} = [E:K] = |G|$ (Por Artin), y la extensión es separable.
 
-Como para cada homomorfismo $\tau: E \rightarrow K$ puedo tomarme $i\circ \tau$ extensión a $\bar{K}$
+$[E:K]_s = |G|$ nos da el número de homomorfismos $\tau: E/K \rightarrow \bar{K}/K$ y por tanto, como para cada $\sigma\in Aut(E/K)$ puedo tomar $i\circ \tau$ inclusión en $\bar{K}$, se tiene que $\tau(E) = E$ para $\tau :E/K\rightarrow \bar{K}/K$ arbitrario. Luego la extensión es normal.
 
-Hacia el lado opuesto. Sea $E/K$ extensión normal y separable. Existen $n=[E:K]_{S} = [E:K]$ homomorfismos $\tau: E\rightarrow \bar{K}$ sobre $K$ y para todos ellos $\tau(E) = E$. Por ello $G=G(E/K)$ tiene orden $n$. Por el teorema de Artin $[E:E^G] = [E:K]$.
+Hacia el lado opuesto. Sea $E/K$ extensión normal y separable. Existen $n=[E:K]_{S} = [E:K]$ (aquí estamos usando separabilidad) homomorfismos $\tau: E\rightarrow \bar{K}$ sobre $K$ y para todos ellos $\tau(E) = E$ (y aquí normalidad) Por ello $G=G(E/K)$ tiene orden $n$.
 
-Además tenemos la torre de cuerpos $K\subset E^{G} \subset E$, lo que sumado a lo anterior da $[E^{G}:K] = 1$ y por tanto $E^{G} = K$ y la extensión $E/K$ es de Galois.
+Además tenemos la torre de cuerpos $K\subset E^{G} \subset E$, lo que sumado a que el teorema de Artin, según lo anterior nos daría $[E:E^G] = |G| = n$ da $[E^{G}:K] = 1$ y por tanto $E^{G} = K$ y la extensión $E/K$ es de Galois.
 
 **** Correspondencia de Galois
 
-Sea $E/K$ extensión finita de Galois, $G=Gal(E/K)$. Definimos una correspondencia entre el conjunto $\mathcal{S}(G)$ de subgrupos de $G$ y el conjunto $\mathcal{F}(E/K)$ de cuerpos intermedios de $E/K$. Para $H<G$ definimos $E^{H} = H^{*}$. A cada cuerpo intermedio $F$ entre $E$ y $K$ le hacemos corresponder el grupo de Galois de la extensión $E/F$ y llamamos $G^{F} = F^{*}$
+Sea $E/K$ extensión finita de Galois, $G=Gal(E/K)$. Definimos una correspondencia entre el conjunto $\mathcal{S}(G)$ de subgrupos de $G$ y el conjunto $\mathcal{F}(E/K)$ de cuerpos intermedios de $E/K$. Para $H<G$ definimos $E^{H} = H^{*}$. A cada cuerpo intermedio $F$ entre $E$ y $K$ le hacemos corresponder el grupo de Galois de la extensión $E/F$ y llamamos $Gal(E/F) = G^{F} = F^{*}$
 
 
 A $F\mapsto F^{*}, H\mapsto H^{*}$ las denominamos correspondencia de Galois para la extensión $E/K$
@@ -1435,11 +1485,16 @@ Sean $F,F_1, F_2$ cuerpos intermedios de $E/K$ y $H,H_1, H_2$ subgrupos de $G=Ga
 #+end_fact
 
 
+Hacemos la demostración de algunas de las propiedades. Para 2. $F^{**} = F^{F^{*}}$ y dado $u\in F$, como $F^{*}$ son los automorfismos que mantienen $F$, en particular $u$, $u$ está en el cuerpo fijo de $F$ por $F^{*}$
+
+Para 3, usando 2. con F y 1, obtenemos $F*\subset F^{***}$. Usando 2 con $F*$, obtenemos $F* < F^{***}$ luego $F=F^{***}$ por doble inclusión.
+
 #+begin_theorem
-*Teorema fundamental*
+*Teorema fundamental de la conexión de Galois*
+
 Sea $E/K$ una extensión de Galois finita con grupo $G=Gal(E/K)$
 
-1. La correspondencia de Galois establece una biyección $\mathcal{F}(E/K)\cong \mathcal{S}(G)$ dada por $F=H^{*} \leftrightarrow H=F^{*}$. Además $F_1 \subset F_2$ si y solo si $H_1 \subset H_2$ 
+1. La correspondencia de Galois establece una biyección $\mathcal{F}(E/K)\cong \mathcal{S}(G)$ dada por $F=H^{*} \leftrightarrow H=F^{*}$. Además $F_1 \subset F_2$ si y solo si $H_1 \supset H_2$ 
 2. Dicha biyección es antiisomorfismo de retículos: $(F_1\cdot F_2)^{*} = F_1^{*} \cap F_2^{*}$ y $(F_1\cap F_2)^{*} = F_1* \vee F_2^{*}$
 3. $F_1/K, F_2/K$ son conjugadas si y sólo si los subgrupos $F_1^{*}$ y $F_2^{*}$ son conjugados en $G$.
 4. $F/K$ es normal sii $F^{*}$ es un subgrupo normal de $G$. En este caso $Gal(F/K) \cong G/F^{*}$
@@ -1487,7 +1542,7 @@ Para demostrar la isomorfía: $\Phi: G = Gal(E/K) \rightarrow Gal(F/K)$ dado por
 Y $Ker(\Phi) = F^{*}$. Estamos usando \ref{norm_extension} y que $E$ es normal por ser de Galois.
 
 
-**** Propiedades de extesniones de Galois
+**** Propiedades de extensiones de Galois
 
 #+begin_fact
 Sea $K\subset F \subset E$ una torre de cuerpos tal que $E/K$ es una extensión de Galois finita. Entonces la extensión $E/F$ es de Galois finita y el grupo $Gal(E/F)$ es un subgrupo de $Gal(E/K)$
@@ -1500,93 +1555,6 @@ Una extensión finita $E/K$ *de Galois* se dice:
 2. *Cíclica* si $G=Gal(E/K)$ es cíclica.
 3  *Soluble* si $G$ es soluble
 #+end_definition
-
-
-*** ???
-
-
-
-
-
-
-
-
-
-
-Denotamos $Aut(K/F)$ los automorfismos de $K$ que fijan $F$. Si $F=(1)$ entonces $Aut(K/F) = Aut(K)$.
-
-#+begin_fact
-$Aut(K)$ es grupo bajo la composición y $Aut(K/F)$ es un subgrupo.
-#+end_fact
-
-#+begin_fact
-Dado un polinomio con coeficientes en $K$, $\sigma\in K$, si $\alpha$ es raíz del polinomio, entonces $\sigma \alpha$ es raíz del polinomio.
-#+end_fact
-
-#+begin_fact
-Si $H$ es un subgrupo del grupo de automorfismos de $K$, los elementos de $K$ fijos por $H$ son subcuerpo de $K$, con $K$ cuerpo.
-#+end_fact
-
-#+begin_fact
-1. $F_1 \subseteq F_2 \subseteq K$ son dos subcuerpos de $K$ entonces $Aut(K/F_2) \le Aut(K/F_1)$
-2. $H_1 \le H_2 \le Aut(K)$ son dos subgrupos de automorfismos con cuerpos fijos asociados $F_1$ y $F_2$, resp. entonces $F_2 \subseteq F_1$
-#+end_fact
-
-Esto último establecerá una relación entre los subgrupos del grupo de Galois y los subcuerpos de una extensión.
-
-#+begin_fact
-Sea $E$ el cuerpo de descomposición sobre $F$ del polinomio $f(x)\in F[x]$. Entonces:
-\[|Aut(E/F)|\le [E:F]\]
-con igualdad si $f(x)$ es separable sobre $F$
-
-Nótese que este número da la cantidad de diagramas de la forma que se detalla a continuación que pueden construirse.
-#+end_fact
-
-Conviene tener presente siempre el diagrama:
-
-
-\[\begin{array}{lccc}
-\sigma: & E         & \xrightarrow{\sim} & E'\\
-        & \vert     &                    & \vert\\
-\tau:   & F(\alpha) & \xrightarrow{\sim} & F'(\beta)\\
-        & \vert &                    & \vert\\
-\phi:   & F & \xrightarrow{\sim} & F'\\
-\end{array}\]
-
-donde la anterior proposición es un caso particular con $F=F'$, y $E=E'$
-
-#+begin_definition
-$K/F$ extensión finita. Entonces $K$ se llama de Galois sobre $F$ y $K/F$ es una extensión de Galois si
-$|Aut(K/F)| = [K:F]$. Si $K/F$ es de Galois el grupo de automorfismos $Aut(K/F)$ es llamada grupo de Galois de
-$K/F$, denominada $Gal(K/F)$.
-#+end_definition
-
-#+begin_corollary
-Si $K$ es el cuerpo de descomposición sobre $F$ de un polinomio separable $f(x)$ entonces $K/F$ es de Galois.
-#+end_corollary
-
-
-Esto motiva la siguiente definición:
-
-#+begin_definition
-Si $f(x)$ es un polinomio separable sobre $F$, entonces se llama grupo de Galois de $f(x)$ sobre $F$ a $E/F$ con
-$E$ cuerpo de descomposición de $f$ sobre $F$
-#+end_definition
-
-Como ejemplo, 
-
-a. $\mathbb{Q}(\sqrt{2})/\mathbb{Q}$ es extensión de Galois con grupo de Galois  $Gal(\mathbb{Q}(\sqrt{2})/ \mathbb{Q}) = \{1,\sigma\} \equiv \mathbb{Z}_2$
-b. $\mathbb{Q}(\sqrt[3]{2})/ \mathbb{Q}$ no es de Galois ya que dado un $\sigma\in Aut(\mathbb{Q}(\sqrt[3]{2})/ \mathbb{Q})$, debe conservar raíces del polinomio $Irr(\sqrt[3]{2}, \mathbb{Q}) = x^3-2$, pero dos de ellas son complejas, luego no pertenecientes a $\mathbb{Q}{\sqrt[3]{2}}$ por tanto, y no podemos construir más que un elemento de $Aut(\mathbb{Q}(\sqrt[3]{2})/ \mathbb{Q})$, la identidad. Nótese que aunque todas las raices de $x^3-2$ estuviesen en $\mathbb{Q}(\sqrt[3]{2})$, ello no nos garantiza que podamos construir siempre "suficientes" automorfismos (por ejempo si el polinomio no tiene factores lineales de grado 1 sobre la extensión).
-c. *El cuerpo de descomposición de cualquier polinomio sobre $\mathbb{Q}$ es de Galois* según el corolario anterior. Por ejemplo , $\mathbb{Q}(\sqrt{2}, \sqrt{3})$ donde como sabemos que el grupo de Galois tiene dimensión 4 (la de $\mathbb{Q}(\sqrt{2}, \sqrt{3})$, cuerpo de descomposición del polinomio $(x^2-2)(x^2-3)$), y los únicos automorfismos posibles se obtienen de asignar $\sqrt{2}\mapsto \pm \sqrt{2}$ y $\sqrt{3}\mapsto \pm \sqrt{3}$
-d. El cuerpo de descomposición de $x^3-2$ sobre $\mathbb{Q}$ es Galois de grado 6. Las raíces de esta ecuación son $\sqrt[3]{2}, \rho\sqrt[3]{2}, \rho^2\sqrt[3]{2}$, y esto da 9 combinaciones distintas de raíces para formar automorfismos, pero como el grupo de Galois tiene orden 6, no todos ellos serán realmente automorfismos.
-e. \[\mathbb{Q} \subset \mathbb{Q}(\sqrt{2}) \subset \mathbb{Q}(\sqrt[4]{2})\] muestra que no toda extensión de Galois de una extensión de Galois lo es (ya que tenemos *una extensión de grado 2, es de Galois por tanto*), pero las raíces de $x^4-2 = Irr(\sqrt[4]{2}, \mathbb{Q})$ son $\{\pm \sqrt[4]{2}, \pm i \sqrt[4]{2}\}$ y de esas 4 raíces hay 2 que no están en $\mathbb{Q}{\sqrt[4]{2}}$
-f. Automorfismo de Frobenius
-
-*NOTA:*  Conveniente para efectuar demostraciones de estructura de subgrupos de Galois:
-
-\[<\sigma, \tau: \sigma^2 = 1, \tau^2 = 1, \sigma\tau = \tau\sigma > = K_4\]
-\[<\sigma, \tau: \sigma\tau = \tau\sigma^2, \tau^2=1, \sigma^3=1 > = S_3\]
-
 
 
 ** Ejercicios
