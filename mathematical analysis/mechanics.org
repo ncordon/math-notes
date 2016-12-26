@@ -5,7 +5,6 @@
  [[../by-nc-sa.png]]
 #+OPTIONS: toc:nil, num:nil
 #+LANGUAGE: es
-#+STARTUP: latexpreview
 #+STARTUP: indent
 #+DATE:
 #+latex_header: \usepackage{amsmath} 
@@ -21,8 +20,117 @@
 
 
 * Resumen
+** Tema 1: Campos de fuerzas centrales
+*** Leyes físicas
+**** Leyes de Kepler
+1. Los planetas describen una órbita elíptica
+2. El segmento que une el Sol con el planeta describe áreas iguales en tiempos iguales
+3. $T=k^2a^3/2$, $a$ semieje mayor.
 
-** Tema 2
+**** Ley de inercia de Galileo
+En ausencia de fuerzas externas, todo cuerpo permanece en reposo o sigue un movimiento rectilíneo uniforme.
+
+**** Leyes de Newton
+1. Ley de inercia de Galileo.
+2. $F=ma$
+3. Ley de acción-reacción.
+
+**** Ley de gravitación universal
+
+\[F = G \frac{M\cdot m}{r^2}\]
+
+Modelando el problema con ecuaciones diferenciales:
+
+\[\ddot{x} = -\frac{GM}{|x(t)|^3}\]
+
+
+donde $x\in \mathcal{C}^2(I), x: I\rightarrow \mathbb{R}^3-\{0\}$
+
+*** Problema de fuerzas centrales 
+#+begin_definition
+\[\ddot{x} = f(|x|)\frac{x}{|x|}\]
+
+donde $f>0$ da lugar a un problema repulsivo, y $f<0$ da lugar a un problema atractivo.
+#+end_definition
+
+#+begin_fact
+*Propiedades de los problemas de fuerzas centrales*
+
+Partimos de $\ddot{x} = -\frac{GM}{|x(t)|^3}$.
+
+- Por ser una ecuación autónoma, $x(t+c)$ es solución
+- Si $x(t)$ es solución, entonces $x(-t)$ también es solución.
+- Si $x(t)$ es solución, $A$ isometría, entonces $Ax$ es solueción.
+- *Ley de conservación de la energía*
+
+Una función $U: \Omega \rightarrow \mathbb{R}$ de clase $\mathcal{C}^1$ es un *potencial* si verifica $F=-\nabla U$ en $\Omega$.
+
+Cuando un campo de fuerzas admite un potencial, se dice conservativo.
+
+Los campos de fuerzas centrales son conservativos, ya que, tomando:
+
+\[F(x) = f(|x|)\frac{x}{|x|}\]
+
+admite $U(x) = -\int_1^r f(|x|)d|x|$
+
+
+En el caso gravitatorio, $U(x) := -\frac{\mu}{|x|}$ será nuestro potencial.
+
+
+La ley de conservación de la energía nos dice que $E=\frac{|\dot{x}|}{2} + U(x)$ se conserva
+
+- *Conservación del momento angular*
+
+$c(t) = x(t)\wedge \dot{x}(t)$ es constante. Por tanto se verifica $c'(t)=0$
+Se verifica:
+
+1. $x(t)$ está en un plano.
+2. $c=0$ entonces la partícula se mueve en una recta.
+
+- En el caso del problema $-\frac{\mu x}{|x|}$.
+
+Si $c\neq 0$ la partícula se mueve en una cónica de ecuación:
+
+\[|x|+<e,x> = \frac{|c|^2}{\mu}\]
+
+
+donde $e = \frac{1}{\mu}\dot{x}\wedge c - \frac{x}{|x|}$
+
+La energía, $h$, será $h = \frac{1}{2}|x(t)|^2 - \frac{\mu}{|x(t)|}$
+
++ Si $|e|<1 \Leftrightarrow h<0$, tenemos una elipse.
++ Si $|e|=1 \Leftrightarrow h=0$, tenemos una parábola.
++ Si $|e|>1 \Leftrightarrow h>0$, tenemos una hipérbola.
+#+end_fact
+
+**** Teorema de clasificación de movimientos en un campo atractivo con momento angular nulo
+Si $r(t)$ es solución de $\ddot{r} = f(r)$ con $f<0$, entonces $r$ está en una de estas tres situaciones(con $r$ definida en un intervalo maximal $]\alpha, \omega[$)
+
+***** a)
+- $-\infty < \alpha < \omega < \infty$
+- $lim_{t\rightarrow \omega} r(t) = lim_{t\rightarrow \alpha} r(t) = 0$
+- $\exists t_0\in ]\alpha, \omega[$ verificando:
+\begin{align*}
+\dot{r}(t_0)=0 \\
+\dot{r}(t)  >0 & \forall t\in]\alpha, t_0[\\
+\dot{r}(t)  <0 &\forall t\in]t_0, \omega[
+\end{align*}
+
+***** b)
+- $-\infty < \alpha < \omega = +\infty$
+- $lim_{t\rightarrow \omega} r(t) = \infty$, y $lim_{t\rightarrow \alpha} r(t) = 0$
+- $\dot{r}(t)>0 \forall t\in]\alpha, \omega[$
+
+***** c) 
+- $-\infty = \alpha < \omega < +\infty$
+- $lim_{t\rightarrow \alpha} r(t) = \infty$, y $lim_{t\rightarrow \omega} r(t) = 0$
+- $\dot{r}(t)<0 \forall t\in]\alpha, \omega[$
+
+
+
+
+
+** Tema 2: Estudio en polares de los campos de fuerzas centrales
 
 #+begin_fact
 
@@ -99,7 +207,6 @@ Si una partícula, sujeta a la acción de un campo gravitacional se mueve en una
 
 #+end_theorem
 
-
 ** Tema 3: Problema de los $n$ cuerpos
 *** Problema de los 2 cuerpos
 #+begin_definition
@@ -107,11 +214,10 @@ Si una partícula, sujeta a la acción de un campo gravitacional se mueve en una
 
 Sea $x(t)$ posición del primer cuerpo, $y(t)$ posición del segundo. Sean $x(t), y(t)\in \mathbb{R}^3: x(t)\neq y(t) \quad\forall t$:
 
-\begin{align*}
-m_1\ddot{x}(t) &= m_1 m_2 G \frac{y(t)-x(t)}{|y(t)-x(t)|^3}\\
-m_2\ddot{y}(t) &= m_1 m_2 G \frac{x(t)-y(t)}{|y(t)-x(t)|^3}\\
-\label{doscuerpos}
-\end{align*}
+\begin{align}
+m_1\ddot{x}(t) &= m_1 m_2 G \frac{y(t)-x(t)}{|y(t)-x(t)|^3}\nonumber\\
+m_2\ddot{y}(t) &= m_1 m_2 G \frac{x(t)-y(t)}{|y(t)-x(t)|^3}\nonumber\label{doscuerpos}\\
+\end{align}
 #+end_definition
 
 
@@ -148,6 +254,7 @@ por tema 1, $c_x(t), c_y(t)$ son constantes, y por ser $x,y$ proporcionales:
 \begin{align*}
 <x,e>+|x|  &= k\\
 -<y,e>+|y| &= \frac{m_1}{m_2}k\\
+\end{align*}
 #+end_fact
 
 **** Centro de masas no nulo
