@@ -100,6 +100,74 @@ Si una partícula, sujeta a la acción de un campo gravitacional se mueve en una
 #+end_theorem
 
 
+** Tema 3: Problema de los $n$ cuerpos
+*** Problema de los 2 cuerpos
+#+begin_definition
+*Problema de los 2 cuerpos*
+
+Sea $x(t)$ posición del primer cuerpo, $y(t)$ posición del segundo. Sean $x(t), y(t)\in \mathbb{R}^3: x(t)\neq y(t) \quad\forall t$:
+
+\begin{align*}
+m_1\ddot{x}(t) &= m_1 m_2 G \frac{y(t)-x(t)}{|y(t)-x(t)|^3}\\
+m_2\ddot{y}(t) &= m_1 m_2 G \frac{x(t)-y(t)}{|y(t)-x(t)|^3}\\
+\label{doscuerpos}
+\end{align*}
+#+end_definition
+
+
+#+begin_fact
+Se verifica, dada $(x(t), y(t))$ solución:
+
+1. Es invariante por traslaciones de $\mathbb{R}^3$, $\forall a\in \mathbb{R}^3$, $(x(t)+a, y(t)+a)$ es solución.
+2. Es invariante por isometrías. Dada $R$ isometría de $\mathbb{R}^3$, $(R\cdot x(t), R\cdot y(t))$ es solución.
+3. *Principio de relatividad de Galileo* $(x(t) + abt, y(t)+abt)$ es solución para todos $a,b \in \mathbb{R}^3$
+4. El centro de masa se mueve con velocidad constante, donde éste se define de la forma:
+
+\[c_m(t) := \frac{m_1}{m_1+m_2}x(t) + \frac{m_2}{m_1+m_2}y(t)\]
+#+end_fact
+
+
+**** Centro de masas nulo
+
+\[0 = \frac{m_1}{m_1+m_2}x(t) + \frac{m_2}{m_1+m_2}y(t) \implies y(t) = - \frac{m_1}{m_2}x(t)\]
+
+El sistema \ref{doscuerpos} se reescribe:
+
+\begin{align*}
+\ddot{x}(t) &= -\frac{m_2^3}{(m_1+m_2)^2}G \frac{x}{|x|^3}\\
+\ddot{y}(t) &= -\frac{m_1^3}{(m_1+m_2)^2}g \frac{y}{|y|^3}
+\end{align*}
+
+por tema 1, $c_x(t), c_y(t)$ son constantes, y por ser $x,y$ proporcionales:
+
+\[c_x = 0 \leftrightarrow c_y = 0\]
+
+#+begin_fact
+1. $c_x = 0$ entonces $x(t) = r(t) a$ con $a\in \mathbb{r}^3, |a| = 1$, $y(t) = -\frac{m_1}{m_2} r(t)a$
+2. $c_x \neq 0$ entonces $x,y$  se mueven en una cónica de idéntico tipo y sentidos opuestos, de ecuaciones, resp.:
+\begin{align*}
+<x,e>+|x|  &= k\\
+-<y,e>+|y| &= \frac{m_1}{m_2}k\\
+#+end_fact
+
+**** Centro de masas no nulo
+
+como el centro de masas se mueve a velocidad constante tenemos $c_m (t) = \alpha+\beta t, \quad \alpha, \beta\in\mathbb{R}^3$
+
+notamos:
+
+
+\begin{align*}
+\bar{x}(t) &= x(t) - c_m(t)\\
+\bar{y}(t) &= y(t) - c_m(t)\\
+\end{align*}
+
+
+
+Y se tiene que el centro de masas de $\bar{x}, \bar{y}$ es nulo, y podemos aplicar la teoría estudiada hasta ahora.
+
+
+
 * Ejercicios
 
 ** Ejercicio 2.3
