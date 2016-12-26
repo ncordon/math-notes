@@ -56,7 +56,7 @@ donde $f>0$ da lugar a un problema repulsivo, y $f<0$ da lugar a un problema atr
 #+begin_fact
 *Propiedades de los problemas de fuerzas centrales*
 
-Partimos de $\ddot{x} = -\frac{GM}{|x(t)|^3}$.
+Partimos de $\ddot{x} = -\frac{Gm x(t)}{|x(t)|^3}$.
 
 - Por ser una ecuación autónoma, $x(t+c)$ es solución
 - Si $x(t)$ es solución, entonces $x(-t)$ también es solución.
@@ -87,7 +87,7 @@ Se verifica:
 1. $x(t)$ está en un plano.
 2. $c=0$ entonces la partícula se mueve en una recta.
 
-- En el caso del problema $-\frac{\mu x}{|x|}$.
+- En el caso del problema $\ddot{x} = -\frac{\mu x}{|x|^3}$.
 
 Si $c\neq 0$ la partícula se mueve en una cónica de ecuación:
 
@@ -112,8 +112,8 @@ Si $r(t)$ es solución de $\ddot{r} = f(r)$ con $f<0$, entonces $r$ está en una
 - $\exists t_0\in ]\alpha, \omega[$ verificando:
 \begin{align*}
 \dot{r}(t_0)=0 \\
-\dot{r}(t)  >0 & \forall t\in]\alpha, t_0[\\
-\dot{r}(t)  <0 &\forall t\in]t_0, \omega[
+\dot{r}(t)  >0 & \quad \forall t\in]\alpha, t_0[\\
+\dot{r}(t)  <0 & \quad \forall t\in]t_0, \omega[
 \end{align*}
 
 ***** b)
@@ -232,7 +232,6 @@ Se verifica, dada $(x(t), y(t))$ solución:
 \[c_m(t) := \frac{m_1}{m_1+m_2}x(t) + \frac{m_2}{m_1+m_2}y(t)\]
 #+end_fact
 
-
 **** Centro de masas nulo
 
 \[0 = \frac{m_1}{m_1+m_2}x(t) + \frac{m_2}{m_1+m_2}y(t) \implies y(t) = - \frac{m_1}{m_2}x(t)\]
@@ -241,7 +240,7 @@ El sistema \ref{doscuerpos} se reescribe:
 
 \begin{align*}
 \ddot{x}(t) &= -\frac{m_2^3}{(m_1+m_2)^2}G \frac{x}{|x|^3}\\
-\ddot{y}(t) &= -\frac{m_1^3}{(m_1+m_2)^2}g \frac{y}{|y|^3}
+\ddot{y}(t) &= -\frac{m_1^3}{(m_1+m_2)^2}G \frac{y}{|y|^3}
 \end{align*}
 
 por tema 1, $c_x(t), c_y(t)$ son constantes, y por ser $x,y$ proporcionales:
@@ -272,7 +271,6 @@ notamos:
 
 
 Y se tiene que el centro de masas de $\bar{x}, \bar{y}$ es nulo, y podemos aplicar la teoría estudiada hasta ahora.
-
 
 
 * Ejercicios
@@ -338,7 +336,6 @@ Juntando \ref{bessel} y \ref{deduccion} hemos llegado a que
 
 lo que dividiendo por $\pi$ nos da el resultado buscado.
 
-
 ** Ejercicio 2.9 (Pollard)
 
 #+begin_wording
@@ -384,7 +381,6 @@ Aplicando 2 veces 2^{a} regla de L'Hôpital, por ser $t^2 \rightarrow \infty (t\
 
 Por ser $2h = |x'|^2 -\frac{2\mu}{|x|}$ y $-\frac{\mu}{|x|}$ convergente a 0, se tiene que $lim_{t\rightarrow \infty} |x'|^2 = 2h$
 
-
 ** Ejercicio 2.11
 
 #+begin_wording
@@ -394,7 +390,6 @@ Para resolver de manera aproximada la ecuación de Kepler:
 
 se usa el método de Newton. ¿Cómo debe de elegirse la aproximación inicial $u_0\in [0,\pi]$ para que la sucesión obtenida sea monónota?
 #+end_wording
-
 
 ** Ejercicio 2.14
 
@@ -420,7 +415,6 @@ y llamamos $\phi(0) = \frac{\xi}{1-\epsilon} = h(\epsilon)\qquad \phi(\pi) = \fr
 Como $h(0)=\xi \in]0,\pi[$, $g(0)=\xi$ se tiene que por continuidad, si $\epsilon$ es lo suficientemente pequeño $h(\epsilon), g(\epsilon) \in [0,\pi]$, y Newton-Raphson convergerá siempre, por tenerse
 que el máximo que alcanza $\phi$ está entre alguno de esos puntos (son puntos críticos).
 
-
 ** Ejercicio 2.17
 
 #+begin_wording
@@ -439,59 +433,134 @@ Llamamos $p$ al periodo y $c$ al momento angular.
 a. $A = \pi |a||b| = \pi |a|^2\sqrt{1-|e|^2}$
 b. $A = \frac{1}{2} \int_0^{p/2} |c| + \frac{1}{2} \int_{p/2}^{p} |c| = \frac{1}{2} p|c|$
    
-
 ** Ejercicio 3.2
 
 #+begin_wording
 En un problema de 2 cuerpos que se mueven en un plano se tiene que :
 
-1. $m_1=2m_2, \quad x(0)=(1,0), x'(0)=(0,-\lambda), \quad y(0)=(-1,0), y'(0) = (0,\lambda)$
-2. $m_1=m_2, \quad x(0)=(1,0), x'(0)=(\lambda,0), \quad y(0)=(0,1), y'(0)=(\lambda,0)$
+1. $m_1=2m_2, \quad x(0)=(1,0), \dot{x}(0)=(0,-\lambda), \quad y(0)=(-1,0), \dot{y}(0) = (0,\lambda)$
+2. $m_1=m_2, \quad x(0)=(1,0), \dot{x}(0)=(\lambda,0), \quad y(0)=(0,1), \dot{y}(0)=(\lambda,0)$
 
 describe el tipo de movimiento en ambos casos
 #+end_wording
 
-1.
+*** Primer apartado
 
 \[c_m(t) = \frac{m_1}{m_1+m_2}x(t)+\frac{m_2}{m_1+m_2}y(t)\]
 
 Sabemos $c'_m=0$ y por tanto $c_m(t)=\alpha+\beta t$
 
-Por tanto: $c_m(0) = \frac{2}{3}x(0) + \frac{1}{3}y(0) = (\frac{1}{3},0)$
+Así, como: 
 
-Análogamente: $c_m'(0) = \frac{2}{3}x'(0) + \frac{1}{3}y'(0) = (0,\frac{-\lambda}{3})$
+\begin{align*}
+\alpha = c_m(0) &= \frac{2}{3}x(0) + \frac{1}{3}y(0) = (\frac{1}{3},0)\\
+\beta = c_m'(0) &= \frac{2}{3}x'(0) + \frac{1}{3}y'(0) = (0,\frac{-\lambda}{3})
+\end{align*}
 
-Así $c_m(t) =  (\frac{1}{3},0) + (0,\frac{-\lambda}{3}) t$
-
+Se tiene $c_m(t) =  (\frac{1}{3},0) + (0,\frac{-\lambda}{3}) t$
 
 
 Llamo $\bar{x}(t) = x(t)-c_m(t)$, $\bar{y}(t) = y(t)-c_m(t)$
 
+
 \begin{align*}
-c_{\bar{x}} &= \bar{x}(0)\wedge \bar{x}'(0) = (\frac{2}{3},0)\wedge (0, \frac{-4}{3}\lambda) = (0,0,\frac{-8}{9}\lambda)\\
-c_{\bar{y}} &= (0,0,\frac{-16}{9}\lambda)
+c_{\bar{x}} &= \bar{x}(0)\wedge \bar{x}'(0) = (\frac{2}{3},0)\wedge (0, \frac{-2}{3}\lambda) = (0,0,\frac{-4}{9}\lambda)\\
+c_{\bar{y}} &= \bar{y}(0)\wedge \bar{y}'(0) = (-\frac{4}{3},0)\wedge (0,\frac{4}{3}\lambda) = (0,0,\frac{-16}{9}\lambda)
 \end{align*}
 
 
-El movimiento es rectilíneo sii $\lambda = 0$
+**** Si $\lambda = 0$
+
+Tendríamos $\bar{x}(t) = ar(t)$ con $a=\frac{\bar{x}(0)}{|\bar{x}(0)|} = (1,0)$. Por tanto, llamando $|\bar{x}(t)| = r(t)$, $(r(t),0) = (\bar{x}_1(t), \bar{x}_2(t))$, y $r'(0) = \bar{x}_1'(0) = 0$. Estaríamos en el primer caso de clasificación de movimientos rectilíneos, y tenemos que $lim_{t\rightarrow \omega} \bar{x}(t) = 0$ y $\dot{r}(t)<0 \forall t\in ]0,\omega[$, con $]\alpha,\omega[$ intervalo maximal en el que está definida la solución, con $x(t) = \bar{x}(t) + c_m(t) = \bar{x}(t) + (\frac{1}{3},0)$
+
+Además, como $\bar{y}(t) = -\frac{m_1}{m_2} r(t)a = -2(r(t),0)$, $\lim_{t\rightarrow \tau}$ con $]\delta, \tau[$ intervalo de defininición de $\bar{y}$ e $y(t) = \bar{y}(t) + (\frac{1}{3}, 0)$
 
 
-Si $\lambda\neq 0$, $\bar{x}, \bar{y}$ se mueven en una cónica.
+**** Si $\lambda\neq 0$, $\bar{x}, \bar{y}$ se mueven en una cónica.
 
-$h_x = \frac{1}{2}|\bar{x}'(0)|^2 - \frac{m_2G}{|\bar{x}(0)|} = \frac{2}{3}\lambda - \frac{3}{2}m_2$
+$h_{\bar{x}} = \frac{1}{2}|\bar{x}'(0)|^2 - \frac{m_2G}{|\bar{x}(0)|} = \frac{1}{3}\lambda - \frac{3}{2}G m_2$
+
+$h_{\bar{x}}<0 \Leftrightarrow \lambda < \frac{9}{2} Gm_2$ sii tenemos una elipse.
+$h_{\bar{x}}=0 \Leftrightarrow \lambda = \frac{9}{2} Gm_2$ sii tenemos una parábola.
+$h_{\bar{x}}>0 \Leftrightarrow \lambda > \frac{9}{2} Gm_2$ sii tenemos una hipérbola.
+
+\begin{align*}
+e_{\bar{x}} &= \frac{1}{Gm_2}\dot{\bar{x}}(0)\wedge c_{\bar{x}} - \frac{\bar{x}(0)}{|\bar{x}(0)|} = \\ 
+&=\frac{1}{Gm_2}(0,-\frac{2}{3}\lambda,0)\wedge(0,0,\frac{-4}{9}\lambda) - (1,0) = \frac{1}{Gm_2}(\frac{8\lambda^2-27}{27},0,0)
+\end{align*}
+
+
+$<\bar{x},e_{\bar{x}> + |x| = k$ y por tanto
+ 
+\[k = |x(0)| + <\bar{x}(0), e_{\bar{x}}> = \frac{2}{3} + <(\frac{2}{3}, 0), e_{\bar{x}}> = \frac{2}{3}-\frac{1}{Gm_2}\frac{8\lambda^2-27}{27}\]
+
+Sabemos por propiedades de clase que en este caso, $\bar{x}, \bar{y}$ cumplen las ecuaciones, resp:
+
+\begin{align*}
+<\bar{x},e_{\bar{x}}> + |x| &= k\\
+<\bar{y},-e_{\bar{x}}> + |y| &= \frac{m_1}{m_2}k = 2k
+\end{align*}
+
+Y $x(t), y(t)$ se obtienen a partir de $\bar{x}, \bar{y}$ , para todo $t\in \mathbb{R}$ de la forma:
+
+\begin{align*}
+x(t) &= \bar{x}(t) + c_m(t) = \bar{x}(t) + (\frac{1}{3},0) + (0,\frac{-\lambda}{3}) t\\
+y(t) &= \bar{y}(t) + c_m(t) = \bar{y}(t) + (\frac{1}{3},0) + (0,\frac{-\lambda}{3}) t\\
+\end{align*}
+
+*** Segundo apartado
+
+\[c_m(t) = \frac{m_1}{m_1+m_2}x(t)+\frac{m_2}{m_1+m_2}y(t)\]
+
+Sabemos $c'_m=0$ y por tanto $c_m(t)=\alpha+\beta t$
+
+Así, como: 
+
+\begin{align*}
+\alpha = c_m(0) &= \frac{1}{2}x(0) + \frac{1}{2}y(0) = (\frac{1}{2}, \frac{1}{2})\\
+\beta = c_m'(0) &= \frac{1}{2}x'(0) + \frac{1}{2}y'(0) = (\lambda, 0)
+\end{align*}
+
+Se tiene $c_m(t) =  (\frac{1}{2}, \frac{1}{2}) + (\lambda,0) t$
+
+
+Llamo $\bar{x}(t) = x(t)-c_m(t)$, $\bar{y}(t) = y(t)-c_m(t)$
+
+
+\begin{align*}
+c_{\bar{x}} &= \bar{x}(0)\wedge \bar{x}'(0) = (\frac{1}{2}, -\frac{1}{2})\wedge (0,0) = (0,0,0)\\
+c_{\bar{y}} &= \bar{y}(0)\wedge \bar{y}'(0) = (-\frac{1}{2}, \frac{1}{2})\wedge (0,0) = (0,0,0)
+\end{align*}
+
+
+Tendríamos $\bar{x}(t) = ar(t)$ con $a=\frac{\bar{x}(0)}{|\bar{x}(0)|} = (1,-1)$. Por tanto, llamando $|\bar{x}(t)| = r(t)$, $(r(t),0) = (\bar{x}_1(t), \bar{x}_2(t))$, y $r'(0) = \bar{x}_1'(0) = 0$. Estaríamos en el primer caso de clasificación de movimientos rectilíneos, y tenemos que $lim_{t\rightarrow \omega} \bar{x}(t) = 0$ y $\dot{r}(t)<0 \forall t\in ]0,\omega[$, con $]\alpha,\omega[$ intervalo maximal en el que está definida la solución, con $x(t) = \bar{x}(t) + c_m(t) = (1,-1)r(t) +  (\frac{1}{2}, \frac{1}{2}) + (\lambda,0)$ 
+
+Además, como $\bar{y}(t) = -\frac{m_1}{m_2} r(t)a = (-1,1)r(t)$, $\lim_{t\rightarrow \tau} \bar{y}(t) = 0$ con $]\delta, \tau[$ intervalo de defininición de $\bar{y}$ e $y(t) = (-1,1)r(t) +  (\frac{1}{2}, \frac{1}{2}) + (\lambda,0)$
 
 ** Ejercicio 3.5
 
 #+begin_wording
 Sea un par $(x,y): I\rightarrow \mathbb{R}^2$ una solución del problema de dos cuerpos con masas respectivas $m_1, m_2$. Su energía se define como sigue:
 
-Su energía se define como sigue:
-
-$E = G \frac{m_1 m_2}{|x(t)-y(t)|}$
+\[h = \frac{m_1}{2}|\dot{x}|^2 + \frac{m_2}{2}|\dot{y}|^2 - G \frac{m_1 m_2}{|x(t)-y(t)|}\]
 
 Probar que es constante.
 #+end_wording
 
+Tendremos en cuenta que:
+
+\begin{align*}
+\ddot{x}(t) &= m_2 G \frac{y(t)-x(t)}{|y(t)-x(t)|^3}\\
+\ddot{y}(t) &= m_1 G \frac{x(t)-y(t)}{|y(t)-x(t)|^3}
+\end{align*}
+
+Derivamos:
+
+\begin{align*}
+h' &= m_1<\ddot{x}, \dot{x}> + m_2<\ddot{y}, \dot{y}> +  G m_1 m_2 \frac{<\dot{x} - \dot{y}, x-y >}{|x-y|^3} = \\
+&= G m_1 m_2 \frac{<y-x,\dot{x}>}{|y-x|^3} + G m_1 m_2 \frac{<x-y, \dot{y}>}{|y-x|^3} +  G m_1 m_2 \frac{<\dot{x} - \dot{y}, x-y >}{|x-y|^3} = \\
+&= G m_1 m_2 \left[-\frac{< x-y, \dot{x} - \dot{y}>}{|x-y|^3} + \frac{<\dot{x} - \dot{y}, x-y >}{|x-y|^3}\right] = 0
+\end{align*}
 
 ** Ejercicio 3.6
 
