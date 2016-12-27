@@ -567,5 +567,38 @@ h' &= m_1<\ddot{x}, \dot{x}> + m_2<\ddot{y}, \dot{y}> +  G m_1 m_2 \frac{<\dot{x
 #+begin_wording
 Sea un problema de dos cuerpos con centro de masas en el origen.
 
-¿Qué relación hay entre la expresión de la energía del ejercicio anterior y la suma de $E_x + E_y$?
+¿Qué relación hay entre la expresión de la energía del ejercicio anterior con $E_x$ y $E_y$?
 #+end_wording
+
+En un problema de 2 cuerpos con centro de masas nulo, se verifica:
+
+\begin{align*}
+\ddot{x}(t) &= -\frac{m_2^3}{(m_1+m_2)^2}G \frac{x}{|x|^3}\\
+\ddot{y}(t) &= -\frac{m_1^3}{(m_1+m_2)^2}G \frac{y}{|y|^3}
+\end{align*}
+
+Además $y(t) = -\frac{m_1}{m_2}x(t)$ en dicho caso.
+
+Así, usando esto último, tenemos:
+
+\begin{align*}
+m_1E_x + m_2E_y &= \frac{m_1}{2}|\dot{x}|^2 - \frac{G m_2^3 m_1}{(m_1+m_2)^2 |x|} +\\
+&+ \frac{m_2}{2}|\dot{y}|^2 -  \frac{G m_1^3 m_2}{(m_1+m_2)^2 |y|} = \frac{m_1}{2}|\dot{x}|^2 +\\
+&+ \frac{m_2}{2}|\dot{y}|^2 - \frac{G m_2^3 m_1}{(m_1+m_2)^2 |x|} - \frac{G m_1^2 m_2^2}{(m_1+m_2)^2 |x| }
+\end{align*}
+
+Basta probar que el último término de la energía definida en el ejercicio anterior equivale a:
+
+\[- \frac{G m_2^3 m_1}{(m_1+m_2)^2 |x|} - \frac{G m_1^2 m_2^2}{(m_1+m_2)^2 |x|}\]
+
+
+Se tiene: 
+
+\begin{align*}
+-G\frac{m_1 m_2}{|x-y|} &= -G\frac{m_1 m_2^2}{(m_1+m_2)|x|} = \\
+&= -G\frac{(m_1 m_2^2)(m_1 + m_2)}{(m_1+m_2)^2|x|} = \\
+&= - \frac{G m_2^3 m_1}{(m_1+m_2)^2 |x|} - \frac{G m_1^2 m_2^2}{(m_1+m_2)^2 |x|}
+\end{align*}
+
+
+En conjunto, hemos probado $h = m_1 E_x + m_2 E_y$
