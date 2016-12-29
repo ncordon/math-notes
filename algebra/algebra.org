@@ -361,6 +361,8 @@ Se verifica:
 2. $\sqsubseteq_{1}$ preorden y $\sqsubseteq_{2}$ orden. Entonces $\sqsubseteq_{12}$ es un orden. Si ambos son totales, $\sqsubseteq_{12}$ es total.
 3. $\sqsubseteq_{i}$ son compatibles (monótonos), entonces $\sqsubseteq_{12}$ es compatible (monótono).
 
+   
+*** Algoritmo de la división
 
 #+begin_lemma
 *Lema de Dickson*
@@ -370,6 +372,104 @@ Sea $S \subseteq \mathbb{N}^n$, $S\neq \emptyset$. Etnonces $\exists G\subseteq 
 
 
 
+#+begin_fact
+*Todo orden monomial en $\mathbb{N}$ es un buen orden*
+#+end_fact
+
+#+begin_definition
+*Monoideal*
+
+Un subconjunto $E\subseteq \mathbb{N}$, $E\neq \emptyset$ se dice que es un monoideal si $E=E+\mathbb{N}$
+
+Se deduce por el lema de Dickson que dado un monoideal $E$ podemos encontrar $G\subseteq E$ finito verificando $E=G+\mathbb{N}$, donde 
+a $G$ lo llamamos sistema de generadores de $E$.
+#+end_definition
+
+
+#+begin_fact
+*Unicidad de base*
+
+Sean $G, G'$ 2 sistemas de generadores minimales de un monoideal $E\subseteq \mathbb{N}^n$. Entonces $G=G'$
+#+end_fact
+
+
+#+begin_definition
+Sea $F= \sum_{\alpha \in \mathbb{N}^n} a_{\alpha} X^{\alpha} \in K[X_1, \ldots, X_n] \qquad F\neq 0$
+
+Llamamos:
+
+- *Diagrama de Newton: $N(F) := \{\alpha \in \mathbb{N}^n : a_{\alpha} \neq 0\}$
+- *Exponente*: $exp(F) := max\{\alpha : \alpha \in N(F)\}$
+- *Grado total*: $grtotal(F) := max\{|\alpha| : \alpha\in N(F)\}$
+- *Coef líder*: $cl(F) := a_{exp(F)}$
+- *Monomio líder*: $ml(F) := X^{exp(F)}$
+- *Término líder*: $tl(F) := a_{exp(F)} X^{exp(F)}$
+#+end_definition
+
+
+#+begin_definition
+Sean $\{\alpha_1, \ldots, \alpha_t\} \subseteq \mathbb{N}^n$, notamos:
+
+\begin{align*}
+\Delta^1 := \alpha_1 + \mathbb{N}^n\\
+\Delta^2 := (\alpha_2 + \mathbb{N}^n) \setminus \Delta^1\\
+\Delta^3 := (\alpha_3 + \mahtbb{N}^n) \setminus (\Delta^1 \cup \Delta^2)\\
+\vdots\\
+\Delta^t := (\alpha_t + \mathbb{N}^n) \setminus (\cup_{i<t} \Delta^i\\
+\bar{\Delta} := \mathbb{N}^n\setminus \cup_{i\le t} \Delta^i
+\end{align*}
+
+
+$\{\Delta^i \ldots \Delta^t, \bar{\Delta}\}$ es partición de $\mathbb{N}^n$
+#+end_definition
+
+#+begin_fact
+Dados $F,G \in K[X_1, \ldots X_n]$ no nulos, se verifica:
+
+1. $exp(FG) = exp(F) + exp(G)$
+2. Si $F+G \neq 0$, entonces $exp(F+G) \le max\{exp(F), exp(G)\}$ y la igualdad se da si $exp(F)<exp(G)$ o viceversa.
+#+end_fact
+
+
+#+begin_theorem
+*Algoritmo de la división*
+Dado un *orden monomial* en $\mathbb{N}^n$, para una lista de polinomios *no nulos*:
+
+\[G_1 \ldots G_t \in K[X_1, \ldots X_n]\]
+
+consideramos la partición $\Delta^1, \ldots \Delta^t, \bar{\Delta}$ asociada a la lista de elementos $exp(G_1), \ldots exp(G_t)$
+
+Para cada $F\in K[X_1, \ldots X_n], F\neq 0$, existen únicos $Q_1 \ldots Q_t, R \in K[X_1, \ldots X_n]$ tal que:
+
+1. $F=Q_1 G_1 + \ldots + Q_t G_t + R$
+2. $R=0$ o $N(R) \subseteq \bar{\Delta}$
+3. $exp(G_i) + N(Q_i) \subset \Delta^i$ para cada $i=1 \ldots t$
+#+end_theorem
+
+
+#+begin_definition
+*Ideal monomial*
+
+Un ideal $I$ de $K[X_1,\ldots X_n]$ es monomial si $\exists A\in \mathbb{N}^n$ tal que:
+
+\[I = (X^\alpha : \alpha \in A)\]
+#+end_definition
+
+
+#+begin_lemma
+Sea un ideal monomial $I = (X^\alpha : \alpha \in A)$, y sea $X^\beta$ un monomio.
+
+\[X^\beta \in I \Leftrightarrow \exists F\in K[X_1, \ldots X_n] : \exists \alpha\in A, X^\beta = FX^\alpha\]
+#+end_lemma
+
+
+#+begin_fact
+Sea $I=(X^\alpha : \alpha \in A)$ monomial, y $F\in K[X_1, \ldots X_n]$. Entonces equivalen:
+
+1. $F\in I$
+2. Todo monomio de $F$ pertenece a $I$
+3. $F$ es una combinación $K$ lineal de monomios de $I$.
+#+end_fact
 
 ** Ejercicios
 *** Ejercicio 1.12
