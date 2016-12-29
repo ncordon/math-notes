@@ -122,10 +122,101 @@ Sea $R$ anillo. Entonces $\alpha \subset R$ es ideal si:
 #+end_fact
 
 #+begin_definition
+*Ideal generado por un conjunto*
+
 Sea $R$ anillo, $X\subset R \neq \emptyset$. Definimos el ideal generado por $X$ como:
 
-\[(X) = \left\{\sum_{finita} r_i x_i, r_i\in R, x_i\in X \right\}\]
+\[(X) := \cap_{\alpha < R, X\subset \alpha} \alpha = \left\{\sum_{finita} r_i x_i, r_i\in R, x_i\in X \right\}\]
 #+end_definition
+
+#+begin_definition
+*Ideal finitamente generado*
+
+Un ideal $\alpha$ se dice finitamente generado si $\exists x_1, \ldots x_n \in R$ verificando:
+
+\[\alpha = (x_1, \ldots x_n)\]
+#+end_definition
+
+$(x) = \{rx: r\in R\}$ es el *ideal principal generado por $x$*
+
+#+begin_definition
+*Dominio de ideales principales*
+
+Un DIP es un DI donde todo ideal es principal
+#+end_definition
+
+#+begin_definition
+*Ideal producto*
+
+Sean $\alpha, \beta$ ideales. Se define el ideal producto como:
+
+\[\alpha \beta := \left\{\sum_{finita} r_i x_i y_i : r_i\in R, x_i\in \alpha, y_i\in \beta\right\}\]
+
+Equivale al ideal generado por $\{xy: x\in \alpha, y\in \beta\}$
+#+end_definition
+
+
++ $\alpha^n$ es el ideal generado por $\left\{\prod_{i=1}^n x_i, x_i \in \alpha \right\}$
++ $\alpha_0 := R$ 
+
+#+begin_definition
+*Ideales comaximales*
+
+Sean $\alpha, \beta < R$ ideales, se dicen comaximales o primos entre sí si se verifica:
+
+\[\alpha + \beta = R = (1)\]
+#+end_definition
+
+Siempre se verifica $\alpha\beta \subseteq \alpha\cap \beta$
+
+Además si hay comaximalidad, también se verifica $\alpha\cap \beta \subseteq \alpha\beta$
+
+*** Anillo cociente
+
+#+begin_definition
+*Anillo cociente*
+
+Sea $R$ anillo, $\alpha < R$.
+
+Se define el anillo cociente de $R$ entre $\alpha$ por $R/\alpha:= \{x+\alpha : x\in R\}$, que es un grupo abeliano.
+#+end_definition
+
+#+begin_definition
+*Proyección canónica*
+
+\[p: R \rightarrow R/\alpha, \qquad p(x) = x + \alpha\]
+#+end_definition
+
+#+begin_theorem
+*Caracterizaciones de cuerpo*
+
+Sea $R$ anillo no trivial. Equivalen:
+
+1. $R$ es cuerpo.
+2. Los únicos ideales de $R$ son $0$ o el propio $R$.
+3. Todo homomorfismo de anillos $f: R\rightarrow S$ con $S$ no trivial es inyectivo.
+#+end_theorem
+
+**** Ideales del anillo cociente
+
+#+begin_fact
+*Ideales del anillo cociente*
+
+Sea $R$ anillo $\alpha < R$.
+
+1. Sea $\beta < R$ verificando $\alpha \subseteq \beta$. Entonces $\beta/\alpha$ es ideal de $\beta$.
+2. Sea $\beta_1, \beta_2 < R$ verificando $\alpha \subseteq \beta_i$. Entonces $\beta_1/\alpha = \beta_2/\alpha \Leftrightarrow \beta_1 = \beta_2$
+3. Sea $\bar{\beta}$ ideal de $R/\alpha$. Entonces existe único $\beta\subseteq R$ ideal tal que $\alpha \subset \beta$ y $\bar{\beta} = \beta/\alpha$
+#+end_fact
+
+#+begin_fact
+*Relación entre ideales de dominio y codominio*
+
+Sea $f: R\rightarrow S$ homomorfismo de anillos. 
+
+1. Si $\beta \subseteq S$ es ideal de $S$ entonces $f^\ast(\beta)$ es ideal de $R$.
+2. Si $\alpha\subseteq R$ es ideal de $R$ entonces $f_\ast(\alpha)$ es ideal de $Img(f)$
+#+end_fact
 
 
 ** Tema 3: Bases de Groebner y algoritmos básicos
