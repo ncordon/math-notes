@@ -1,4 +1,4 @@
-#+TITLE: Fourier Series
+#+TITLE: Math problems
 #+SUBTITLE:
 #+AUTHOR: Ignacio Cordón Castillo
 #+OPTIONS: toc:nil

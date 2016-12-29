@@ -25,6 +25,107 @@
 * Álgebra conmutativa
 
 ** Tema 1: Anillos e ideales
+*** Anillos
+
+#+begin_definition
+*Anillo*
+
+Es una terna $(R,+,\cdot)$ donde $(R,+)$ es un grupo abeliano, $\cdot$ es asociativa, hay distributividad a derecha e izquierda y $\cdot$ tiene elemento neutro. Además si $\cdot$ es conmutativa, tenemos un anillo conmutativo.
+
+$R$ se llama cuerpo sii todos los elementos no nulos son invertibles
+#+end_definition
+
+
+#+begin_fact
+*Propiedades de anillo*
+
+Se verifica:
+
+1. $x\cdot 0 = 0$
+2. $R$ tiene más de un elemento sii $1\neq 0$
+3. $(-x)y = x(-y) = -xy$
+4. $(x+y)^n = \sum_{i=0}^n \binom{n}{i}x^i y^{n-i}$
+5. $(xy)^n = x^n y^n$
+#+end_fact
+
+#+begin_definition
+*Divisor de cero*
+
+Sea $R$ anillo, $x\in R$ es divisor de cero si $\exists y\neq 0 : xy = 0$
+
+Si un anillo conmutativo no tiene divisores de cero se denomina *Dominio de Integridad*
+#+end_definition
+
+
+#+begin_definition
+*Homomorfismo de anillos*
+
+Sean $R,S$ anillos, $f: R\rightarrow S$ se denomina homomorfismo de anillos si:
+
+\[\begin{array}{l}
+f(x+y) = f(x)+f(y)\\
+f(xy) = f(x)f(y)\\
+f(1) = 1
+\end{array}\]
+#+end_definition
+
+#+begin_definition
+*Homomorfismo unital*
+
+Sea $R$ anillo. Entonces existe un único $f: \mathbb{Z}\rightarrow R$ que debe verificar:
+
+\[\begin{array}{l}
+f(1) = 1\\
+f(n) = nf(1)
+\end{array}\]
+#+end_definition
+
+#+begin_fact
+Sea $f$ un homomorfismo de anillos. Se cumple:
+
+1. $f$ es inyectivo sii $ker(f) = \{0\}$
+2. $f$ es sobreyectivo sii $Img(f) = S$
+#+end_fact
+
+#+begin_definition
+*Subanillo*
+
+Sea $R$ anillo, $R'\subset R$ es subanillo si:
+
+1. $(R',+)$ es subgrupo de $(R,+)$ sii $x-y\in R' \quad \forall x,y \in R$
+2. $R'$ es cerrado para el producto
+3. $1\in R'$
+#+end_definition
+
+*** Ideales
+
+#+begin_definition
+*Ideal*
+
+Sea $R$ anillo. Entonces $\alpha \subset R$ es ideal si:
+
+1. $\alpha$ es subgrupo de $R$ para la suma.
+2. $\forall r \in R, \forall x\in \alpha$ se tiene $rx \in \alpha$
+#+end_definition
+
+#+begin_fact
+*Propiedades de ideales*
+
+1. $ker(f)$ con $f$ homomorfismo es ideal que en general no es subanillo.
+2. $\{0\}, R$ son ideales de $R$
+3. Sea $\alpha$ un ideal de $R$. Entonces $\alpha = R \Leftrightarrow 1\in \alpha$
+4. Un ideal $\alpha$ es propio si $0\subsetneq \alpha \subsetneq R$
+5. $\{\alpha: \alpha$ ideal de $R$ $\}$ es un retículo, esto es, un conjunto ordenado por la inclusión, donde:
+- $inf\{\alpha_i\}_{i\in I} = \cap \alpha_i$
+- $sup\{\alpha_1, \alpha_2\} = \alpha_1 + \alpha_2$
+- $sup\{\alpha_i\}_{i\in I} = \sum_i \alpha_i = \Bigg\{ \sum_i x_i : x_i\in \alpha_i$ y casi todos los $x_i$ son nulos $\Bigg\}$
+#+end_fact
+
+#+begin_definition
+Sea $R$ anillo, $X\subset R \neq \emptyset$. Definimos el ideal generado por $X$ como:
+
+\[(X) = \left\{\sum_{finita} r_i x_i, r_i\in R, x_i\in X \right\}\]
+#+end_definition
 
 
 ** Tema 3: Bases de Groebner y algoritmos básicos
