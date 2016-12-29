@@ -23,7 +23,6 @@
 [[../by-nc-sa.png]]
 
 * Álgebra conmutativa
-
 ** Tema 1: Anillos e ideales
 *** Anillos
 
@@ -218,17 +217,21 @@ Sea $f: R\rightarrow S$ homomorfismo de anillos.
 2. Si $\alpha\subseteq R$ es ideal de $R$ entonces $f_\ast(\alpha)$ es ideal de $Img(f)$
 #+end_fact
 
-
+** Tema 2: Variedades algebraicas
 ** Tema 3: Bases de Groebner y algoritmos básicos
-
+*** R-módulos
 #+begin_definition
+*$R$-módulo izquierda*
+
 Sea $R$ anillo. Un $R$ módulo (izquierda) es un grupo abeliano $M$, junto a una operación externa
-$\begin{array}{lcr}
-R \times M & \longrightarrow & M\\
+
+\[\begin{array}{lcr}
+R \times M & \rightarrow & M \\
 (r,x) & \mapsto & rx
-\end{array}$ 
+\end{array}\]
 
 verificando, $\forall x,y\in M, \forall r,s\in R$
+
 \begin{itemize}
 \item $r(x+y)=rx+ry$
 \item $(r+s)x=rx+sx$
@@ -240,60 +243,141 @@ verificando, $\forall x,y\in M, \forall r,s\in R$
 
 
 #+begin_definition
+*R-álgebra*
+
 Una $R$ álgebra es un anillo $S$ que tiene estructura de $R$ módulo tal que $(rx)y=r(xy)=x(ry) \quad \forall r\in R, \quad\forall x,y\in S$
 
 También puede caracterizarse una $R$ álgebra como un anillo $S$ junto a un homomorfismo de anillos $\lambda:R\longrightarrow S$. El homomorfismo $\lambda$ se llama homomorfismo de estructura de la $R$ álgebra $S$.
 #+end_definition
 
-Si $R=K$ cuerpo, $\lambda$ es inyectiva, $S$ es $K$ álgebra que contiene a $K$ como subanillo.
+Si $R=K$ cuerpo, $\lambda$ es inyectiva y podemos ver a $S$, $K$ álgebra, como un anillo que contiene a $K$ como subanillo.
 
 Como caso particular, todo anillo es una $\mathbb{Z}$ álgebra.
 
+Otro ejemplo es $R[X]$ visto como $R$ álgebra con la aplicación inclusión de $R$ en $R[X]$ por homomorfismo de estructura.
+
 #+begin_definition
-Dadas $S_1, S_2$ $R$ álgebras. Un homomorfismo de $R-$álgebras de $S_1$ en $S_2$ es un homomorfismo de anillos $f:S_1 \longrightarrow S_2$ que es también homomorfismo de $R$ módulos.
+*Homomorfismo de R-álgebras*
+
+Dadas $S_1, S_2$ $R$ álgebras. Un homomorfismo de $R-$álgebras de $S_1$ en $S_2$ es un homomorfismo de anillos $f:S_1 \longrightarrow S_2$ que es también homomorfismo de $R$ módulos, es decir
+
+\[f(rx) = rf(x)\]
 #+end_definition
 
 #+begin_fact 
 *Propiedad universal de $R[X_1,\ldots X_n]$*
 
 Sea $S$ anillo, $f:R\longrightarrow S$ homomorfismo de anillos. Sean $s_1, \ldots s_n\in S$ elementos arbitrarios. Entonces $\exists f_{s_1, \ldots s_n}: R[X_1,\ldots X_n]\longrightarrow S$ homomorfismo de R álgebras verificando $f_{s_1, \ldots s_n}(X_i)=s_i$ y $f_{s_1,\ldots s_n} \circ \lambda = f$ que además es único.
+
+$f_{s_1, \ldots s_n}$ se llama homomorfismo de evaluación en $X_i = s_i$
 #+end_fact
 
 #+begin_definition
+*R-álgebra finitamente generada*
+
 Una $R$ álgebra $S$ se llama finitamente generada si existe un homomorfismo de $R$ álgebras sobreyectivo $f:R[X_1, \ldots X_n] \longrightarrow S$
 #+end_definition
 
-\hrule
+*** Órdenes monomiales
 
-Dado $F\in K[X_1,\ldots X_n], \qquad F=\sum_{\alpha \in \mathbb{N}^n} a_{\alpha}X^{\alpha}$
+Sea $K$ cuerpo:
 
-$\{X^{\alpha}: \alpha\in\mathbb{N}^n\}$ es $K$ base de $K[X_1, \ldots, X_n]$
+Dado $F\in K[X_1,\ldots X_n]$, tenemos las representaciones:
 
-Cualquier orden en $\mathbb{N}^n$ induce un orden en $\{X^{\alpha}: \alpha\in\mathbb{N}^n\}$
++ *Recursiva*: $F=\sum_{j=0}^t F_j X_n^j$ con cada $F_j\in K[X_1\ldots X_{n-1}]$
++ *Distributiva*: $F=\sum_{\alpha \in \mathbb{N}^n} a_{\alpha}X^{\alpha}$ 
+
+$\{X^{\alpha}: \alpha\in\mathbb{N}^n\}$ *es $K$ base* de $K[X_1, \ldots, X_n]$
+
+Cualquier orden en $\mathbb{N}^n$ induce un orden en $\{X^{\alpha}: \alpha\in\mathbb{N}^n\}$, de manera que si $\alpha \le \beta$ entonces tenemos $X^\alpha \le X^\beta$.
 
 #+begin_definition
+*Grado de un monomio*
+
+Dado un monomio $X^\alpha$ con $\alpha\in \mathbb{N}$ el grado del monomio es $\sum_{i=1}^n \alpha_i$
+#+end_definition
+
+#+begin_definition
+*Orden compatible*
+
 Un orden $\le$ en $\mathbb{N}^n$ diremos que es *compatible* si siempre que $\alpha \ge \beta$ entonces $\alpha + \gamma \ge \beta + \gamma \qquad \forall \gamma\in\mathbb{N}^n$.
+#+end_definition
+
+#+begin_definition
+*Orden monótono*
 
 Diremos que es *monótono* si 0 es mínimo en $\mathbb{N}^n$
+#+end_definition
+
+#+begin_definition
+*Orden monomial*
 
 Diremos que un orden es *monomial* si es compatible, total y monótono.
 #+end_definition
 
 #+begin_fact
+*Relación entre órdenes monomiales y orden producto*
+
 Si $\le$ es orden monomial en $\mathbb{N}^n$ entonces se verifica que dados $\alpha, \beta \in \mathbb{N}^n$:
-\[ \alpha \le_{pr} \beta \Longrightarrow \alpha \le \beta \]
+
+\[\alpha \le_{pr} \beta := \alpha_i \le \beta_i \quad \forall i \Longrightarrow \alpha \le \beta\]
 #+end_fact
 
 
-** Ejercicios
+Sean $\alpha, \beta \in \mathbb{N}^n$ en lo que sigue. 
 
+**** Orden lexicográfico $\le_{lex}$
+$\alpha \le_{lex} \beta$ si el primer elemento en el que no coinciden cumple que $\alpha_i \le \beta_i$
+
+**** Orden lexicográfico graduado $\le_{grlex}$
+$\alpha \le_{grlex} \beta$ si: $\bbig[\sum_{i=1}^n \alpha_i < \sum_{i=1}^n \beta_i\bbig]$ o $\bbig[\sum_{i=1}^n \alpha_i = \sum_{i=1}^n \beta_i$ y $\alpha \le_{lex} \beta \bbig]$
+
+**** Orden lexicográfico inverso $\le{invgrlex}$
+$\alpha \le_{invgrlex} \beta$ si: $\bbig[\sum_{i=1}^n \alpha_i < \sum_{i=1}^n \beta_i\bbig]$ o $\bbig[\sum_{i=1}^n \alpha_i = \sum_{i=1}^n \beta_i$ y $(\beta_n, \ldots \beta_1) \le_{lex} (\alpha_n,\ldots \alpha_1) \bbig]$
+
+
+Los *tres órdenes anteriores son monomiales*.
+
+**** Órden lexicográfico asociado a dos conjuntos
+Dados $(A,\le_A)$, $(B,\le_B)$ se define en $A\times B$ el orden producto lexicográfico $\le_{lex}$ asociado a $\le_A$ y $\le_B$ como:
+
+$(a,b)\le_{lex}(c,d)$ si $\bbig[c\le_A$ a o $a=c$ y $b\le_B d \bbig]$
+
+Si $\le_A$ y $\le_B$ son órdenes totales, entonces $\le_{lex}$ lo es.
+
+**** Preórdenes
+Sea $A$ un conjunto y un $\sqsubseteq$ un preorden (transitivo y reflexivo). Etnonces se puede definir una equivalencia:
+
+\[x\equiv_{\sqsubseteq} y \Leftrightarrow x\sqsubseteq y \wedge y \sqsubseteq x\]
+
+El producto lexicográfico de dos preórdenes $\sqsubseteq_1$ y $\sqsubseteq_2$ se define por:
+
+$x\sqsubseteq_{12} \Leftrightarrow \bbig[x\sqsubseteq_1 y \wedge y\not\sqsubseteq_1 x\bbig] \vee \bbig[x\equiv_1 y \wedge x\sqsubseteq_2 x\bbig]$
+
+#+begin_fact
+Se verifica:
+
+1. $\sqsubseteq_{12}$ es un preorden.
+2. $\sqsubseteq_{1}$ preorden y $\sqsubseteq_{2}$ orden. Entonces $\sqsubseteq_{12}$ es un orden. Si ambos son totales, $\sqsubseteq_{12}$ es total.
+3. $\sqsubseteq_{i}$ son compatibles (monótonos), entonces $\sqsubseteq_{12}$ es compatible (monótono).
+
+
+#+begin_lemma
+*Lema de Dickson*
+
+Sea $S \subseteq \mathbb{N}^n$, $S\neq \emptyset$. Etnonces $\exists G\subseteq S$ finito verificando que $S\subseteq (G + \mathbb{N}^n)$
+#+end_lemma
+
+
+
+
+** Ejercicios
 *** Ejercicio 1.12
 
 #+begin_wording
 Demuestra que si un anillo verifica que cada elmento $x$ verifica $x^n=x$ para algún $n\ge 2$ (dependiente de $x$) entonces todo ideal primo es maximal.
 #+end_wording
  
-
 *** Ejercicio 1.16
 
 #+begin_wording
@@ -323,13 +407,11 @@ Por inducción, $(a,b)=(a+b+ab)$ ya que $a(a+b+ab)=a^2 = a$ y análogo $b$.
 
 Y el paso de inducción es trivial.
 
-
 *** Ejercicio 1.17
 
 #+begin_wording
 En un anillo $R$ sea $\Sigma$ el conjunto de todos los ideales en los que cada elemento es un divisor de cero. Probar que el conjunto $\Sigma$ tiene elementos maximales y que cada elemento maximal de $\Sigma$ es un ideal primo. Por tanto el conjunto de los divisores de cero en $R$ es una unión de ideales primos.
 #+end_wording
-
 
 *** Ejercicio 1.18
 
@@ -338,7 +420,6 @@ Sea $K$ un cuerpo, demuestra que el ideal $(X^3-Y^2)\subseteq K[X,Y]$ es un idea
 #+end_wording
 
 Se puede probar, con una discusión de casos, escribiendo $X^3-Y^2$ como producto de dos polinomios en $K[X,Y]$ que no puede ocurrir esta circunstancia, luego $X^3-Y^2$ es irreducible en $K[X,Y]$ y por tanto, al ser $K$ cuerpo, $(X^3-Y^2)$ es primo.
-
 
 *** Ejercicio 1.25
 
@@ -377,7 +458,6 @@ con $z\in\alpha_1$. Luego $1\in \alpha_1 + (\alpha_1, \cdots \alpha_t)$. Y la ca
 
 \[ \alpha_1^n + (\alpha_1, \cdots \alpha_t)^n \subset \alpha_1 + (\alpha_1, \cdots \alpha_t)^n \]
 
-
 *** Ejercicio 1.24
 
 #+begin_wording
@@ -402,7 +482,6 @@ Luego $\alpha = \mathcal{N}$ único ideal primo de $R$.
 
 \newpage
 
-
 *** Ejercicio 2.2
 
 1. Tomamos:
@@ -415,9 +494,7 @@ $mcd(F,G) = XY$, pero sin embargo $XY \neq (F,G)$, luego no se verifica la ident
 
 2. Queda como ejercicio.
 
-
 *** TODO Ejercicio 2.15
-
 
 *** Ejercicio 2.16
 
@@ -428,7 +505,6 @@ Sea $\le$ un orden en $\mathbb{N}^n$ que es total y compatible. Haciendo usod e 
 Hacia la izquierda, como $\le$ es monomial, entonces es buen orden.
 
 Hacia la derecha, si 0 no fuese mínimo, $\exists x\in \mathbb{N}^n$ verificando $x<0$. Como el orden es compatible tendríamos que $x+x<x$, lo que es contradicción.
-
 
 *** Ejercicio 2.17
 
@@ -458,7 +534,6 @@ Calculando $M_{11} = mcm(A_1, B_1)$, $M_{12} = X^2 Y$.
 
 Al final $I\cap J = (X^2Y, Y^2 Z^3)$
 
-
 *** Ejercicio 2.18
 
 #+begin_wording
@@ -472,7 +547,6 @@ Hay que comprobar que si $I_1 = (G_1,\ldots G_k)$, $I_2 = (H_1, \ldots H_s)$ ent
 
 \[I_1 + I_2 = (G_1,\ldots G_k, H_1,\ldots H_s)\]
 \[I_1 I_2 = (G_i H_j: i=1\ldots k,j=1\ldots s)\]
-
 
 *** Ejercicio 2.21
 
@@ -488,7 +562,6 @@ Llamo soporte de $F\in K[X_1,\ldots X_n]$ a $Sop(F) = \{X^\alpha : \alpha\in N(F
 Dado $F\in (I:J) \implies FJ\subset I$. En particular $FX^{\beta} \forall X^\beta \in J$
 
 Esto implica que $X\alpha X\beta\in I \forall\alpha \in N(F) X^\alpha\in J$. Entonces $X\alpha J\subset I \implies X^\alpha\in(I:J) \forall \alpha\in N(F)$. Luego $(I:J)$ es monomial.
-
 
 *** Ejercicio 2.22
 1. Veamos la implicación hacia la izquierda: 
@@ -514,7 +587,6 @@ Luego $\mathcal{M}$ es maximal.
 
 
 Es el único porque si tenemos $I=(A)$, $I'=(A')$ entonces $A\subset A' \Leftrightarrow I\subset I'$
-
 
 * Álgebra III
 
