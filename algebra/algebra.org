@@ -447,6 +447,8 @@ Para cada $F\in K[X_1, \ldots X_n], F\neq 0$, existen únicos $Q_1 \ldots Q_t, R
 #+end_theorem
 
 
+*** Bases de Groebner
+
 #+begin_definition
 *Ideal monomial*
 
@@ -471,6 +473,116 @@ Sea $I=(X^\alpha : \alpha \in A)$ monomial, y $F\in K[X_1, \ldots X_n]$. Entonce
 3. $F$ es una combinación $K$ lineal de monomios de $I$.
 #+end_fact
 
+#+begin_definition
+*Exponente de un ideal*
+
+Dado un ideal $I$ no nulo de $K[X_1, \ldots X_n]$ definimos el exponente de $I$ como:
+
+\[Exp(I) = \{exp(F): 0\neq F\in I\}\subseteq \mathbb{N}^n\]
+
+Es un monoideal de $\mathbb{N}^n$
+#+end_definition
+
+
+#+begin_lemma
+*Lema de Dickson para ideales monomiales*
+
+Todo ideal monomial no nulo de $K[X_1, \ldots X_n]$ tiene un sistema de generadores finito  y también formado por monomios.
+#+end_lemma
+
+#+begin_corollary
+*Igualdad entre ideales monomiales*
+
+Sean $I,J$ ideales monomiales de $K[X_1, \ldots X_n]$
+
+\[I=J \Leftrightarrow Exp(I)=Exp(J)\]
+#+end_corollary
+
+#+begin_fact
+*Unicidad del sistema de generadores minimal de un ideal monomial*
+
+Sea $I$ ideal monomial no nulo. Entonces $I$ tiene un *único* sistema de generadores minimal formado por monomios.
+#+end_fact
+
+#+begin_fact
+Sea $I\subseteq K[X_1,\ldots X_n]$ ideal no nulo y sea  $G=\{\alpha_1, \ldots \alpha_t\}$ sistema de generadores finito del monideal $Exp(I)$. Supongamos para cada $i=1\ldots t$, $F_i \in I$ tal que $Exp(F_i)=\alpha_i$.
+
+Entonces $\{F_1\ldots F_t\}$ es sistema de generadores de $I$.
+#+end_fact
+
+Esto motiva la definición de las bases de Groebner.
+
+#+begin_definition
+*Base de Groebner*
+
+Sea $I\subseteq K[X_1, \ldots, X_n]$ ideal no nulo. Una base de Groebner del ideal $I$ es un conjunto $\mathbb{G} = \{G_1,\ldots G_t\} \subseteq I$ tal que:
+
+\[Exp(I) = \{Exp(G_1), \ldots Exp(G_t)\} + \mathbb{N}^n\]
+#+end_definition
+
+Sea $I\subseteq K[X_1, \ldots, X_n]$ ideal no nulo. Sea $\mathbb{G} = \{G_1,\ldots G_t\} \subseteq I$ una base de Groebner del ideal $I$. Sean $\Delta^i$ asociados a los $exp(G_i)$, entonces $Exp(I) = \cup_{i=1}^t \Delta^i$ 
+
+#+begin_theorem
+*Existencia de bases de Groebner y bases de Hilbert*
+
+1. Todo ideal no nulo de $K[X_1, \ldots X_n]$ tiene una base de Groebner.
+2. Toda base de Groebner de un ideal no nulo tiene un sistema de generadores del ideal.
+3. *Teorema de la base de Hilbert*. Todo ideal de $K[X_1, \ldots x_n]$ es finitamente generado.
+#+end_theorem
+
+#+begin_fact
+*Restos respecto a bases de Groebner*
+
+Sea $I\subseteq K[X_1,\ldots X_n]$ ideal no nulo y sean $\mathbb{G}, \mathbb{G}'$ ods bases de Groebner de $I$. Sea $F\in K[X_1,\ldots X_n], F\neq 0$. Entonces $R(F, \mathbb{G}) = R(F, \mathbb{G}')$.
+#+end_fact
+
+#+begin_fact
+*Caracterización bases de Groebner*
+
+Sea $I\subseteq K[X_1,\ldots X_n]$ ideal no nulo, y $\mathbb{G} = \{G_1\ldots G_t\} \subseteq I$. Entonces equivalen:
+
+1. $\mathbb{G}$ es base de Groebner de $I$.
+2. $R(F, \mathbb{G}) = 0$ para todo $F\in I
+#+end_fact
+
+
+#+begin_definition
+*Semisizigia o S-polinomial*
+
+Definimos el $S$ polinomial o semisizigia de $F$ y $G$ como el siguiente polinomio:
+
+\[S(F,G) :=\frac{F}{cl(F)} X^{\gamma-\alpha} + \frac{G}{cl(G)} X^{\gamma-\beta}\]
+
+donde $\alpha = exp(F)$, $\beta = exp(G)$ y $\gamma$ viene dado por $\gamma_i = max\{\alpha_i, \beta_i\}$
+#+end_definition
+
+#+begin_theorem
+*Teorema de Buchberger*
+
+Sea $I$ ideal no nulo de $K[X_1,\ldots X_n]$ y $\mathbb{G}=\{G_1,\ldots G_t\}$ un sistema de generadores de $I$. Son equivalentes los dos enunciados siguientes:
+
+1. $\mathbb{G}$ es base de Groebner de $I$.
+2. $\forall i,j \quad i\neq j \quad R(S(G_i, G_j), \mathbb{G})=0$
+#+end_theorem
+
+#+begin_definition
+*Bases de Groebner minimales y reducidas*
+
+Sea $\mathbb{G}$ base de Groebner de un ideal $I\neq 0$
+
+$\mathbb{G}$ se dice *minimal* si:
+
+1. $cl(F)=1$ para todo $F\in \mathbb{F}$
+2. $exp(F)\notin Exp(G\setminus \{F\}) + \mathbb{N}^n \quad \forall F\in \mathbb{G}$
+
+
+$\mathbb{G}$ se dice *reducida* si:
+
+1. $cl(F)=1$ para todo $F\in \mathbb{G}$
+2. $N(F) \cap \bbig(Exp(\mathbb{G} \setminus \{F\}) + \mathbb{N}^n \bbig) = \emptyset \quad \forall F\in \mathbb{G}$
+#+end_definition
+
+Claramente, ser base de Groebner *reducida implica ser minimal*.
 ** Ejercicios
 *** Ejercicio 1.12
 
