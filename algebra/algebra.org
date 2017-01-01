@@ -217,6 +217,82 @@ Sea $f: R\rightarrow S$ homomorfismo de anillos.
 2. Si $\alpha\subseteq R$ es ideal de $R$ entonces $f_\ast(\alpha)$ es ideal de $Img(f)$
 #+end_fact
 
+Hay una relación biyectiva entre $\{\alpha < R: Ker(f)\subset \alpha\}$ y $\{\beta < Img(f)\}$ por $f^{\ast}$ y $f_{\ast}$ respectivamente.
+
+*** Ideales primos y maximales
+#+begin_definition
+*Ideal primo*
+
+Sea $R$ un anillo. Un ideal $\Pi$ de $R$ diremos que es primo si $\Pi\neq R$ y siempre que $xy\in \Pi, x,y\in R$ entonces $x\in \Pi$ o  $\y\in \Pi$
+#+end_definition
+
+#+begin_definition
+*Ideal maximal*
+
+Un ideal $\Pi$ de $R$ diremos que es maximal si $\Pi\neq R$y es un elementomaximal del retículo de ideales del anillo $R$ (con la inclusión)
+#+end_definition
+
+#+begin_theorem
+*Caracterización de ideales primos y maximales*
+
+1. $\Pi$ es ideal primo $\Leftrightarrow$ $R/\Pi$ es dominio de integridad.
+2. $\mathcal{M}$ es maximal $\Leftrightarrow$ $R/\mathcal{M}$ es cuerpo.
+#+end_theorem
+
+#+begin_fact
+1. Si $R$ es DIP todo ideal primo no nulo es maximal.
+2. Dado $K$ cuerpo, si $F$ es irreducible en $K[x_1, \ldots x_n]$ entonces $(F)$ es primo.
+#+end_fact
+
+#+begin_fact
+*Relación entre ideales primos de dominio y codominio*
+
+1. Si $\Pi\le S$ es un ideal primo, entonces $f^{\ast}(\Pi)$ es primo.
+2. Para $\{\alpha < R: Ker(f)\subset \alpha\}$ y $\{\beta < Img(f)\}$, se tiene que $f^{\ast}$ y $f_{\ast}$ convierten ideales primos o maximales en ideales primos o maximales resp.
+#+end_fact
+
+Esto quiere decir que los ideales primos (o maximales) de $R/\alpha$ son de la forma $\Pi/\alpha$ donde $\Pi$ es ideal primo de $R$ con $\alpha\subseteq \Pi$ (resp. de la forma $\mathcal{M}/\alpha$ donde $\mathcal{M}$ es maximal de $R$ con $\alpha \subseteq \mathcal{M}$).
+
+#+begin_definition
+*Conjunto multiplicativamente cerrado*
+
+Sea $R$ anillo, $S\subseteq R$ es multiplicativamente cerrado si $\forall x,y\in S$ entonces $xy\in S$ y se verifica $1 \in S$.
+#+end_definition
+
+#+begin_theorem
+*Teorema de Krull*
+
+Sea $R$ anillo, $\alpha < R$ ideal, $S\subseteq R$ conjunto *multiplicativamente cerrado* verificando $\alpha \cap S = \emptyset$.
+
+Entonces $\exists \mathcal{M}\subseteq R$ *ideal primo* verificando:
+
+1. $\alpha\subseteq \mathcal{M}$
+2. $\mathcal{M}\cap S = \emptyset$
+
+Y el ideal es maximal con estas dos condiciones (no tiene por qué ser maximal en $R$).
+#+end_theorem
+
+#+begin_corollary
+*Corolario, teorema de Krull*
+1. Sea $R$ anillo no trivial, $\alpha\le R, \alpha\neq R$. Entonces $\exists J\supseteq \alpha$ ideal maximal de $R$. Así, todo anillo tiene al menos un ideal maximal.
+#+end_corollary
+
+#+begin_corollary
+Sea $R$ anillo no trivial y $x\in R$ *no unidad*. Entonces $\exists \mathcal{M}$ ideal maximal de $R$ verificando $x\in \mathcal{M}$.
+#+end_corollary
+
+#+begin_fact
+*Intersección de ideales contenida en un primo*
+
+Sea $R$ anillo, $\alpha_1, \ldots \alpha_n$ ideales de $R$ y $\Pi$ ideal primo de $R$ tal que $\cap_{i=1}^n \alpha_i \subseteq \Pi$. Entonces $\exists i$ verificando $\alpha_i\subseteq \Pi$
+#+end_fact
+
+#+begin_fact
+*Ideal contenido en unión de primos*
+
+Sea $R$ anillo, $\alpha_1, \ldots \alpha_n$ ideales, $n\ge 2$ todos ellos primos salvo posiblemente dos de ellos. Sea $\alpha \subseteq \cup_{i=1}^n \alpha_i$ ideal. Entonces $\exists i: \alpha \subseteq \alpha_i$
+#+end_fact
+
 ** Tema 2: Variedades algebraicas
 ** Tema 3: Bases de Groebner y algoritmos básicos
 *** R-módulos
