@@ -96,7 +96,7 @@ Sea $R$ anillo, $R'\subset R$ es subanillo si:
 3. $1\in R'$
 #+end_definition
 
-*** Ideales
+*** Conceptos básicos sobre ideales
 
 #+begin_definition
 *Ideal*
@@ -293,6 +293,128 @@ Sea $R$ anillo, $\alpha_1, \ldots \alpha_n$ ideales de $R$ y $\Pi$ ideal primo d
 Sea $R$ anillo, $\alpha_1, \ldots \alpha_n$ ideales, $n\ge 2$ todos ellos primos salvo posiblemente dos de ellos. Sea $\alpha \subseteq \cup_{i=1}^n \alpha_i$ ideal. Entonces $\exists i: \alpha \subseteq \alpha_i$
 #+end_fact
 
+#+begin_definition
+*Anillo local*
+
+Un anillo $R$ se llama *anillo local* si tiene únicamente un ideal maximal $\mathcal{M}$. Al cuerpo $R/\mathcal{M}$ se le llama cuerpo residual.
+#+end_definition
+
+#+begin_fact
+*Caracterización de anillos locales*
+
+
+#+end_fact
+
+#+begin_fact 
+*Caracterizaciones de anillos locales*
+
+Se verifica:
+
+1. $R$ es anillo local sii $R-U(R) \le R$
+2. $R$ anillo, $\mathcal{M}\subseteq R$ ideal propio. Entonces $R$ es anillo local con maximal $\mathcal{M}$ sii $R-\mathcal{M}\subseteq U(R)$
+3. $R$ anillo, $\mathcal{M}$ ideal maximal tal que $\{1+x: x\in \mathcal{M}\} \subseteq U(R)$. Entonces $R$ es local y $\mathcal{M}$ su ideal maximal.
+#+end_fact
+
+*** Radicales
+#+begin_definition
+*NilRadical*
+
+Se define el nilradical de un anillo $R$ como $Nil(R) = \{x\in R: x$ es nilpotente $\} = \cap_{\Pi\in Spec(R)\}$, donde $Spec(R)$ son los ideales primos de un anillo.
+#+end_definition
+
+#+begin_definition
+*Anillo reducido*
+
+Un anillo se dice reducido si su nilradical es nulo. En particular $R/Nil(R)$ es anillo reducido.
+#+end_definition
+
+#+begin_definition
+*Radical*
+
+Sea $R$ anillo, $\alpha \le R$ entonces $\sqrt{\alpha} = \{x\in R: \exists n\in \mathbb{N}, x^n \in \alpha\}$
+#+end_definition
+
+#+begin_fact
+*Propiedades de radicales*
+
+1. $\sqrt{\alpha}$ es ideal de $R$ y $\sqrt{\alpha} = \bigcap_{\begin{array}{l}\Pi \in Spec(R)\\ \alpha \subset \Pi \end{array}} \Pi$
+2. $Nil(R/\alpha)= \sqrt{\alpha}/\alpha$
+3. $\alpha \subseteq \sqrt{\alpha}$
+4. $\sqrt{\alpha} = \bigcap_{\begin{array}{l}\Pi \in Spec(R)\\ \alpha \subset \Pi \end{array}} \Pi$
+#+end_fact
+
+#+begin_fact
+*Caracterización de comaximalidad*
+
+$\alpha, \beta$ ideales de $R$. Entonces:
+
+\[\sqrt{\alpha} + \sqrt{\beta} = R \Leftrightarrow \alpha, \beta \quad comaximales\]
+#+end_fact
+
+#+begin_definition
+*Radical de Jacobson*
+
+Sea $R$ anillo, entonces se define el radical de Jabobson como:
+
+\[J(R) = \bigcap_{\mathcal{M} maximal} \mathcal{M}\]
+#+end_definition
+
+#+begin_fact
+*Caracterización de radicales de Jacobson*
+
+\[x\in J(R) \Leftrightarrow 1-xy \in U(R) \forall y\in R\]
+#+end_fact
+
+*** Ideales cociente
+#+begin_definition
+*Ideal cociente*
+
+Sea $R$ anillo, $\alpha, \beta \le R$. Definimos el ideal cociente o residual de $\beta$ como:
+
+\[(\alpha : \beta) = \{x\in R: x\beta \subseteq \alpha\}\]
+#+end_definition
+
+#+begin_definition
+*Anuladores*
+
+1. $(0:\beta) = Ann(\beta)$ recibe el nombre de *anulador del ideal $\beta$* con $\beta$ ideal de $R$.
+2. $(0:y) = Ann(y)$ recibe el nombre de anulador de $y\in R$
+3. $D = \{$divisores de $0\} = \cup_{y \in R\setminus \{0\}} Ann(y)$
+#+end_definition
+
+*** Extensión y contracción de ideales
+#+begin_definition
+*Ideales extendidos y contraídos*
+
+Sea $f:R \rightarrow S$ homomorfismo, $\alpha \le R$, $\beta < S$
+
+Llamamos ideal extendido de $\alpha$ a $\alpha^e = (f_{\ast}(\alpha)) = \{\sum_{finita} s_i f(x_i), s_i\in S, x_i\in \alpha\}$
+
+Llamamos ideal contraído de $\beta^c = f^{\ast}(\beta)$
+#+end_definition
+
+En general $(\cdot)^e$ no tiene porqué ser ideal.
+
+Si $f$ es sobreyectiva, $\alpha^e = f_{\ast}(\alpha)$ para todo ideal $\alpha < R$.
+
+#+begin_fact
+*Propiedades de ideales extenidos y contraídos*
+
+1. $\alpha_1 \subseteq \alpha_2$ entonces $\alpha_1^e \subseteq \alpha_2^e$
+2. $\alpha \subseteq \beta_2$ entonces $\beta_1^c \subseteq \beta_2^c$
+3. $\alpha \subseteq \alpha^{ec}$, $\beta^{ce} \subseteq \beta$
+4. $\alpha^e = \alpha^{cec}$, $\beta^{c} = \beta^{cec}$
+#+end_fact
+
+Definimos 
+
+\begin{align*}
+C=\{\alpha \subseteq R : \exists \beta \subseteq S, \beta^c = \alpha\}\\
+E=\{\beta \subseteq S : \exists \alpha \subseteq R, \alpha^e = \beta\}
+\end{align*}
+
+$(\cdot)^c$ y $(\cdot)^e$ definen una biyección entre $C$ y $E$.
+
 ** Tema 2: Variedades algebraicas
 ** Tema 3: Bases de Groebner y algoritmos básicos
 *** R-módulos
@@ -436,8 +558,6 @@ Se verifica:
 1. $\sqsubseteq_{12}$ es un preorden.
 2. $\sqsubseteq_{1}$ preorden y $\sqsubseteq_{2}$ orden. Entonces $\sqsubseteq_{12}$ es un orden. Si ambos son totales, $\sqsubseteq_{12}$ es total.
 3. $\sqsubseteq_{i}$ son compatibles (monótonos), entonces $\sqsubseteq_{12}$ es compatible (monótono).
-
-   
 *** Algoritmo de la división
 
 #+begin_lemma
@@ -522,13 +642,12 @@ Para cada $F\in K[X_1, \ldots X_n], F\neq 0$, existen únicos $Q_1 \ldots Q_t, R
 3. $exp(G_i) + N(Q_i) \subset \Delta^i$ para cada $i=1 \ldots t$
 #+end_theorem
 
-
 *** Bases de Groebner
 
 #+begin_definition
 *Ideal monomial*
 
-Un ideal $I$ de $K[X_1,\ldots X_n]$ es monomial si $\exists A\in \mathbb{N}^n$ tal que:
+Un ideal $I$ de $K[X_1,\ldots X_n]$ es monomial si $\exists A\subseteq \mathbb{N}^n$ tal que:
 
 \[I = (X^\alpha : \alpha \in A)\]
 #+end_definition
