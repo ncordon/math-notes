@@ -415,6 +415,18 @@ E=\{\beta \subseteq S : \exists \alpha \subseteq R, \alpha^e = \beta\}
 
 $(\cdot)^c$ y $(\cdot)^e$ definen una biyección entre $C$ y $E$.
 
+*** Anillo producto
+#+begin_definition
+*Anillo producto*
+
+Sean $R_1 \ldots R_n$ anillos, $\prod_{i=1}^n R_i$ es anillo producto con la suma definida por coordenadas y el producto también definido coordenada a coordenada.
+#+end_definition
+
+LLamamos a las proyecciones:
+
+\begin{align*}
+p_j:\prod_{i=1}^n R_i \rightarrow R_j \qquad p_j(x_1,\ldots x_n) = x_j\\
+u_j: R_j \rightarrow \prod
 ** Tema 2: Variedades algebraicas
 ** Tema 3: Bases de Groebner y algoritmos básicos
 *** R-módulos
@@ -682,7 +694,7 @@ Es un monoideal de $\mathbb{N}^n$
 #+begin_lemma
 *Lema de Dickson para ideales monomiales*
 
-Todo ideal monomial no nulo de $K[X_1, \ldots X_n]$ tiene un sistema de generadores finito  y también formado por monomios.
+Todo ideal monomial no nulo de $K[X_1, \ldots X_n]$ tiene un sistema de generadores finito y también formado por monomios.
 #+end_lemma
 
 #+begin_corollary
@@ -700,7 +712,7 @@ Sea $I$ ideal monomial no nulo. Entonces $I$ tiene un *único* sistema de genera
 #+end_fact
 
 #+begin_fact
-Sea $I\subseteq K[X_1,\ldots X_n]$ ideal no nulo y sea  $G=\{\alpha_1, \ldots \alpha_t\}$ sistema de generadores finito del monideal $Exp(I)$. Supongamos para cada $i=1\ldots t$, $F_i \in I$ tal que $Exp(F_i)=\alpha_i$.
+Sea $I\subseteq K[X_1,\ldots X_n]$ ideal no nulo y sea  $G=\{\alpha_1, \ldots \alpha_t\}$ sistema de generadores finito del monoideal $Exp(I)$. Supongamos para cada $i=1\ldots t$, $F_i \in I$ tal que $Exp(F_i)=\alpha_i$.
 
 Entonces $\{F_1\ldots F_t\}$ es sistema de generadores de $I$.
 #+end_fact
@@ -728,7 +740,7 @@ Sea $I\subseteq K[X_1, \ldots, X_n]$ ideal no nulo. Sea $\mathbb{G} = \{G_1,\ldo
 #+begin_fact
 *Restos respecto a bases de Groebner*
 
-Sea $I\subseteq K[X_1,\ldots X_n]$ ideal no nulo y sean $\mathbb{G}, \mathbb{G}'$ ods bases de Groebner de $I$. Sea $F\in K[X_1,\ldots X_n], F\neq 0$. Entonces $R(F, \mathbb{G}) = R(F, \mathbb{G}')$.
+Sea $I\subseteq K[X_1,\ldots X_n]$ ideal no nulo y sean $\mathbb{G}, \mathbb{G}'$ dos bases de Groebner de $I$. Sea $F\in K[X_1,\ldots X_n], F\neq 0$. Entonces $R(F, \mathbb{G}) = R(F, \mathbb{G}')$.
 #+end_fact
 
 #+begin_fact
@@ -737,7 +749,7 @@ Sea $I\subseteq K[X_1,\ldots X_n]$ ideal no nulo y sean $\mathbb{G}, \mathbb{G}'
 Sea $I\subseteq K[X_1,\ldots X_n]$ ideal no nulo, y $\mathbb{G} = \{G_1\ldots G_t\} \subseteq I$. Entonces equivalen:
 
 1. $\mathbb{G}$ es base de Groebner de $I$.
-2. $R(F, \mathbb{G}) = 0$ para todo $F\in I
+2. $R(F, \mathbb{G}) = 0$ para todo $F\in I$
 #+end_fact
 
 
@@ -760,6 +772,27 @@ Sea $I$ ideal no nulo de $K[X_1,\ldots X_n]$ y $\mathbb{G}=\{G_1,\ldots G_t\}$ u
 2. $\forall i,j \quad i\neq j \quad R(S(G_i, G_j), \mathbb{G})=0$
 #+end_theorem
 
+
+#+begin_theorem
+*Algoritmo de Buchberger*
+
+Sea $I\subseteq K[X_1, \ldots X_n]$ ideal no nulo y $\mathbb{G}=\{G_1,\ldots G_t\}$ sistema de generadores de $I$.
+
+Es posible construir una base de Groebner de $I$ haciendo los siguientes pasos:
+1. $\mathbb{G}_0 = \{G_1,\ldots G_t\}$
+2. $\mathbb{G}_{n+1} = \mathbb{G}_n \cup \{R(S(F,G), \mathbb{G}_n) \neq 0 : F,G \in \mathbb{G}_n, F\neq G\}$
+
+Entonces cuando $\mathbb{G}_i = \mathbb{G}_{i+1}$ podemos asegurar que $\mathbb{G}_i$ es una base de Groebner del ideal $I$.
+#+end_theorem
+
+#+begin_lemma
+*Eliminación de elementos de una base de Groebner*
+
+Sea $\mathbb{G}$ base de Groebner de un ideal no nulo $I\subseteq K[X_1,\ldots X_n]$ y sea $F\in \mathbb{G}$ tal que $exp(F) \in \{exp(G): G\in \mathbb{G}, F\neq G\} + \mathbb{N}^n$.
+
+Entonces $\mathbb{G}\setminus \{F\}$ es también una base de Groebner de $I$.
+#+end_lemma
+
 #+begin_definition
 *Bases de Groebner minimales y reducidas*
 
@@ -767,17 +800,77 @@ Sea $\mathbb{G}$ base de Groebner de un ideal $I\neq 0$
 
 $\mathbb{G}$ se dice *minimal* si:
 
-1. $cl(F)=1$ para todo $F\in \mathbb{F}$
-2. $exp(F)\notin Exp(G\setminus \{F\}) + \mathbb{N}^n \quad \forall F\in \mathbb{G}$
+1. $cl(F)=1$ para todo $F\in \mathbb{G}$
+2. $exp(F)\notin Exp(\mathbb{G}\setminus \{F\}) + \mathbb{N}^n \quad \forall F\in \mathbb{G}$
 
-
+ 
 $\mathbb{G}$ se dice *reducida* si:
 
 1. $cl(F)=1$ para todo $F\in \mathbb{G}$
 2. $N(F) \cap \bbig(Exp(\mathbb{G} \setminus \{F\}) + \mathbb{N}^n \bbig) = \emptyset \quad \forall F\in \mathbb{G}$
 #+end_definition
 
+#+begin_fact
 Claramente, ser base de Groebner *reducida implica ser minimal*.
+#+end_fact
+
+
+#+begin_fact
+*Caracterizaciones de bases minimales*
+
+Sea $I\subseteq K[X_1, \ldots X_n]$ ideal no nulo y $\mathbb{G} = \{G_1, \ldots G_t\}$ sistema de generadores de $I$. Entonces son equivalentes:
+
+1. $\mathbb{G}$ es base de Groebner minimal de $I$.
+2. $\{exp(G_1), \ldots exp(G_t)\}$ es un sistema de generadores minimal de $Exp(I)$
+#+end_fact
+
+#+begin_fact
+*Igualdad de exponentes en bases minimales*
+
+Por tanto si tenemos dos bases de Groebner minimales $\mathbb{G}, \mathbb{G}'$ de un ideal $I$, entonces:
+
+\begin{align*}
+card(\mathbb{G}) = card(\mathbb{G}')\\
+\{exp(G): G\in \mathbb{G}\} = \{exp(G'): G'\in \mathbb{G}'\}
+\end{align*}
+#+end_fact
+
+
+#+begin_theorem
+*Existencia y unicidad de bases reducidas*
+
+Todo ideal no nulo $I\subseteq K[X_1, \ldots X_n]$ tiene una única base de Groebner reducida.
+#+end_theorem
+
+#+begin_corollary
+*Caracterización de igualdad de ideales*
+
+Sean $I,J$ ideales no nulos de $K[X_1,\ldots X_n]$ y sean $\mathbb{G}, \mathbb{G}'$ dos bases de Groebner de $I,J$ respectivamente. Se cumple:
+
+\[I=J \Leftrightarrow \mathbb{G}=\mathbb{G}'\]
+#+end_corollary
+
+*** Teoría de eliminación
+
+#+begin_definition
+*Ideal de eliminación*
+
+Sea $I\subseteq K[X_1,\ldots X_n]$ un ideal no nulo. Para cada $j=1,\ldots (n-1)$ definimos el $j$ ésimo ideal de eliminación, $I_j$ por $I_j := I\cap K[X_{j+1},\ldots X_n]$
+#+end_definition
+
+#+begin_fact
+*Base del ideal de eliminación*
+
+Sea $I\subseteq K[X_1,\ldots X_n]$ ideal no nulo y $\mathbb{G}$ base de Groebner de $I$. Entonces $\mathbb{G}_j := \mathbb{G} \cap I_j, j=1,\ldots (n-1)$ es base de Groebner de $I_j$
+#+end_fact
+
+
+Sea $I$ un ideal de $K[X_1,\ldots X_n]$ y una nueva variable $T$. Consideramos la inclusión:
+
+\[K[X_1,\ldots X_n] \hookrightarrow K[T,X_1,\ldots X_n]\]
+
+Entonces si $\{F_1, \ldots F_k\}$ es sistema de generadores de $I$, también lo es de $I^e$, donde $I^e = \{\sum_{i=1}^k Q_i F_i : Q_i\in K[T,X_1, \ldots X_n]\}$
+
 ** Ejercicios
 *** Ejercicio 1.12
 
@@ -994,6 +1087,8 @@ Luego $\mathcal{M}$ es maximal.
 
 
 Es el único porque si tenemos $I=(A)$, $I'=(A')$ entonces $A\subset A' \Leftrightarrow I\subset I'$
+*** TODO Ejercicio 2.34
+Algoritmo de Buchberger
 
 * Álgebra III
 
