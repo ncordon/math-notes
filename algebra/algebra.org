@@ -428,6 +428,88 @@ LLamamos a las proyecciones:
 p_j:\prod_{i=1}^n R_i \rightarrow R_j \qquad p_j(x_1,\ldots x_n) = x_j\\
 u_j: R_j \rightarrow \prod
 ** Tema 2: Variedades algebraicas
+*** Variedades algebraicas
+Sea $K$ cuerpo, $\mathbb{A}^n(K)$ espacio afín definido sobre $K^n$ con la función usual $(u,v) \mapsto v-u$. A partir de un polinomio $F\in K[X_1, \ldots X_n]$ definimos la función:
+
+\[F^{\ast}: \mathbb{A}^n (K) \rightarrow K \qquad F^{\ast}(a_1, \ldots a_n) = F(a_1, \ldots a_n)\]
+
+A esta función la llamamos función polinómica y $P(\mathbb{A}^n (K))$ denota el conjunto de funciones polinómicas. Es una $K$ álgebra con las operaciones usuales.
+
+Se tiene que $\Delta : K[X_1, \ldots X_n] \rightarrow P(\mathbb{A}^n (K))$ es un homomorfismo de $K$ álgebras sobreyectivo, no inyectivo en general.
+
+#+begin_fact
+Sea $K$ cuerpo infinito. Se verifica:
+
+1. $F\in K[X_1, \ldots X_n]$. Entonces $F^{\ast}=0 \Leftrightarrow F=0$
+2. $F, G\in K[X_1, \ldots X_n]$. Entonces $F=G \Leftrightarrow F^{\ast} = G^{\ast}$
+#+end_fact
+
+Dado $F\in K[X_1, \ldots X_n]$ denotaremos $\mathbb{V} (F)$ al conjunto $\{(a_1, \ldots a_n) \in \mathbb{A}^n(K) : F(a_1, \ldots a_n)=0 \}$. A este conjunto lo llamamos *hipersuperficie*
+
+Dado un conjunto de polinomios $\mathcal{F} \subseteq K[X_1, \ldots X_n]$ denotamos $\mathbb{V}(\mathcal{F})$ al conjunto $\{a \in \mathbb{A}^n (K) : F(a) = 0 \forall F \in \mathcal{F}\}$ 
+
+Dado $F\in K[X_1, \ldots X_n]$ de grado total 1, $F=a_0 + a_1 X + a_2 X^2 + \ldots + a_n X_n$, entonces $\mathbb{V} (F)$ se llama hiperplano.
+
+#+begin_definition
+*Variedad algebraica afín*
+
+Un subconjunto $V\subseteq A^n (K)$ diremos que es una variedad algebraica afín si existe $\mathcal{F} \subseteq K[X_1, \ldots X_n]$ verificando $V = \mathbb{V} (\mathcal{F})$
+#+end_definition
+
+#+begin_lemma
+Si $\mathcal{F}_1 \subset \mathcal{F}_2$ entonces $\mathbb{V} (F_2) \supset \mathbb{V} (F_1)$
+#+end_lemma
+
+#+begin_fact
+Sea $\mathcal{F} \subseteq K[X_1, \ldots X_n]$ y sea $J = (\mathcal{F})$ el ideal generado por $\mathbb{F}$. Entonces:
+
+1. $\mathbb{V}(F) = \mathbb{V}(J)$
+2. $\exists F_1, \ldots F_t \in \mathcal{F}$ tal que $\mathbb{V}(\mathcal{F}) = \mathbb{V}(F_1, \ldots F_t)$ 
+#+end_fact
+
+#+begin_fact
+Se verifica:
+
+1. Sea $\{J_{\lambda}\}_{\lambda \in \Delta}$ una familia de ideales de $K[X_1, \ldots X_n]$. Entonces $\mathbb{V}(\sum_{\lambda \in \Delta} J_{\lambda}) = \bigcap_{\lambda \in \Delta} \mathbb{V} (J_{\lambda})$
+2. Sean $J_1, J_2 \subseteq K[X_1, \ldots X_n]$. Entonces $\mathbb{V}( J_1 J_2 ) = \mathbb{V} (J_1) \mathbb{V} (J_2) = \mathbb{V} (J_1 \cap J_2)$
+3. $\mathbb{V}(0) = \mathbb{A}^n (K)$, y $\mathbb{V} (K[X_1, \ldots X_n]) = \emptyset$
+#+end_fact
+
+Por tanto las variedades algebraicas sobre $\mathbb{A}^n (K)$ definen una topología sobre $\mathbb{A}^n (K)$. Son los cerrados de la *topología de Zariski*.
+
+#+begin_definition
+*Representación paramétrica racional de $V$*
+
+Sea $V \subseteq \mathbb{A}^n (K)$ una variedad afín $V = \mathbb{V}(F_1, \ldots F_t)$. Una representación paramétrica racional de $V$ consiste en un conjunto de funciones racionales $R_i = \frac{G_i}{H_i}, i=1\ldots n$, donde $F_1, \ldots G_n, H_1, \ldots H_n \in K[T_1, \ldots T_m]$ tal que:
+
+\[\{(R_1(t_1,\ldots t_m), R_2(t_1, \ldots t_m), \ldots, R_n(t_1, \ldots t_m)) : t_1, \ldots t_m \in K\} \subseteq V\]
+
+Si $H_1 = \ldots H_n = 1$ diremos que la representación paramétrica es polinomial.
+#+end_definition
+
+
+#+begin_definition
+Sea $S \subseteq \mathbb{A}^n (K)$. Definimos el ideal asociado a $S$ como $\mathbb{I} (S) = \{F\in K[X_1, \ldots X_n] : F(a) = 0 \forall a\in S\}$. $\mathbb{I}$ se puede ver como un operador que va desde $2^{\mathbb{A}^n (K)}$ a los ideales de $K[X_1, \ldots X_n]$
+#+end_definition
+
+#+begin_fact
+Se verifica:
+
+1. $S_1 \subseteq S_2 \implies \mathbb{I} (S_1) \supseteq \mathbb{I} (S_2)$
+2. $\mathbb{I} (\emptyset) = K[X_1, \ldots X_n]$, $\mathbb{I} (\mathbb{A}^n (K)) = 0$ si $K$ es infinito.
+3. $S \subseteq \mathbb{V} \mathbb{I} (S)$, $J\subseteq \mathbb{I} \mathbb{V} (J)$
+4. $\mathbb{I} (S) = \mathbb{I} \mathbb{V} \mathbb{I} (S)$, $\mathbb{V} (J) = \mathbb{V} \mathbb{I} \mathbb{V} (J)$
+5. $\mathbb{I}(S)$ es un ideal radical.
+6. Si $V \subset \mathbb{A}^n (K)$ es variedad afín, entonces $V = \mathbb{V} \mathbb{I} (V)$
+7. Sean $V_1, V_2$ variedades afines. Entonces $V_1 \subseteq V_2 \Leftrightarrow \mathbb{I} (V_1) \supseteq \mathbb{I} (V_2)$
+8. Sean $V_1, V_2$ variedades afines. Entonces $\mathbb{I} (V_1 \cup V_2) = \mathbb{I} (V_1) \cap \mathbb{I} (V_2)$
+9. Sean $V_1, V_2$ variedades afines. Entonces $V_1 \cup V_2 = \mathbb{V} (\mathbb{I} (V_1) \mathbb{I} (V_2)) = \mathbb{V} (\mathbb{I} (V_1) \cap \mathbb{I} (V_2))$
+10. $\{V_{\lambda}\}_{\lambda \in \Delta}$ familia de variedades afines. Entonces: $\cap_{\lambda \in \Delta} V_{\lambda} = \mathbb{V} (\sum_{\lambda \in \Delta} \mathbb{I} (V_{\lambda}))$
+#+end_fact
+
+
+Podemos establecer una relación entre $\{V \subseteq \mathbb{A}^n (K)$ variedad algebraica afín $\}$ y $\{J \subseteq K[X_1, \ldots X_n] : J = \sqrt{J}\}$ mediante las funciones $\mathbb{I}, \mathbb{V}$
+
 ** Tema 3: Bases de Groebner y algoritmos básicos
 *** R-módulos
 #+begin_definition
