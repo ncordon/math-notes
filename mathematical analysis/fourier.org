@@ -3,7 +3,6 @@
 #+AUTHOR: Ignacio Cordón Castillo
 #+OPTIONS: toc:nil
 #+LANGUAGE: es
-#+STARTUP: latexpreview
 #+STARTUP: indent
 #+DATE:
 
@@ -22,8 +21,141 @@
 [[../by-nc-sa.png]]
 
 * Resumen
+** Espacio $L^2(a,b), a<b$
 
-** Aplicaciones de las series de Fourier
+$L^2(a,b) = \{f:(a,b) \rightarrow \mathbb{R}$ medibles tal que $\int_a^b f^2(x) dx = \int_a^b |f(x)|^2 dx < \infty \}$
+
+
+Dadas $f, g\in L^2(a,b)$. Entonces $f=g \Leftrightarrow f(x) = g(x)$. 
+
+Por tanto igualdad en $\mathbb{R}^2$ no implica igualdad de funciones, ya que la función:
+
+\[f(x) = \left\{ \begin{array}{ll}
+0 & x \in \mathbb{R} \setminus \mathbb{Q}\\
+1 & x \in \mathbb{Q}
+\end{array} \right.\]
+
+es igual a la función nula con la igualdad de $L^2$
+
+#+begin_fact
+1. Sea $f: (a,b) \rightarrow \mathbb{R}$ medible, tal que $\exists g\in L^1(a,b) : |f(x)|^2 \le g(x)$ cpd, entonces $f \in L^2(a,b)$
+2. Sea $f: (a,b) \rightarrow \mathbb{R}$ medible, $\exists M \ge 0 : |f(x)| \le M$ cpd. Entonces $f\in L^2(a,b)$.
+3. Sea $f: (a,b) \rightarrow $ continua en $(a,b)$ entonces $f\in L^2(a,b)$. El recíproco no es cierto. Tampoco es cierto que si $f$ es continua en $]a,b[$ entonces $f\in L^2(a,b)$
+4. Sea $f: [a,b] \rightarrow \mathbb{R}$ continua en $[a,b] \setminus \{x_1, \ldots x_n\}$ y $f$ acotada. Entonces $f \in L^2(a,b)$
+5. $f \in L^2(a,b)$ no implica que $f$ sea acotada en $(a,b)$
+#+end_fact
+
+#+begin_fact
+$L^2(a,b) \subseteq L^1(a,b)$ de manera estricta.
+#+end_fact
+
+Un ejemplo de función que está en $L^1(a,b) \setminus L^2(a,b)$ es $x \mapsto \frac{1}{\sqrt{x-a}}$
+
+*** Comentarios sobre teoría de integración
+**** Integral de Riemann
+Para la integral de Rienmann sólo se pide que la función que estamos integrando sea acotada.
+**** Integral de Lebesgue
+Dado $G$ abierto, $G = \cup_{n} I_n$ intervalos y su medida se define por $\mu(G) = \sum_{i=1}^n \mu(I_i)$
++ Dado $E \subseteq \mathbb{R}$ cualquiera, su medida exterior se define como $\mu^{\ast} (E) = inf\{\mu(G) : G \supseteq E$, G abierto$\}$.
++ Un conjunto $A$ se dice medible si $\mu^{\ast}([a,b]) + \mu^{\ast}([a,b]\setminus A) = \mu^{\ast}([b,a]) = b-a$
++ $f: [a,b] \rightarrow \mathbb{R}$ es medible si $f^{-1}( ]\alpha, \infty[ )$ es medible $\forall \alpha \in \mathbb{R}$
++ Si $f$ es integrable en el sentido Riemann, entonces $f$ es integrable en el sentido de Lebesgue. El recíproco no es cierto.
+
+*** Teoremas de convergencia
+
+#+begin_fact
+*$L^2$ es prehilbertiano*
+$L^2(a,b)$ es un espacio vectorial de dimensión infinita prehilbertiano, con el producto escalar definido de la forma $<f,g> = \int_{a}^b fg$
+#+end_fact
+
+#+begin_fact
+*Desigualdad de Cauchy-Schwarz*
+
+$\forall f,g \in L^2(a,b)$ se verifica $|<f,g>| \le ||f||^{1/2} ||g||^{1/2}$ y se da la igualdad sii $f$ y $g$ son linealmente dependientes.
+#+end_fact
+
+
+#+begin_theorem
+*Teorema de Riesz - Fischer*
+
+$L^2(a,b)$ es completo para la norma anterior.
+
+Además si $\{f_n\} \rightarrow f$ en $L^2(a,b)$, entonces $\exists \{f_{nk}\} : f_{nk}(x) \rightarrow f(x)$ cpd.
+#+end_theorem
+
+
+#+begin_theorem
+*Teorema de convergencia dominada*
+
+Dadas $\{f_n\} \subseteq L^1(a,b)$ tal que $\exists g\in L^1(a,b) : |f_n| \le g$ cpd y $\{f_n\} \rightarrow f$ cpd en $(a,b)$. Entonces $f \in L^1(a,b)$ y $\{\int_a^b f_n \} \rightarrow \int_a^b f$
+#+end_theorem
+
+#+begin_theorem
+*Teorema de convergencia monótona*
+
+Sea $\{f_n\} \subseteq L^1(a,b)$, $f_n \le f_{n+1}$ cpd en $(a,b)$ y $\forall n\in \mathbb{N}, \quad \exists M\ge 0 : \int_a^b f_n \le M, \forall n\in\mathbb{N}$
+Entonces $\exists f\in L^1(a,b): \{f_n\} \rightarrow f$ cpd y $\left\{ \int_a^b f_n \right\} \rightarrow \int_a^b f$
+#+end_theorem
+
+#+begin_definition
+*Base hilbertiana*
+
+Sea $H$ espacio de Hilbert separable ($\exists A \subseteq H, A$ denso y numerable) de dimensión infinita.
+Diremos que $B = \{f_1, \ldots f_k \ldots \} \subset L^2(a,b)$ es base hilbertiana de $L^2(a,b)$ si $\forall f\in L^2(a,b) \quad f=\sum_{n=1}^{\infty} <f,f_n> f_n$ con esta igualdad la de un límite en $L^2(a,b)$
+#+end_definition
+
+#+begin_fact
+*Caracterización de bases*
+
+Sea $B = \{f_n : n\in \mathbb{N}\}$ ortonormal. Entonces equivalen:
+
+1. $\forall f\in L^2(a,b), \quad f=\sum_{n=1}^{\infty} <f,f_n> f_n$
+2. $\forall f\in L^2(a,b), \quad ||f||^2 = \sum_{n=1}^{\infty} |<f,f_n>|^2$ (a esta igualdad se le llama *Igualdad de Parseval*)
+3. $B^{\bot} = \{0\}$
+#+end_fact
+
+Siempre se cumple la llamada desigualdad de Parseval: $||f||^2 \ge \sum_{n=1}^k <f,f_n>^2$
+
+#+begin_theorem
+*Teorema de Lebesgue*
+
+$B = \left\{\frac{1}{\sqrt{\pi}}, \frac{1}{\sqrt{\pi}} cos(n(\cdot)), \frac{1}{\sqrt{\pi}} sen(n(\cdot))\right\}_{n\in \mathbb{N}}$ es base hilbertiana de $L^2(-\pi,\pi)$
+#+end_theorem
+
+Como consecuencia, dada $f\in L^2(-\pi, \pi)$, podemos expresar $f$ de la forma:
+
+\[f= \frac{A_0}{2} + \sum_{n=1}^{\infty} A_n cos(n(\cdot)) + B_n sen(n(\cdot))\]
+
+donde:
+
+\[\left\{ \begin{array}{l}
+A_n = \frac{1}{\pi} \int_{-\pi}^{\pi} f(x) cos(nx) dx\\
+A_0 = \frac{1}{\pi} \int_{-\pi}^{\pi} f(x) dx\\
+B_n = \frac{1}{\pi} \int_{-\pi}^{\pi} f(x) sen(nx) dx
+\end{array} \right.\]
+
+
+La identidad de Parseval para la base de Fourier vale:
+
+\[||f||^2 = \pi \left[ \frac{A_0^2}{2} + \sum_{n=1}^{\infty} A_n^2 + B_n^2 \right]\]
+
+#+begin_fact
+Cualquier subconjunto ortogonal de $L^2(-\pi,\pi)$ es numerable.
+#+end_fact
+
+
+#+begin_lemma
+*Lema de Riemann Lebesgue*
+
+\[\forall f\in L^1(-\pi, \pi) \quad lim_n \int_{-\pi}^{\pi} f(x) cos(nx) = lim_n \int_{-\pi}^{\pi} f(x) sen(nx) = 0\]
+#+end_lemma
+
+#+begin_fact
+*Criterio de Dini sobre convergencia puntual*
+
+Sea $f: \mathbb{R} \rightarrow \mathbb{R}$ función $2\pi$ periódica tal que: $f_{|[-\pi,\pi]} \in L^1(-\pi,\pi)$ y sea $x\in \mathbb{R}$ tal que la función $g(\tau) = \frac{f(x+\tau) - f(x)}{\tau} \in L^1(-\delta, \delta)$ para algún $\delta > 0$
+Entonces $f(x) = Sf(x) = lim S_n f(x)$
+#+end_fact
 
 Tenemos que hallar 
 $\begin{array}{rrcl}
