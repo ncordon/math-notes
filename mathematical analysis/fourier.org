@@ -157,11 +157,16 @@ Sea $f: \mathbb{R} \rightarrow \mathbb{R}$ función $2\pi$ periódica tal que: $
 Entonces $f(x) = Sf(x) = lim S_n f(x)$
 #+end_fact
 
+** Aplicaciones de las series de Fourier
+*** Ecuación del calor
 Tenemos que hallar 
-$\begin{array}{rrcl}
+
+\[\begin{array}{rrcl}
 u: & \Omega \times [0, \infty] & \longrightarrow & \mathbb{R}\\
    & (x,t) & \longmapsto & u(x,t)
-\end{array}$ que describe la temperatura en cada punto $x\in\Omega$, $t>0$
+\end{array}\]
+
+que describe la temperatura en cada punto $x\in\Omega$, $t>0$
 
 $u: [0,l]\times[0,\infty] \longrightarrow \mathbb{R}$ verifica que:
 
@@ -185,7 +190,7 @@ X(0) = X(l) = 0
 
 \[\left\{
 \begin{array}{l}
-T^{'}(x)+\lambda T(t)=0\\
+T^{'}(t)+\lambda T(t)=0\\
 T(0) = 1
 \end{array}\right.\]
 
@@ -197,12 +202,11 @@ llegamos a $u(x,t)=Ae^{\frac{-n^2 \pi^2 t}{l^2}} sen(\frac{n\pi x}{l})$
 Por linealidad ya tenemos la solución si $u_0$ es una combinación finita de senos.
 
 #+begin_theorem
-
 Sea $u_0\in L^2(0,l)$ y consideramoslos coeficientes de Fourier en serie de senos $A_n = \frac{2}{l} \int_0^l u_0(x) sen\left(\frac{n\pi x}{l}\right) dx$  para todo $n\in\mathbb{N}$
 
 Entonces:
 
-i. $u:[0,l]\times ]0,\infty[$ donde $u(x,t) = \sum_{n=1}^{\infty} A_n e^{\frac{-n^2\pi^2 t}{l^2}} sen\left(\frac{n\pi x}{l}\right)$ es continua y tiene derivadas parciales continuas  en $[0,l]\times ]0,\infty[$ verificándose además:
+1. $u:[0,l]\times ]0,\infty[$ donde $u(x,t) = \sum_{n=1}^{\infty} A_n e^{\frac{-n^2\pi^2 t}{l^2}} sen\left(\frac{n\pi x}{l}\right)$ es continua y tiene derivadas parciales continuas  en $[0,l]\times ]0,\infty[$ verificándose además:
 
 
 \[\left\{
@@ -212,9 +216,78 @@ u(0,t) = u(l,t) = 0 & \forall t>0
 \end{array}\right.\]
 
 
-ii.Además si $u_0 \in \mathcal{C}^1(0,l)$ con $u_0(l)=u_0(0)$ entonces dicha función está definida en $u:[0,l]\times [0,\infty[$ y es continua con $u(x,0) = u_0(x) \quad \forall x\in[0,l]$ es decir, $u$ es solucion única al problema.
-
+2. Además si $u_0 \in \mathcal{C}^1(0,l)$ con $u_0(l)=u_0(0)$ entonces dicha función está definida en $u:[0,l]\times [0,\infty[$ y es continua con $u(x,0) = u_0(x) \quad \forall x\in[0,l]$ es decir, $u$ es solucion única al problema.
 #+end_theorem
+
+*** Ecuación de ondas
+Sea $u(x,t)$ posición del punto $x$ de la cuerda en el instante $t$. La ecuación que deducimos es:
+
+\[\frac{\partial^2 u}{\partial t} = k \frac{\partial^2 u}{\partial x^2}\]
+
+Estudiaremos la ecuación con $k=1$ por simplicidad. Si hubiese fuerzas de otro tipo habría que considerar otro sumando, cosa que no haremos, de la forma:
+
+\[\frac{\partial^2 u}{\partial t} - \frac{\partial^2 u}{\partial x^2} = G(x,t)\]
+
+
+\[\left\{\begin{array}{lr}
+u_{tt} - u_{xx} = 0 & \forall (x,t) \in [0,\pi] \times [0,\infty[\\
+u(0,t) = u(\pi,t) = 0 & \forall t>0\\
+u(x,0) = f(x), \quad u_t(x,0) = 0
+\end{array}\right.\]
+
+
+Suponiendo variables separadas $u(x,t) = X(x)T(t)$, la ecuación queda:
+
+\[X(x)T^{''}(t) - X^{''}(x)T(t) = 0\]
+
+
+\[\frac{T^{''}(t)}{T(t)} = \frac{X^{''}(x)}{X(x)} = -\lambda\]
+
+Imponiendo $T(0) = 1$ el problema se reescribe:
+
+
+\[\left\{
+\begin{array}{l}
+X^{''}(x)+\lambda X(x)=0\\
+X(0) = X(\pi) = 0\\
+X(x) = f(x)
+\end{array}\right.\]
+
+Este problema tiene solución sii $\lambda = n^2$, lo que implica que debe tenerse $X(x) = Asen(nx)$
+
+\[\left\{
+\begin{array}{l}
+T^{''}(t)+\lambda T(t)=0\\
+T(0) = 1\\
+T'(0) = 0
+\end{array}\right.\]
+
+Usando $\lambda$ despejado de las soluciones anteriores, $f(x) = Asen(nx)$ y las soluciones del problema original son de la forma:
+
+\[u(t,x) = Asen(nx)cos(nt)\]
+
+Si $f(x)$ es una suma de senos, a saber, $f(x) = \sum_{k=1}^n A_k sen(kx)$, entonces $u(t,x) = \sum_{k=1}^n A_k sen(kx) cos(kt)$
+
+Si $f$ es una serie infinita, con $f\in L^2(0,\pi)$, la serie $\sum_{k\ge 1} A_k^2$ es sumable, las colas convergen a cero, y el oído humano percibe únicamente los primeros coeficientes.
+
+*** Series de Fourier en notación compleja
+#+begin_fact
+En $L^2([-\pi, \pi], \mathbb{C})$ tomamos el conjunto $B = \{x\mapsto e^{inx} : n\in \mathbb{Z}\}$ que es ortogonal. Veámoslo.
+#+end_fact
+
+#+begin_proof
+En el espacio de Hilbert $L^2([-\pi,\pi], \mathbb{C})$ el producto escalar que tomamos es:
+
+\[<f,g> = \int_{-\pi, \pi} f\bar{g}\]
+
+y se tiene:
+
+\[<x\mapsto e^{inx}, x\mapsto e^{imx}> = \int_{-\pi}^{\pi} e^{inx} e^{\bar{i}mx} dx = \int_{-\pi}^{\pi} e^{i(n-m)x} dx = \left\{\begin{array}{ll}
+\frac{e^{i(n-m)x}}{i(n-m)}\bbig]^{\pi}_{-\pi} = 0 & n\neq m\\
+2\pi & n=m
+\end{array}\right.\]
+
+#+end_proof
 
 
 * Ejercicios
