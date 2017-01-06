@@ -1,4 +1,4 @@
-#+TITLE: Fourier Series
+r#+TITLE: Fourier Series
 #+SUBTITLE:
 #+AUTHOR: Ignacio Cordón Castillo
 #+OPTIONS: toc:nil
@@ -363,8 +363,57 @@ Dados $p,q\in \mathbb{Z}, p<q$, $r\neq 1, \alpha \in \mathbb{R}$ entonces se tie
 \label{sumaprog}
 #+end_lemma
 
+#+begin_fact
+*La matriz DCT es ortogonal*
+#+end_fact
+
+#+begin_proof
+Queremos ver que: $\sum a_{kj}a_{lj} = \delta_{kj}$ con $k,l \in \{1,\ldots N\}$
+
+1.
+
+$k=l=1$
+
+Entonces $\sum_{j=1}^N a_{1j}^2 = \sum_{j=1}^N \left(\frac{1}{\sqrt{N}}\right)^2 = 1$ 
+2.
+
+$k=l>1$
+
+Entonces $\sum_{j=1}^N a_{lj}^2 = \frac{1}{N} \sum_{j=1}^N 2cos^2 \left((l-1)(j-1/2)\frac{\pi}{N} \right) = \frac{1}{N} \sum_{j=1}^N \left[ 1+cos \left(2(l-1)(j-1/2)\frac{\pi}{N} \right) \right]$ 
+
+Aplicando el lema previo ref:sumapar, llamando $r= e^{2 (l-1) \frac{\pi}{N} i} \neq 1$ y aplicando la fórmula de la progresión geométrica de ref:sumaprog:
+
+\begin{align*}
+\sum_{j=1}^N a_{lj}^2  &= 1 + \frac{1}{2N} \sum_{j=1-N}^N cos \left(2(l-1)(j-1/2)\frac{\pi}{N} \right) =\\
+&= 1 + \frac{1}{2N} Re\left\{ \sum_{j=1-N}^N \left[ e^{2 (l-1) \frac{\pi}{N} i}\right]^{j-1/2} \right\} = \\
+&= 1 + \frac{1}{2N} Re\left\{ \frac{r^{-1/2}}{r-1} [r^{N+1} - r^{1-N}] \right\} = 1 \end{align*}
+
+La última parte se obtiene porque al tenerse $\frac{r^{N+1}}{r^{1-N}} = r^{2N} = 1$, entonces  $r^{N+1} - r^{1-N} = 0$
+
+3.
+
+$k\neq l, k=1$
+
+\begin{align*}
+\sum_{j=1}^N a_{1j} a_{lj} &= \frac{\sqrt{2}}{N} \sum_{j=1}^N cos \left((l-1)(j-1/2)\frac{\pi}{N} \right) = \\
+&= \frac{\sqrt{2}}{2N} \sum_{j=1-N}^N cos \left((l-1)(j-1/2)\frac{\pi}{N} \right) = \\
+&= \frac{\sqrt{2}}{2N} Re\left\{ \frac{r^{-1/2}}{r-1} [r^{N+1} - r^{1-N}]\right\} = 0
+\end{align*}
+
+4.
+
+$k\neq l, \quad k,l>1$
+
+\begin{align*}
+&\sum_{j=1}^N a_{kj} a_{lj} = \frac{1}{N} \sum_{j=1}^N 2 cos \left((k-1)(j-1/2)\frac{\pi}{N} \right) cos \left((l-1)(j-1/2)\frac{\pi}{N} \right) =\\
+&= \frac{-1}{2N} \sum_{j=1-N}^N cos \left((l-1)(j-1/2)\frac{\pi}{N} \right) + \frac{1}{2N} \sum_{j=1-N}^N cos \left((k+l-2)(j-1/2)\frac{\pi}{N} \right) =\\
+&= 0
+\end{align*}
+
+Donde se ha usado que $2cos(x)cos(y) = cos(x+y) - cos(x-y)$ y lo aplicado para la parte de la exponencial compleja anteriormente.
 
 #+end_proof
+
 
 
 * Ejercicios
