@@ -272,11 +272,11 @@ Si $f$ es una serie infinita, con $f\in L^2(0,\pi)$, la serie $\sum_{k\ge 1} A_k
 
 *** Series de Fourier en notación compleja
 #+begin_fact
-En $L^2([-\pi, \pi], \mathbb{C})$ tomamos el conjunto $B = \{x\mapsto e^{inx} : n\in \mathbb{Z}\}$ que es ortogonal. Veámoslo.
+En $L^2([-\pi, \pi], \mathbb{C})$ tomamos el conjunto $B = \{x\mapsto e^{inx} : n\in \mathbb{Z}\}$ que es ortogonal
 #+end_fact
 
 #+begin_proof
-En el espacio de Hilbert $L^2([-\pi,\pi], \mathbb{C})$ el producto escalar que tomamos es:
+En el espacio de Hilbert $L^2([-\pi,\pi], \mathbb{C})$ el producto escalar que consideramos es:
 
 \[<f,g> = \int_{-\pi, \pi} f\bar{g}\]
 
@@ -286,6 +286,83 @@ y se tiene:
 \frac{e^{i(n-m)x}}{i(n-m)}\bbig]^{\pi}_{-\pi} = 0 & n\neq m\\
 2\pi & n=m
 \end{array}\right.\]
+#+end_proof
+
+
+#+begin_fact
+El conjunto $B = \{x\mapsto e^{inx} : n\in \mathbb{Z}\}$ es base de $L^2([-\pi, \pi])$
+#+end_fact
+
+
+Pongamos $\sum_{n=-\infty}^{\infty} c_n e^{in}$ donde $c_n = \frac{<f,e^{in(\cdot)}}{||e^{in(\cdot)}||^2} = \frac{1}{2\pi} \int_{-\pi}^{\pi} f(x) e^{-inx}$ 
+
+
+Sabíamos del tema anterior que podemos expresar $S(f) = a_0 + \sum_{n=1}^{\infty} a_n cos(n(\cdot)) + b_n sen(n(\cdot))$
+
+donde:
+
+\begin{align*}
+a_n = \frac{1}{\pi} \int_{-\pi}^{\pi} f(x) cos(nx) dx\\
+b_n = \frac{1}{\pi} \int_{-\pi}^{\pi} f(x) sen(nx) dx
+\end{align*}
+
+Como $f$ es real, $c_n = \frac{1}{2\pi} \int_{-\pi}^{\pi} f(x)cos(nx) - \frac{i}{2\pi} \int_{-\pi}{\pi} f(x)sen(nx) = \frac{a_n}{2} - i\frac{b_n}{2}$
+Análogamente $c_{-n} = \frac{a_n}{2} + i\frac{b_n}{2}$
+
+Se tiene por tanto:
+
+\[\left\{\begin{array}{ll}
+c_n + c_{-n} &= a_n\\
+i(c_n - c_{-n}) &= b_n
+\end{array}\right.\]
+
+\[c_0 = a_0\]
+
+Y la expresión $\sum_{n=-\infty}^{\infty} c_n e^{in}$ coincide con $S(f)$
+
+
+
+**** Reduacción a dimensión finita por serie de cosenos
+
+Conocemos $f \in L^2([0,\pi])$ valuada en $N$ putos de la forma $x_1 = \frac{\pi}{2N}, x_i = x_1 + \frac{\pi}{N}(i-1), \quad i=1 \ldots N$  donde $f(x_i) = d_i$
+
+La serie de Fourier de $f$ en desarrollo de cosenos será de la forma:
+
+\[S(f) = \frac{a_0}{2} + \sum_{n=1}^{\infty} a_n cos(n(\cdot))\]
+
+donde $a_n= \frac{2}{\pi} \int_0^{\pi} f(x) cos(nx) dx$
+
+Aproximaremos $a_n = \frac{2}{\pi} \int_0^{\pi} f(x) cos(nx_i) \approx \frac{2}{\pi} \sum_{i=1}^N \frac{\pi}{N} f(x_i)cos(nx_i) = \frac{2}{N} \sum_{i=1}^N d_i c_{ni}$
+
+Donde cada $c_{ji} = \frac{2}{N} cos\left((j-1) \left( x_1 + (i-1)\frac{\pi}{N} \right) \right)$ con $j=1,\ldots$
+
+
+#+begin_definition
+*DCT*
+
+Llamamos 
+
+\[DCT = a_{ij} = \left( \begin{array}{ll}
+\frac{1}{\sqrt{N}} & j=1\\
+\frac{\sqrt{2}}{\sqrt{N}} cos\left((j-1) \left( x_1 + (i-1)\frac{\pi}{N} \right) \right) & j>1
+\end{array} \right)_{i,j \in \{1,\ldots N\}\]
+#+end_definition
+
+#+begin_lemma
+Tomando la extensión par de $g$ a $[-\pi, \pi]$, $\widetilde{g}$ y $x_1 = \frac{\pi}{2N}, x_i = x_1 + \frac{\pi}{N}(i-1), \quad i=1-N \ldots N$  donde $g(x_j) = d_j, j=1 \ldots N$
+
+Se cumple $\sum_{j=1}^N g(x_j) = \frac{1}{2} \sum_{j=1-N}^N \widetilde{g}(x_j)$
+\label{sumapar}
+#+end_lemma
+
+#+begin_lemma
+Dados $p,q\in \mathbb{Z}, p<q$, $r\neq 1, \alpha \in \mathbb{R}$ entonces se tiene:
+
+\[\sum_{j=p}^q r^{j-\alpha} = \frac{r^{-\alpha}}{r-1}(r^{q+1} - r^p)\]
+
+\label{sumaprog}
+#+end_lemma
+
 
 #+end_proof
 
