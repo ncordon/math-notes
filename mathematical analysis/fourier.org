@@ -21,9 +21,9 @@ r#+TITLE: Fourier Series
 [[../by-nc-sa.png]]
 
 * Resumen
-** Espacio $L^2(a,b), a<b$
-
-$L^2(a,b) = \{f:(a,b) \rightarrow \mathbb{R}$ medibles tal que $\int_a^b f^2(x) dx = \int_a^b |f(x)|^2 dx < \infty \}$
+** Series de Fourier
+*** Espacio $L^2(a,b)
+Sea $a<b$, definimos $L^2(a,b) = \{f:(a,b) \rightarrow \mathbb{R}$ medibles tal que $\int_a^b f^2(x) dx = \int_a^b |f(x)|^2 dx < \infty \}$
 
 
 Dadas $f, g\in L^2(a,b)$. Entonces $f=g \Leftrightarrow f(x) = g(x)$. 
@@ -157,6 +157,69 @@ Sea $f: \mathbb{R} \rightarrow \mathbb{R}$ función $2\pi$ periódica tal que: $
 Entonces $f(x) = Sf(x) = lim S_n f(x)$
 #+end_fact
 
+
+Estamos en condiciones de aplicar el criterio de Dini si ocurre alguna de las siguientes condiciones:
+
+1. $f$ es derivable en $x$.
+2. $f$ tiene derivadas laterales en $x$
+3. $g$ acotada
+4. $f$ lipschitziana en $x$.
+
+*** Series de Fourier y derivación
+#+begin_definition
+*Continuidad a trozos*
+
+Una función se dice $f\in \mathcal{C}^1_{\tr}([-\pi, \pi])$ si $\exists P$ partición de $[-\pi, \pi]$ verificando $-\pi = t_0 < t_1 < \ldots < t_n = \pi$ y $f\in \mathcal{C}^1 ([t_{i-1}, t_i]), \quad \forall 1\le i\le n$
+#+end_definition
+
+Claramente $\mathcal{C}^1 \subseteq \mathcal{C}^1_{tr}$
+
+#+begin_definition
+*Continuidad absoluta*
+
+$g: [-\pi, \pi] \rightarrow \mathbb{R}$ es absolutamente continua si $\exists h\in L^1(-\pi, \pi : g(x) =\int_{-\pi}^x h(s)ds$ cpd en $[-\pi, \pi]$.
+#+end_definition
+
+#+begin_fact
+*Caracterización de continuidad absoluta*
+
+$f: [a,b] \rightarrow \mathbb{R}$ absolutamente continua sii:
+
+$\forall \epsilon > 0 \exists \delta\in \mathbb{R}^{+} \implies \forall (a_1,a_2),(a_2,a_3), \ldots$ subintervalos de $]a,b[$ tal que $\sum a_{i+1}-a_{i} < \delta$ entonces $\sum |f(a_{i+1}) -f(a_i)| < \epsilon$
+#+end_fact
+
+Se tiene lipschitzianidad implica continuidad absoluta que implica continuidad uniforme. Las implicaciones opuestas no se tienen.
+
+#+begin_theorem
+*Teorema fundamental del cálculo, versión Riemann*
+
+Sea $f: [a,b] \rightarrow \mathbb{R}$ continua. Entonces:
+
+\[\left(\int_a^x f(s) ds\right)' = f(x) \quad \forall x\in [a,b]\]
+#+end_theorem
+
+#+begin_theorem
+*Teorema fundamental del cálculo, versión Lebesgue*
+
+Sea $f: [a,b] \rightarrow \mathbb{R}, f\in L^1(a,b)$. Entonces 
+
+\[\left(\int_a^x f(s) ds\right)' = f(x) \quad cpd\]
+#+end_theorem
+
+#+begin_fact
+*Derivación de serie de Fourier*
+
+Si $f: [-\pi, \pi] \rightarrow \mathbb{R}$, $f(-\pi) = f(\pi)$ $f$ cumple $f \in \mathcal{C}^1_{tr}([-\pi, \pi])$
+
+Entonces la serie de Fourier de $f'$ es $S(f') = (S(f))'$ entendiéndo la serie derivada término a término.
+#+end_fact
+*** Series de Fourier e integración
+#+begin_fact
+Sea $f\in L^2(-\pi,\pi)$ y $S(f) = \frac{A_0}{2} + \sum_{n=1}^{\infty} A_n cos(nx) + B_n sen(nx)$ serie de Fourier de $f$. Entonces $\forall a\in [-\pi, \pi]$, $a$ fijo, se tiene:
+
+\[F(x) = \int_{a}^x f(t) = lim_n \int_a^x S_n(f) \quad \forall x\in [-\pi, \pi]\]
+
+con convegencia uniforme en $[-\pi,\pi]$
 ** Aplicaciones de las series de Fourier
 *** Ecuación del calor
 Tenemos que hallar 
@@ -413,7 +476,6 @@ $k\neq l, \quad k,l>1$
 Donde se ha usado que $2cos(x)cos(y) = cos(x+y) - cos(x-y)$ y lo aplicado para la parte de la exponencial compleja anteriormente.
 
 #+end_proof
-
 
 
 * Ejercicios
