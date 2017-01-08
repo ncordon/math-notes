@@ -1,4 +1,4 @@
-r#+TITLE: Fourier Series
+#+TITLE: Fourier Series
 #+SUBTITLE:
 #+AUTHOR: Ignacio Cordón Castillo
 #+OPTIONS: toc:nil
@@ -384,8 +384,7 @@ i(c_n - c_{-n}) &= b_n
 Y la expresión $\sum_{n=-\infty}^{\infty} c_n e^{in}$ coincide con $S(f)$
 
 
-
-**** Reduacción a dimensión finita por serie de cosenos
+*** Reducción a dimensión finita por serie de cosenos
 
 Conocemos $f \in L^2([0,\pi])$ valuada en $N$ putos de la forma $x_1 = \frac{\pi}{2N}, x_i = x_1 + \frac{\pi}{N}(i-1), \quad i=1 \ldots N$  donde $f(x_i) = d_i$
 
@@ -477,9 +476,38 @@ Donde se ha usado que $2cos(x)cos(y) = cos(x+y) - cos(x-y)$ y lo aplicado para l
 
 #+end_proof
 
+*** Fenómeno de Gibbs
+
+Sea: $f(x) = sgn(x), x\in \mathbb{R}^{\ast}$. Su serie de Fourier converge puntualmente en $\mathbb{R}^{\ast}$, sin embargo:
+
+#+begin_src R :file gibbs.png :results output graphics
+n<- 5
+
+fourier.series <- function(x){ 4/pi*sum( sapply(0:n, function(k){ sin((2*k+1)*x)/(2*k+1) })) }
+
+f <- Vectorize(fourier.series)
+curve(f, -2*pi, 2*pi, xname="x")
+#+end_src
+
+#+RESULTS:
+[[file:gibbs.png]]
+
+
+La serie de Fourier asociada a $f$ es:
+
+\[S(x) = \frac{4}{\pi} \sum_{k=0}^{\infty} \frac{sen((2k+1)x)}{2k+1}\]
+
+Se definen las sumas parciales por:
+
+\[S_{2n-1} (x) = \frac{4}{\pi} \sum_{k=0}^{n-1} \frac{sen((2k+1)x)}{2k+1}\]
+
+Las derivadas de estas funciones $x\mapsto S_{2n-1} (x)$ se anulan cuando $x \in \frac{\pi}{2n} \mathbb{Z}$
+
+$S_{2n-1} \left( \frac{\pi}{2n} \right) = \frac{4}{\pi} \sum_{k=0}^{n-1} \frac{sen \left((2k+1) \frac{\pi}{2n} \right)}{2k+1} \rightarrow \frac{2}{\pi} \int_0^pi \frac{sen(x)}{x} \approx 1.1789$
+
+El pico que encontramos tras cada salto tiene aproximadamente una longitud de aproximadamente el 18% superior a la mitad de la longitud de salto.
 
 * Ejercicios
-
 ** Demuestra que $u_{xx} = u_{tt}$ tiene infinitas soluciones
 
 La pregunta surge como parte de la motivación de la introducción a series de Fourier. Se trata de un ejercicio propuesto y no resuelto en clase. Hay ecuaciones diferenciales cuyo espacio de soluciones es finito, como por ejemplo:
