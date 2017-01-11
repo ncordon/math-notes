@@ -537,7 +537,9 @@ verificando, $\forall x,y\in M, \forall r,s\in R$
 #+begin_definition
 *R-álgebra*
 
-Una $R$ álgebra es un anillo $S$ que tiene estructura de $R$ módulo tal que $(rx)y=r(xy)=x(ry) \quad \forall r\in R, \quad\forall x,y\in S$
+Una $R$ álgebra es un anillo $S$ que tiene estructura de $R$ módulo tal que 
+
+\[(rx)y=r(xy)=x(ry) \quad \forall r\in R, \quad\forall x,y\in S\]
 
 También puede caracterizarse una $R$ álgebra como un anillo $S$ junto a un homomorfismo de anillos $\lambda:R\longrightarrow S$. El homomorfismo $\lambda$ se llama homomorfismo de estructura de la $R$ álgebra $S$.
 #+end_definition
@@ -551,7 +553,7 @@ Otro ejemplo es $R[X]$ visto como $R$ álgebra con la aplicación inclusión de 
 #+begin_definition
 *Homomorfismo de R-álgebras*
 
-Dadas $S_1, S_2$ $R$ álgebras. Un homomorfismo de $R-$álgebras de $S_1$ en $S_2$ es un homomorfismo de anillos $f:S_1 \longrightarrow S_2$ que es también homomorfismo de $R$ módulos, es decir
+Dadas $S_1, S_2$ $R$ álgebras. Un homomorfismo de $R$ álgebras de $S_1$ en $S_2$ es un homomorfismo de anillos $f:S_1 \longrightarrow S_2$ que es también homomorfismo de $R$ módulos, es decir
 
 \[f(rx) = rf(x)\]
 #+end_definition
@@ -559,7 +561,7 @@ Dadas $S_1, S_2$ $R$ álgebras. Un homomorfismo de $R-$álgebras de $S_1$ en $S_
 #+begin_fact 
 *Propiedad universal de $R[X_1,\ldots X_n]$*
 
-Sea $S$ anillo, $f:R\longrightarrow S$ homomorfismo de anillos. Sean $s_1, \ldots s_n\in S$ elementos arbitrarios. Entonces $\exists f_{s_1, \ldots s_n}: R[X_1,\ldots X_n]\longrightarrow S$ homomorfismo de R álgebras verificando $f_{s_1, \ldots s_n}(X_i)=s_i$ y $f_{s_1,\ldots s_n} \circ \lambda = f$ que además es único.
+Sea $S$ anillo, $f:R\longrightarrow S$ homomorfismo de anillos. Sean $s_1, \ldots s_n\in S$ elementos arbitrarios. Entonces $\exists f_{s_1, \ldots s_n}: R[X_1,\ldots X_n]\longrightarrow S$ homomorfismo de R álgebras verificando $f_{s_1, \ldots s_n}(X_i)=s_i$ y $f_{s_1,\ldots s_n} \circ \lambda = f$ que además es único, donde $\lambda 
 
 $f_{s_1, \ldots s_n}$ se llama homomorfismo de evaluación en $X_i = s_i$
 #+end_fact
@@ -607,6 +609,18 @@ Diremos que es *monótono* si 0 es mínimo en $\mathbb{N}^n$
 Diremos que un orden es *monomial* si es compatible, total y monótono.
 #+end_definition
 
+
+Definimos el *orden producto* como:
+#+begin_definition
+Si $\alpha, \beta \in \mathbb{N}^n$ entonces $\alpha \le_{pr} \beta$ sii $\alpha_i \le \beta_i$ para todo $i$.
+#+end_definition
+
+#+begin_theorem
+*Relación entre el orden producto y los órdenes monomiales*
+
+Si $\alpha, \beta \in \mathbb{N}^n$ verifican que $\alpha \le_{pr} \beta$ entonces $\alpha \le \beta$ para $\le$ un orden monomial
+#+end_theorem
+
 #+begin_fact
 *Relación entre órdenes monomiales y orden producto*
 
@@ -616,7 +630,7 @@ Si $\le$ es orden monomial en $\mathbb{N}^n$ entonces se verifica que dados $\al
 #+end_fact
 
 
-Sean $\alpha, \beta \in \mathbb{N}^n$ en lo que sigue. 
+Sean $\alpha, \beta \in \mathbb{N}^n$ en lo que sigue.  Definimos /lex, /grlex/, /invgrlex/, todos ellos órdenes monomiales.
 
 **** Orden lexicográfico $\le_{lex}$
 $\alpha \le_{lex} \beta$ si el primer elemento en el que no coinciden cumple que $\alpha_i \le \beta_i$
@@ -638,13 +652,13 @@ $(a,b)\le_{lex}(c,d)$ si $\bbig[c\le_A$ a o $a=c$ y $b\le_B d \bbig]$
 Si $\le_A$ y $\le_B$ son órdenes totales, entonces $\le_{lex}$ lo es.
 
 **** Preórdenes
-Sea $A$ un conjunto y un $\sqsubseteq$ un preorden (transitivo y reflexivo). Etnonces se puede definir una equivalencia:
+Sea $A$ un conjunto y un $\sqsubseteq$ un preorden (transitivo y reflexivo). Entonces se puede definir una equivalencia:
 
 \[x\equiv_{\sqsubseteq} y \Leftrightarrow x\sqsubseteq y \wedge y \sqsubseteq x\]
 
 El producto lexicográfico de dos preórdenes $\sqsubseteq_1$ y $\sqsubseteq_2$ se define por:
 
-$x\sqsubseteq_{12} \Leftrightarrow \bbig[x\sqsubseteq_1 y \wedge y\not\sqsubseteq_1 x\bbig] \vee \bbig[x\equiv_1 y \wedge x\sqsubseteq_2 x\bbig]$
+$x\sqsubseteq_{12} y \Leftrightarrow \bbig[x\sqsubseteq_1 y \wedge y\not\sqsubseteq_1 x\bbig] \vee \bbig[x\equiv_1 y \wedge x\sqsubseteq_2 x\bbig]$
 
 #+begin_fact
 Se verifica:
@@ -663,7 +677,7 @@ Sea $S \subseteq \mathbb{N}^n$, $S\neq \emptyset$. Etnonces $\exists G\subseteq 
 
 
 #+begin_fact
-*Todo orden monomial en $\mathbb{N}$ es un buen orden*
+*Todo orden monomial en $\mathbb{N}^n$ es un buen orden*
 #+end_fact
 
 #+begin_definition
@@ -812,10 +826,10 @@ Sea $I\subseteq K[X_1, \ldots, X_n]$ ideal no nulo. Una base de Groebner del ide
 Sea $I\subseteq K[X_1, \ldots, X_n]$ ideal no nulo. Sea $\mathbb{G} = \{G_1,\ldots G_t\} \subseteq I$ una base de Groebner del ideal $I$. Sean $\Delta^i$ asociados a los $exp(G_i)$, entonces $Exp(I) = \cup_{i=1}^t \Delta^i$ 
 
 #+begin_theorem
-*Existencia de bases de Groebner y bases de Hilbert*
+*Existencia de bases de Groebner y Teorema de la base de Hilbert*
 
 1. Todo ideal no nulo de $K[X_1, \ldots X_n]$ tiene una base de Groebner.
-2. Toda base de Groebner de un ideal no nulo tiene un sistema de generadores del ideal.
+2. Toda base de Groebner de un ideal no nulo es un sistema de generadores del ideal.
 3. *Teorema de la base de Hilbert*. Todo ideal de $K[X_1, \ldots x_n]$ es finitamente generado.
 #+end_theorem
 
@@ -903,11 +917,11 @@ Claramente, ser base de Groebner *reducida implica ser minimal*.
 Sea $I\subseteq K[X_1, \ldots X_n]$ ideal no nulo y $\mathbb{G} = \{G_1, \ldots G_t\}$ sistema de generadores de $I$. Entonces son equivalentes:
 
 1. $\mathbb{G}$ es base de Groebner minimal de $I$.
-2. $\{exp(G_1), \ldots exp(G_t)\}$ es un sistema de generadores minimal de $Exp(I)$
+2. $\{exp(G_1), \ldots exp(G_t)\}$ es un *sistema de generadores minimal* de $Exp(I)$
 #+end_fact
 
 #+begin_fact
-*Igualdad de exponentes en bases minimales*
+*Unicidad de términos líderes en bases minimales*
 
 Por tanto si tenemos dos bases de Groebner minimales $\mathbb{G}, \mathbb{G}'$ de un ideal $I$, entonces:
 
