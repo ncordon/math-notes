@@ -979,8 +979,6 @@ Dados $I,J$ ideales de $K[X_1, \ldots X_n]$ no nulos, queremos calcular $(I:J) =
 Para cada $G\in K[X_1, \ldots X_n]$ se verficia que $G(I:G) = I \cap (G)$. Consecuentemente $(I:G) = \frac{1}{G} (I\cap G)$
 #+end_theorem
 
-
-
 ** Ejercicios
 *** Ejercicio 1.12
 
@@ -1159,7 +1157,15 @@ La tercera también es trivial desde la definición del order /invgrlex/ como:
 
 $\alpha \le_{invgrlex} \beta$ si: $\bbig[\sum_{i=1}^n \alpha_i < \sum_{i=1}^n \beta_i\bbig]$ o $\bbig[\sum_{i=1}^n \alpha_i = \sum_{i=1}^n \beta_i$ y $(\beta_n, \ldots \beta_1) \le_{lex} (\alpha_n,\ldots \alpha_1) \bbig]$
 
-*** TODO Ejercicio 2.10
+*** Ejercicio 2.10
+#+begin_wording
+Usando el orden /invgrlex/ para $X > Y$
+
+1. Halla el resto de $X^7 Y^2 + XY^2 + Y^2$ módulo $\{XY^2 - X, X-Y^3\}$
+2. Halla el resto de $X^7 Y^2 + XY^2 + Y^2$ módulo $\{X-Y^3, XY^2 - X\}$
+#+end_wording
+
+
 *** TODO Ejercicio 2.15
 
 *** Ejercicio 2.16
@@ -1253,12 +1259,19 @@ Luego $\mathcal{M}$ es maximal.
 
 
 Es el único porque si tenemos $I=(A)$, $I'=(A')$ entonces $A\subset A' \Leftrightarrow I\subset I'$
+*** Ejercicio 2.1.4
+#+begin_wording
+Haz la división de $F$ por $\{G_1, G_2, G_3\}$ siendo $F=X^5 Y^2 + X^5 Z^2 + Y^3 Z^3$, $G_1 = (X+Y+Z)^2 - 1$, $G_2 = XY + YZ^2 + XZ^3 + Y$ con:
+
+1. El orden lexicográfico.
+2. El orden lexicográfico graduado.
+3. El orden lexicográfico graduado inverso.
+#+end_wording
 *** TODO Ejercicio 2.34
 Algoritmo de Buchberger
+
 * Álgebra III
-
 ** Resumen
-
 *** TODO
 **** TODO \ref{fg-implies-finita} de dónde sale?
 **** TODO \ref{decomp-field} ¿Qué es exactamente $F$?
@@ -1423,7 +1436,6 @@ b_m    & b_{m-1}   & \ldots  & b_0    & 0       & \ldots  & 0 \\
 \end{array}\right|\]
 #+end_fact
 
-
 *** Extensiones de cuerpos
 
 #+begin_definition
@@ -1458,7 +1470,6 @@ Se cumple:
 1. $E\supset F\supset K$ torre de cuerpos. La extensión $E/K$ es finita sii las extensiones $E/F$ y $F/K$ son ambas finitas.
 2. Sea $F/K$ extensión tal que $[F:K]= p$ es primo. Entonces no existe ningún cuerpo intermedio distinto de $F$ o $K$.
 #+end_corollary
-
 
 *** Elementos algebraicos
 
@@ -1587,7 +1598,6 @@ Sea $F/K$ extensión. El elemento $\alpha\in F$ es algebraico sobre $K$ si y sol
 
 Se deduce a partir de 3 y 4 desde \ref{bases_extensiones}
 
-
 *** Extensiones algebraicas
 
 #+begin_definition
@@ -1670,7 +1680,6 @@ Dada una torre de cuerpos $E\supset F\supset K$ la extensión $E/K$ es algebraic
 Si $E/K$ es algebraica, $F/K$ es algebraica trivialmente, por tenerse $x\in F\implies x\in E$; y $E/F$ también es algebraica por tenerse que si para todo $x\in E$ existe $Irr(x,K)$, entonces $\exists Irr(x,F)$ por ser $K\subset F$ y de hecho el segundo polinomio divide al primero. 
 
 Una simple reducción al absurdo nos da la implicación contraria.
-
 
 *** Cuerpos de descomposición
 
@@ -1809,7 +1818,6 @@ Sea $(F,\sigma)$ elemento maximal. Si $F\subsetneq F_1$, existiría una extensi�
 
 Como $F_1 = K(\{u\in F_1: f(u)=0, f\in\mathcal{F}\})$, y $\sigma$ se lleva raíces de un polinomio en raíces de ese mismo polinomio, tenemos que $\sigma$ es sobreyectiva.
 
-
 *** Clausura algebraica
 
 #+begin_fact
@@ -1921,7 +1929,6 @@ Sea $K$ cuerpo, $\bar{K}$ su clausura algebraica.
 1. Si $K$ es finito, entonces su clausura es infinito numerable.
 2. Si $K$ es infinito, entonces su clausura tiene el mismo cardinal que $K$.
 #+end_fact
-
 
 *** Extensiones normales
 
@@ -2071,7 +2078,6 @@ Sea $f$ un polinomio irreducible en $K[X]$. Los siguientes enunciados son equiva
 $1\implies 2, 2\implies 3$ son obvios.
 
 Veamos $3\implies 1$. Sea $F/K$ extensión (no tiene porqué ser algebraica) en la que existe una raíz del polinomio $f$, $u$. Entonces $K(u)\subset F$ y por tanto todas las raíces de $f$ están en $F$
-
 
 *** Extensiones separables
 
@@ -2267,7 +2273,6 @@ Dado $f = \sum_{i=0}^n a_iX^i$ definimos la derivada de $f$ como:
 
 Un polinomio $f\in K[X]$ se llama separable sobre $K$ si sus factores irreducibles tienen solo raíces simples.
 #+end_definition
-
 
 *** Teoría de Galois
 
@@ -2487,9 +2492,7 @@ Una extensión finita $E/K$ *de Galois* se dice:
 3  *Soluble* si $G$ es soluble
 #+end_definition
 
-
 ** Ejercicios
-
 *** Ejercicio 1.24
 
 #+begin_wording
@@ -2508,7 +2511,6 @@ y $k_i = card(\{e_j : e_j = d_i\})$ \\
 
 Por combinatoria, sabemos por tanto que $k=\prod{k_i!}$ y que tendremos un número $\frac{k}{n}$
 de monomios de tipo $(X_1^{e_1} \cdots X_n^{e_n})$.\\
-
 
 *** Ejercicio 1.25
 
@@ -2549,7 +2551,6 @@ Por otro lado, igualando los coeficientes de $q$ factorizado y sin factorizar:
 Así $a^3+b^3+c^3 = 13$
 
 
-
 *** Ejercicio 2.14
 
 #+begin_wording
@@ -2577,7 +2578,6 @@ Y por tanto la función $\phi$ no podría ser sobreyectiva, ya que en $Img(\phi)
 2-
 
 Podría ocurrir que si el coeficiente líder de $f(X)$ es nilpotente, $\phi$ fuera isomorfismo, como por ejemplo con $f(X) = 2X^2 + X$ en $\mathbb{Z}_4$. Con dicho $f$, tendríamos $\phi(X^2+2X) = X$, lo que asegura sobreyectividad, y como $gr(\phi(x)) \ge gr(p(x))$, el kernel de $\phi$ debería ser $\{0\}$, lo que asegura inyectividad.
-
 
 *** Ejercicio 2.15 
 
@@ -2626,7 +2626,6 @@ Sea $f(X) = \sum a_i X^i$ en $\mathbb{Q[X]}$. Entonces tenemos que en $F[X]$:
 
 Luego es una raíz del polinomio.
 
-
 *** Ejercicio 2.16
 
 #+begin_wording
@@ -2669,7 +2668,6 @@ Los elementos del cuerpo citado son de la forma $p(X) + (X^3+X+1)$ con $p(X)$ un
 | $d$     || $d$ | $c$ | $e$ | $f$ | $1$ | $0$ | $a$ | $b$ |
 | $e$     || $e$ | $f$ | $d$ | $c$ | $b$ | $a$ | $0$ | $1$ |
 | $f$     || $f$ | $e$ | $c$ | $d$ | $a$ | $b$ | $1$ | $0$ |
-
 
 *** Ejercicio 2.17
 
@@ -2755,7 +2753,6 @@ $$\omega^3 = 9\sqrt{3} + 11\sqrt{2}$$
 
 y podemos obtener a partir de combinaciones de $\omega, \omega^2, \omega^3$ los elementos $\sqrt{2},\sqrt{3},\sqrt{6}$, que pertenecen a $\mathbb{Q}(\omega)$, y que están en la base $\{1,\sqrt{2},\sqrt{3},\sqrt{6}\}$ de $\mathbb{Q}(\sqrt{2},\sqrt{3})$. Por tanto $\omega$ es elemento de grado 4.
 
-
 *** Ejercicio 3.11
 
 #+begin_wording
@@ -2787,7 +2784,6 @@ Si el grado de $f(X)$ fuese menor que $n$, tendríamos que $f(\beta)=0$ es una c
 
 
 
-
 *** Ejercicio 4.17
 
 #+begin_wording
@@ -2804,7 +2800,6 @@ Y el de $f(X)$ sobre $E$:
 
 \[G'=E(\alpha_1,\ldots, \alpha_n) = K(\alpha_1,\ldots,\alpha_r)(\alpha_1,\ldots, \alpha_n) = K(\alpha_1, \ldots, \alpha_n) = G\]
 
-
 *** Ejercicio 4.18
 
 #+begin_wording
@@ -2812,7 +2807,6 @@ Sea $a\in\mathbb{Q}$ y $n$ un número entero positivo impar tal que $\sqrt[n]{a}
 #+end_wording
 
 La extensión no es normal ya que si lo fuese, como $x^n-a$ es un polinomio que divide a $p(X)=Irr(\alpha,K)$ sobre $\mathbb{Q}[X]$, y como $n$ es impar, $x^n-a$ sólo puede tener una raíz real, por ser sus raíces de la forma $\omega^k \sqrt[n]{a}$, con $\omega$ raíz $n-$ oésima de la unidad. Luego todas las raíces de $p(X)$ deberían estar en la extensión $E=\mathbb{Q}(\sqrt[n](a))/\mathbb{Q}$. Además $E\subseteq \mathbb{R}$, luego $\sqrt[n]{a}\in\mathbb{Q}$, es decir, el polinomio debería ser forzosamente $x-\sqrt[n]{a}$, que implica que $\sqrt[n]{a}\in\mathbb{Q}$, ¡contradicción!
-
 
 *** Ejercicio 4.19
 
@@ -2824,7 +2818,6 @@ Sea $\alpha$ raíz de $f_1$ y $\beta$ raíz de $f_2$ en una clausura de $K$. Com
 
 Por ser $E$ extensión normal, luego finita, $\overline{K}$ es también su clausura algebraica, y por tanto $E\subseteq \overline{K}$. Así $E^{\sigma}=E$, luego $\sigma_{|E}$ es isomorfismo. Y como $f_1^{\sigma}(\beta) = f_1(\alpha) = 0$, tenemos que $f_1^{\sigma} | f_2$, pero un isomorfismo se lleva polinomios irreducibles en irreducibles, luego $f_1^{\sigma} = f_2$
 
- 
 *** Ejercicio 5.10
 
 #+begin_wording
@@ -2834,7 +2827,6 @@ Sea $K$ un cuerpo de característica $p\neq 0$ y $t$ una indeterminada sobre $K$
 En una extensión $K'=K(t)$ de $K$ tenemos $X^p-t^p=(X-t)^p$, ya que los términos intermedios del desarrollo valen $0$, al ser $p$ la característica de $K$.
 
 Como $K(t^p) \subseteq K'$, tenemos que los únicos factores que pueden dividir a $X^p-t^p$ son de la forma $(X-t)^m$. Supongamos que alguno tuviese coeficientes en $K(t^p)$. Entonces tendríamos que sus coeficientes también están en $K'$, y por tanto podríamos reescribir $t^m$ como raíz de un polinomio con coeficientes en $K$, pero $t$ era trascendente.
-
 
 *** Ejercicio 5.11
 
@@ -2861,7 +2853,6 @@ El cuerpo $\mathbb{F}_p$ tiene característica $p$ y su extensión $\mathbb{F}_{
 
 Por el primer ejercicio $X^{p}-t^{p}=(X-t)^p = Irr(t, \mathbb{F}_{p^2}(t^p))$, luego $t$ no es separable.
 
-
 *** Ejercicio 5.12
 
 #+begin_wording
@@ -2869,7 +2860,6 @@ Sea $E$ un cuerpo y $\{\phi_1,\ldots, \phi_n\}$ un conjunto de $n$ automorfismos
 #+end_wording
 
 El teorema de Artin nos afirma que $[E:K]=n$
-
 
 *** Ejercicio 7.25
 
@@ -2909,7 +2899,6 @@ Si $f$ es irreducible, ninguna de sus raíces puede estar en $K$, ya que en ese 
 En esas condiciones es claro que $\exists \varphi: K(\alpha_i)/K \longrightarrow K(\alpha_j)/K$ isomorfismo verificando $\varphi(\alpha_i) = \alpha_j$ y podemos extenderlo a un isomorfismo $\sigma: K(\alpha_1, \ldots \alpha_n) \longrightarrow K(\alpha_1, \alpha_n)$ sobre $\varphi$.
 
 Por tanto $\sigma$ es automorfismo sobre $E$ que conserva $K$ y cumple $\sigma(\alpha_i) = \varphi(\alpha_i) = \alpha_j$
-
 
 
 *** Ejercicio 7.27
@@ -2987,7 +2976,6 @@ Los posibles subgrupos, salvo conjugación e isomorfismo, de $S_4$ son:
 
 Claramente, $S_3$ es intransitivo, puesto que $\sigma(4)=4, \forall\sigma\in S_3$; $V_4$ también es intransitivo, puesto que $\sigma(1)\neq 3, \forall\sigma\in V_4$. Y el resto de subgrupos tienen menos de 4 elementos.
 
-
 *** Ejercicio 7.28
 
 #+begin_wording
@@ -2995,7 +2983,6 @@ Sea $f(X)\in K[X]$ un polinomio separable y $g$ un factor irreducible de $f$. ¿
 #+end_wording
 
 Sean $u,v$ raíces de $g$ en $E$ cuerpo de descomposición de $f$. Entonces como $K[X]/(Irr(u,K))=K[X]/(g)\cong K(u)$ y $K[X]/(Irr(v,K))=K[X]/(g)\cong K(v)$ dados por $X+(g)\mapsto u$ y $X+(g)\mapsto v$ respectivamente. Entonces existe un isomorfismo $\tau : K(u)\rightarrow K(v)$ verificando $\tau(u)=v$. Este isomorfismo puede extenderse a un automorfismo $\sigma : E\rightarrow E$ y por tanto tenemos un automorfismo que fija $K$ y que lleva una raíz en otra. Pero la elección de las raíces la hemos hecho arbitrariamente.
-
 
 *** Ejercicio 7.29
 
