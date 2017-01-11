@@ -624,7 +624,7 @@ $\alpha \le_{lex} \beta$ si el primer elemento en el que no coinciden cumple que
 **** Orden lexicográfico graduado $\le_{grlex}$
 $\alpha \le_{grlex} \beta$ si: $\bbig[\sum_{i=1}^n \alpha_i < \sum_{i=1}^n \beta_i\bbig]$ o $\bbig[\sum_{i=1}^n \alpha_i = \sum_{i=1}^n \beta_i$ y $\alpha \le_{lex} \beta \bbig]$
 
-**** Orden lexicográfico inverso $\le{invgrlex}$
+**** Orden lexicográfico graduado inverso $\le{invgrlex}$
 $\alpha \le_{invgrlex} \beta$ si: $\bbig[\sum_{i=1}^n \alpha_i < \sum_{i=1}^n \beta_i\bbig]$ o $\bbig[\sum_{i=1}^n \alpha_i = \sum_{i=1}^n \beta_i$ y $(\beta_n, \ldots \beta_1) \le_{lex} (\alpha_n,\ldots \alpha_1) \bbig]$
 
 
@@ -947,11 +947,25 @@ Sea $I\subseteq K[X_1,\ldots X_n]$ ideal no nulo y $\mathbb{G}$ base de Groebner
 #+end_fact
 
 
-Sea $I$ un ideal de $K[X_1,\ldots X_n]$ y una nueva variable $T$. Consideramos la inclusión:
+Sea $I$ un ideal de $K[X_1,\ldots X_n]$ y una indeterminada $T$. Consideramos la inclusión:
 
 \[K[X_1,\ldots X_n] \hookrightarrow K[T,X_1,\ldots X_n]\]
 
-Entonces si $\{F_1, \ldots F_k\}$ es sistema de generadores de $I$, también lo es de $I^e$, donde $I^e = \{\sum_{i=1}^k Q_i F_i : Q_i\in K[T,X_1, \ldots X_n]\}$
+Entonces si $\{F_1, \ldots F_k\}$ es sistema de generadores de $I$, también lo es de $I^e$, donde $I^e = \{\sum_{i=1}^k Q_i F_i : Q_i\in K[T,X_1, \ldots X_n]\}$. Claramente $I \subseteq I^{e}$.
+
+#+begin_theorem
+Sea $H = TI^{e} + (1-T)J^{e} \subseteq K[T,X_1, \ldots X_n]$
+
+$I \cap J = H \cap K[X_1, \ldots X_n]$ es decir el primer ideal de eliminación de $H$
+#+end_theorem
+
+Dados $I,J$ ideales de $K[X_1, \ldots X_n]$ no nulos, queremos calcular $(I:J) = \cap_{i=1}^t (I:G_i)$ con $J = (G_1, \ldots G_t)$
+
+#+begin_theorem
+Para cada $G\in K[X_1, \ldots X_n]$ se verficia que $G(I:G) = I \cap (G)$. Consecuentemente $(I:G) = \frac{1}{G} (I\cap G)$
+#+end_theorem
+
+
 
 ** Ejercicios
 *** Ejercicio 1.12
