@@ -1078,18 +1078,74 @@ Luego $\alpha = \mathcal{N}$ único ideal primo de $R$.
 
 \newpage
 
+*** Ejercicio 2.1
+
+#+begin_wording
+Sea $K$ cuerpo, $X_1, \ldots X_n$ indeterminadas y $F,G$ polinomios en el anillo $K[X_1, \ldots X_n]$
+
+1. Prueba que $FG = mcd(F,G) mcm(F,G)$
+2. Prueba que $(F) \cap (G) = (mcm(F,G))$
+3. ¿Ocurre lo mismo con $(F)+(G)$ y $mcd(F,G)$?
+#+end_wording
+
+2. Sea $h \in (F) \cap (G)$ entonces $F|h$, $G|h$, y por tanto $mcm(F,G) | h$, luego $h\in (mcm(F,G))$. El otro contenido es trivial.
+3. No. Tomando $F=X$, $G=Y$, $(mcd(F,G)) = (1) = K[X,Y]$, pero $1\notin (F)+(G)$
+
 *** Ejercicio 2.2
 
-1. Tomamos:
+1. 
+
+Tomamos:
 
 \[F=X^2Y+XY^2 = XY(X+Y)\]
 
 \[G=XY^4\]
 
-$mcd(F,G) = XY$, pero sin embargo $XY \neq (F,G)$, luego no se verifica la identidad de Bezout. En general, dados dos polinomios cualesquiera, dicha identidad no se verifica
+$mcd(F,G) = XY$, pero sin embargo $XY \notin (F,G)$, luego no se verifica la identidad de Bezout. En general, dados dos polinomios cualesquiera, dicha identidad no se verifica
 
-2. Queda como ejercicio.
+2. 
 
+$aF+ bG = mcd(F,G)$. Entonces $mcd(F,G) \in (F,G)$ y por tanto $(mcd(F,G)) \in (F,G)$, pero dado $h \in (F,G) \implies mcd(F,G) | h$, luego $h \in (mcd(F,G))$ y por tanto $(F,G)$ sería principal. 
+
+Análogamente si $(F,G) = (R)$ es principal entonces $R | F$ y $R|G$ claramente, ya que se tendría $F,G \in (R)$ y además $R |mcd(F,G)$. Pero como $R \in (F,G), R=aF+bG$, y por tanto $aF+bG | mcd(F,G)$, pero $mcd(F,G) | aF + bG$, luego $R = mcd(F,G)$
+*** Ejercicio 2.3
+Sea $A$ anillo. Prueba que son equivalentes.
+
+1. $A$ es dominio de integridad.
+2. $gr(FG) = gr(F) + gr(G)$ para cualesquiera $F,G \in A[X]$
+3. $A[X]$ es un dominio de integridad.
+
+1 a 2 es trivial puesto que no se anula ningún término al multiplicar los polinomios, en particular el término líder.
+
+2 a 3 se prueba tomando $aX, bX \in A[X]$ y como $gr(FG) = 2$, debe tenerse que $abX^2 \neq 0$. Como los polinomios en $A[X]$ son de la forma $a_n X^n + a_{n-1} X^{n-1} + \ldots + a_1 X$ multiplicando término a término, el polinomio que nos queda no puede anularse.
+
+3 a 1 es trivial por contener $A[X]$ a $A$
+*** Ejercicio 2.7
+#+begin_wording
+Ordena los monomios
+
+\[X^2Z, X^2 Y^2 Z, XY^2 Z, X^3 Y, X^3 Z^2, X^2, X^2 Y Z^2, X^2 Z^2\]
+
+1. Para el orden monomial lexicográfico dado por $X > Y > Z$
+2. Para el orden lexicográfico graduado correspondiente.
+3. Para el orden lexicográfico graduado inverso correspondiente.
+#+end_wording
+
+1. $X^2 < X^3 Y < X^2 Z < XY^2 Z < X^2 Y^2 Z < X^2 Z^2 < X^3 Z^2 < X^2 Y Z^2$
+2. $X^2 < X^2 Z < XY^2 Z < X^2 Z^2 < X^3 Y < X^2 Y^2 Z < X^2 Y Z^2 < X^3 Z^2$
+3. $X^2 < XY^2 Z < X^2 Z < X^2 Z^2 < X^3 Y <  X^2 Y Z^2 < Z^2 Y^2 Z < X^3 Z^2$
+*** Ejercicio 2.9
+#+begin_wording
+Razona que existen $n!$ ordenaciones monomiales lexicográficas distintas sobre $K[X_1, \ldots X_n]$. Y razona que existen $n!$ ordenaciones /grlex/ distintas y $n!$ ordenaciones /invgrlex/ distintas sobre $K[X_1, \ldots X_n]$
+#+end_wording
+
+Es trivial el de las ordenaciones lexicográficas y el de las /grlex/ puesto que estas última depende del orden lexicográfico en caso de desempate.
+
+La tercera también es trivial desde la definición del order /invgrlex/ como:
+
+$\alpha \le_{invgrlex} \beta$ si: $\bbig[\sum_{i=1}^n \alpha_i < \sum_{i=1}^n \beta_i\bbig]$ o $\bbig[\sum_{i=1}^n \alpha_i = \sum_{i=1}^n \beta_i$ y $(\beta_n, \ldots \beta_1) \le_{lex} (\alpha_n,\ldots \alpha_1) \bbig]$
+
+*** TODO Ejercicio 2.10
 *** TODO Ejercicio 2.15
 
 *** Ejercicio 2.16
@@ -1185,7 +1241,6 @@ Luego $\mathcal{M}$ es maximal.
 Es el único porque si tenemos $I=(A)$, $I'=(A')$ entonces $A\subset A' \Leftrightarrow I\subset I'$
 *** TODO Ejercicio 2.34
 Algoritmo de Buchberger
-
 * Álgebra III
 
 ** Resumen
