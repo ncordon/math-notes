@@ -510,6 +510,19 @@ Se verifica:
 
 Podemos establecer una relación entre $\{V \subseteq \mathbb{A}^n (K)$ variedad algebraica afín $\}$ y $\{J \subseteq K[X_1, \ldots X_n] : J = \sqrt{J}\}$ mediante las funciones $\mathbb{I}, \mathbb{V}$
 
+#+begin_theorem
+*Teorema de los ceros de Hilbert*
+
+Sea $K$ cuerpo algebraicamente cerrado, $J$ ideal de $K[X_1, \ldots X_n]$. Entonces:
+
+\[\mathbb{I} \mathbb{V} (J) = \sqrt{J}\]
+
+#+begin_corollary
+Sea $K$ cuerpo algebraicamente cerrado. Entonces existe una correspondencia biyectiva entre el retículo de las variedades algebraicas afines de $\mathbb{A}^n (K)$ y el retículo de ideales de polinomios que son variedades.
+
+\[\{V \subseteq \mathbb{A}^n (K) \quad variedad \} \leftrightarrow\{J \subseteq K[X_1, \ldots X_n] : J = \sqrt{J}\}\]
+#+end_corollary
+
 ** Tema 3: Bases de Groebner y algoritmos básicos
 *** R-módulos
 #+begin_definition
@@ -941,7 +954,7 @@ Todo ideal no nulo $I\subseteq K[X_1, \ldots X_n]$ tiene una única base de Groe
 #+begin_corollary
 *Caracterización de igualdad de ideales*
 
-Sean $I,J$ ideales no nulos de $K[X_1,\ldots X_n]$ y sean $\mathbb{G}, \mathbb{G}'$ dos bases de Groebner de $I,J$ respectivamente. Se cumple:
+Sean $I,J$ ideales no nulos de $K[X_1,\ldots X_n]$ y sean $\mathbb{G}, \mathbb{G}'$ dos bases de Groebner reducidas de $I,J$ respectivamente. Se cumple:
 
 \[I=J \Leftrightarrow \mathbb{G}=\mathbb{G}'\]
 #+end_corollary
