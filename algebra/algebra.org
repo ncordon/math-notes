@@ -1305,7 +1305,6 @@ Algoritmo de Buchberger
 **** TODO \ref{perfect-fields} Falta la equivalencia con 4.
 
 *** Polinomios simétricos, resultante, discriminante
-
 **** Polinomios simétricos
 
 #+begin_definition
@@ -1357,7 +1356,6 @@ Sea $A$ dominio de integridad y $f\in A[X_1, \ldots X_n]$ polinomio simétrico d
 Sea $g\in A[X_1, \ldots X_n]$. Entonces $g(s_1, \ldots s_n)=0$ si y solo si $g(X_1, \ldots X_n) = 0$
 #+end_theorem
 
-
 **** Resultante
 
 La motivación de la resultante son los problemas de eliminación de la forma:
@@ -1408,7 +1406,6 @@ Para probar 7:
 R(f,g) &= a_n^m\prod_{i=1}^n g(\alpha_i) = a_n^m \prod_{i=1}^n(f(\alpha_i)q(\alpha_i) + r(\alpha_i)) = \\ 
 &= a_n^m\prod_{i=1}^n r(\alpha_i) = a_n^{m-gr(r)}R(f,r)
 \end{align*}
-
 
 **** Discriminante
 
@@ -1467,7 +1464,7 @@ Una torre de cuerpos es una sucesión de subcuerpos:
 #+begin_fact
 Sea $E\supset F\supset K$ torre de inclusiones. Entonces:
 
-Sean $\{u_i\in E:i\in I\}$ un sistema de generadores (linealmente independientes, base, resp.) de $E$ como espacio vectorial sobre $F$ y $\{v_j\in F:j\in J\}$ un sistema de generadores (linealmente independientes, base, resp.) de $F$ como espacio vectorial sobre $K$. Entonces $\{u_i v_j: i,j\in I\times J\}$ es sistema de generadores (linealmente indep., base) de $E$ como espacio vectorial sobre $K$.
+Sean $\{u_i\in E:i\in I\}$ un sistema de generadores (linealmente independientes, base, resp.) de $E$ como espacio vectorial sobre $F$ y $\{v_j\in F:j\in J\}$ un sistema de generadores (linealmente independientes, base, resp.) de $F$ como espacio vectorial sobre $K$. Entonces $\{u_i v_j: i,j\in I\times J\}$ es sistema de generadores (linealmente independientes, base, resp.) de $E$ como espacio vectorial sobre $K$.
 #+end_fact
 
 #+begin_theorem
@@ -1499,8 +1496,6 @@ Este homomorfismo se define por inducción como $1_{\mathbb{Z}}\mapsto 1_A$ y $n
 Si el kernel del homomorfismo unital es $n\mathbb{Z}$, la característica del anillo $A$, se define como $car(A)=n$. Además $n$ queda *caracterizado* por ser el menor número que verifica $na = 0 \quad\forall a\in A$
 #+end_definition
 
-La demostración se hace basándonos en el primer teorema de isomorfía. Si su característica fuese $n\neq 0$, tendríamos que $\mathbb{Z}/n\mathbb{Z} = \mathbb{Z}_n \cong Img(\upsilon)$ y si $n$ no es primo, tenemos un subanillo de $A$, $Img(\upsilon)$ isomorfo a algo que no es dominio de integridad, por lo que la característica de un dominio de integridad siempre será siempre prima.
-
 #+begin_fact
 La intersección de subanillos es subanillo. La intersección se subcuerpos es subcuerpo.
 #+end_fact
@@ -1518,6 +1513,10 @@ El subanillo primo cumple:
 1. Este subanillo es isomorfo a $\mathbb{Z}$ si $car(A)=0$ y a $\mathbb{Z}_n$ si $car(A) = n\neq 0$. 
 2. Si $A$ es dominio de integridad, entonces o bien $car(A) = 0$ o bien $car(A)=p$ primo.
 #+end_lemma
+
+#+begin_proof
+La demostración se hace basándonos en el primer teorema de isomorfía. Si su característica fuese $n\neq 0$, tendríamos que $\mathbb{Z}/n\mathbb{Z} = \mathbb{Z}_n \cong Img(\upsilon)$ y si $n$ no es primo, tenemos un subanillo de $A$, $Img(\upsilon)$ isomorfo a algo que no es dominio de integridad, por lo que la característica de un dominio de integridad siempre será siempre prima.
+#+end_proof
 
 #+begin_definition
 *Subcuerpo primo*
@@ -1609,7 +1608,7 @@ Sea $F\supset E\supset K$ y sea $u\in F$ algebraico sobre $K$. Entonces $u$ es a
 Sea $F/K$ extensión. El elemento $\alpha\in F$ es algebraico sobre $K$ si y solo si la extension $K(\alpha)/K$ es finita. 
 #+end_fact
 
-Se deduce a partir de 3 y 4 desde \ref{bases_extensiones}
+Se deduce a partir de \ref{bases_extensiones}
 
 *** Extensiones algebraicas
 
@@ -1637,6 +1636,7 @@ Sean $L\supset E,F\supset K$. Entonces:
 \label{comp-deg}
 #+end_lemma
 
+#+begin_proof
 La primera parte se deduce de que $EF=E(F)=E(K(S))=E(S)$
 
 Para deducir la segunda parte: $[EF:K] = [EF:F][F:K]$ por el teorema del grado. Además si tenemos $B$ base de $E$ como $K$ espacio vectorial, y $B'$ base de $F$ como $K$ espacio vectorial, tendremos que $B\cup B'$ es sistema de generadores de $EF =F(E)$ sobre $K$ y por tanto $[EF:F] \le |B| = [E:K]$. 
@@ -1646,13 +1646,16 @@ Además, del argumento hecho se deduce 3, ya que en dicho caso tendríamos, por 
 \[[EF:F][F:K] = [EF:E][E:K]\]
 
 Y por consiguiente $[E:K] | [EF:F] \implies [E:K]=[EF:F]$
+#+end_proof
 
 #+begin_fact
 \label{fg-implies-finita}
 Sea $F=K(u_1,\ldots u_n)$ una extensión finitamente generada por elementos $u_i$ algebraicos. Entonces la extensión $F/K$ es finita.
 #+end_fact
 
+#+begin_proof
 La demostración se deduce del aparatado 2 de la proposición \ref{comp-deg} sin más que tener en cuenta que $K(u_1,\ldots u_n)$ estará contenido en $\prod_{i=1}^n K(u_i)$ y esa extensión es finita. El hecho de que los elementos sean algebraicos interviene en que $K(u_i)$ será finita en ese caso con $[K(u_i):K] = gr(Irr(u_i,K))$
+#+end_proof
 
 #+begin_corollary
 *Caracterización de extensiones algebraicas*
@@ -1705,7 +1708,7 @@ Sea $f$ un polinomio de grado positivo sobre un cuerpo $K$. Entonces existe una 
 #+begin_definition
 *Extensión de homomorfismos*
 
-Sean $F_i/K_i$ dos extensiones de cuerpos y sean $\tau : F_1 \rightarrow F_2$ y $\sigma : K_1 \rightarrow K_2$ homomorfismos verificando $\tau(a) = \sigma(a) \forall a\in A$. A $\tau$ lo llamamos *extensión de $\sigma$*. Si $\sigma = id$, lo llamamos *homomorfismo sobre $K$*
+Sean $F_i/K_i$ dos extensiones de cuerpos y sean $\tau : F_1 \rightarrow F_2$ y $\sigma : K_1 \rightarrow K_2$ homomorfismos verificando $\tau(a) = \sigma(a), \forall a\in A$. A $\tau$ lo llamamos *extensión de $\sigma$*. Si $\sigma = id$, lo llamamos *homomorfismo sobre $K$*
 #+end_definition
 
 
@@ -1716,9 +1719,10 @@ Sea $\alpha : K_1 \rightarrow K_2$ un isomorfismo de cuerpos. Existe una única 
 La demostración se basa en la propiedad universal del anillo de polinomios.
 
 #+begin_fact
-En las condiciones de la proposición anterior si $F_i/K_i$ son extensiones algebraicas, $\tau : F_1 \rightarrow F_2$ un homomorfismo sobre $\sigma : K_1 \rightarrow K_2$ y $u\in F_1$ una raíz de $f_1$. Entonces $\tau(u)$ es una raíz de $f_2 = \sigma(f_1)$
+En las condiciones de la proposición anterior si $F_i/K_i$ son extensiones algebraicas, $\tau : F_1 \rightarrow F_2$ un homomorfismo sobre $\sigma : K_1 \rightarrow K_2$ y $u\in F_1$ una raíz de $f_1 \in K_1[X]$. Entonces $\tau(u)$ es una raíz de $f_2 = \sigma(f_1)$
 #+end_fact
 
+#+begin_proof
 Sea $f_1 = \sum_{i=1}^n a_i X^i$
 
 Entonces:
@@ -1728,14 +1732,14 @@ f_2(\tau(u)) = \sum_{i=1}^n \sigma(a_i) \tau(u)^i = \sum_{i=1}^n \tau(a_i) \tau(
 = \tau \big(\sum_{i=1}^n a_i u^i\big) = \tau(0) = 0
 \end{eqnarray*}
 
-
+#+end_proof
 
 #+begin_corollary
 Sea $F/K$ extensión algebraica y $\sigma : F\rightarrow F$ un homomorfismo sobre $K$. Entonces $\sigma$ es un automorfismo.
 \label{conds-isomorfismo}
 #+end_corollary
 
-Para demostrar esto, veamos que la aplicación es sobreyectiva (es inyectiva por ser homomorfismo de cuerpos). Consideramos $u\in F$. Tomo $f=Irr(u,K)$, que puedo hacerlo por tratarse de una extensión algebraica, y se tiene que $\sigma(f) = f$. Tomo todas las raíces $\{u_1, \ldots u_k\}$ de $f$ que hay en $F$. Tomo $F_1 = K(u_1\ldots u_k)$ el subcuerpo de $F$ generado por todas ellas. La extensión $F_1/K$ es finita y para cualquier homomorfismo $\sigma : F \rightarrow F$ verifica que $\sigma(u_i)$ es raíz de $f$. Así, $\sigma|F_{1}$ e una aplicación lineal inyectiva, luego sobreyectiva y eso nos lleva a decir que $\exists v\in F_1$ verificando $\sigma(v)=u$.
+Para demostrar esto, veamos que la aplicación es sobreyectiva. La inyectividad viene dada por ser homomorfismo de cuerpos. Consideramos $u\in F$. Tomo $f=Irr(u,K)$, que puedo hacerlo por tratarse de una extensión algebraica, y se tiene que $\sigma(f) = f$. Tomo todas las raíces $\{u_1, \ldots u_k\}$ de $f$ que hay en $F$. Tomo $F_1 = K(u_1\ldots u_k)$ el subcuerpo de $F$ generado por todas ellas. La extensión $F_1/K$ es finitamente generada y algebraica, ergo finita, y para cualquier homomorfismo $\sigma : F \rightarrow F$ verifica que $\sigma(u_i)$ es raíz de $f$. Así, $\sigma|F_{1}$ e una aplicación lineal inyectiva, luego sobreyectiva y eso nos lleva a decir que $\exists v\in F_1$ verificando $\sigma(v)=u$.
 
 #+begin_fact
 En las condiciones de la proposición anterior sea $u_i$ raíz de $f_i$ en alguna extensión $F_i/K_i$. Entonces existe un único isomorfismo $\tau : K_1(u_1) \rightarrow K_2(u_2)$ sobre $\sigma$ tal que $\tau(u_1) = u_2$
