@@ -383,7 +383,6 @@ i(c_n - c_{-n}) &= b_n
 
 Y la expresión $\sum_{n=-\infty}^{\infty} c_n e^{in}$ coincide con $S(f)$
 
-
 *** Reducción a dimensión finita por serie de cosenos
 
 Conocemos $f \in L^2([0,\pi])$ valuada en $N$ putos de la forma $x_1 = \frac{\pi}{2N}, x_i = x_1 + \frac{\pi}{N}(i-1), \quad i=1 \ldots N$  donde $f(x_i) = d_i$
@@ -506,6 +505,49 @@ Las derivadas de estas funciones $x\mapsto S_{2n-1} (x)$ se anulan cuando $x \in
 $S_{2n-1} \left( \frac{\pi}{2n} \right) = \frac{4}{\pi} \sum_{k=0}^{n-1} \frac{sen \left((2k+1) \frac{\pi}{2n} \right)}{2k+1} \rightarrow \frac{2}{\pi} \int_0^pi \frac{sen(x)}{x} \approx 1.1789$
 
 El pico que encontramos tras cada salto tiene aproximadamente una longitud de aproximadamente el 18% superior a la mitad de la longitud de salto.
+
+*** Transformada de Fourier
+Si $f \in L^2([-l,l])$, sabemos que podemos expresar $f$ en notación compleja en el espacio $L^2$ $f(x) = \sum_{n=-\infty}^{^+\infty} \left(\frac{1}{2l} \int_{-l}^l f(t) e^{\frac{-\pi int}{l}} dt  \right) e^{\pi in\frac{x}{l}}$
+Llamando $\xi_n = \frac{n}{2l}, n\in [-2l^2, 2l^2]$, podemos pensar en la intuición:
+
+$f \overset{?}{=} lim_{l\rightarrow \infty} \sum_{n=-2l^2}^{2l^2} (\xi_n - \xi_{n-1}) h(\xi_n) e^{2\pi i \xi_n x} \approx \int_{-\infty}^{\infty} \left(\int_{-\infty}^{\infty} f(t)e^{-2\pi \xi t} dt \right) e^{2\pi i \xi x} d\xi$
+
+con $h(\xi) = \int_{-l}^{l} f(t) e^{-2\pi i\xi t}$
+
+Esta "intuición" motiva la siguiente definición:
+
+#+begin_definition
+*Transformada de Fourier en $L^1(\mathbb{R})$*
+
+Dada $f\in L^1(\mathbb{R}, \mathbb{C})$, llamaremos transformada de Fourier a $\hat{f} : \mathbb{R} \rightarrow \mathbb{C}$ donde $\hat{f}(\xi) = \int_{-\infty}^{\infty} f(t) e^{-2\pi i\xi t} dt$
+
+Y esta función está bien definida puesto que:
+
+\[\int_{-\infty}^{\infty} |f(t) e^{-2\pi i\xi t}| dt = \int_{-\infty}^{\infty} |f(t)| dt < \infty\]
+#+end_definition
+
+#+begin_fact
+*Propiedades de la transformada de Fourier*
+
+1. Está bien definida
+2. *Linealidad*: Sea $f,g \in L^1(\mathbb{R}, \mathbb{C}), \quad \alpha, \beta \in \mathbb{C}$
+\[\widehat{\alpha f + \beta g} = \alpha \hat{f} + \beta \hat{g}\]
+3. *Conjugación*: Sea $f \in L^1(\mathbb{R}, \mathbb{C})$ entonces:
+\[\hat{\bar{f}} (\xi) = \overline{\hat{f}} (-\xi)\]
+4. *Traslación*: Sea $f \in L^1(\mathbb{R}, \mathbb{C})$, entonces siendo $\tau_{h,f} (x) = f(x+h)$ se verifica:
+\[\widehat{\tau_{h,f}} (xi) = \hat{f}(\xi) e^{2\pi i h\xi}\]
+5. *Modulación*: Sea $f \in L^1(\mathbb{R}, \mathbb{C}), h\in \mathbb{R}, g(x) = f(x)e^{2\pi hx}$. Entonces:
+\[\hat{g}(\xi) = \tau_h \hat{f}(\xi)\]
+6. *Dilatación*: Sea $f\in L^1(\mathbb{R}, \mathbb{C}), \lambda \in \mathbb{R}^{+}, h_{\lambda, f}(x) = f(\lambda x)$. Entonces:
+\[\widehat{h_{\lambda,f}}(\xi) = \frac{1}{\lambda} \hat{f} \left(\frac{\xi}{\lambda} \right)\]
+7. Si $f\in L^1(\mathbb{R}, \mathbb{C})$ entonces $\hat{f}$ es uniformemente continu y acotada con $||\hat{f}||_{L^{\infty}} \le ||f||_{L^1}$
+8. Si $f\in L^1(\mathbb{R}, \mathbb{C})$ es derivable con $f'\in L^1(\mathbb{R}, \mathbb{C})$ entonces:
+\[\widehat{(f')}(\xi) = 2\pi i \xi \hat{f}(\xi)\]
+9. Si $f\in L^1(\mathbb{R}, \mathbb{C})$ y $xf(x) \in L^1(\mathbb{R}, \mathbb{C})$ entonces $\hat{f}$ es derivable con $(\hat{f})'(\xi) = -2\pi i \widehat{(xf(x))}$
+10. *Lema de Riemann-Lebesgue*: Si $f\in L^1(\mathbb{R}, \mathbb{C})$ entonces $lim_{|\xi| \rightarrow \infty} \hat{f}(\xi) = 0$
+11. Si $f,g \in L^1(\mathbb{R}, \mathbb{C})$ entonces $\int_{-\infty}^{\infty} f\hat{g} = \int_{-\infty}^{\infty} g\hat{f}$
+#+end_fact
+
 
 * Ejercicios
 ** Demuestra que $u_{xx} = u_{tt}$ tiene infinitas soluciones
