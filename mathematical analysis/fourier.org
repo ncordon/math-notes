@@ -657,6 +657,21 @@ Por tanto existe $\int_{-\infty}^{\infty} f\hat{g} dt$ y por teorema de Fubini:
 \end{align*}
 
 #+end_proof
+
+**** Dualidad regularidad vs decaimiento
+
+Si $xf(x) \in L^1$ entonces $\hat{f}$ es derivable.
+
+Si $f$ es derivable con $f' \in L^1$ entonces $\widehat{f'} = 2\pi i \xi \hat{f}(\xi)$
+
+La transformada parece llevarse funciones con decaimiento en $\infty$ a funciones regulares. Y funciones regulares a funciones con decaimiento en $\infty$
+
+#+begin_theorem
+*Condición suficiente para que la transformada sea analítica*
+
+Si $f\in L^1(\mathbb{R}, \mathbb{C})$ tiene soporte compacto ($\exists A>0$ tal que $f=0$ cpd fuera de $[-A,A]$) entonces $\hat{f}$ es analítica.
+#+end_theorem
+
 * Ejercicios
 ** Demuestra que $u_{xx} = u_{tt}$ tiene infinitas soluciones
 
