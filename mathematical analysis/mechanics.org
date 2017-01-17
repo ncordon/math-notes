@@ -127,7 +127,6 @@ Si $r(t)$ es solución de $\ddot{r} = f(r)$ con $f<0$, entonces $r$ está en una
 - $\dot{r}(t)<0 \forall t\in]\alpha, \omega[$
 
 
-
 ** Tema 2: Estudio en polares de los campos de fuerzas centrales
 
 #+begin_fact
@@ -429,7 +428,7 @@ Llamamos $p$ al periodo y $c$ al momento angular.
 a. $A = \pi |a||b| = \pi |a|^2\sqrt{1-|e|^2}$
 b. $A = \frac{1}{2} \int_0^{p/2} |c| + \frac{1}{2} \int_{p/2}^{p} |c| = \frac{1}{2} p|c|$
   
-* Ejercicios 2-cuerpos
+* Ejercicios n-cuerpos
 ** Ejercicio 3.2
 
 #+begin_wording
@@ -603,3 +602,32 @@ Se tiene:
 
 
 En conjunto, hemos probado $h = m_1 E_x + m_2 E_y$
+** Ejercicio envolvente convexa
+#+begin_wording
+El centro de masas de un sistema de $n$ cuerpos pertenece a la envolvente convexa de sus vectores de posición.
+#+end_wording
+
+Definimos la envolvente convexa, $C$ de $n$ puntos, $\{r_i\}_{i\in \{1,\ldots n\}}$ como el menor convexo que los contiene.
+
+\[c_m(t) := \frac{\sum_{i=1}^n m_i r_i}{\sum_{j=1}^n m_j}\]
+
+Claramente $c_m$ es una conbinación convexa de los $\{r_i\}$. Nos basta demostrar que la envolvente convexa contiene las combinaciones convexas de los $\{r_i}$.
+
+Por inducción, el caso base (2 puntos), se cumple. Supuesto que se cumple para $m<n$ puntos que sus combinaciones convexas están en la envolvente convexa. Es decir:
+
+\[\sum_{i=1}^m \lambda_i r_i\in C, \qquad \sum_{i=1}^m \lambda_i = 1\]
+
+Entonces dados $\lambda_i$ positivos, verificando $\sum_{i=1}^{m+1} \lambda_i = 1$, expresamos:
+
+\[\alpha = \frac{\lambda_1}{\lambda_1 + \lambda_2} r_1 +  \frac{\lambda_2}{\lambda_1 + \lambda_2} r_2\]
+
+Y se tiene $(\lambda_1 + \lambda_2) \alpha + \sum_{i=3}^{m+1} \lambda_i = \sum_{i=1}^{m+1} \lambda_i m_i \in C$ por hipótesis de inducción.
+
+** Ejercicio no existencia equilibrios
+
+#+begin_wording
+El problema de los $n$ cuerpos no tiene equilibrios.
+#+end_wording
+
+Supongamos que las tuviera. Entonces tendríamos por la propiedad de Euler, que $<\nabla V(r), r> = <0,r> = 0 = -V(r)$, al ser cada $(\nabla V)_i = -F_i$
+Pero $V(r)$ no puede anularse por ser $V(r) = - \sum_{1\le i < j \le n} \frac{G m_i m_j}{|r_j - r_i|}$
