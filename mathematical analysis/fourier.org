@@ -533,22 +533,130 @@ Y esta función está bien definida puesto que:
 2. *Linealidad*: Sea $f,g \in L^1(\mathbb{R}, \mathbb{C}), \quad \alpha, \beta \in \mathbb{C}$
 \[\widehat{\alpha f + \beta g} = \alpha \hat{f} + \beta \hat{g}\]
 3. *Conjugación*: Sea $f \in L^1(\mathbb{R}, \mathbb{C})$ entonces:
-\[\hat{\bar{f}} (\xi) = \overline{\hat{f}} (-\xi)\]
-4. *Traslación*: Sea $f \in L^1(\mathbb{R}, \mathbb{C})$, entonces siendo $\tau_{h,f} (x) = f(x+h)$ se verifica:
-\[\widehat{\tau_{h,f}} (xi) = \hat{f}(\xi) e^{2\pi i h\xi}\]
-5. *Modulación*: Sea $f \in L^1(\mathbb{R}, \mathbb{C}), h\in \mathbb{R}, g(x) = f(x)e^{2\pi hx}$. Entonces:
-\[\hat{g}(\xi) = \tau_h \hat{f}(\xi)\]
-6. *Dilatación*: Sea $f\in L^1(\mathbb{R}, \mathbb{C}), \lambda \in \mathbb{R}^{+}, h_{\lambda, f}(x) = f(\lambda x)$. Entonces:
-\[\widehat{h_{\lambda,f}}(\xi) = \frac{1}{\lambda} \hat{f} \left(\frac{\xi}{\lambda} \right)\]
-7. Si $f\in L^1(\mathbb{R}, \mathbb{C})$ entonces $\hat{f}$ es uniformemente continu y acotada con $||\hat{f}||_{L^{\infty}} \le ||f||_{L^1}$
+\[\hat{\bar{f}} (\xi) = \overline{\hat{f} (-\xi)}\]
+4. *Traslación*: Sea $f \in L^1(\mathbb{R}, \mathbb{C})$, entonces siendo $\tau_{h}f (x) = f(x+h)$ se verifica:
+\[\widehat{\tau_{h}f} (\xi) = \hat{f}(\xi) e^{2\pi i h\xi}\]
+5. *Modulación*: Sea $f \in L^1(\mathbb{R}, \mathbb{C}), \quad h\in \mathbb{R}, \quad g(x) = f(x)e^{2\pi i h x}$. Entonces:
+\[\hat{g}(\xi) = \tau_{-h}\widehat{f}(\xi)\]
+6. *Dilatación*: Sea $f\in L^1(\mathbb{R}, \mathbb{C}), \quad \lambda \in \mathbb{R}^{+}, \quad h_{\lambda}f(x) = f(\lambda x)$. Entonces:
+\[\widehat{h_{\lambda}f}(\xi) = \frac{1}{\lambda} \hat{f} \left(\frac{\xi}{\lambda} \right)\]
+7. Si $f\in L^1(\mathbb{R}, \mathbb{C})$ entonces $\hat{f}$ es uniformemente continua y acotada con $||\hat{f}||_{L^{\infty}} \le ||f||_{L^1}$
 8. Si $f\in L^1(\mathbb{R}, \mathbb{C})$ es derivable con $f'\in L^1(\mathbb{R}, \mathbb{C})$ entonces:
 \[\widehat{(f')}(\xi) = 2\pi i \xi \hat{f}(\xi)\]
-9. Si $f\in L^1(\mathbb{R}, \mathbb{C})$ y $xf(x) \in L^1(\mathbb{R}, \mathbb{C})$ entonces $\hat{f}$ es derivable con $(\hat{f})'(\xi) = -2\pi i \widehat{(xf(x))}$
+9. Si $f\in L^1(\mathbb{R}, \mathbb{C})$ y $xf(x) \in L^1(\mathbb{R}, \mathbb{C})$ entonces $\hat{f}$ es derivable con $(\hat{f})'(\xi) = -2\pi i \widehat{(xf(x))} (\xi)$
 10. *Lema de Riemann-Lebesgue*: Si $f\in L^1(\mathbb{R}, \mathbb{C})$ entonces $lim_{|\xi| \rightarrow \infty} \hat{f}(\xi) = 0$
 11. Si $f,g \in L^1(\mathbb{R}, \mathbb{C})$ entonces $\int_{-\infty}^{\infty} f\hat{g} = \int_{-\infty}^{\infty} g\hat{f}$
 #+end_fact
 
+#+begin_proof
+1. 
 
+Está bien definida por tenerse, $f\in L^1(\mathbb{R}, \mathbb{C})$ y para un $\xi \in \mathbb{R}$ fijo:
+
+\[\int_{-\infty}^{\infty} |f(t) e^{-2\pi i\xi t}| dt = \int_{-\infty}^{\infty} |f(t)| dt = ||f||_{L^1} < \infty\]
+
+2. 
+
+Sabemos que $L^1(\mathbb{R}, \mathbb{C})$ es espacio vectorial sobre $\mathbb{C}$, luego $\alpha f + \beta g \in L^1(\mathbb{R}, \mathbb{C})$
+
+Dado un $\xi \in \mathbb{R}$ arbitrario. Usando que las transformadas de Fourier de $f$ y $g$ existen y están bien definidas:
+
+\[\widehat{\alpha f + \beta g}(\xi) = \int_{-\infty}^{\infty} \alpha f(t) + \beta(t) g e^{-2\pi i\xi t} dt = \alpha \int_{-\infty}^{\infty} f(t) e^{-2\pi i \xi t} dt + \beta \int_{-\infty}^{\infty} g(t) e^{-2\pi i \xi t} dt = \alpha \hat{f} + \beta \hat{g}\]
+3. 
+
+Descomponemos $f$ en su parte real e imaginaria de la forma $f(t) = a(t) + ib(t)$
+
+Usaremos que $cos$ es par y $sen$ impar. 
+
+\begin{align*}
+\hat{f} (-\xi) &= \overline{\int_{-\infty}^{\infty} \bar{f}(t) e^{2\pi i \xi t} dt} = \int_{-\infty}^{\infty} \overline{[a(t)+ib(t)]} \overline{[cos(2\pi \xi t) + isen(2\pi \xi t)]} dt = \\
+&= \int_{-\infty}^{\infty} [a(t)-ib(t)] [cos(2\pi \xi t) - isen(2\pi \xi t)] dt = \\
+&= \int_{-\infty}^{\infty} [a(t)-ib(t)] [cos(-2\pi \xi t) + isen(-2\pi \xi t)] dt = \\
+&= \int_{-\infty}^{\infty} \bar{f}(t) e^{-2\pi i \xi t} dt = \hat{\bar{f}} (\xi)
+\end{align*}
+
+4.
+
+\[\widehat{\tau_{h}f} (\xi) = \int_{-\infty}^{\infty} f(t+h) e^{-2\pi i \xi t} dt \overset{\left| \begin{array}{l} s=t+h\\ ds = dt\end{array} \right.}{=} \int_{-\infty}^{\infty} f(s) e^{-2\pi i \xi (s-h)} ds = e^{2\pi i \xi h} \hat{f}(\xi)\]
+
+5.
+
+\[\hat{g} (\xi) = \int_{-\infty}^{\infty} f(t) e^{2\pi i h t} e^{-2\pi i\xi t} dt  = \int_{-\infty}^{\infty} f(t) e^{-2\pi i (\xi - h)t} dt = \tau_{-h}\widehat{f}(\xi)\]
+
+6.
+
+\[\widehat{h_{\lambda}f} (\xi) = \int_{-\infty}^{\infty} f(t\lambda) e^{-2\pi i \xi t} dt \overset{\left| \begin{array}{l} s=\lambda t \\ ds = \lambda dt \end{array} \right.}{=} \int_{-\infty}^{\infty} f(s) e^{-2\pi i \xi \lambda s} \frac{1}{\lambda} ds = \frac{1}{\lambda} \hat{f} \left(\frac{\xi}{\lambda}\right)\]
+
+7.
+
+Dado $\xi \in \mathbb{R}$:
+
+\begin{align*}
+\left|\hat{f}(\xi) - \hat{f}(\xi + h) \right| &= \left|\int_{-\infty}^{\infty} f(t) e^{-2\pi i \xi t} dt - \int_{-\infty}^{\infty} f(t) e^{-\pi i (\xi+h) t} dt \right| \le \\
+&\le \int_{-\infty}^{\infty} \left|f(t)e^{-2\pi i \xi t} (1 - e^{-2\pi i h t}) \right| dt = \int_{-\infty}^{\infty} |f(t)| \cdot |1-e^{2\pi i h t}| dt
+\end{align*}
+
+Dada una sucesión $\{h_n\} \rightarrow 0$, llamamos $f_n(t) = |f(t)| \cdot |1-e^{2\pi i h_n t}|$
+
+Se verifica claramente que $\{f_n\} \rightarrow 0$ puntualmente
+
+Como $|f_n(t)| \le 2|f(t)|$, con $f \in L^1$
+
+Se verifican las hipótesis del teorema de convergencia dominada, luego podemos intercambiar el límite de la sucesión. 
+
+\[lim_{n} \int_{-\infty}^{\infty} |f(t)| \cdot |1-e^{2\pi i h_n t}| dt = \int_{-\infty}^{\infty} lim_n f_n(t) dt = 0\]
+
+Como se ha hecho para una sucesión arbitraria, hay continuidad en $\xi$ de $\hat{f}$. Pero por la propiedad 10, se tiene que $lim_{t \rightarrow \infty} \hat{f} = 0$. Luego hay continuidad uniforme.
+
+La segunda parte se deduce de que para todo $\xi \in \mathbb{R}$ se tiene, por lo probado en el apartado 1:
+
+\[|\hat{f}(\xi)| = \left|\int_{-\infty}^{\infty} f(t) e^{-2\pi i\xi t} dt \right| \le \int_{-\infty}^{\infty} |f(t) e^{-2\pi i\xi t}| dt \le ||f||_{L^1}\]
+
+Como $\xi$ lo hemos tomado arbitrario: $||\hat{f}||_{L^{\infty}} \le ||f||_{L^1}$
+
+8.
+
+$f$ es derivable con $f' \in L^1(\mathbb{R}, \mathbb{C})$
+
+Tenemos $\hat{f'}(\xi) = \int_{-\infty}^{\infty} f'(t) e^{-2\pi i \xi t} dt$
+
+Aplicando integración por partes:
+
+\[\widehat{f'}(\xi) &= \int_{-\infty}^{\infty} f'(t) e^{-2\pi i \xi t} dt = \left[f(t) e^{-2\pi i\xi t}\right]_{-\infty}^{\infty} + 2 \pi i \xi \int_{-\infty}^{\infty} f(t) e^{-2\pi i \xi t} dt\]
+
+
+Hemos probado que $\widehat{f'}(\xi) = \left[f(t) e^{-2\pi i\xi t}\right]_{-\infty}^{\infty} + 2 \pi i \xi \hat{f}(\xi)$
+
+Como $\hat{f}, \hat{f'}$ existen por ser $f, f'\in L^1(\mathbb{R}, \mathbb{C})$ debe existir $lim_{l \rightarrow \infty} [f(t) e^{-2\pi i \xi t}]_{-l}^{l} = L$
+
+Basta probar pues que $L = 0$. Deducimos esto de que si fuese $L\neq 0$, tendríamos $lim_{l\rightarrow \infty} \int_{-l}^{l} |f(t)| \rightarrow \infty$, que contradice el hecho de que $f\in L^1(\mathbb{R}, \mathbb{C})$
+9. 
+
+Fijado $\xi \in \matbb{R}$, tomamos $t \rightarrow h(t, \xi) = f(t) e^{-2\pi i \xi t}$
+
+Se verifica $|h(t,\xi)| = |f(t)|$, luego $h(\cdot, \xi) \in L^1$
+
+$\frac{\partial h}{\partial \xi}(t,\xi) = -2\pi i t f(t) e^{-2\pi i \xi t} \in L^1$ por ser $tf(t) \in L^1$
+
+y $\left|\frac{\partial h}{\partial \xi}(t,\xi) \right| \le |tf(t)|$
+
+Podemos aplicar derivación bajo el signo integral:
+
+\[\frac{\partial}{\partial \xi} \hat{f}(\xi) = \int_{-\infty}^{\infty} tf(t) e^{-2\pi i \xi t} dt = -2\pi i \widehat{(tf(t))} (\xi)\]
+
+
+11. Hemos visto que si $g\in L^1(\mathbb{R}, \mathbb{C})$ entonces $g$ es $L^1$.
+
+Por tanto existe $\int_{-\infty}^{\infty} f\hat{g} dt$ y por teorema de Fubini:
+
+\begin{align*}
+\int_{-\infty}^{\infty} f\hat{g} dt &= \int_{-\infty}^{\infty} f(t) \left( \int_{-\infty}^{\infty} g(z) e^{-2\pi i t z} dz \right) dt = \\
+&= \int_{-\infty}^{\infty} f(t) \left( \int_{-\infty}^{\infty} g(z) e^{-2\pi i t z} dz \right) dt = \int_{-\infty}^{\infty} \left( \int_{-\infty}^{\infty} f(t) g(z) e^{-2\pi i t z} dz \right) dt \overset{Fubini}{=}\\
+&= \int_{-\infty}^{\infty} \left( \int_{-\infty}^{\infty} f(t) g(z) e^{-2\pi i t z} dt \right) dz = \int_{-\infty}^{\infty} g(z) \left( \int_{-\infty}^{\infty} f(t) e^{-2\pi i t z} dt \right) dz =\\
+&= \int_{-\infty}^{\infty} g\hat{f}
+\end{align*}
+
+#+end_proof
 * Ejercicios
 ** Demuestra que $u_{xx} = u_{tt}$ tiene infinitas soluciones
 
