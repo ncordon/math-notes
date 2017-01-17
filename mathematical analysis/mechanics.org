@@ -567,10 +567,10 @@ h' &= m_1<\ddot{x}, \dot{x}> + m_2<\ddot{y}, \dot{y}> +  G m_1 m_2 \frac{<\dot{x
 #+begin_wording
 Sea un problema de dos cuerpos con centro de masas en el origen.
 
-¿Qué relación hay entre la expresión de la energía del ejercicio anterior con $E_x$ y $E_y$?
+Averigüa qué relación hay entre la expresión de la energía del ejercicio anterior con $E_x$ y $E_y$.
 #+end_wording
 
-En un problema de 2 cuerpos con centro de masas nulo, se verifica:
+En un problema de 2 cuerpos con centro de masas nulo, se verifica, por lo probado en clase:
 
 \begin{align*}
 \ddot{x}(t) &= -\frac{m_2^3}{(m_1+m_2)^2}G \frac{x}{|x|^3}\\
@@ -578,6 +578,7 @@ En un problema de 2 cuerpos con centro de masas nulo, se verifica:
 \end{align*}
 
 Además $y(t) = -\frac{m_1}{m_2}x(t)$ en dicho caso.
+
 
 Así, usando esto último, tenemos:
 
@@ -587,7 +588,12 @@ m_1E_x + m_2E_y &= \frac{m_1}{2}|\dot{x}|^2 - \frac{G m_2^3 m_1}{(m_1+m_2)^2 |x|
 &+ \frac{m_2}{2}|\dot{y}|^2 - \frac{G m_2^3 m_1}{(m_1+m_2)^2 |x|} - \frac{G m_1^2 m_2^2}{(m_1+m_2)^2 |x| }
 \end{align*}
 
-Basta probar que el último término de la energía definida en el ejercicio anterior equivale a:
+
+En el ejercicio se ha considerado que $E_x$ y $E_y$ no llevan la masa incluída en la fórmula. Además, recordamos que la energía $h$ se define como:
+
+\[h = \frac{m_1}{2}|\dot{x}|^2 + \frac{m_2}{2}|\dot{y}|^2 - G \frac{m_1 m_2}{|x(t)-y(t)|}\]
+
+Basta probar que el último término de $h$ es igual a:
 
 \[- \frac{G m_2^3 m_1}{(m_1+m_2)^2 |x|} - \frac{G m_1^2 m_2^2}{(m_1+m_2)^2 |x|}\]
 
