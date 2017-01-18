@@ -696,22 +696,46 @@ Así por teorema de inversión, ocurre cpd la siguiente igualdad:
 3. La transformada de $\xi \mapsto \frac{1}{\pi(1+\xi^2)}$ es $x\mapsto e^{-2\pi |x|}$
 4. La transformada de $x\mapsto e^{-\pi x^2}$ es $\xi \mapsto e^{-\pi \xi^2}$, ella misma. De hecho es la única función que verifica que su transformada es ella misma.
 Hay que tener en cuenta que $\int_{-\infty}^{+\infty} e^{-\pi x^2} dx= 1$
-*** Clase de Schwarz
+*** Clase de Schwartz
 #+begin_definition
-*Clase de Schwarz*
+*Clase de Schwartz*
 
 Definimos la clase de Schwarz como:
 
-\[S= \left\{ \varphi \in \mathcal{C}^{\infty}(\mathbb{R}, \mathbb{C}) : x\mapsto x^k \varphi^j(x) \in L^{\infty}(\mathbb{R}, \mathbb{C}) \quad \forall k,j\in \mathbb{N}\cup \{0\} \right\}\]
+\[S= \left\{ \varphi \in \mathcal{C}^{\infty}(\mathbb{R}, \mathbb{C}) : x\mapsto x^k \varphi^{j)}(x) \in L^{\infty}(\mathbb{R}, \mathbb{C}) \quad \forall k,j\in \mathbb{N}\cup \{0\} \right\}\]
 #+end_definition
 
 $S\subset L^1(\mathbb{R}, \mathbb{C})$, y también $S\subset L^2(\mathbb{R}, \mathbb{C})$
 
+La primera afirmación se demuestra en la prueba de la proposición siguiente.
+
 #+begin_fact
 *Estabilidad de S por las transformadas*
 
-$S$ es estable para $\hat{\cdot}$. De hecho su inversa es $\check{\cdot}$ donde las igualdades no son cpd, sino puntuales por tenerse que tenemos funcioens en $\mathcal{C}^{\infty}$
+$S$ es estable para $\widehat{(\cdot)}$ . De hecho su inversa es $\widecheck{(\cdot)}$ donde las igualdades no son cpd, sino puntuales por tenerse que tenemos funcioens en $\mathcal{C}^{\infty}$
 #+end_fact
+
+#+begin_proof
+Dada $\varphi \in S$, entonces $f(x) = x^k \varphi^{j)} \in L^1(\mathbb{R}, \mathbb{C})$, ya que $\int_{-\infty}^{+\infty} |f(x)| = \int_{-\infty}^{+\infty} \left| \frac{x^{k+2}}{x^2}  \varphi^{j)}(x) \right|$ con $x^{k+2} \varphi^{j)}$ acotada por definición de la clase de Schwartz, y $\frac{1}{x^2}$ integrable en intervalos de la forma $[M, \infty]$ con $M>0$
+
+En particular $\varphi \in L^1(\mathbb{R}, \mathbb{C})$
+
+Vamos a calcular $\hat{f}$. 
+Usaremos que $(\hat{h})^{k)} = (-2\pi i)^k \widehat{x^k h(x)}$ y por tanto
+
+\[\hat{f} (\xi) = \widehat{x^k \varphi^{j)}(x)} = \frac{(\widehat{\varphi^{j)}})^{k)}{(-2\pi i)^{-k}}\]
+
+Usaremos que $\widehat{f^{h)}}(\xi) = (2\pi i\xi)^j \hat{h}(\xi)$
+
+Y por tanto:
+
+\[\hat{f} (\xi) = \left( (2\pi i\xi)^j\hat{\varphi}(\xi) \right)^{k)} (-2\pi i)^{-k}\]
+
+
+Procediendo por inducción sobre $k$
+
+Por el lema de Rienmann Lebesgue, debe tenerse $lim_{\xi \rightarrow \infty} \hat{f}(\xi) = 0$ y por tanto $\xi^j \widehat{\varphi(\xi)}^{k)}$ está acotada, demostrando que $\hat{\varphi}$ está en la clase de Schwartz. La regularidad $\mathcal{C}^\infty$ viene dada por el hecho de que $x^k \varphi$ es $L^1$ y podemos derivar $\widehat{\varphi}$, $k$ veces con $k$ arbitrario.
+#+end_proof
 
 * Ejercicios
 ** Demuestra que $u_{xx} = u_{tt}$ tiene infinitas soluciones
