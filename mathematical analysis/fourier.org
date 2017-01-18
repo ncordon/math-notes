@@ -8,6 +8,7 @@
 
 #+latex_header: \usepackage{amsmath} 
 #+latex_header: \usepackage{amsthm}
+#+latex_header: \usepackage{mathabx}
 #+latex_header: \newtheorem*{theorem}{Teorema}
 #+latex_header: \newtheorem*{fact}{Proposición}
 #+latex_header: \newtheorem*{definition}{Definición}
@@ -101,7 +102,7 @@ Entonces $\exists f\in L^1(a,b): \{f_n\} \rightarrow f$ cpd y $\left\{ \int_a^b 
 *Base hilbertiana*
 
 Sea $H$ espacio de Hilbert separable ($\exists A \subseteq H, A$ denso y numerable) de dimensión infinita.
-Diremos que $B = \{f_1, \ldots f_k \ldots \} \subset L^2(a,b)$ es base hilbertiana de $L^2(a,b)$ si $\forall f\in L^2(a,b) \quad f=\sum_{n=1}^{\infty} <f,f_n> f_n$ con esta igualdad la de un límite en $L^2(a,b)$
+Diremos que $B = \{f_1, \ldots f_k \ldots \} \subset L^2(a,b)$ es base hilbertiana de $L^2(a,b)$ si $\forall f\in L^2(a,b) \quad f=\sum_{n=1}^{+\infty} <f,f_n> f_n$ con esta igualdad la de un límite en $L^2(a,b)$
 #+end_definition
 
 #+begin_fact
@@ -109,8 +110,8 @@ Diremos que $B = \{f_1, \ldots f_k \ldots \} \subset L^2(a,b)$ es base hilbertia
 
 Sea $B = \{f_n : n\in \mathbb{N}\}$ ortonormal. Entonces equivalen:
 
-1. $\forall f\in L^2(a,b), \quad f=\sum_{n=1}^{\infty} <f,f_n> f_n$
-2. $\forall f\in L^2(a,b), \quad ||f||^2 = \sum_{n=1}^{\infty} |<f,f_n>|^2$ (a esta igualdad se le llama *Igualdad de Parseval*)
+1. $\forall f\in L^2(a,b), \quad f=\sum_{n=1}^{+\infty} <f,f_n> f_n$
+2. $\forall f\in L^2(a,b), \quad ||f||^2 = \sum_{n=1}^{+\infty} |<f,f_n>|^2$ (a esta igualdad se le llama *Igualdad de Parseval*)
 3. $B^{\bot} = \{0\}$
 #+end_fact
 
@@ -124,7 +125,7 @@ $B = \left\{\frac{1}{\sqrt{\pi}}, \frac{1}{\sqrt{\pi}} cos(n(\cdot)), \frac{1}{\
 
 Como consecuencia, dada $f\in L^2(-\pi, \pi)$, podemos expresar $f$ de la forma:
 
-\[f= \frac{A_0}{2} + \sum_{n=1}^{\infty} A_n cos(n(\cdot)) + B_n sen(n(\cdot))\]
+\[f= \frac{A_0}{2} + \sum_{n=1}^{+\infty} A_n cos(n(\cdot)) + B_n sen(n(\cdot))\]
 
 donde:
 
@@ -137,7 +138,7 @@ B_n = \frac{1}{\pi} \int_{-\pi}^{\pi} f(x) sen(nx) dx
 
 La identidad de Parseval para la base de Fourier vale:
 
-\[||f||^2 = \pi \left[ \frac{A_0^2}{2} + \sum_{n=1}^{\infty} A_n^2 + B_n^2 \right]\]
+\[||f||^2 = \pi \left[ \frac{A_0^2}{2} + \sum_{n=1}^{+\infty} A_n^2 + B_n^2 \right]\]
 
 #+begin_fact
 Cualquier subconjunto ortogonal de $L^2(-\pi,\pi)$ es numerable.
@@ -215,7 +216,7 @@ Entonces la serie de Fourier de $f'$ es $S(f') = (S(f))'$ entendiéndo la serie 
 #+end_fact
 *** Series de Fourier e integración
 #+begin_fact
-Sea $f\in L^2(-\pi,\pi)$ y $S(f) = \frac{A_0}{2} + \sum_{n=1}^{\infty} A_n cos(nx) + B_n sen(nx)$ serie de Fourier de $f$. Entonces $\forall a\in [-\pi, \pi]$, $a$ fijo, se tiene:
+Sea $f\in L^2(-\pi,\pi)$ y $S(f) = \frac{A_0}{2} + \sum_{n=1}^{+\infty} A_n cos(nx) + B_n sen(nx)$ serie de Fourier de $f$. Entonces $\forall a\in [-\pi, \pi]$, $a$ fijo, se tiene:
 
 \[F(x) = \int_{a}^x f(t) = lim_n \int_a^x S_n(f) \quad \forall x\in [-\pi, \pi]\]
 
@@ -269,7 +270,7 @@ Sea $u_0\in L^2(0,l)$ y consideramoslos coeficientes de Fourier en serie de seno
 
 Entonces:
 
-1. $u:[0,l]\times ]0,\infty[$ donde $u(x,t) = \sum_{n=1}^{\infty} A_n e^{\frac{-n^2\pi^2 t}{l^2}} sen\left(\frac{n\pi x}{l}\right)$ es continua y tiene derivadas parciales continuas  en $[0,l]\times ]0,\infty[$ verificándose además:
+1. $u:[0,l]\times ]0,\infty[$ donde $u(x,t) = \sum_{n=1}^{+\infty} A_n e^{\frac{-n^2\pi^2 t}{l^2}} sen\left(\frac{n\pi x}{l}\right)$ es continua y tiene derivadas parciales continuas  en $[0,l]\times ]0,\infty[$ verificándose además:
 
 
 \[\left\{
@@ -357,10 +358,10 @@ El conjunto $B = \{x\mapsto e^{inx} : n\in \mathbb{Z}\}$ es base de $L^2([-\pi, 
 #+end_fact
 
 
-Pongamos $\sum_{n=-\infty}^{\infty} c_n e^{in}$ donde $c_n = \frac{<f,e^{in(\cdot)}}{||e^{in(\cdot)}||^2} = \frac{1}{2\pi} \int_{-\pi}^{\pi} f(x) e^{-inx}$ 
+Pongamos $\sum_{n=-\infty}^{+\infty} c_n e^{in}$ donde $c_n = \frac{<f,e^{in(\cdot)}}{||e^{in(\cdot)}||^2} = \frac{1}{2\pi} \int_{-\pi}^{\pi} f(x) e^{-inx}$ 
 
 
-Sabíamos del tema anterior que podemos expresar $S(f) = a_0 + \sum_{n=1}^{\infty} a_n cos(n(\cdot)) + b_n sen(n(\cdot))$
+Sabíamos del tema anterior que podemos expresar $S(f) = a_0 + \sum_{n=1}^{+\infty} a_n cos(n(\cdot)) + b_n sen(n(\cdot))$
 
 donde:
 
@@ -381,7 +382,7 @@ i(c_n - c_{-n}) &= b_n
 
 \[c_0 = a_0\]
 
-Y la expresión $\sum_{n=-\infty}^{\infty} c_n e^{in}$ coincide con $S(f)$
+Y la expresión $\sum_{n=-\infty}^{+\infty} c_n e^{in}$ coincide con $S(f)$
 
 *** Reducción a dimensión finita por serie de cosenos
 
@@ -389,7 +390,7 @@ Conocemos $f \in L^2([0,\pi])$ valuada en $N$ putos de la forma $x_1 = \frac{\pi
 
 La serie de Fourier de $f$ en desarrollo de cosenos será de la forma:
 
-\[S(f) = \frac{a_0}{2} + \sum_{n=1}^{\infty} a_n cos(n(\cdot))\]
+\[S(f) = \frac{a_0}{2} + \sum_{n=1}^{+\infty} a_n cos(n(\cdot))\]
 
 donde $a_n= \frac{2}{\pi} \int_0^{\pi} f(x) cos(nx) dx$
 
@@ -494,7 +495,7 @@ curve(f, -2*pi, 2*pi, xname="x")
 
 La serie de Fourier asociada a $f$ es:
 
-\[S(x) = \frac{4}{\pi} \sum_{k=0}^{\infty} \frac{sen((2k+1)x)}{2k+1}\]
+\[S(x) = \frac{4}{\pi} \sum_{k=0}^{+\infty} \frac{sen((2k+1)x)}{2k+1}\]
 
 Se definen las sumas parciales por:
 
@@ -510,7 +511,7 @@ El pico que encontramos tras cada salto tiene aproximadamente una longitud de ap
 Si $f \in L^2([-l,l])$, sabemos que podemos expresar $f$ en notación compleja en el espacio $L^2$ $f(x) = \sum_{n=-\infty}^{^+\infty} \left(\frac{1}{2l} \int_{-l}^l f(t) e^{\frac{-\pi int}{l}} dt  \right) e^{\pi in\frac{x}{l}}$
 Llamando $\xi_n = \frac{n}{2l}, n\in [-2l^2, 2l^2]$, podemos pensar en la intuición:
 
-$f \overset{?}{=} lim_{l\rightarrow \infty} \sum_{n=-2l^2}^{2l^2} (\xi_n - \xi_{n-1}) h(\xi_n) e^{2\pi i \xi_n x} \approx \int_{-\infty}^{\infty} \left(\int_{-\infty}^{\infty} f(t)e^{-2\pi \xi t} dt \right) e^{2\pi i \xi x} d\xi$
+$f \overset{?}{=} lim_{l\rightarrow \infty} \sum_{n=-2l^2}^{2l^2} (\xi_n - \xi_{n-1}) h(\xi_n) e^{2\pi i \xi_n x} \approx \int_{-\infty}^{+\infty} \left(\int_{-\infty}^{+\infty} f(t)e^{-2\pi \xi t} dt \right) e^{2\pi i \xi x} d\xi$
 
 con $h(\xi) = \int_{-l}^{l} f(t) e^{-2\pi i\xi t}$
 
@@ -519,11 +520,11 @@ Esta "intuición" motiva la siguiente definición:
 #+begin_definition
 *Transformada de Fourier en $L^1(\mathbb{R})$*
 
-Dada $f\in L^1(\mathbb{R}, \mathbb{C})$, llamaremos transformada de Fourier a $\hat{f} : \mathbb{R} \rightarrow \mathbb{C}$ donde $\hat{f}(\xi) = \int_{-\infty}^{\infty} f(t) e^{-2\pi i\xi t} dt$
+Dada $f\in L^1(\mathbb{R}, \mathbb{C})$, llamaremos transformada de Fourier a $\hat{f} : \mathbb{R} \rightarrow \mathbb{C}$ donde $\hat{f}(\xi) = \int_{-\infty}^{+\infty} f(t) e^{-2\pi i\xi t} dt$
 
 Y esta función está bien definida puesto que:
 
-\[\int_{-\infty}^{\infty} |f(t) e^{-2\pi i\xi t}| dt = \int_{-\infty}^{\infty} |f(t)| dt < \infty\]
+\[\int_{-\infty}^{+\infty} |f(t) e^{-2\pi i\xi t}| dt = \int_{-\infty}^{+\infty} |f(t)| dt < \infty\]
 #+end_definition
 
 #+begin_fact
@@ -540,12 +541,13 @@ Y esta función está bien definida puesto que:
 \[\hat{g}(\xi) = \tau_{-h}\widehat{f}(\xi)\]
 6. *Dilatación*: Sea $f\in L^1(\mathbb{R}, \mathbb{C}), \quad \lambda \in \mathbb{R}^{+}, \quad h_{\lambda}f(x) = f(\lambda x)$. Entonces:
 \[\widehat{h_{\lambda}f}(\xi) = \frac{1}{\lambda} \hat{f} \left(\frac{\xi}{\lambda} \right)\]
-7. Si $f\in L^1(\mathbb{R}, \mathbb{C})$ entonces $\hat{f}$ es uniformemente continua y acotada con $||\hat{f}||_{L^{\infty}} \le ||f||_{L^1}$
+7. Si $f\in L^1(\mathbb{R}, \mathbb{C})$ entonces $\hat{f}$ es uniformemente continua y acotada con $||\hat{f}||_{L^{+\infty}} \le ||f||_{L^1}$
 8. Si $f\in L^1(\mathbb{R}, \mathbb{C})$ es derivable con $f'\in L^1(\mathbb{R}, \mathbb{C})$ entonces:
 \[\widehat{(f')}(\xi) = 2\pi i \xi \hat{f}(\xi)\]
-9. Si $f\in L^1(\mathbb{R}, \mathbb{C})$ y $xf(x) \in L^1(\mathbb{R}, \mathbb{C})$ entonces $\hat{f}$ es derivable con $(\hat{f})'(\xi) = -2\pi i \widehat{(xf(x))} (\xi)$
+9. Si $f\in L^1(\mathbb{R}, \mathbb{C})$ y $xf(x) \in L^1(\mathbb{R}, \mathbb{C})$ entonces $\hat{f}$ es derivable con 
+\[(\hat{f})'(\xi) = -2\pi i \widehat{(xf(x))} (\xi)\]
 10. *Lema de Riemann-Lebesgue*: Si $f\in L^1(\mathbb{R}, \mathbb{C})$ entonces $lim_{|\xi| \rightarrow \infty} \hat{f}(\xi) = 0$
-11. Si $f,g \in L^1(\mathbb{R}, \mathbb{C})$ entonces $\int_{-\infty}^{\infty} f\hat{g} = \int_{-\infty}^{\infty} g\hat{f}$
+11. Si $f,g \in L^1(\mathbb{R}, \mathbb{C})$ entonces $\int_{-\infty}^{+\infty} f\hat{g} = \int_{-\infty}^{+\infty} g\hat{f}$
 #+end_fact
 
 #+begin_proof
@@ -553,7 +555,7 @@ Y esta función está bien definida puesto que:
 
 Está bien definida por tenerse, $f\in L^1(\mathbb{R}, \mathbb{C})$ y para un $\xi \in \mathbb{R}$ fijo:
 
-\[\int_{-\infty}^{\infty} |f(t) e^{-2\pi i\xi t}| dt = \int_{-\infty}^{\infty} |f(t)| dt = ||f||_{L^1} < \infty\]
+\[\int_{-\infty}^{+\infty} |f(t) e^{-2\pi i\xi t}| dt = \int_{-\infty}^{+\infty} |f(t)| dt = ||f||_{L^1} < \infty\]
 
 2. 
 
@@ -561,7 +563,7 @@ Sabemos que $L^1(\mathbb{R}, \mathbb{C})$ es espacio vectorial sobre $\mathbb{C}
 
 Dado un $\xi \in \mathbb{R}$ arbitrario. Usando que las transformadas de Fourier de $f$ y $g$ existen y están bien definidas:
 
-\[\widehat{\alpha f + \beta g}(\xi) = \int_{-\infty}^{\infty} \alpha f(t) + \beta(t) g e^{-2\pi i\xi t} dt = \alpha \int_{-\infty}^{\infty} f(t) e^{-2\pi i \xi t} dt + \beta \int_{-\infty}^{\infty} g(t) e^{-2\pi i \xi t} dt = \alpha \hat{f} + \beta \hat{g}\]
+\[\widehat{\alpha f + \beta g}(\xi) = \int_{-\infty}^{+\infty} \alpha f(t) + \beta(t) g e^{-2\pi i\xi t} dt = \alpha \int_{-\infty}^{+\infty} f(t) e^{-2\pi i \xi t} dt + \beta \int_{-\infty}^{+\infty} g(t) e^{-2\pi i \xi t} dt = \alpha \hat{f} + \beta \hat{g}\]
 3. 
 
 Descomponemos $f$ en su parte real e imaginaria de la forma $f(t) = a(t) + ib(t)$
@@ -569,31 +571,31 @@ Descomponemos $f$ en su parte real e imaginaria de la forma $f(t) = a(t) + ib(t)
 Usaremos que $cos$ es par y $sen$ impar. 
 
 \begin{align*}
-\hat{f} (-\xi) &= \overline{\int_{-\infty}^{\infty} \bar{f}(t) e^{2\pi i \xi t} dt} = \int_{-\infty}^{\infty} \overline{[a(t)+ib(t)]} \overline{[cos(2\pi \xi t) + isen(2\pi \xi t)]} dt = \\
-&= \int_{-\infty}^{\infty} [a(t)-ib(t)] [cos(2\pi \xi t) - isen(2\pi \xi t)] dt = \\
-&= \int_{-\infty}^{\infty} [a(t)-ib(t)] [cos(-2\pi \xi t) + isen(-2\pi \xi t)] dt = \\
-&= \int_{-\infty}^{\infty} \bar{f}(t) e^{-2\pi i \xi t} dt = \hat{\bar{f}} (\xi)
+\hat{f} (-\xi) &= \overline{\int_{-\infty}^{+\infty} \bar{f}(t) e^{2\pi i \xi t} dt} = \int_{-\infty}^{+\infty} \overline{[a(t)+ib(t)]} \overline{[cos(2\pi \xi t) + isen(2\pi \xi t)]} dt = \\
+&= \int_{-\infty}^{+\infty} [a(t)-ib(t)] [cos(2\pi \xi t) - isen(2\pi \xi t)] dt = \\
+&= \int_{-\infty}^{+\infty} [a(t)-ib(t)] [cos(-2\pi \xi t) + isen(-2\pi \xi t)] dt = \\
+&= \int_{-\infty}^{+\infty} \bar{f}(t) e^{-2\pi i \xi t} dt = \hat{\bar{f}} (\xi)
 \end{align*}
 
 4.
 
-\[\widehat{\tau_{h}f} (\xi) = \int_{-\infty}^{\infty} f(t+h) e^{-2\pi i \xi t} dt \overset{\left| \begin{array}{l} s=t+h\\ ds = dt\end{array} \right.}{=} \int_{-\infty}^{\infty} f(s) e^{-2\pi i \xi (s-h)} ds = e^{2\pi i \xi h} \hat{f}(\xi)\]
+\[\widehat{\tau_{h}f} (\xi) = \int_{-\infty}^{+\infty} f(t+h) e^{-2\pi i \xi t} dt \overset{\left| \begin{array}{l} s=t+h\\ ds = dt\end{array} \right.}{=} \int_{-\infty}^{+\infty} f(s) e^{-2\pi i \xi (s-h)} ds = e^{2\pi i \xi h} \hat{f}(\xi)\]
 
 5.
 
-\[\hat{g} (\xi) = \int_{-\infty}^{\infty} f(t) e^{2\pi i h t} e^{-2\pi i\xi t} dt  = \int_{-\infty}^{\infty} f(t) e^{-2\pi i (\xi - h)t} dt = \tau_{-h}\widehat{f}(\xi)\]
+\[\hat{g} (\xi) = \int_{-\infty}^{+\infty} f(t) e^{2\pi i h t} e^{-2\pi i\xi t} dt  = \int_{-\infty}^{+\infty} f(t) e^{-2\pi i (\xi - h)t} dt = \tau_{-h}\widehat{f}(\xi)\]
 
 6.
 
-\[\widehat{h_{\lambda}f} (\xi) = \int_{-\infty}^{\infty} f(t\lambda) e^{-2\pi i \xi t} dt \overset{\left| \begin{array}{l} s=\lambda t \\ ds = \lambda dt \end{array} \right.}{=} \int_{-\infty}^{\infty} f(s) e^{-2\pi i \xi \lambda s} \frac{1}{\lambda} ds = \frac{1}{\lambda} \hat{f} \left(\frac{\xi}{\lambda}\right)\]
+\[\widehat{h_{\lambda}f} (\xi) = \int_{-\infty}^{+\infty} f(t\lambda) e^{-2\pi i \xi t} dt \overset{\left| \begin{array}{l} s=\lambda t \\ ds = \lambda dt \end{array} \right.}{=} \int_{-\infty}^{+\infty} f(s) e^{-2\pi i \xi \lambda s} \frac{1}{\lambda} ds = \frac{1}{\lambda} \hat{f} \left(\frac{\xi}{\lambda}\right)\]
 
 7.
 
 Dado $\xi \in \mathbb{R}$:
 
 \begin{align*}
-\left|\hat{f}(\xi) - \hat{f}(\xi + h) \right| &= \left|\int_{-\infty}^{\infty} f(t) e^{-2\pi i \xi t} dt - \int_{-\infty}^{\infty} f(t) e^{-\pi i (\xi+h) t} dt \right| \le \\
-&\le \int_{-\infty}^{\infty} \left|f(t)e^{-2\pi i \xi t} (1 - e^{-2\pi i h t}) \right| dt = \int_{-\infty}^{\infty} |f(t)| \cdot |1-e^{2\pi i h t}| dt
+\left|\hat{f}(\xi) - \hat{f}(\xi + h) \right| &= \left|\int_{-\infty}^{+\infty} f(t) e^{-2\pi i \xi t} dt - \int_{-\infty}^{+\infty} f(t) e^{-\pi i (\xi+h) t} dt \right| \le \\
+&\le \int_{-\infty}^{+\infty} \left|f(t)e^{-2\pi i \xi t} (1 - e^{-2\pi i h t}) \right| dt = \int_{-\infty}^{+\infty} |f(t)| \cdot |1-e^{2\pi i h t}| dt
 \end{align*}
 
 Dada una sucesión $\{h_n\} \rightarrow 0$, llamamos $f_n(t) = |f(t)| \cdot |1-e^{2\pi i h_n t}|$
@@ -604,28 +606,28 @@ Como $|f_n(t)| \le 2|f(t)|$, con $f \in L^1$
 
 Se verifican las hipótesis del teorema de convergencia dominada, luego podemos intercambiar el límite de la sucesión. 
 
-\[lim_{n} \int_{-\infty}^{\infty} |f(t)| \cdot |1-e^{2\pi i h_n t}| dt = \int_{-\infty}^{\infty} lim_n f_n(t) dt = 0\]
+\[lim_{n} \int_{-\infty}^{+\infty} |f(t)| \cdot |1-e^{2\pi i h_n t}| dt = \int_{-\infty}^{+\infty} lim_n f_n(t) dt = 0\]
 
 Como se ha hecho para una sucesión arbitraria, hay continuidad en $\xi$ de $\hat{f}$. Pero por la propiedad 10, se tiene que $lim_{t \rightarrow \infty} \hat{f} = 0$. Luego hay continuidad uniforme.
 
 La segunda parte se deduce de que para todo $\xi \in \mathbb{R}$ se tiene, por lo probado en el apartado 1:
 
-\[|\hat{f}(\xi)| = \left|\int_{-\infty}^{\infty} f(t) e^{-2\pi i\xi t} dt \right| \le \int_{-\infty}^{\infty} |f(t) e^{-2\pi i\xi t}| dt \le ||f||_{L^1}\]
+\[|\hat{f}(\xi)| = \left|\int_{-\infty}^{+\infty} f(t) e^{-2\pi i\xi t} dt \right| \le \int_{-\infty}^{+\infty} |f(t) e^{-2\pi i\xi t}| dt \le ||f||_{L^1}\]
 
-Como $\xi$ lo hemos tomado arbitrario: $||\hat{f}||_{L^{\infty}} \le ||f||_{L^1}$
+Como $\xi$ lo hemos tomado arbitrario: $||\hat{f}||_{L^{+\infty}} \le ||f||_{L^1}$
 
 8.
 
 $f$ es derivable con $f' \in L^1(\mathbb{R}, \mathbb{C})$
 
-Tenemos $\hat{f'}(\xi) = \int_{-\infty}^{\infty} f'(t) e^{-2\pi i \xi t} dt$
+Tenemos $\hat{f'}(\xi) = \int_{-\infty}^{+\infty} f'(t) e^{-2\pi i \xi t} dt$
 
 Aplicando integración por partes:
 
-\[\widehat{f'}(\xi) &= \int_{-\infty}^{\infty} f'(t) e^{-2\pi i \xi t} dt = \left[f(t) e^{-2\pi i\xi t}\right]_{-\infty}^{\infty} + 2 \pi i \xi \int_{-\infty}^{\infty} f(t) e^{-2\pi i \xi t} dt\]
+\[\widehat{f'}(\xi) &= \int_{-\infty}^{+\infty} f'(t) e^{-2\pi i \xi t} dt = \left[f(t) e^{-2\pi i\xi t}\right]_{-\infty}^{+\infty} + 2 \pi i \xi \int_{-\infty}^{+\infty} f(t) e^{-2\pi i \xi t} dt\]
 
 
-Hemos probado que $\widehat{f'}(\xi) = \left[f(t) e^{-2\pi i\xi t}\right]_{-\infty}^{\infty} + 2 \pi i \xi \hat{f}(\xi)$
+Hemos probado que $\widehat{f'}(\xi) = \left[f(t) e^{-2\pi i\xi t}\right]_{-\infty}^{+\infty} + 2 \pi i \xi \hat{f}(\xi)$
 
 Como $\hat{f}, \hat{f'}$ existen por ser $f, f'\in L^1(\mathbb{R}, \mathbb{C})$ debe existir $lim_{l \rightarrow \infty} [f(t) e^{-2\pi i \xi t}]_{-l}^{l} = L$
 
@@ -642,18 +644,18 @@ y $\left|\frac{\partial h}{\partial \xi}(t,\xi) \right| \le |tf(t)|$
 
 Podemos aplicar derivación bajo el signo integral:
 
-\[\frac{\partial}{\partial \xi} \hat{f}(\xi) = \int_{-\infty}^{\infty} tf(t) e^{-2\pi i \xi t} dt = -2\pi i \widehat{(tf(t))} (\xi)\]
+\[\frac{\partial}{\partial \xi} \hat{f}(\xi) = \int_{-\infty}^{+\infty} tf(t) e^{-2\pi i \xi t} dt = -2\pi i \widehat{(tf(t))} (\xi)\]
 
 
 11. Hemos visto que si $g\in L^1(\mathbb{R}, \mathbb{C})$ entonces $g$ es $L^1$.
 
-Por tanto existe $\int_{-\infty}^{\infty} f\hat{g} dt$ y por teorema de Fubini:
+Por tanto existe $\int_{-\infty}^{+\infty} f\hat{g} dt$ y por teorema de Fubini:
 
 \begin{align*}
-\int_{-\infty}^{\infty} f\hat{g} dt &= \int_{-\infty}^{\infty} f(t) \left( \int_{-\infty}^{\infty} g(z) e^{-2\pi i t z} dz \right) dt = \\
-&= \int_{-\infty}^{\infty} f(t) \left( \int_{-\infty}^{\infty} g(z) e^{-2\pi i t z} dz \right) dt = \int_{-\infty}^{\infty} \left( \int_{-\infty}^{\infty} f(t) g(z) e^{-2\pi i t z} dz \right) dt \overset{Fubini}{=}\\
-&= \int_{-\infty}^{\infty} \left( \int_{-\infty}^{\infty} f(t) g(z) e^{-2\pi i t z} dt \right) dz = \int_{-\infty}^{\infty} g(z) \left( \int_{-\infty}^{\infty} f(t) e^{-2\pi i t z} dt \right) dz =\\
-&= \int_{-\infty}^{\infty} g\hat{f}
+\int_{-\infty}^{+\infty} f\hat{g} dt &= \int_{-\infty}^{+\infty} f(t) \left( \int_{-\infty}^{+\infty} g(z) e^{-2\pi i t z} dz \right) dt = \\
+&= \int_{-\infty}^{+\infty} f(t) \left( \int_{-\infty}^{+\infty} g(z) e^{-2\pi i t z} dz \right) dt = \int_{-\infty}^{+\infty} \left( \int_{-\infty}^{+\infty} f(t) g(z) e^{-2\pi i t z} dz \right) dt \overset{Fubini}{=}\\
+&= \int_{-\infty}^{+\infty} \left( \int_{-\infty}^{+\infty} f(t) g(z) e^{-2\pi i t z} dt \right) dz = \int_{-\infty}^{+\infty} g(z) \left( \int_{-\infty}^{+\infty} f(t) e^{-2\pi i t z} dt \right) dz =\\
+&= \int_{-\infty}^{+\infty} g\hat{f}
 \end{align*}
 
 #+end_proof
@@ -671,6 +673,45 @@ La transformada parece llevarse funciones con decaimiento en $\infty$ a funcione
 
 Si $f\in L^1(\mathbb{R}, \mathbb{C})$ tiene soporte compacto ($\exists A>0$ tal que $f=0$ cpd fuera de $[-A,A]$) entonces $\hat{f}$ es analítica.
 #+end_theorem
+
+**** Teorema de inversión
+#+begin_definition
+*Transformada inversa*
+Se define la transformada inversa de $g\in L^1(\mathbb{R}, \mathbb{C})$ como $\widecheck{g}(x) = \int_{-\infty}^{+\infty} g(x) e^{2\pi i x \xi} d\xi = \hat{g}(-x)$
+#+end_definition
+
+#+begin_theorem
+*Teorema de inversión*
+
+Si $f \in L^1(\mathbb{R}, \mathbb{C})$ y $\hat{f} \in L^1(\mathbb{R}, \mathbb{C})$ entonces $f=\widecheck{\hat{(f)}}$ cpd.
+#+end_theorem
+
+Así por teorema de inversión, ocurre cpd la siguiente igualdad:
+
+\[f(x) = \int_{-\infty}^{+\infty} \hat{f}(\xi) e^{2\pi i x\xi} d\xi = \int_{-\infty}^{+\infty} \left[ \int_{-\infty}^{+\infty} f(t)e^{-2\pi i x \xi} dx \right](\xi) e^{2\pi i x\xi} d\xi\]
+**** Ejemplos
+
+1. La transformada de $\mathcal{X}_{]-\frac{1}{2}, \frac{1}{2}[}$ es $\xi \mapsto \frac{sen(\pi \xi)}{\pi \xi}$
+2. La transformada de $x\mapsto e^{-2\pi |x|}$ es $\xi \mapsto \frac{1}{\pi(1+\xi^2)}$
+3. La transformada de $\xi \mapsto \frac{1}{\pi(1+\xi^2)}$ es $x\mapsto e^{-2\pi |x|}$
+4. La transformada de $x\mapsto e^{-\pi x^2}$ es $\xi \mapsto e^{-\pi \xi^2}$, ella misma. De hecho es la única función que verifica que su transformada es ella misma.
+Hay que tener en cuenta que $\int_{-\infty}^{+\infty} e^{-\pi x^2} dx= 1$
+*** Clase de Schwarz
+#+begin_definition
+*Clase de Schwarz*
+
+Definimos la clase de Schwarz como:
+
+\[S= \left\{ \varphi \in \mathcal{C}^{\infty}(\mathbb{R}, \mathbb{C}) : x\mapsto x^k \varphi^j(x) \in L^{\infty}(\mathbb{R}, \mathbb{C}) \quad \forall k,j\in \mathbb{N}\cup \{0\} \right\}\]
+#+end_definition
+
+$S\subset L^1(\mathbb{R}, \mathbb{C})$, y también $S\subset L^2(\mathbb{R}, \mathbb{C})$
+
+#+begin_fact
+*Estabilidad de S por las transformadas*
+
+$S$ es estable para $\hat{\cdot}$. De hecho su inversa es $\check{\cdot}$ donde las igualdades no son cpd, sino puntuales por tenerse que tenemos funcioens en $\mathcal{C}^{\infty}$
+#+end_fact
 
 * Ejercicios
 ** Demuestra que $u_{xx} = u_{tt}$ tiene infinitas soluciones
@@ -709,3 +750,10 @@ Y por tanto debe tenerse $a_i = 0, \quad i=1\ldots k$. Luego $\{v_n\}_{n\in \mat
 [fn:derivadas] Entendemos por $u_{xx} = \frac{\partial^2{u(x,t)}}{\partial x^2}$ con $u(x,t)$ campo escalar de dos variables
 
 
+** Calcula la transformada de $\mathcal{X}_{[a,b]}$
+Sabemos que la transformada de $\mathcal{X}_{[-1/2, 1/2]}$ es $f(\xi) =\frac{sen(\pi\xi)}{\pi\xi}$
+Dilatamos por $\frac{1}{b-a}$ y trasladamos $\frac{b-a}{2}$.
+
+La transformada de $\tau_{(b-a)/2} h_{1/(b-a)} f(\xi)$ es:
+
+\[e^{2\pi i \xi \frac{b-a}{2}} (b-a) f((b-a)\xi) = \frac{sen(\pi \xi(b-a))}{\pi\xi} e^{\pi i\xi(b+a)}\]
