@@ -1650,12 +1650,16 @@ Y por consiguiente $[E:K] | [EF:F] \implies [E:K]=[EF:F]$
 
 #+begin_fact
 \label{fg-implies-finita}
-Sea $F=K(u_1,\ldots u_n)$ una extensión finitamente generada por elementos $u_i$ algebraicos. Entonces la extensión $F/K$ es finita.
+Sea $F=K(u_1,\ldots u_n)$ una extensión finitamente generada por elementos $u_i$ algebraicos. Entonces la extensión $F/K$ es finita, donde $[F:K] \le \prod_{i=1}^n gr(Irr(u_i, K))$. Se da la igualdad si $gr(Irr(u_i,K))$ son primos entre sí.
 #+end_fact
 
 #+begin_proof
 La demostración se deduce del aparatado 2 de la proposición \ref{comp-deg} sin más que tener en cuenta que $K(u_1,\ldots u_n)$ estará contenido en $\prod_{i=1}^n K(u_i)$ y esa extensión es finita. El hecho de que los elementos sean algebraicos interviene en que $K(u_i)$ será finita en ese caso con $[K(u_i):K] = gr(Irr(u_i,K))$
 #+end_proof
+
+
+$\mathbb{Q}(\sqrt{2}, i)$ es un ejemplo de extensión de grado 4, pero sin embargo $gr(Irr(\sqrt{2}), \mathbb{Q}) = 2 = gr(Irr(i, \mathbb{Q}))$, no son primos entre sí.
+
 
 #+begin_corollary
 *Caracterización de extensiones algebraicas*
@@ -1680,12 +1684,12 @@ NOTA: Hay extensiones algebraicas no finitamente generadas, como por ejemplo la 
 #+begin_corollary
 *Caracterización de elementos algebraicos*
 
-Sea $E\supset F\supset K$ torre de cuerpos.
+Sea $E \supset K$ torre de cuerpos.
 
 Un elemento $u\in E$ es algebraico sobre $K$ si y solo si existe un cuerpo intermedio $F$ verificando que $F/K$ es extensión finita y $u\in F$.
 #+end_corollary
 
-La implicación hacia la izquierda es trivial sin más que considerar $K(u)$. La implicación hacia la derecha se deduce de ser $E$ extensión finita, luego algebraica sobre $K$.
+La implicación hacia la izquierda es trivial sin más que considerar $K(u)$, finitamente generada por un eleento algebraico, luego finita. La implicación hacia la derecha se deduce de ser $F$ extensión finita, luego algebraica sobre $K$.
 
 #+begin_corollary
 *Transitividad de algebraicidad en torres de cuerpos*
@@ -1695,8 +1699,7 @@ Dada una torre de cuerpos $E\supset F\supset K$ la extensión $E/K$ es algebraic
 
 Si $E/K$ es algebraica, $F/K$ es algebraica trivialmente, por tenerse $x\in F\implies x\in E$; y $E/F$ también es algebraica por tenerse que si para todo $x\in E$ existe $Irr(x,K)$, entonces $\exists Irr(x,F)$ por ser $K\subset F$ y de hecho el segundo polinomio divide al primero. 
 
-Una simple reducción al absurdo nos da la implicación contraria.
-
+Para la implicación opuesta. Dado $x\in E$, tomamos $p=Irr(u,F) = a_0 + a_1X + \ldots X^{n}$. Entonces $K(a_0, \ldots a_{n-1}, x)$ es extensión algebraica y finitamente generada (luego finita) de $K(a_0, \ldots a_{n-1})$, y esta última es extensión finita de $K$, luego tenemos una torre de extensiones finitas, $K(a_0, \ldots a_{n-1}, x)$ es algebraica sobre $K$ y por tanto $x$ es algebraico sobre $K$.
 *** Cuerpos de descomposición
 
 #+begin_theorem
@@ -1718,10 +1721,6 @@ Sea $\alpha : K_1 \rightarrow K_2$ un isomorfismo de cuerpos. Existe una única 
 
 La demostración se basa en la propiedad universal del anillo de polinomios.
 
-#+begin_fact
-En las condiciones de la proposición anterior si $F_i/K_i$ son extensiones algebraicas, $\tau : F_1 \rightarrow F_2$ un homomorfismo sobre $\sigma : K_1 \rightarrow K_2$ y $u\in F_1$ una raíz de $f_1 \in K_1[X]$. Entonces $\tau(u)$ es una raíz de $f_2 = \sigma(f_1)$
-#+end_fact
-
 #+begin_proof
 Sea $f_1 = \sum_{i=1}^n a_i X^i$
 
@@ -1734,6 +1733,10 @@ f_2(\tau(u)) = \sum_{i=1}^n \sigma(a_i) \tau(u)^i = \sum_{i=1}^n \tau(a_i) \tau(
 
 #+end_proof
 
+#+begin_fact
+Sean $F_i/K_i$ extensiones algebraicas, $\tau : F_1 \rightarrow F_2$ un homomorfismo sobre $\sigma : K_1 \rightarrow K_2$ y $u\in F_1$ una raíz de $f_1 \in K_1[X]$. Entonces $\tau(u)$ es una raíz de $f_2 = \sigma(f_1)$
+#+end_fact
+
 #+begin_corollary
 Sea $F/K$ extensión algebraica y $\sigma : F\rightarrow F$ un homomorfismo sobre $K$. Entonces $\sigma$ es un automorfismo.
 \label{conds-isomorfismo}
@@ -1742,7 +1745,7 @@ Sea $F/K$ extensión algebraica y $\sigma : F\rightarrow F$ un homomorfismo sobr
 Para demostrar esto, veamos que la aplicación es sobreyectiva. La inyectividad viene dada por ser homomorfismo de cuerpos. Consideramos $u\in F$. Tomo $f=Irr(u,K)$, que puedo hacerlo por tratarse de una extensión algebraica, y se tiene que $\sigma(f) = f$. Tomo todas las raíces $\{u_1, \ldots u_k\}$ de $f$ que hay en $F$. Tomo $F_1 = K(u_1\ldots u_k)$ el subcuerpo de $F$ generado por todas ellas. La extensión $F_1/K$ es finitamente generada y algebraica, ergo finita, y para cualquier homomorfismo $\sigma : F \rightarrow F$ verifica que $\sigma(u_i)$ es raíz de $f$. Así, $\sigma|F_{1}$ e una aplicación lineal inyectiva, luego sobreyectiva y eso nos lleva a decir que $\exists v\in F_1$ verificando $\sigma(v)=u$.
 
 #+begin_fact
-En las condiciones de la proposición anterior sea $u_i$ raíz de $f_i$ en alguna extensión $F_i/K_i$. Entonces existe un único isomorfismo $\tau : K_1(u_1) \rightarrow K_2(u_2)$ sobre $\sigma$ tal que $\tau(u_1) = u_2$
+Sean $u_i$ raíz de $f_i$ en alguna extensión $F_i/K_i$. Entonces existe un único isomorfismo $\tau : K_1(u_1) \rightarrow K_2(u_2)$ sobre $\sigma: K_1 \rightarrow K_2$ tal que $\tau(u_1) = u_2$
 \label{prev_zorn}
 #+end_fact
 
@@ -1764,12 +1767,24 @@ Sea $E\supset F\supset K$ torre de cuerpos tal que $E$ es cuerpo de descomposici
 #+end_fact
 
 
+#+begin_fact
+*Un cuerpo de descomposción no tiene extensiones algebraicas propias*
+
+Sea $K$ cuerpo. Equivalen:
+
+1. Todo polinomio no constante tiene al menos una raíz en $K[X]$
+2. Todo polinomio no constante descompone en $K$
+3. Los polinomios no constantes irreducibles son de grado 1
+4. $K$ no tiene extensiones algebraicas propias.
+#+end_fact
+
 #+begin_theorem
 *Grado del cuerpo de descomposición*
 
 Un cuerpo de descomposición $F$ de un polinomio $f$ de grado $n$ sobre $K$ es de grado como mucho $n!$ sobre $K$. Si el grado es $n!$ entonces el polinomio es irreducible. El recíproco no se verifica.
 #+end_theorem
 
+#+begin_proof
 La demostración la hacemos por inducción sobre $n$. Para $n=1$, tenemos que el cuerpo de descomposición de $f$ será el propio $K$.
 
 Supuesto cierto para un polinomio de hasta grado $n-1$, y sea $f$ polinomio de grado $n$ sobre $K$. Sean $\{u_1, \ldots u_n\}$ raíces de $f$ en $F$. Podemos tomar $K(u_1)$ extensión de $K$ donde se verifica $f(u_1)=0$. Descompongo $f=(X-u_1)g$ y por hipótesis de inducción el cuerpo de descomposición $F$ de $g$ sobre $K_1=K(u_1)$ tiene grado menor o igual a $(n-1)!$.
@@ -1777,6 +1792,7 @@ Supuesto cierto para un polinomio de hasta grado $n-1$, y sea $f$ polinomio de g
 Por tanto: $[F:K] = [F:K_1][K_1:K] \le (n-1)! n = n!$
 
 Si se tiene la igualdad, $[K_1:K] = gr(Irr(u_1, K)) = n = gr(f)$ y por tanto $f$ debe ser irreducible, puesto que $u_1$ es raíz suya.
+#+end_proof
 
 El recíproco no se verifica en el caso de $(X^2-2)(X^2-3)\in \mathbb{Q}(X)$ que es irreducible, pero su cuerpo de descomposición es $\mathbb{Q}(\sqrt{2}, \sqrt{3})$ que tiene grado 4.
 
