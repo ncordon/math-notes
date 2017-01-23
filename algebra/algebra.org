@@ -2244,10 +2244,12 @@ Si $K$ es finito, por se la extensión finita, habría finitos cuerpos intermedi
 Si $K$ no es finito, tomamos $u\in F$ tal que $[K(u):K]$ sea maximal. Supongamos que $[K(u):K] < [F:K]$ y tomamos $v \in F\setminus K(u)$. Consideramos todos los cuerpos de la forma $K(u+av)$ con $a\in K$ y por ser el cuerpo infinito, y sin embargo haber finitos cuerpos intermedios, deben existir $a, b \in K$ distintos verificando $K(u+av) = K(u+bv)$. Entonces $\frac{(u+av)-(u+bv)}{a-b} = v \in K(u+av)$ y por tanto también debe estarlo $u$, luego $K(u+av) \supseteq K(u)$. Pero $v$ no pertenecía a $K(u)$, luego el contenido es estricto, y esto entra en contradicción con la elección inicial de $u$ para hacer $[K(u):K]$ maximal.
 #+end_proof
 
+Un ejemplo de extensión finita y no separable que no es simple es $\mathbb{Q}(X,Y)$.
+
 #+begin_definition
 *Endomorfismo de Frobenius*
 
-Sea $K$ un cuerpo de característica $p$. El homomorfismo $\phi : K\rightarrow K$ definido por $\phi(u) = u^p$ se llama endomorfismo de Frobenius del cuerpo $K$.
+Sea $K$ un cuerpo de característica $p$ ($p$ es primo). El homomorfismo $\phi : K\rightarrow K$ definido por $\phi(u) = u^p$ se llama endomorfismo de Frobenius del cuerpo $K$.
 #+end_definition
 
 
@@ -2259,14 +2261,24 @@ Para un cuerpo $K$ son equivalentes:
 1. Todo polinomio $f\in K[X]$ irreducible tiene sólo raíces simples.
 2. Toda extensión algebraica es separable.
 3. Toda extensión finita es separable.
-4. $car(K)=0$ o $car(K) = p$ y el endomorfismo de Frobenius es sobreyectivo.
+4. $car(K)=0$ o $car(K) = p$ y el endomorfismo de Frobenius es sobreyectivo (luego automorfismo).
 
 En este caso el cuerpo se llama *cuerpo perfecto*
 
 label:perfect-fields
 #+end_theorem
 
-Las implicaciones $1\implies 2\implies 3$ son claras. Para la implicación $3\implies 1$, dado $f\in K[X]$ polinomio irreducible, con raíces $\alpha_1, \ldots \alpha_n$ en una extensión algebraica, $K(\alpha_1, \ldots \alpha_n)$ es finita, y 3 acaba.
+Las implicaciones $1\implies 2\implies 3$ son claras. Para la implicación $3\implies 1$, dado $f\in K[X]$ polinomio irreducible, con raíces $\alpha_1, \ldots \alpha_n$ en una clausura algebraica, $K(\alpha_1, \ldots \alpha_n)$ es finita, y 3 acaba.
+
+Hacemos la implicación $1 \implies 4$. Supongamos $car(K)\neq 0$. Entonces $\car(K)=p$. Sea $a\in K$ y tomamos $f(X) = X^p - a \in K[X]$. Sea $\alpha$ una raíz del polinomio en una clausura. Entonces haciendo algoritmo de la división podemos comprobar que el polinomio será de la forma:
+
+\[f(X) = (X-\alpha)^p\]
+
+Y por tanto los factores irreducibles de $\alpha$ en $K$ serán de la forma $(X-\alpha)^q$, pero por hipótesis todas las raíces son simples, luego $(X-\alpha)$ es el factor irreducible en $K[X]$, $\alpha \in K$ y $f(\alpha) = \alpha^p -a = 0$, luego el endomorfismo de Frobenius es sobreyectivo.
+
+Hacemos $4\implies 1$.
+
+Si $car(K) = p$ y tenemos $f\in K[X]$ irreducible, entonces si $f$ tuviese raíces múltiples tendríamos $f | Df$. Pero como la única posibilidad para que ocurra esto es que $Df=0$, en el caso de $car(K)=0$ no puede darse, y el caso $car(K)=p$ el polinomio $f$ debería ser de la forma $g(X^p)$ para que se anulasen todos sus términos intermedios al derivarlos. Pero entonces por ser el endomorfismo de Frobenius automorfismo, tendríamos que podemos escribir los coeficientes de $g$ como potencia p-ésima $g(X^p) = c_0^p + c_1^p X^p + \ldots + c_r^p X^{pr} = (c_0 + c_1 X + \ldots + c_r X^r)^p$ lo cual niega irreducibilidad.
 
 Como ejemplos: 
 
@@ -2275,7 +2287,7 @@ Desde la última caracterización de cuerpos perfectos.
 ***** Cuerpos finitos, donde el endomorfismo de Frobenius será sobreyectivo
 (Sea $n$ el tamaño del cuerpo, entonces las $n$ imágenes distintas que obtenemos están en $K$, luego debe haber sobreyectividad)
 ***** Cuerpos algebraicamente cerrados
-Ya que los únicos polinomios irreducibles son de grado
+Ya que los únicos polinomios irreducibles son de grado 1. En particular, por ejemplo $\mathbb{C}$ que es clausura algebraica de $\mathbb{R}$
 
 **** Derivada y raíces multiples
 
@@ -2306,8 +2318,16 @@ Dado $f = \sum_{i=0}^n a_iX^i$ definimos la derivada de $f$ como:
 *Condiciones para que las raíces sean simples*
 1. $f$ irreducible, $f'\neq 0$. Entonces las raíces de $f$ son simples.
 2. $car(K)=0$ y $f$ irreducible sobre $K$. Entonces las raíces de $f$ son simples.
-3. $car(K)=p > 0$. El polinomio $f$ irreducible tiene raíces múltiples sii $f(X) = g(X^p)$
+3. $car(K)=p > 1$. El polinomio $f$ irreducible tiene raíces múltiples sii $f(X) = g(X^p)$
 #+end_corollary
+
+#+begin_proof
+1. $f$ no podría dividir entonces a $f'$ por ser este distinto de cero y de menor grado.
+2. $car(K)=0$ entonces $f'\neq 0$ y 1 acaba.
+3. La implicación hacia la derecha se deduce de la demostración de las caracterizaciones de cuerpos perfectos. La implicación hacia la izquierda nos dice que entonces podemos escribir $f(X) = g(X^p) = (h(X))^p$, con $h\in K[X]$ por ser el endomorfismo de Frobenius automorfismo. Pero entonces $f$ tiene raíces múltiples.
+#+end_proof
+
+Ejemplo de que un polinomio irreducible no tiene por qué tener todas sus raíces simples. En un cuerpo de característica $p$, $K$, tomamos una indeterminada $Y$. Entonces el polinomio $X^p-Y$ sobre $K(Y)[X]$ es irreducible, ya que es el polinomio de mínimo grado sobre el que $Y^p -Y = 0$ por ser un cuerpo de característica $p$. Además es de la forma $g(X^p)$ luego tiene raíces múltiples en un cuerpo de descomposición.
 
 #+begin_definition
 *Polinomio separable*
