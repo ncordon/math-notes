@@ -2278,7 +2278,7 @@ Y por tanto los factores irreducibles de $\alpha$ en $K$ serán de la forma $(X-
 
 Hacemos $4\implies 1$.
 
-Si $car(K) = p$ y tenemos $f\in K[X]$ irreducible, entonces si $f$ tuviese raíces múltiples tendríamos $f | Df$. Pero como la única posibilidad para que ocurra esto es que $Df=0$, en el caso de $car(K)=0$ no puede darse, y el caso $car(K)=p$ el polinomio $f$ debería ser de la forma $g(X^p)$ para que se anulasen todos sus términos intermedios al derivarlos. Pero entonces por ser el endomorfismo de Frobenius automorfismo, tendríamos que podemos escribir los coeficientes de $g$ como potencia p-ésima $g(X^p) = c_0^p + c_1^p X^p + \ldots + c_r^p X^{pr} = (c_0 + c_1 X + \ldots + c_r X^r)^p$ lo cual niega irreducibilidad.
+Si tenemos $f\in K[X]$ irreducible, entonces si $f$ tuviese raíces múltiples tendríamos $f | Df$. Pero como la única posibilidad para que ocurra esto es que $Df=0$, en el caso de $car(K)=0$ no puede darse, y el caso $car(K)=p$ el polinomio $f$ debería ser de la forma $g(X^p)$ para que se anulasen todos sus términos intermedios al derivarlos. Pero entonces por ser el endomorfismo de Frobenius automorfismo, tendríamos que podemos escribir los coeficientes de $g$ como potencia p-ésima $g(X^p) = c_0^p + c_1^p X^p + \ldots + c_r^p X^{pr} = (c_0 + c_1 X + \ldots + c_r X^r)^p$ lo cual niega irreducibilidad.
 
 Como ejemplos: 
 
@@ -2370,11 +2370,14 @@ A partir del lema anterior deducimos:
 Dados $n$ homomorfismos de cuerpos distintos $\sigma_1\ldots \sigma_n : F_1 \rightarrow F_2$, entonces son linealmente independientes sobre $F_2$
 #+end_lemma
 
+
 #+begin_corollary
 Si $[F_1:K]=n$ existen a lo sumo $n$ homomorfismos distintos de $F_1$ a $F_2$ que fijan $K$.
 #+end_corollary
 
-Sea una base de $F_1$ sobre $K$ $\{u_1, \ldots u_n\}$. Supongamos que existen $(n+1)$ homomorfismos distintos $\alpha_i :F_1 \rightarrow F_2$ sobre $K$. El sistema de ecuaciones:
+
+#+begin_proof
+Sea una base de $F_1$ sobre $K$ $\{u_1, \ldots u_n\}$. Supongamos que existen $(n+1)$ homomorfismos distintos $\sigma_i :F_1 \rightarrow F_2$ sobre $K$. El sistema de ecuaciones:
 
 \[\sum_{i=1}^{n+1} x_i \sigma_{i}(u_j) = 0 \qquad j=1\ldots n\]
 
@@ -2386,6 +2389,7 @@ Y por tanto al conseguir la misma combinación lineal que anula a todos los elem
 \[\sum_{i=1}^{n+1} c_{i}\sigma_i(u) = 0\]
 
 Es decir, hay dependencia lineal de los $\sigma_i$, lo que entra en contradicción con el corolario anteriormente probado.
+#+end_proof
 
 
 #+begin_definition
@@ -2418,22 +2422,21 @@ Sea $E$ cuerpo arbitrario y $G < Aut(E)$ subgrupo del grupo de automorfismos de 
 Sea $G$ subgrupo finito de $Aut(E)$. Entonces $[E:E^G] = |G|$
 #+end_theorem
 
-Llamo $K = E^G$. Por el corolario anterior sabemos que $|Aut(E/K)| \le [E:K]$ y $G\subseteq |Aut(E/K)|$, luego $n=|G| \le [E:E^{G}]$.
+Llamo $K = E^G$. Por un corolario anterior sabemos que $|Aut(E/K)| \le [E:K]$ y $G\subseteq Aut(E/K)$, luego $|G| \le [E:E^{G}]$.
 
 LLamamos $G = \{\alpha_1, \ldots \alpha_n\}$
 
-Supongamos la desigualdad estricta. Tomamos $n+1$ elementos linealmente independientes sobre $E^{G}$, $\{u_1,\ldots u_{n+1}\}$. Formamos el sistema:
+Supongamos la desigualdad estricta. Tomamos $n+1$ elementos linealmente independientes sobre $E^{G}$, $\{u_1,\ldots u_{n+1}\}$ y formamos el sistema:
 
 \[\sum_{i=1}^{n+1} x_i \sigma_j(u_i) = 0 \qquad j=1,\ldots n\]
 
-Sea $a_1,\ldots a_{n+1}\in E$ solución con el mínimo número de elementos no nulos, y supongamos s.p.g. $a_1\neq 0$. Despejando $\sigma_j(u_1)$:
+Sea $a_1,\ldots a_{n+1}\in E$ solución con el mínimo número de elementos no nulos, y supongamos s.p.g. $a_1\neq 0$. Despejando $\sigma_j(u_1)$, con $b_i = \a_i/a_1$, $i=2 \ldots n$.
 
 \[\sigma_j(u_1) = b_2\sigma_j(u_2) + \ldots + b_n\sigma_j(u_{n+1}) \qquad j=1\ldots n\]
 
 Para $\sigma_j = 1_E$ (que debe estar en cualquier subgrupo), obtenemos $u_1 = b_2u_2 + \ldots b_{n+1}u_{n+1}$. Pero los $u_i$ eran linealmente independientes sobre $E^G$, luego alguno de los $b_i$ no está en $E^G$
 
-
-Supongamos s.p.g. $b_2\notin E^G$. Así, existe $\tau\in G$ verificando $\tau(b_2)\neq b_2$. Tenemos entonces que $\{\tau \sigma_j : \sigma_j\in G\} = G$, y aplicando $\tau$ a las desigualdades anteriores (reordenamos para que $\tau \sigma_i = \sigma_j$):
+Supongamos s.p.g. $b_2\notin E^G$. Así, existe $\tau\in G$ verificando $\tau(b_2)\neq b_2$. Tenemos entonces que $\{\tau \sigma_j : \sigma_j\in G\} = G$, por ser grupo, y aplicando $\tau$ a las desigualdades anteriores (obtendríamos las filas en un oder distinto por tenerse $\tau \sigma_j = \sigma_i$, pero las obtendríamos todas):
 
 \[\sigma_j(u_1) = \tau(b_2)\sigma_j(u_2) + \ldots + \tau(b_n)\sigma_j(u_{n+1}) \qquad j=1\ldots n\]
 
@@ -2458,13 +2461,21 @@ Una extensión finita $E/K$ es de Galois si y sólo si es normal y separable.
 
 Por ser de Galois, $K = E^{G}$ para algún grupo $G$. Cada automorfismo $\sigma \in G$ se extiende a un homomorfismo $\sigma : E\rightarrow \bar{K}$, luego $[E:K]_S \ge |G| = [E:K] \ge [E:K]_S$
 
-Por tanto $[E:K]_{S} = [E:K] = |G|$ (Por Artin), y la extensión es separable.
+Por tanto $[E:K]_{S} = [E:K] = |G|$ (Por Artin esta última igualdad), y la extensión es separable.
 
 $[E:K]_s = |G|$ nos da el número de homomorfismos $\tau: E/K \rightarrow \bar{K}/K$ y por tanto, como para cada $\sigma\in Aut(E/K)$ puedo tomar $i\circ \tau$ inclusión en $\bar{K}$, se tiene que $\tau(E) = E$ para $\tau :E/K\rightarrow \bar{K}/K$ arbitrario. Luego la extensión es normal.
 
-Hacia el lado opuesto. Sea $E/K$ extensión normal y separable. Existen $n=[E:K]_{S} = [E:K]$ (aquí estamos usando separabilidad) homomorfismos $\tau: E\rightarrow \bar{K}$ sobre $K$ y para todos ellos $\tau(E) = E$ (y aquí normalidad) Por ello $G=G(E/K)$ tiene orden $n$.
+Hacia el lado opuesto. Sea $E/K$ extensión normal y separable. Existen $n=[E:K]_{S} = [E:K]$ (aquí estamos usando separabilidad) homomorfismos $\tau: E/K\rightarrow \bar{K}/K$ y para todos ellos $\tau(E) = E$ (y aquí normalidad). Por ello $G$ tiene orden $n$.
 
 Además tenemos la torre de cuerpos $K\subset E^{G} \subset E$, lo que sumado a que el teorema de Artin, según lo anterior nos daría $[E:E^G] = |G| = n$ da $[E^{G}:K] = 1$ y por tanto $E^{G} = K$ y la extensión $E/K$ es de Galois.
+
+
+#+begin_corollary
+Sea $E/K$ extensión finita. Equivalen:
+
+1. $E/K$ es extensión de Galois.
+2. $E$ es cuerpo de descomposición de un polinomio separable sobre $K$.
+#+end_corollary
 
 **** Correspondencia de Galois
 
@@ -2541,8 +2552,12 @@ Y $Ker(\Phi) = F^{*}$. Estamos usando ref:norm_extension y que $E$ es normal por
 **** Propiedades de extensiones de Galois
 
 #+begin_fact
-Sea $K\subset F \subset E$ una torre de cuerpos tal que $E/K$ es una extensión de Galois finita. Entonces la extensión $E/F$ es de Galois finita y el grupo $Gal(E/F)$ es un subgrupo de $Gal(E/K)$
+Sea $K\subset F \subset E$ una torre de cuerpos tal que $E/K$ es una extensión de Galois finita. Entonces la extensión $E/F$ es de Galois y el grupo $Gal(E/F)$ es un subgrupo de $Gal(E/K)$
 #+end_fact
+
+No se verifica que $F/K$ sea de Galois en general. Por ejemplo en la torre de cuerpos $\mathbb{Q} \subseteq \mathbb{Q}(\sqrt[3]{2}) \subseteq \mathbb{Q}(\sqrt[3]{2}, \omega)$ con $\omega$ raíz cúbica primitiva de la unidad. Aquí $\mathbb{Q}(\sqrt[3]{2}, \omega) / \mathbb{Q}(\sqrt[3]{2})$ es de Galois, al igual que $\mathbb{Q}(\sqrt[3]{2}, \omega) / \mathbb{Q}$, pero no lo es $\mathbb{Q}(\sqrt[3]{2}) / \mathbb{Q}$. Las dos primeras son de Galois por ser cuerpos de descomposición del polinomio separable $X^3-2$. La última no es normal porque no contiene a las raíces complejas de dicho polinomio, pero sí a la real.
+
+Una forma de construir extensiones de Galois es tomar un cuerpo perfecto $K$ y un polinomio irreducible sobre $K$ y la extensión $K(f)/K$, con $K(f)$ su cuerpo de descomposición, es de Galois.
 
 #+begin_definition
 Una extensión finita $E/K$ *de Galois* se dice:
