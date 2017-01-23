@@ -1178,7 +1178,6 @@ Usando el orden /invgrlex/ para $X > Y$
 2. Halla el resto de $X^7 Y^2 + XY^2 + Y^2$ módulo $\{X-Y^3, XY^2 - X\}$
 #+end_wording
 
-
 *** TODO Ejercicio 2.15
 
 *** Ejercicio 2.16
@@ -1286,9 +1285,6 @@ Algoritmo de Buchberger
 * Álgebra III
 ** Resumen
 *** TODO
-**** TODO \ref{fg-implies-finita} de dónde sale?
-**** TODO \ref{decomp-field} ¿Qué es exactamente $F$?
-**** TODO \ref{exist-decomp} Demostrar el teorema de existencia de cuerpos de descomposición.
 **** TODO Ejemplo X^p-t, pág 52 apuntes de Miranda, ¿criterio de Eisenstein?
 **** TODO ¿Es toda extensión algebraica un cuerpo de descomposición?
 **** TODO Raíz de un polinomio con coeficientes algebraicos, entonces es algebraico \ref{algebraico}
@@ -1296,13 +1292,12 @@ Algoritmo de Buchberger
 
 **** TODO ¿Por qué en la resultante meto los coeficientes iniciales?
 
-
 **** TODO [#A] Mirar ejemplo de cuerpo normal no separable.
 
 **** TODO [#B] Teorema del grado, extensiones de cuerpos
 **** TODO [#B] Teorema de Kronecker
 
-**** TODO \ref{perfect-fields} Falta la equivalencia con 4.
+**** TODO ref:perfect-fields Falta la equivalencia con 4.
 
 *** Polinomios simétricos, resultante, discriminante
 **** Polinomios simétricos
@@ -1334,7 +1329,7 @@ s_n = X_1\cdot X_2 \cdots X_n
 Sea $a X_1^{e_1}\cdots X_n^{e_n}$ monomio no nulo. Se llama peso del monomio a $e_1 + 2e_2 + \ldots + ne_n$
 #+end_definition
 
-Esta definición del peso está justificada por el teorema \ref{poly-fund} donde $X_i$ lo sustituimos por $s_i$ que es de grado $i$.
+Esta definición del peso está justificada por el teorema ref:poly-fund donde $X_i$ lo sustituimos por $s_i$ que es de grado $i$.
 
 #+begin_definition
 El peso de un polinomio es el mayor de los pesos de sus monomios.
@@ -1348,7 +1343,7 @@ Sea $A$ dominio de integridad y $f\in A[X_1, \ldots X_n]$ polinomio simétrico d
 
 \[f(X_1, \ldots X_n) = g(s_1, \ldots s_n)\]
 
-\label{poly-fund}
+label:poly-fund
 #+end_theorem
 
 
@@ -1372,7 +1367,7 @@ Sean:
 
 Sea $K$ cuerpo de descomposición para $fg$. En $K[X]$:
 
-\[f= a_n \prod_{i=1}^n(X-\alpha_i) \label{poly-simpl}\]
+\[f= a_n \prod_{i=1}^n(X-\alpha_i) label:poly-simpl\]
 \[g= b_m \prod_{j=1}^m(X-\beta_j)\]
 
 Definimos la resultante como:
@@ -1397,7 +1392,7 @@ Se verifican las siguientes propiedades:
 
 Las demostraciones de 1,2,3,4,5 son obvias.
 
-6 se demuestra desde \ref{poly-simpl} haciendo $a_0 = f(0) = (-1)^n\prod_{i=1}^n \alpha_i$ y  $R(X^k, f) = a_n^k(\prod_{i=1}^n -\alpha_i)^k$ y sustituyendo. Para la segunda parte, basta aplicar el apartado 3.
+6 se demuestra desde ref:poly-simpl haciendo $a_0 = f(0) = (-1)^n\prod_{i=1}^n \alpha_i$ y  $R(X^k, f) = a_n^k(\prod_{i=1}^n -\alpha_i)^k$ y sustituyendo. Para la segunda parte, basta aplicar el apartado 3.
 
 
 Para probar 7:
@@ -1586,7 +1581,7 @@ Sea $F/K$ extensión de cuerpos y sea $u\in F$ elemento algebraico sobre $K$ con
 2. $[K(u):K] = gr(p(X))\equiv$ grado de $u$ sobre $K$ y una base de $K[u]$ como $K$ espacio vectorial es $\{1,u,u^2,\ldots u^{n-1}\}$
 3. Para $f\in K[X]$ se verifica $f(u)=0$ si y solo si $p|f$
 
-\label{bases_extensiones}
+label:bases_extensiones
 #+end_fact
 
 La demostración de 1 viene dada por ser $(p(X))$ ideal maximal, y por tanto $K[X]/(p(X))$ cuerpo.
@@ -1608,7 +1603,7 @@ Sea $F\supset E\supset K$ y sea $u\in F$ algebraico sobre $K$. Entonces $u$ es a
 Sea $F/K$ extensión. El elemento $\alpha\in F$ es algebraico sobre $K$ si y solo si la extension $K(\alpha)/K$ es finita. 
 #+end_fact
 
-Se deduce a partir de \ref{bases_extensiones}
+Se deduce a partir de ref:bases_extensiones
 
 *** Extensiones algebraicas
 
@@ -1633,7 +1628,7 @@ Sean $L\supset E,F\supset K$. Entonces:
 2. \([EF:K]\le [E:K][F:K]\)
 3. Si $[E:K]$ y $[F:K]$ son primos relativos, se da la igualdad.
 
-\label{comp-deg}
+label:comp-deg
 #+end_lemma
 
 #+begin_proof
@@ -1649,12 +1644,12 @@ Y por consiguiente $[E:K] | [EF:F] \implies [E:K]=[EF:F]$
 #+end_proof
 
 #+begin_fact
-\label{fg-implies-finita}
+label:fg-implies-finita
 Sea $F=K(u_1,\ldots u_n)$ una extensión finitamente generada por elementos $u_i$ algebraicos. Entonces la extensión $F/K$ es finita, donde $[F:K] \le \prod_{i=1}^n gr(Irr(u_i, K))$. Se da la igualdad si $gr(Irr(u_i,K))$ son primos entre sí.
 #+end_fact
 
 #+begin_proof
-La demostración se deduce del aparatado 2 de la proposición \ref{comp-deg} sin más que tener en cuenta que $K(u_1,\ldots u_n)$ estará contenido en $\prod_{i=1}^n K(u_i)$ y esa extensión es finita. El hecho de que los elementos sean algebraicos interviene en que $K(u_i)$ será finita en ese caso con $[K(u_i):K] = gr(Irr(u_i,K))$
+La demostración se deduce del aparatado 2 de la proposición ref:comp-deg sin más que tener en cuenta que $K(u_1,\ldots u_n)$ estará contenido en $\prod_{i=1}^n K(u_i)$ y esa extensión es finita. El hecho de que los elementos sean algebraicos interviene en que $K(u_i)$ será finita en ese caso con $[K(u_i):K] = gr(Irr(u_i,K))$
 #+end_proof
 
 
@@ -1739,14 +1734,14 @@ Sean $F_i/K_i$ extensiones algebraicas, $\tau : F_1 \rightarrow F_2$ un homomorf
 
 #+begin_corollary
 Sea $F/K$ extensión algebraica y $\sigma : F\rightarrow F$ un homomorfismo sobre $K$. Entonces $\sigma$ es un automorfismo.
-\label{conds-isomorfismo}
+label:conds-isomorfismo
 #+end_corollary
 
 Para demostrar esto, veamos que la aplicación es sobreyectiva. La inyectividad viene dada por ser homomorfismo de cuerpos. Consideramos $u\in F$. Tomo $f=Irr(u,K)$, que puedo hacerlo por tratarse de una extensión algebraica, y se tiene que $\sigma(f) = f$. Tomo todas las raíces $\{u_1, \ldots u_k\}$ de $f$ que hay en $F$. Tomo $F_1 = K(u_1\ldots u_k)$ el subcuerpo de $F$ generado por todas ellas. La extensión $F_1/K$ es finitamente generada y algebraica, ergo finita, y para cualquier homomorfismo $\sigma : F \rightarrow F$ verifica que $\sigma(u_i)$ es raíz de $f$. Así, $\sigma|F_{1}$ e una aplicación lineal inyectiva, luego sobreyectiva y eso nos lleva a decir que $\exists v\in F_1$ verificando $\sigma(v)=u$.
 
 #+begin_fact
 Sean $u_i$ raíz de $f_i$ en alguna extensión $F_i/K_i$. Entonces existe un único isomorfismo $\tau : K_1(u_1) \rightarrow K_2(u_2)$ sobre $\sigma: K_1 \rightarrow K_2$ tal que $\tau(u_1) = u_2$
-\label{prev_zorn}
+label:prev_zorn
 #+end_fact
 
 Existen isomorfismos $\rho_i: K_i[X]/(f_i)\cong K_i(u_i)$ y vienen dados por $X + (f_i)\mapsto u_i$. $\bar{\sigma}$ lo obtenemos por la proposición anterior llevándonos $(f_1)$ en $(f_2)$. La aplicación buscada será $\tau = \rho_2 \bar{\sigma} \rho_1^{-1}$
@@ -1756,7 +1751,7 @@ Existen isomorfismos $\rho_i: K_i[X]/(f_i)\cong K_i(u_i)$ y vienen dados por $X 
 #+begin_definition
 *Cuerpo de descomposición de un polinomio*
 
-Una extensión $F\supset K$ se llama cuerpo de descomposición de $f$ sobre $K$ sii existen $u_1\ldots u_n\in F$ tales que $f(X) = (X-u_1)\cdots (X-u_n)$, $a\in K$, y $F = K(u_1,\ldots u_n)$. Es decir, esta última condición nos dice que es el menor cuerpo en que descompone el polinomio.
+Una extensión $F\supset K$ se llama cuerpo de descomposición de $f$ sobre $K$ sii existen $u_1\ldots u_n\in F$ tales que $f(X) = (X-u_1)\cdots (X-u_n)$, $a\in K$, y $F = K(u_1,\ldots u_n)$. Es decir, esta última condición equivale a decir que es el menor cuerpo en que descompone el polinomio.
 #+end_definition
 
 
@@ -1764,18 +1759,6 @@ Una extensión $F\supset K$ se llama cuerpo de descomposición de $f$ sobre $K$ 
 *Cuerpo de descomposición sobre cuerpos intermedios*
 
 Sea $E\supset F\supset K$ torre de cuerpos tal que $E$ es cuerpo de descomposición de un polinomio $f$ sobre $K$. Entonces $E$ es también cuerpo de descomposición de $f$ sobre $F$.
-#+end_fact
-
-
-#+begin_fact
-*Un cuerpo de descomposción no tiene extensiones algebraicas propias*
-
-Sea $K$ cuerpo. Equivalen:
-
-1. Todo polinomio no constante tiene al menos una raíz en $K[X]$
-2. Todo polinomio no constante descompone en $K$
-3. Los polinomios no constantes irreducibles son de grado 1
-4. $K$ no tiene extensiones algebraicas propias.
 #+end_fact
 
 #+begin_theorem
@@ -1801,18 +1784,19 @@ El recíproco no se verifica en el caso de $(X^2-2)(X^2-3)\in \mathbb{Q}(X)$ que
 
 Sea $\sigma: K_1 \rightarrow K_2$ isomorfismo de cuerpos, $f_1\in K_1[X]$ y sea $f_2 = \sigma(f_1)$. Sea $F_i$ cuerpo de descomposición de $f_i$ sobre $K_i$. Entonces existe un isomorfismo $\tau : F_1 \rightarrow F_2$ que es una extensión de $\sigma$. De aquí se deduce que dos cuerpos de descomposición de un $f\in K[X]$ son isomorfos.
 
-\label{iso-fin-decomp}
+label:iso-fin-decomp
 #+end_theorem
 
 Por inducción sobre el grado de $f_1$, que se conserva por $\sigma$, por ser este isomorfismo. Para $gr(f_1)=1$ tomamos $\sigma = \tau$.
 
-Suponemos el resultado cierto para un polinomio de grado hasta $n-1$, y sea $f=(X-u_1)\cdots (X-u_n)$  en $F_1$. Tomamos $g=Irr(u_1,K)$ y existe $\tau: K_1(u_1) \rightarrow K_2(f(u_1))$ isomorfismo extensión de $\sigma$ por la proposición \ref{prev_zorn}. Aplicándole hipótesis de inducción a $f/(X-u_1)$ que es de grado $n-1$ sobre $K_1(u_1)$ y a $\tau$ llegamos al resultado buscado.
+Suponemos el resultado cierto para un polinomio de grado hasta $n-1$, y sea $f=(X-u_1)\cdots (X-u_n)$  en $F_1$. Tomamos $g=Irr(u_1,K)$ y existe $\tau: K_1(u_1) \rightarrow K_2(\sigma(u_1))$ isomorfismo extensión de $\sigma$ por la proposición ref:prev_zorn. Aplicándole hipótesis de inducción a $f/(X-u_1)$ que es de grado $n-1$ sobre $K_1(u_1)$ y a $\tau$ llegamos al resultado buscado.
 
 #+begin_definition
 *Cuerpo de descomposición de un conjunto de polinomios*
 
-Sea $\mathcal{F}\subset K[X]$ cualquier conjunto de polinomios no constantes. Una extensión $E/K$ se llama cuerpo de descomposición de $\mathcal{F}$ si es cuerpo de descomposición de cada uno de sus polinomios. Además $E = K(\{u\in F: \exists f\in \mathcal{F}, f(u)=0\})$
-\label{decomp-field}
+Sea $\mathcal{F}\subset K[X]$ cualquier conjunto de polinomios no constantes. Una extensión $E/K$ se llama cuerpo de descomposición de $\mathcal{F}$ si es el mínimo cuerpo donde desompone cada uno de us polinomios. ESto es: 
+\[E = K(\{u\in E: \exists f\in \mathcal{F}, f(u)=0\})\]
+label:decomp-field
 #+end_definition
 
 
@@ -1820,32 +1804,34 @@ Sea $\mathcal{F}\subset K[X]$ cualquier conjunto de polinomios no constantes. Un
 *Existencia de cuerpo de descomposición*
 
 Para todo conjunto de polinomios no constantes $\mathcal{F}\subset K[X]$ existe un cuerpo de descomposición sobre $K$
-\label{exist-decomp}
+label:exists-decomp
 #+end_theorem
 
+Obsérvese que la dificultad de la demostración reside en el caso en que $\mathcal{F}$ no es finito.
 
+#+begin_proof
 Si el cardinal $\mathcal{F}$ es finito, tomo el cuerpo de descomposición sobre $K$ de $\prod_{f\in \mathcal{F}} f$
-Caso opuesto, con $\mathcal{F} = \{f_i : i\in I\}$ tomamos comamos para cada $J\subset I$ finito $F_J$ cuerpo de descomposición de $\{f_j : j\in J\}$. Ahora tomamos $\mathcal{F} = \cup_{J\subset I\quad finito} F_J$ ya que un $f\in \mathcal{F}$ arbitrario, tomando el tamaño de $I$ convenientemente grande, tendrá todas sus raíces en $F_I$.
+Caso opuesto, con $\mathcal{F} = \{f_i : i\in I\}$ tomamos para cada $J\subset I$ finito $F_J$ cuerpo de descomposición de $\{f_j : j\in J\}$. Tomamos $E = \cup_{J\subset I\space finito} F_J$, con las operaciones $u+v, uv$ para $u,v\in \mathcal{F}$ definidas como la suma y el producto en cualquier $F_J$ verificando $u,v\in F_J$. Un $f\in \mathcal{F}$ arbitrario, tendrá todas sus raíces en $F_I$, trivialmente.
 
-También es claro en este último caso que $E=K(\{u\in F: \exists f\in \mathcal{F}, f(u)=0\}$
-
+También es trivial que $E=K(\{u\in E: \exists f\in \mathcal{F}, f(u)=0\}$
+#+end_proof
 
 #+begin_theorem
 *Isomorfía entre cuerpos de descomposición*
 
-Cualesquiera dos cuerpos de descomposición sobre $K$ de un conjunto $\mathcal{F}$ de polinomios son isomorfos por un isomorfismo sobre $K$.
+Cualesquiera dos cuerpos de descomposición sobre $K$ de un conjunto $\mathcal{F}$ de polinomios son isomorfos por un isomorfismo sobre $K$ (que mantiene $K$).
 #+end_theorem
 
-Por teorema \ref{iso-fin-decomp}, en el caso $\mathcal{F}$ finito, tenemos el resultado, tomando el producto de todos los polinomios de $\mathcal{F}$, del que el mismo es cuerpo de descomposición.
+Por teorema ref:iso-fin-decomp, en el caso $\mathcal{F}$ finito, tenemos el resultado, tomando el producto de todos los polinomios de $\mathcal{F}$, del que es cuerpo de descomposición.
 
 
-Sea $\mathcal{F}$ arbitrario. Tomo $\sigma = id_K$
+Sea $\mathcal{F}$ arbitrario. Sean $F_1, F_2$ cuerpos de descomposición de $\mathcal{F}$. Tomo $\sigma = id_K$
 
-Tomamos $\epsilon = \{(E,\tau):F_1 \supset E \supset K, \tau$ extensión de $\sigma$ a $F_1$ y a $F_2$ respectivamente $\}$
+Tomamos $\epsilon = \{(E,\tau):F_1 \supset E \supset K, \tau$ extensión de $\sigma$ a $F_1$ y $F_2$ resp.$\}$
 
-Ordenamos los pares $(E,\tau)\in \epsilon$ por inclusión del primer elemento y extensión del segundo, tomando como hipótesis que siempre extiendo igual.
+Ordenamos los pares $(E,\tau)\in \epsilon$ por inclusión del primer elemento y extensión del segundo, tomando como hipótesis que siempre extendemos de la misma forma.
 
-Las extensiones $E/K$ finitas están en ese conjunto, por tenerse que si $E=K(S)$, $S=\{u_1, \ldots u_n\}$ conjunto finito, puedo tomar $f = \prod_{i=1}^nIrr(u_i, K)$ que existe por ser extensión finita luego algebraica, y tendría que $E$ es cuerpo de descomposición de $f$ y un isomorfismo $E\rightarrow E$ que extiende a $id_K$
+El conjunto $\epsilon$ es no vacío. Las extensiones $E/K$ finitas están en ese conjunto, por tenerse que si $E=K(S)$, $S=\{u_1, \ldots u_n\}$ conjunto finito, puedo tomar $f = \prod_{i=1}^nIrr(u_i, K)$ que existe por ser extensión finita luego algebraica, y tendría que $E$ es cuerpo de descomposición de $f$ y un isomorfismo $E \cap F_1 \cong E \rightarrow E\cap F_2 \cong E$ que extiende a $id_K$.
 
 Sea $(F,\sigma)$ elemento maximal. Si $F\subsetneq F_1$, existiría una extensión de $\sigma$ a algún $F(u)$ con $u\in F_1\setminus F$, lo que contradiría el carácter maximal del elemento.
 
@@ -1864,6 +1850,7 @@ Sea $K$ un cuerpo. Los siguientes enunciados son equivalentes:
 4. Toda extensión algebraica de $K$ es trivial. Es decir, $K$ es la única extensión algebraica.
 #+end_fact
 
+#+begin_proof
 Para demostrar $1\implies 2$ tenemos que podemos escribir $f = (X-u_1)f_1$ y $f_1=a_{n-1}X^{n-1} + \ldots + a_0$. Basta demostrar que los coeficientes de $f_1$ están en $K$ para aplicar inducción.
 
 La implicación de 2 a 3 es trivial.
@@ -1871,22 +1858,29 @@ La implicación de 2 a 3 es trivial.
 Veamos $3\implies 4$. Sea $E/K$ extensión algebraica $u\in K$. Entonces $f=Irr(u,K)$ es de grado 1. Por tanto $f=a(X-u)$ con $a, au\in K, lo que implica $$u\in K$.
 
 Veamos $4\implies 1$. Supongamos que existe un polinomio $f \in K[X]$ no constante. Por teorema de Kronecker, existe una extensión $F/K$ en la que $f$ tiene una raíz $u \in F$. Pero por hipótesis, $K = F$, luego $u\in K$.
+#+end_proof
 
 #+begin_fact
-Todo cuerpo algebraicamente cerrado es infinito
+*Todo cuerpo algebraicamente cerrado es infinito*
 #+end_fact
 
+#+begin_proof
 Sea $K=\{u_1,\ldots u_n\}$ cuerpo finito. Entonces $K$ no puede ser algebraicamente cerrado puesto que el polinomio $f=(X-u_1)\cdots (X-u_n) + 1$ incumple la caracterización 2 de cuerpos algebraicos, por ser $f(u_i)=1\neq 0$
+#+end_proof
 
 #+begin_fact
 Sea $E/K$ extensión con $E$ algebraicamente cerrado. Entonces el conjunto de elementos de $E$ algebraicos sobre $K$ forman un cuerpo algebraicamente cerrado.
 #+end_fact
 
-(Esta proposición nos dice que podemos "reducir" el tamaño de la extensión algebraicamente cerrada)
+#+begin_proof
+Sea $F$ el conjunto de elementos algebraicos sobre $K$ de $E$. $F$ es cuerpo.
 
-Sea $F$ el conjunto de elementos algebraicos sobre $K$ de $E$. $F$ es cuerpo. Sea $f\in F[X]$. Entonces existe $u\in E$ tal que $f(u) = 0$. Luego $u$ es algebraico sobre $F$...
+Veamos que no puede haber una extensión algebraica intermedia propia $E \supseteq F' \supseteq F$, lo que probaría que $F$ es algebraicamente cerrada. Dado $\alpha \in F'$ algebraico sobre $F$, entonces $F(\alpha)$ es algebraica sobre $F$, luego finita, al igual que $F/K$. Luego $F(\alpha)/K$ es finita y por tanto algebraica. Es decir $\alpha$ es algebraico sobre $K$ y por definición $\alpha \in F$.
 
-\label{algebraico}
+label:algebraico
+#+end_proof
+
+Esta proposición nos dice que podemos "reducir" el tamaño de la extensión algebraicamente cerrada.
 
 #+begin_definition
 *Clausura algebraica*
@@ -1898,7 +1892,7 @@ Decimos que $E$ es clausura algebraica de $K$ si $E/K$ es una extensión algebra
 *Caracterización clausura algebraica*
 1. $E$ es clausura algebraica de $K$.
 2. La extensión $E/K$ es algebraica y todo polinomio no constante $f\in K[X]$ descompone en factores lineales en $E[X]$
-3. $E$ es cuerpo de descomposición sobre $K$ de los polinomios de $K[X]$
+3. $E$ es cuerpo de descomposición de los polinomios de $K[X]$
 4. La extensión $E/K$ es algebraica y todo polinomio no constante tiene una raíz en $E$.
 #+end_definition
 
@@ -1906,7 +1900,7 @@ Decimos que $E$ es clausura algebraica de $K$ si $E/K$ es una extensión algebra
 
 Para probar la equivalencia entre 2 y 3: 
 
-De 3 a 2 se prueba con 4 de la caracterización de cuerpos algebraicamente cerrados. 
+Veamos $3\implies 2$. Dado $\alpha \in E$, como $E = K(\{u\in E: \exists f\in K[X], f(u) = 0\})$ deben existir finitos elementos algebraicos $\{u_i\}$ tal que $\alpha \in K(u_1, u_2 \ldots u_n)$, pero entonces esta extensión es finitamente generada por elementos algebraicos, luego algebraica, y por tanto $\alpha$ es algebraico.
 
 Veamos $2\implies 3$. LLamando $S=\{u\in E: \exists f\in K[X]: f(u)=0\}$. Como $E/K$ es algebraica, $S=E$, y $K(S)=E$. Luego $E$ es cuerpo de descomposición de los polinomios con coeficientes en $K$ sobre $K$.
 
@@ -1915,11 +1909,15 @@ Veamos $2\implies 3$. LLamando $S=\{u\in E: \exists f\in K[X]: f(u)=0\}$. Como $
 Sea $E\supset F \supset K$ torre de cuerpos con $F/K$ algebraica. Entonces $E$ es clausura algebraica de $F$ si y sólo si $E$ es clausura algebraica de $K$.
 #+end_fact
 
-$E/F$ y $F/K$ son extensiones algebraicas si y solo si $E/K$ es extensión algebraica.
+#+begin_proof
+Recordamos que $E/F$ y $F/K$ son extensiones algebraicas si y solo si $E/K$ es extensión algebraica.
 
 Si $E/F$ es clausura algebraica, todo polinomio de $F[X]$ descompone en $E[X]$, y en particular todo polinomio de $K[X]$, luego $E/K$ es algebraicamente cerrada y algebraica, luego clausura algebraica.
 
-Si $E/K$ es clausura algebraica, supongamos que existe $f\in F[X]$ tal que $f$ no tiene raíces en $E$, esto es $E/F$ no es algebraicamente cerada, pero sí algebraica por un argumento anterior. Por teorema de Kronecker habría una extensión $E'$ en la que $f$ tendría una raíz $u$, y por tanto $E(u)$ sería una extensión algebraica de $K$, lo que contradice que $E/K$ sea clausura algebraica.
+Si $E/K$ es clausura algebraica, entonces $E$ es algebraicamente cerrada y $E/F$ es algebraica por ser $E/K$ algebraica.
+#+end_proof
+
+Si no exigimos la condición de que $F/K$ sea algebraica, tenemos que podemos tomar $\mathbb{Q} \subseteq \mathbb{R} \subseteq \mathbb{C}$, y $\mathbb{C}/\mathbb{R}$ es clausura algebraica, pero $\mathbb{Q}/\mathbb{R}$ no lo es (el polinomio $X^2+1$ no tiene raíces reales.
 
 #+begin_theorem
 *Teorema de Steinitz*
@@ -1927,25 +1925,18 @@ Si $E/K$ es clausura algebraica, supongamos que existe $f\in F[X]$ tal que $f$ n
 Para todo cuerpo $K$ existe una clausura algebraica $\bar{K}$
 #+end_theorem
 
-Es consencuencia del teorema de existencia de cuerpos de descomposición \ref{exist-decomp}
-
-
-#+begin_theorem
-*Isomorfía entre clausuras algebraicas*
-
-Dos clausuras algebraicas $E_1$ y $E_2$ del mismo cuerpo $K$ son isomorfas sobre $K$.
-#+end_theorem
-
-Consecuencia del teorema de isomorfía de cuerpos de descomposición.
-
+#+begin_proof
+Es consencuencia del teorema de existencia de cuerpos de descomposición ref:exists-decomp
+#+end_proof
 
 #+begin_theorem
 *Extensión a una clausura algebraica*
+
 Sea una torre de cuerpos $K\subset F\subset E$ con $E/K$ algebraica y sea $\bar{K}$ clausura algebraica de $K$. Entonces todo homomorfismo $\sigma : F\rightarrow \bar{K}$ sobre $K$ tiene una extensión $\tau : E\rightarrow \bar{K}$ 
-\label{zorn}
+label:zorn
 #+end_theorem
 
-
+#+begin_proof
 Tomamos:
 
 \[S=\{(E_i, \sigma_i) : F\subset E_i \subset E, \sigma_i : E_i\rightarrow \bar{K} \qquad \sigma_{i|F} = \sigma \}\]
@@ -1953,7 +1944,7 @@ Tomamos:
 $S$ es no vacío y es inductivamente ordenado por inclusión, considerando como orden la inclusión y la igualdad en la restricción de aplicaciones.
 
 Por lema de Zorn existe por tanto un elemento maximal $(E_1, \sigma_1)$. Supongamos $E_1\subsetneq E$ existe un $u\in E, u\neq E_1$ del que podemos tomar $f=Irr(u,K)$ (porque $E/K$ es algebraica) y por la proposición \ref{prev_zorn}, como todos los $\alpha_i$ mantienen $K$, llamando $f_1 = f_2 = f$ en dicha proposición, tengo que existen un a $\sigma_2 : E_1(u) \rightarrow (\sigma_1(E_1))(u)$ que extiende $\sigma_1' : E_1 \mapsto \sigma(E_1)$ y el par $(E_1(u), \sigma_2)$ sería entonces maximal, contradicción, luego $E_1 = E$ y $\tau = \sigma_1$.
-
+#+end_proof
 
 #+begin_fact
 *Cardinal clausura algebraica*
@@ -1963,8 +1954,7 @@ Sea $K$ cuerpo, $\bar{K}$ su clausura algebraica.
 2. Si $K$ es infinito, entonces su clausura tiene el mismo cardinal que $K$.
 #+end_fact
 
-*** Extensiones normales
-
+*** Extensiones normales y conjuntos separables
 #+begin_fact
 Sean $u,v\in\bar{K}$.Los siguientes enunciados equivalen:
 
@@ -1972,10 +1962,10 @@ Sean $u,v\in\bar{K}$.Los siguientes enunciados equivalen:
 2. Existe isomorfismo $\tau : K(u)/K \rightarrow K(v)/K$ tal que $\tau(u) = v$
 3. Existe homomorfismo $\sigma : K(u)/K \rightarrow \bar{K}/K$ tal que $\sigma(u)=v$
 4. Existe un automorfismo $\sigma: \bar{K}/K \rightarrow \bar{K}/K$ tal que $\sigma(u) = v$ 
-
-\label{norm_extension}
+label:norm_extension
 #+end_fact
 
+#+begin_proof
 *$1\Rightarrow 2$* Por 1 se tiene que:
 
 \[K(u) \cong K/(Irr(u,K)) = K/(Irr(v,K)) \cong K(v)\]
@@ -1984,9 +1974,10 @@ Donde llevamos $u\mapsto p(x)$ y $v\mapsto p(x)$ en los isomorfismos correspondi
 
 *$2\Rightarrow 3$* Componemos $i\circ \tau$
 
-*$3\Rightarrow 4$* por el teorema \ref{zorn} 
+*$3\Rightarrow 4$* por el teorema ref:zorn
 
 *$4\Rightarrow 1$* implica que si tenemos $p(x)$ irreducible tal que $p(u)=0$. Entonces $\sigma(p(x))=p(x)$ y $p(v) = \sigma(p(v)) = 0$
+#+end_proof
 
 #+begin_definition
 Dos elementos $u,v \in \bar{K}$ se llaman conjugados sobre $K$ si verifican las propiedades de la proposición anterior.
@@ -2000,9 +1991,11 @@ Sean $F_1/K, F_2/K$ dos extensiones algebraicas. Equivalen:
 3. Existe un isomorfismo $\sigma: \bar{K} \rightarrow \bar{K}$ sobre $K$ tal que $\sigma(F_1)=F_2$.
 #+end_fact
 
+#+begin_proof
 $1 \implies 2$ trivialmente, y $3 \implies 1$, componiendo $i$ en el primer caso, y restringiendo a $F_1$
 
-La implicación $2\implies 3$ viene dada por teorema \ref{zorn} y el corolario \ref{conds-isomorfismo}
+La implicación $2\implies 3$ viene dada por teorema ref:zorn y el corolario ref:conds-isomorfismo
+#+end_proof
 
 #+begin_definition
 *Extensiones conjugadas*
@@ -2042,13 +2035,17 @@ Nótese la diferencia con la definición dada en clase, donde se definía una ex
 2. Sea $K\subset F\subset E$ torre de cuerpos con $E/K$ normal. Entonces $E/F$ es extensión normal
 3. Sean $F_1/K$, $F_2/K$ extensiones normales. Entonces $F_1 F_2/K$ es extensión normal.
 4. Sean $F_\lambda/K, \lambda\in \Delta$ una familia arbitraria de extensiones normales y $E=\cap_\lambda F_\lambda$. Entonces la extensión $E/K$ es normal.
-\label{props-normales}
+label:props-normales
 #+end_fact
 
+#+begin_proof
 1. La extensión $EF/F$ es normal ya que dado un homomorfismo $\sigma: EF/F \rightarrow \bar{K}/F$ puedo restringirlo a $E$ y por ser $E$ normal, como $\sigma_{|E}$ fija $K$, entonces debe fijar $E$ (caracterización de normal). Luego $\sigma$ fija $E,F$, y por tanto fija $EF$.
 2. Por restricción de cualquier homomorfismo a $K$
 3. Dado un homomorfismo $F_1 F_2/K \rightarrow \bar{K}/K$ al restringirlo a $F_i$, debe fijar $F_i$, por ser $F_i/K$ normal, luego fija $F_1F_2$
 4. Dado un homomorfismo $E/K \rightarrow \bar{K}/K$ lo puedo extender a $\bar{K}$ y restringirlo a $F_\lambda$ para todo $\lambda$ y fijaría $F_\lambda$ por ser $F_\lambda/K$ normal, luego fijaría la intersección.
+#+end_proof
+
+Nótese que dada una cadena de extensiones normales $K \subseteq F \subseteq E$ donde $F/K$ y $E/F$ son extensiones normales, entonces no se da que $E/K$ sea normal necesariamente. Ejemplo: $\mathbb{Q} \subseteq \mathbb{Q}(\sqrt{2}) \subseteq \mathbb{Q}(\sqrt[4]{2})$.
 
 #+begin_definition
 *Clausura normal*
@@ -2074,7 +2071,7 @@ Sea $K\subset F\subset E$ una torre de cuerpos tal que la extensión $E/K$ es no
 
 Tomo $\sigma_1 = i\circ \sigma : F\rightarrow \bar{K}$.
 
-Extiendo por \ref{zorn} a un isomorfismo $\sigma_2 : E \rightarrow \bar{K}$ por ser $E/K$ algebraica, y por tanto $E/F$ algebraica. Estamos usando que la extensión es normal porque de esa forma la imagen del homomorfismo es $E$
+Extiendo por ref:zorn a un isomorfismo $\sigma_2 : E \rightarrow \bar{K}$ por ser $E/K$ algebraica (es cuerpo de descomposición de un polinomio, luego está finitamente generada por sus raíces que son elementos algebraicos por dicho polinomio sobre el cuerpo base). Estamos usando que la extensión es normal porque de esa forma la imagen del homomorfismo es $E$ por caracterización de extensiones normales.
 
 
 #+begin_fact
@@ -2082,7 +2079,7 @@ Extiendo por \ref{zorn} a un isomorfismo $\sigma_2 : E \rightarrow \bar{K}$ por 
 
 Sea $F=K(u_1,\ldots u_n)$ una extensión finita y sea $f_i = Irr(u_i,K)$ para $i=1, \ldots n$. Entonces la clausura normal es $E/K$ donde $E$ es el cuerpo de descomposición de $f=f_1 \cdots f_n$ sobre $K$. Además $E/K$ es finita.
 
-\label{finite-nclosure}
+label:finite-nclosure
 #+end_fact
 
 $E/K$ es normal por la caracterización 3 de extensiones normales (es cuerpo de descomposición de un polinomio). Veamos que es la mínima extensión normal.
@@ -2104,14 +2101,13 @@ Sea $f\in K[X]$ polinomio irreducible. Decimos que $f$ es /polinomio normal/ sob
 Sea $f$ un polinomio irreducible en $K[X]$. Los siguientes enunciados son equivalentes:
 
 1. El polinomio $f$ es normal sobre $K$.
-2. El cuerpo de descomposición de $f$ sobre $K$ es $K(u)$ donde $u$ es raíz de $f$
+2. El cuerpo de descomposición de $f$ sobre $K$ es $K(u)$ donde $u$ es cualquier raíz de $f$
 3. Todas las raíces de $f$ se expresan como polinomios en un $K(u)$ con $u$ raíz arbitraria de $f$.
 #+end_fact
 
 $1\implies 2, 2\implies 3$ son obvios.
 
-Veamos $3\implies 1$. Sea $F/K$ extensión (no tiene porqué ser algebraica) en la que existe una raíz del polinomio $f$, $u$. Entonces $K(u)\subset F$ y por tanto todas las raíces de $f$ están en $F$
-
+Veamos $3\implies 1$. Sea $F/K$ extensión en la que existe una raíz del polinomio $f$, $u$. Entonces $K(u)\subset F$ y por tanto todas las raíces de $f$ están en $F$
 *** Extensiones separables
 
 #+begin_definition
@@ -2167,7 +2163,7 @@ donde $\bar{K}$ es una clausura algebraica de $K$. Entonces:
 
 \[[E:K]_s = [E:F]_s[F:K]_s\]
 
-\label{degree-separable}
+label:degree-separable
 #+end_fact
 
 
@@ -2236,6 +2232,18 @@ Sea $F/K$ extensión finita. La extensión es *simple* sii el conjunto de cuerpo
 Si una extensión $F/K$ es finita y separable, entonces es simple.
 #+end_theorem
 
+#+begin_proof
+Si la extensión es simple, entonces existe $\alpha \in F$ verificando $F=K(\alpha)$
+Como es finita, es algebraica. Sea $p=Irr(\alpha, K)$ y un cuerpo intermedio $K \subset E \subset F$. Sea $q=Irr(\alpha, E)$. Es claro que $q|p$.
+
+Adjuntamos los coeficientes de $q$ a $K$ y obtenemos un cuerpo $E' \subset E$. Se tendrá $q=Irr(\alpha, E')$, y como $F = E(u) = E'(u)$ se tiene $[F:E] = gr(q) = [F:E']$. De esto último deducimos que $E=E'$. Luego las extensiones de $K$ quedan determinadas por los factores irreducibles en una clausura, y por tanto son finitas.
+
+Supongamos ahora que hay finitos cuerpos intermedios.
+
+Si $K$ es finito, por se la extensión finita, habría finitos cuerpos intermedios.
+Si $K$ no es finito, tomamos $u\in F$ tal que $[K(u):K]$ sea maximal. Supongamos que $[K(u):K] < [F:K]$ y tomamos $v \in F\setminus K(u)$. Consideramos todos los cuerpos de la forma $K(u+av)$ con $a\in K$ y por ser el cuerpo infinito, y sin embargo haber finitos cuerpos intermedios, deben existir $a, b \in K$ distintos verificando $K(u+av) = K(u+bv)$. Entonces $\frac{(u+av)-(u+bv)}{a-b} = v \in K(u+av)$ y por tanto también debe estarlo $u$, luego $K(u+av) \supseteq K(u)$. Pero $v$ no pertenecía a $K(u)$, luego el contenido es estricto, y esto entra en contradicción con la elección inicial de $u$ para hacer $[K(u):K]$ maximal.
+#+end_proof
+
 #+begin_definition
 *Endomorfismo de Frobenius*
 
@@ -2255,7 +2263,7 @@ Para un cuerpo $K$ son equivalentes:
 
 En este caso el cuerpo se llama *cuerpo perfecto*
 
-\label{perfect-fields}
+label:perfect-fields
 #+end_theorem
 
 Las implicaciones $1\implies 2\implies 3$ son claras. Para la implicación $3\implies 1$, dado $f\in K[X]$ polinomio irreducible, con raíces $\alpha_1, \ldots \alpha_n$ en una extensión algebraica, $K(\alpha_1, \ldots \alpha_n)$ es finita, y 3 acaba.
@@ -2508,8 +2516,7 @@ Para demostrar la isomorfía: $\Phi: G = Gal(E/K) \rightarrow Gal(F/K)$ dado por
 
 \[Img(\Phi) = Gal(F/K) \cong Gal(E/K)/Ker(\Phi)\]
 
-Y $Ker(\Phi) = F^{*}$. Estamos usando \ref{norm_extension} y que $E$ es normal por ser de Galois.
-
+Y $Ker(\Phi) = F^{*}$. Estamos usando ref:norm_extension y que $E$ es normal por ser de Galois.
 
 **** Propiedades de extensiones de Galois
 
@@ -2582,7 +2589,6 @@ Por otro lado, igualando los coeficientes de $q$ factorizado y sin factorizar:
 
 
 Así $a^3+b^3+c^3 = 13$
-
 
 *** Ejercicio 2.14
 
@@ -2687,7 +2693,6 @@ Los elementos del cuerpo citado son de la forma $p(X) + (X^3+X+1)$ con $p(X)$ un
 | $d$     || $0$ | $d$ | $c$ | $1$ | $e$ | $a$ | $f$ | $b$ |
 | $e$     || $0$ | $e$ | $b$ | $c$ | $1$ | $f$ | $d$ | $a$ |
 | $f$     || $0$ | $f$ | $1$ | $e$ | $d$ | $b$ | $a$ | $c$ |
-
 
 **** Tabla de la suma
 
@@ -2816,7 +2821,6 @@ Si $\beta$ es raíz primitiva de $K$, se tiene que $\{1,\beta,\ldots,\beta^{n-1}
 Si el grado de $f(X)$ fuese menor que $n$, tendríamos que $f(\beta)=0$ es una combinación lineal de los elementos de la base que vale 0, y esto entra en contradicción con que sea base.
 
 
-
 *** Ejercicio 4.17
 
 #+begin_wording
@@ -2932,7 +2936,6 @@ Si $f$ es irreducible, ninguna de sus raíces puede estar en $K$, ya que en ese 
 En esas condiciones es claro que $\exists \varphi: K(\alpha_i)/K \longrightarrow K(\alpha_j)/K$ isomorfismo verificando $\varphi(\alpha_i) = \alpha_j$ y podemos extenderlo a un isomorfismo $\sigma: K(\alpha_1, \ldots \alpha_n) \longrightarrow K(\alpha_1, \alpha_n)$ sobre $\varphi$.
 
 Por tanto $\sigma$ es automorfismo sobre $E$ que conserva $K$ y cumple $\sigma(\alpha_i) = \varphi(\alpha_i) = \alpha_j$
-
 
 *** Ejercicio 7.27
 
