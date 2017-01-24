@@ -2422,6 +2422,7 @@ Sea $E$ cuerpo arbitrario y $G < Aut(E)$ subgrupo del grupo de automorfismos de 
 Sea $G$ subgrupo finito de $Aut(E)$. Entonces $[E:E^G] = |G|$
 #+end_theorem
 
+#+begin_proof
 Llamo $K = E^G$. Por un corolario anterior sabemos que $|Aut(E/K)| \le [E:K]$ y $G\subseteq Aut(E/K)$, luego $|G| \le [E:E^{G}]$.
 
 LLamamos $G = \{\alpha_1, \ldots \alpha_n\}$
@@ -2445,6 +2446,7 @@ Restando ambos sistemas obtendríamos:
 \[0 = (b_2-\tau(b_2))\sigma_j(u_2) + \ldots + \tau(b_n)\sigma_j(u_{n+1})\qquad j=1\ldots n\]
 
 Una solución al sistema con menos coeficientes nulos que la que habíamos tomado, ¡contradicción!
+#+end_proof
 
 #+begin_definition
 *Extensión de Galois*
@@ -2459,6 +2461,7 @@ Una extensión finita $E/K$ se llama extensión de Galois si existe un grupo $G 
 Una extensión finita $E/K$ es de Galois si y sólo si es normal y separable.
 #+end_fact
 
+#+begin_proof
 Por ser de Galois, $K = E^{G}$ para algún grupo $G$. Cada automorfismo $\sigma \in G$ se extiende a un homomorfismo $\sigma : E\rightarrow \bar{K}$, luego $[E:K]_S \ge |G| = [E:K] \ge [E:K]_S$
 
 Por tanto $[E:K]_{S} = [E:K] = |G|$ (Por Artin esta última igualdad), y la extensión es separable.
@@ -2468,7 +2471,7 @@ $[E:K]_s = |G|$ nos da el número de homomorfismos $\tau: E/K \rightarrow \bar{K
 Hacia el lado opuesto. Sea $E/K$ extensión normal y separable. Existen $n=[E:K]_{S} = [E:K]$ (aquí estamos usando separabilidad) homomorfismos $\tau: E/K\rightarrow \bar{K}/K$ y para todos ellos $\tau(E) = E$ (y aquí normalidad). Por ello $G$ tiene orden $n$.
 
 Además tenemos la torre de cuerpos $K\subset E^{G} \subset E$, lo que sumado a que el teorema de Artin, según lo anterior nos daría $[E:E^G] = |G| = n$ da $[E^{G}:K] = 1$ y por tanto $E^{G} = K$ y la extensión $E/K$ es de Galois.
-
+#+end_proof
 
 #+begin_corollary
 Sea $E/K$ extensión finita. Equivalen:
@@ -2477,10 +2480,16 @@ Sea $E/K$ extensión finita. Equivalen:
 2. $E$ es cuerpo de descomposición de un polinomio separable sobre $K$.
 #+end_corollary
 
+#+begin_proof
+$1 \implies 2$. 
+$E/K$ es normal, y por tanto cuerpo de descomposición de un polinomio $f\in K[X]$ que debe ser separable por ser la extensión separable.
+
+$2 \implies 1$
+$E$, cuerpo de descomposición de $f =(X-\alpha_1) \ldots (X-\alpha_n) \in K[X]$ es normal por definición, y como el polinomio $f$ es separable, sus factores irreducibles tienen raíces simples, y $E=K(\alpha_1, \ldots \alpha_n)$ donde cada $\alpha_i$ es separable por lo anterior. Luego $E$ es separable.
+#+end_proof
+
 **** Correspondencia de Galois
-
 Sea $E/K$ extensión finita de Galois, $G=Gal(E/K)$. Definimos una correspondencia entre el conjunto $\mathcal{S}(G)$ de subgrupos de $G$ y el conjunto $\mathcal{F}(E/K)$ de cuerpos intermedios de $E/K$. Para $H<G$ definimos $E^{H} = H^{*}$. A cada cuerpo intermedio $F$ entre $E$ y $K$ le hacemos corresponder el grupo de Galois de la extensión $E/F$ y llamamos $Gal(E/F) = G^{F} = F^{*}$
-
 
 A $F\mapsto F^{*}, H\mapsto H^{*}$ las denominamos correspondencia de Galois para la extensión $E/K$
 
@@ -2503,13 +2512,13 @@ Para 3, usando 2. con F y 1, obtenemos $F*\subset F^{***}$. Usando 2 con $F*$, o
 Sea $E/K$ una extensión de Galois finita con grupo $G=Gal(E/K)$
 
 1. La correspondencia de Galois establece una biyección $\mathcal{F}(E/K)\cong \mathcal{S}(G)$ dada por $F=H^{*} \leftrightarrow H=F^{*}$. Además $F_1 \subset F_2$ si y solo si $H_1 \supset H_2$ 
-2. Dicha biyección es antiisomorfismo de retículos: $(F_1\cdot F_2)^{*} = F_1^{*} \cap F_2^{*}$ y $(F_1\cap F_2)^{*} = F_1* \vee F_2^{*}$
+2. Dicha biyección es antiisomorfismo de retículos: $(F_1\cdot F_2)^{*} = F_1^{*} \cap F_2^{*}$ y $(F_1\cap F_2)^{*} = F_1^{*} \vee F_2^{*}$
 3. $F_1/K, F_2/K$ son conjugadas si y sólo si los subgrupos $F_1^{*}$ y $F_2^{*}$ son conjugados en $G$.
 4. $F/K$ es normal sii $F^{*}$ es un subgrupo normal de $G$. En este caso $Gal(F/K) \cong G/F^{*}$
 5. Para todo subgrupo $H<G$ se tiene $|H| = [E:H^{*}]$ y $[G:H] = [H^{*}:K]$. Para todo $F\in \mathcal{F}(E/K)$ se verifica $[E:F] = |F^{*}|$ y $[F:K] = [G:F^{*}]$
 #+end_theorem
 
-Demostración de 5.
+/Demostración de 5/
 
 $|G| = [E:E^{G}] = [E:K]$ y $|H| = [E:E^{H}] = [E:H^{*}]$ por tereoma de Artin. 
 
@@ -2529,17 +2538,17 @@ Tenemos la torre $E \supset F^\ast^\ast \supset F$ y:
 
 La segunda parte sale de la proposición anterior y de haber probado que la conexión de Galois nos da una biyección.
 
-Demostración de 2.
+/Demostración de 2/
 
 Por ser antiisomorfismos de conjuntos ordenados (son biyecciones de conjuntos que invierten el orden).
 
-/Demostración de 3./
+/Demostración de 3/
 
 Sea $f: E/K \rightarrow E/K$ isomorfismo que conjuga $F_2$ y $F_1$ (esto es $f(F_1) = F_2$. Sea $u = f(v)\in F_2; v\in F_1$. Así, dado $\tau \in F_1^{*}$ automorfismo, se tiene $f\tau f^{-1}(u) = f\tau(v) = f(v)$ , luego $f F_1^{*} f^{-1} \subset F_2^{*}$
 
 El otro contenido es igual.
 
-/Demostración de 4./
+/Demostración de 4/
 
 Desde 3.
 
@@ -2566,6 +2575,119 @@ Una extensión finita $E/K$ *de Galois* se dice:
 2. *Cíclica* si $G=Gal(E/K)$ es cíclica.
 3  *Soluble* si $G$ es soluble
 #+end_definition
+
+
+#+begin_theorem
+Sea $E/K$ extensión finita de Galois y $F/K$ una extensión arbitraria tales que $E,F$ son subcuerpos de otro cuerpo. Entonces $EF/F$ y $E/(E\cap F)$ son extensiones de Galois y la aplicación $\sigma \mapsto \sigma_{|E}$ define un isomorfismo $Gal(EF/F) \cong Gal(E/(E\cap F)) < Gal(E/K)$. De aquí deducimos $[EF:F]$ divide a $[E:K]$.
+#+end_theorem
+
+En general no se da $[EF:F]$ divide a $[E:K]$. Ejemplo $E=\mathbb{Q}(\sqrt[3]{2}), F=\mathbb{Q}(\omega \sqrt[3]{2}), K = \mathbb{Q}, EF=\mathbb{Q}(\sqrt[3]{2}, \omega)$, pero $[EF:F]= \frac{[EF:K]}{[F:K]} = 2$ que no divide a $[E:K]$
+
+#+begin_theorem
+Sean $E_1/K, E_2/K$ extensiones de Galois con grupos $G_i=Gal(E_i/K)$ ambas contenidas en otro cuerpo $L$. Entonces $E_1 E_2 /K$ es una extensión finita de Galois y existe un homomorfismo inyectivo $\lambda: Gal(E_1 E_2/K) \rightarrow G_1 \times G_2$ definido por $\lambda(\sigma) = (\sigma_{|E_1}, \sigma_{|E_2})$. Si $E_1 \cap E_2 = K$, el homomorfismo $\lambda$ es isomorfismo
+#+end_theorem
+
+#+begin_corollary
+*Sobre el producto cartersiano de grupos de Galois*
+
+Sean $E_i/K$ extensiones finitas de Galois, con grupos respectivos $G_1, \ldots G_n$. Supongamos $E_i$ son subcuerpos de otro cuerpo $L$ y que $E_i \cap (E_1 \cdots E_{i-1}) = K$. Entonces $Gal(E_1 \cdots E_n/K) \cong G_1 \times \cdots \times G_n$ 
+#+end_corollary
+
+#+begin_corollary
+Sea $E/K$ extensión finita de Galois con grupo $G$. Supongamos $G=G_1 \times \cdots \times G_n$. Sea $E_i$ el cuerpo fijo de $G_1 \times \cdots \times \{1\} \times \cdots \times G_n$, con el elemento $1$ en la i-ésima coordenada. Entonces $E_i/K$ es de Galois con grupo $Gal(E_i/K) \cong G_i$, $E_i \cap (E_1 \cdots E_{i-1}) = K$ y $E= E_1 \cdots E_n$
+#+end_corollay
+
+*** Cuerpos finitos
+
+Sea $F$ cuerpo finito con $|F|=q$ elementos.
+
+#+begin_lemma
+Se verifica:
+1. La característica de $F$ es un primo $p\neq 0$
+2. El subcuerpo primo de $F$ es isomorfo a $\mathbb{Z}/p\mathbb{Z}$
+3. La extensión $F/\mathbb{Z}_p$ es finita
+4. Sea $[F:\mathbb{Z}_p] = n$. Entonces $q=|F|=p^n$
+5. *Teorema de Lagrange para grupos*. El grupo multiplicativo de $F^{x}$ es cíclico de orden $q-1$.
+#+end_lemma
+
+
+El punto 5 nos dice que para todo $u\in F$, $u^{q-1} = 1$ y por tanto $f(X) = X^q -X \in F[X]$ tiene como raíces todos los elementos del cuerpo $F$.
+
+#+begin_theorem
+*Teorema de Moore*
+
+Para cada primo $p$ y para cada $n\ge1$ existe exactamente un cuerpo con $q=p^n$ elementos (salvo isomorfismo), que es el cuerpo de descomposición de $X^q-X$ sobre $\mathbb{Z}_p$. Estos son los únicos cuerpos finitos.
+#+end_theorem
+
+#+begin_proof
+Veamos que existe un cuerpo con $q=p^n$ elementos.
+
+Tomamos el polinomio $f(X) = X^q-X \in \mathbb{Z}_p$. $Df=-1$ y por tanto $f$ sólo tiene raíces simples.
+
+Sea $F$ cuerpo de descomposición de $f$ sobre $\mathbb{Z}_p$, y sea $S\subseteq F$ el conjunto de todas las raíces de $f$ en $F$. Sabemos que $|S|=q$. Vamos a ver que $S=F$. Basta probar que $S$ es un subcuerpo (es cerrado para suma, producto, opuesto e inverso).
+
+Dados $u,v \in S$, esto es $u^q=u, v^q=v$:
+
+\begin{align*}
+(u+v)^q -(u+v) = u^q + v^q - u - v = 0\\
+(ub)^q - (uv) = u^q v^q - uv = uv-uv = 0\\
+(-u)^q - (-u) = -u^q + u = 0\\
+(u^{-1})^q -u^{-1} = u^-1 - u^-1 = 0
+\end{align*}
+
+
+La isomorfía se da porque dados dos cuerpos con $p$ elementos, ambos serían cíclicos de orden $q-1$, ambos serían cuerpo de descomposición de $X^q - X$ sobre $\mathbb{Z}_p$, luego isomorfos.
+#+end_proof
+
+#+begin_definition
+*Cuerpo de Galois de orden $p^n$*
+
+El único cuerpo con $q=p^n$ elementos lo denotamos $F_{p^n}$
+#+end_definition
+
+#+begin_fact
+1. $F_{p^n}/F_p$ es de Galois
+2. $G(F_{p^n}/F_p)$ es cíclico de orden $n$, generado por el automorfismo de Frobenius.
+#+end_fact
+
+#+begin_proof
+1.
+
+Es claro que $F_{p^n}$ es extensión de $F_p$ por su construcción con el teorema de Moore.
+
+$F_p$ es cuerpo perfecto por ser finito, y $F_{p^n}$ una extensión algebraica suya, luego es separable. Además $F_{p^n}$ es cuerpo de descomposición de $X^q-X$ sobre $F$. Luego $F_{p^n}/F_p$ es de Galois.
+
+2.
+
+Sea el automorfismo de Frobenius $\phi : F_{p^n} \rightarrow F_p$, $\phi(u)=u^p$.
+
+Tomamos $G=<\phi>$. Así $F_{p^n}^G = \{u\in F_{p^n}: u^p = u\} = F_p$
+
+Por tanto $G < Gal(F_{p^n}/F_p)$, pero $|G| = [F_{p^n}: F_{p^n}^G] = [F_{p^n}:F_p]=n$ y por tanto $G = Gal(F_{p^n}/F_p)$.
+#+end_proof
+
+#+begin_theorem
+Sean $m,n \ge 1$ enteros. Entonces $F_{p^n}$ es subcuerpo de $F_{p^m}$ si y solo si $n|m$. En dicho caso $F_{p^m}/F_{p^n}$ es extensión de Galois cíclica y $Gal(F_{p^m}/F_{p^n}) = <\phi^n>$
+#+end_theorem
+
+
+#+begin_proof
+Como $F_{p^m} \supseteq F_{p^n} \supseteq F_p$ por Teorema del grado $n|m$
+
+Si $n|m$, entonces $m=dn$, $G = Gal(F_{p^m}/F_p) = <\phi>$ es cíclico de orden $m$ y tiene un subgrupo único de orden $d$, $H=<\phi^n>$. Sea $F=F_{p^m}^H$. Entonces $[F:F_p] = [G:H] = n$. Por teorema de Moore $F\cong F_{p^n}$ y por tanto 
+
+\[Gal(F_{p^m}/F) = H = Gal(F_{p^m}/F_{p^n}) = <\phi^n>\]
+
+Que es grupo cíclico.
+#+end_proof
+
+#+begin_theorem
+Para cualquier cuerpo finito $F$ y cualquier entero positivo $m$ existe un polinomio irreducible $f\in F[X]$ de grado $m$.
+#+end_theorem
+
+#+begin_proof
+Tomamos $F_{p^m}$ extensión finita de $F$, con $|F|=p$, luego separable. Tiene finitos subcuerpos, luego por teorema de elemento primitivo $F_{p^m} = F(\alpha)$ y por tanto el irreducible de $m$ sobre $F$ tiene grado $[F_{p^m}:F] = m$.
+#+end_proof
 
 ** Ejercicios
 *** Ejercicio 1.24
