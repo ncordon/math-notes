@@ -2689,6 +2689,100 @@ Para cualquier cuerpo finito $F$ y cualquier entero positivo $m$ existe un polin
 Tomamos $F_{p^m}$ extensión finita de $F$, con $|F|=p$, luego separable. Tiene finitos subcuerpos, luego por teorema de elemento primitivo $F_{p^m} = F(\alpha)$ y por tanto el irreducible de $m$ sobre $F$ tiene grado $[F_{p^m}:F] = m$.
 #+end_proof
 
+
+*** Extensiones ciclotómicas
+
+Dado un cuerpo $K$ y una clausura, el polinomio $Df=X^n-1$ tiene $n$ raíces, que llamamos raíces n-ésimas de la unidad. Las raíces son todas distintas sii la característica de $K$ no divide a $n$, ya que $Df=nX^{n-1}$. Suponemos esta última condición para tener $n$ raíces distintas.
+
+
+Recordamos que $\varphi(n) = \#\{m<n : mcd(n,m)=1\}$. Es homomorfismo.
+
+Para un primo $p$ se tiene $\varphi(p^e) = (p-1)p^{e-1}$
+Para un número $n=p_1^{e_1} \cdots p_r^{e_r}$ tenemos $\varphi(n) = \prod_{i=1}^r (p_i-1) p_i^{e_i - 1}$
+
+
+#+begin_fact
+*Raíces primitivas*
+
+Las raíces n-éximas de la unidad forman un subgrupo cíclico de orden $n$ de $K^x$. Cualquier generador de dicho subgrupo se llama *raíz primitiva* de la unidad. Hay exactamente $\varphi(n)$.
+
+label:roots-cycle
+#+end_fact
+
+
+#+begin_definition
+*Extensión ciclotómica*
+
+Dado un cuerpo $K$ llamamos extensión ciclotómica a cualquier cuerpo de descomposición de un polinomio $X^n-1$ con $n$ arbitrario. Claramente una extensión ciclotómica es simple por generar una raíz a todas las demás por ref:roots-cycle.
+#+end_definition
+
+
+#+begin_theorem
+*Las extensiones ciclotómicas son de Galois*
+
+Sea $n>0$, $K$ cuerpo y $F/K$ extensión ciclotómica, cuerpo de descomposición del polinomio $X^n-1$. Se verifica:
+
+1. $F/K$ es de Galois.
+2. $Gal(F/K)$ es isomorfo a un subgrupo de $\mathbb{Z}_n^x$. Por tanto $|Gal(F/K)| | \varphi(n)$
+#+end_theorem
+
+#+begin_proof
+1.
+
+$F/K$ es de Galois por ser $F$ cuerpo de descomposición de un polinomio separable (todas las raíces de la unidad son distintas en $car(K)=0$ o $car(K) \not | n$).
+
+2.
+
+Llamamos $\zeta$ a la raíz n-ésima de la unidad. Todo $\sigma \in Gal(K(\zeta)/K)$ está determinado por $\sigma(\zeta)$ que debe ser raíz de $X^n-1$ en $F$. Definimos pues:
+
+\[ \Lambda : Gal(K(\zeta)/K) \rightarrow \mathbb{Z}_n^x, \quad \sigma(\zeta) = \zeta^r, \Lambda(\sigma) = r\]
+
+$\Lambda$ es homomorfismo por tenerse que si $\Lambda(\sigma) = a, \Lambda(\tau) = b$ entonces $\sigma \tau(\zeta) = \sigma(\zeta^b) = \sigma(\zeta^{ab})$.
+
+Por primer teorema de isomorfía, como $Ker(\Lambda) = \{id\}$, tenemos que $Gal(K(\zeta)/K) \cong Img(\Lambda)$ subgrupo de $\mathbb{Z}_n^x$.
+#+end_proof
+
+
+#+begin_definition
+*Polinomio ciclotómico*
+
+Dado $n>0$, $K$ un cuerpo. Si $F/K$ es extensión ciclotómica de grado $n$, definimos el n-ésimo polinomio ciclotómico sobre $K$ como el polinomio:
+
+\[\phi_n(X) = (X-\zeta_1) \cdots (X-\zeta_r)\]
+
+con $\zeta_i$ raíces n-ésimas primitivas de la unidad.
+#+end_definition
+
+#+begin_fact
+Se verifica:
+
+1. $X^n-1 = \underset{d|n} \prod \phi_d$
+2. Los coeficientes de $\phi_n$ pertenecen al cuerpo característico de $K$. Si $car(K)=0$ entonces pertenecen a $\mathbb{Z}$
+3. $gr(\phi_n) = \varphi(n)$.
+#+end_fact
+
+#+begin_proof
+1. Partiendo de 3, como el grado de $X^n$ es la suma de los grados y $n = \underset{d|n} \sum \varphi(d)$ tenemos que obtenemos en el productorio de los $\phi_d$, $n$ raíces de la unidad, y obtenemso exactamtente una vez cada una. Luego se da lo buscado.
+3. Trivial
+#+end_proof
+
+
+#+begin_definition
+*Función de Moebius*
+Dado que:
+
+\[\phi_n = \frac{X^n-1}{\underset{d|n, d\neq n}\prod \phi_d\]
+
+definimos la función de Moebius, $\mu(n)$ como $1$ si $n=1$, $0$ si existe $p$ primo con $p^2|n$, o $(-1)^r$ en otro caso (no se repite ningún primo en su factorización).
+#+end_definition
+
+#+begin_fact
+*Irreducibilidad de los polinomios ciclotómicos sobre $\mathbb{Q}$
+
+Los polinomios ciclotómicos son irreducibles sobre $\mathbb{Q}$.
+#+end_fact
+
+
 ** Ejercicios
 *** Ejercicio 1.24
 
