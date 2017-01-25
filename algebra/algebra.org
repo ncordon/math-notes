@@ -2930,6 +2930,40 @@ Sea $E/K$ extensión cíclica de grado $n$ con grupo $G=Gal(E/K)=<\sigma>$ y sea
 1. $T_{E/K}(\beta) = 1$
 2. Existe $\alpha \in E$ tal que $\beta = \alpha - \sigma(\alpha)$
 #+end_theorem
+**** Teorema de Lagrange
+#+begin_theorem
+Sea $K$ cuerpo, $n$ entero positivo primo con la característica de $K$ si esta no es nula (para que existan exactamente $n$ raíces n-ésimas y no menos) y supongamos que existe raíz n-ésima primitiva de la unidad $\xi$ en $K$. Se verifica:
+
+1. $E/K$ es extensión cíclica de grado $n$ entonces existe $\alpha \in E$ tal que $E=K(\alpha)$ e $Irr(\alpha, K) = X^n -a$ para algún $a\in K$
+2. Sea $a\in K$. Si $\alpha$ es raíz de $X^n-a$ entonces $K(\alpha)/K$ es una extensión cíclica de grado $d$ con $d|n$ y $\alpha^d \in K$.
+#+end_theorem
+
+
+#+begin_proof
+1. 
+
+Como $N_{E/K}(\zeta^{-1}) = \zeta^{-n} = 1$ por estar $\zeta \in K$ por Teorema 90 de Hilbert existe $\alpha in E$ verificando $\sigma(\alpha) = \zeta \alpha$, y por tanto $\sigma^i(\alpha) = \zeta^i \alpha$.
+
+$\sigma^i(\alpha^n) = \sigma^{i-1}(\alpha^n) = \ldots = \alpha^n$ por lo que podemos tomar $a=\alpha^n \in K$. Además $Irr(a,K) = X^n-a$ claramente.
+
+Esto prueba que $[K(\alpha):K] = gr(Irr(a,K))$, y como $K \subseteq K(\alpha) \subseteq E$, y $[E:K]=n$ tenemos $K(\alpha)=E$. 
+
+2. 
+
+Sea $\alpha$ raíz de $X^n-\alpha$. Todas sus otras raíces $\zeta^i \alpha$ están en $K(\alpha)$ luego es cuerpo de descomposciión de dicho polinomio, y es de Galois por ser cuerpo de descomposición de un polinomio separable.
+
+Luego $\sigma(\alpha)$ es raíz de $X^n-a$ para un $\sigma \in Gal(K(\alpha)/K)$ fijo. Se tiene $\sigma(\alpha) = \omega_{\sigma} \alpha$ con $\omega_{\sigma}$ una raíz n-ésima de la unidad.
+
+Podemos construir el monomorfismo de grupos $\sigma \mapsto \omega_{\sigma}$, y por tanto como el grupo de las raíces n-ésimas de la unidad es un grupo cíclico, $G$ también lo es, con su orden $d | n$. $G=<\sigma>$ con $\omega_{\sigma}$ raíz primitiva de la unidad y $\sigma(\alpha^d) = (\omega_{\sigma} \alpha)^d = \alpha^d \in K$ por ser $K$ fijo bajo $G$.
+#+end_proof
+
+**** Teorema de Artin-Schreier
+#+begin_theorem
+Si $K$ es un cuerpo de característica $p$ se verifica:
+
+1. Si $E/K$ es extensión cíclica de grado $p$ existe $\alpha \in E$ verificando $E=K(\alpha)$ y $Irr(\alpha, K) = X^p - X -a$ para algún $a\in K$
+2. Dado $a\in K$ el polinomio $X^p-X-a$ o tiene una raíz en $K$ (en cuyo caso las tiene todas por ser $K$ perfecto) o es irreducible y la extensión $K(\alpha)/K$ es cíclica de grado $p$.
+#+end_theorem
 ** Ejercicios
 *** Ejercicio 1.24
 
