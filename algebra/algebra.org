@@ -2773,15 +2773,118 @@ Dado que:
 
 \[\phi_n = \frac{X^n-1}{\underset{d|n, d\neq n}\prod \phi_d\]
 
-definimos la función de Moebius, $\mu(n)$ como $1$ si $n=1$, $0$ si existe $p$ primo con $p^2|n$, o $(-1)^r$ en otro caso (no se repite ningún primo en su factorización).
+definimos la función de Moebius, $\mu(n)$ como $1$ si $n=1$, $0$ si existe $p$ primo con $p^2|n$, o $(-1)^r$ en otro caso (no se repite ningún primo en su factorización, con $n=p_1 \ldots p_r$).
 #+end_definition
 
 #+begin_fact
-*Irreducibilidad de los polinomios ciclotómicos sobre $\mathbb{Q}$
+*Irreducibilidad de los polinomios ciclotómicos sobre $\mathbb{Q}$*
 
 Los polinomios ciclotómicos son irreducibles sobre $\mathbb{Q}$.
 #+end_fact
 
+*** Norma y traza
+
+Consideramos extensiones finitas separables $F/K$ con $[F:K]=n$. Entonces:
+
+\[Hom(F/K,\bar{K}/K) = \{\sigma_1 \ldots \sigma_n\}\]
+
+#+begin_definition
+*Norma y traza*
+
+Se definen la norma y traza relativas de $\alpha$ a $F/K$ como:
+
+\[N_{F/K}(\alpha) = \prod \{\sigma_i(\alpha) : 1 \le i \le n\}\]
+
+\[T_{F/K}(\alpha) = \sum \{\sigma_i(\alpha) : 1 \le i \le n\}\]
+#+end_definition
+
+Cuando se sobreentienda de qué extensión hablamos las notaremos $N,T$ resp.
+
+#+begin_fact
+*Norma y traza para extensiones de Galois*
+
+Para $F/K$ extensión de Galois con $Gal(F/K)=\{\sigma_1, \ldots, \sigma_n\}$ entonces $F$ es cerrado para normas y trazas.
+#+end_fact
+
+#+begin_proof
+Trivial sabiendo que $F/K$ debe ser normal.
+#+end_proof
+
+#+begin_fact
+*Propiedades de la norma y traza*
+Sean $\alpha, \beta \in F$, $a \in K$
+
+1. $N(\alpha \beta) = N(\alpha)N(\beta)$
+2. $T(\alpha + \beta) = T(\alpha) + T(\beta)$
+3. $N(a) = a^n$
+4. $T(a) = na$
+5. $T(\alpha), N(\alpha) \in K$ para cada $\alpha \in F$
+6. Existe $\alpha \in F$ verificando $T(\alpha) \neq 0$
+#+end_fact
+
+
+#+begin_proof
+1, 2, 3 y 4 son triviales.
+6 se prueba a partir de lema de independencia de Dedekind por reducción al absurdo.
+#+end_proof
+
+#+begin_theorem
+Sea $K \subseteq F \subseteq E$ torre de cuerpos, $E/K$ extensión finita y seprable. Entonces para cada $\alpha \in E$ se verifica:
+
+1. $N_{F/K}(N_{E/F}(\alpha)) = N_{E/K}(\alpha)$
+2. $T_{F/K}(T_{E/F}(\alpha)) = T_{E/K}(\alpha)$
+
+Se deduce que si $\alpha \in F$, por propiedades de norma y traza entonces:
+
+1. $N_{F/K}(N_{E/F}(\alpha)) = N_{F/K}(\alpha^[E:F]) = N_{F/K}(\alpha)^[E:F]$
+2. $T_{E/K}(T_{E/F}(\alpha)) = T_{F/K}([E:F]\alpha) = [E:F] T_{F/K}(\alpha)$
+#+end_theorem
+
+#+begin_lemma
+Sea $F/K$ extensión finita separable de grado $n$. Para $\alpha \in F$ si 
+
+\[Irr(\alpha, K) = X^r + a_{r-1}X^{r-1} + \ldots + a_1 X + a_0\]
+
+entonces tenemos:
+
+1. $N(\alpha) = (-1)^n a_0^{n/r}$
+2. $T(\alpha) = -(n/r) a_{r-1}$
+#+end_lemma
+
+
+#+begin_lemma
+$F/K$ extensión con $[F:K]=n$. Equivalen:
+
+1. $\{\alpha_1, \ldots ,\alpha_n\}$ son base de $F$ como $K$ espacio vectorial.
+2. Los elementos $B_j = (\sigma_j(\alpha_1), \ldots, \sigma_j(\alpha_n))$ son l.i. sobre $F$.
+3. El determinante de $(T_{F/K}(\alpha_i \alpha_j))_{ij}$ es no nulo.
+
+Además $det(T(\alpha_i \alpha_j)_{ij} = [det(\sigma_i(\alpha_j))_{ij}]^2$
+#+end_lemma
+
+
+#+begin_proof
+Demostramos la fórmula para el determinante.
+
+Sean $\{\alpha_1, \ldots \alpha_n\}$ los homomorfismos $F/K \rightarrow \bar{K}/K$.
+
+$T(\alpha_i \alpha_j) = \sum\{\sigma_k(\alpha_i) \sigma_k(\alpha_j) : 1\le k \le n\}$
+
+Por tanto $(T(\alpha_i \alpha_j))_{ij} = (\alpha_k(\alpha_i))^t_{ki} (\sigma_k(\sigma_j))_{kj}$
+
+Y se cumple la fórmula del determinante (matriz x traspuesta).
+#+end_proof
+
+
+Sea $F/K$ finita separable. Entonces podemos definir $T: F\times F \rightarrow K$ como $T(\alpha, \beta) = T_{F/K}(\alpha\beta)$ es una forma bilineal simétrica no degenerada.
+
+A $det\big( T_{F/K}(\alpha_i \alpha_j) \big)_{ij}$ lo llamamos discriminante de la extensión relativo a la base $\{\alpha_1, \ldots, \alpha_n\}$.
+
+#+begin_fact
+*Relación entre discriminantes de extensiones y polinomios*
+
+El discriminante de $K(\alpha)/K$ separable y de grado $n$. El discriminante de $K(\alpha)/K$ relativo a la base $\{1, \alpha, \ldots, \alpha^{n-1}\}$ coincide con el discriminante de $Irr(\alpha, K)$
+#+end_fact
 
 ** Ejercicios
 *** Ejercicio 1.24
@@ -3070,7 +3173,6 @@ Tenemos el caso trivial $x(x+1)$, en el que las raíces $0,1$ están en $\mathbb
 Si $\beta$ es raíz primitiva de $K$, se tiene que $\{1,\beta,\ldots,\beta^{n-1}\}$ es base de $K$ sobre $\mathbb{F}_2$.
 
 Si el grado de $f(X)$ fuese menor que $n$, tendríamos que $f(\beta)=0$ es una combinación lineal de los elementos de la base que vale 0, y esto entra en contradicción con que sea base.
-
 
 *** Ejercicio 4.17
 
