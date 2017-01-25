@@ -2689,7 +2689,6 @@ Para cualquier cuerpo finito $F$ y cualquier entero positivo $m$ existe un polin
 Tomamos $F_{p^m}$ extensión finita de $F$, con $|F|=p$, luego separable. Tiene finitos subcuerpos, luego por teorema de elemento primitivo $F_{p^m} = F(\alpha)$ y por tanto el irreducible de $m$ sobre $F$ tiene grado $[F_{p^m}:F] = m$.
 #+end_proof
 
-
 *** Extensiones ciclotómicas
 
 Dado un cuerpo $K$ y una clausura, el polinomio $Df=X^n-1$ tiene $n$ raíces, que llamamos raíces n-ésimas de la unidad. Las raíces son todas distintas sii la característica de $K$ no divide a $n$, ya que $Df=nX^{n-1}$. Suponemos esta última condición para tener $n$ raíces distintas.
@@ -2886,6 +2885,51 @@ A $det\big( T_{F/K}(\alpha_i \alpha_j) \big)_{ij}$ lo llamamos discriminante de 
 El discriminante de $K(\alpha)/K$ separable y de grado $n$. El discriminante de $K(\alpha)/K$ relativo a la base $\{1, \alpha, \ldots, \alpha^{n-1}\}$ coincide con el discriminante de $Irr(\alpha, K)$
 #+end_fact
 
+*** Extensiones de Galois cíclicas
+**** Teoremas de Hilbert
+#+begin_theorem
+*Teorema 90 de Hilbert*
+
+Sea $E/K$ extensión cíclica de grado $n$ con grupo $G=Gal(E/K)=<\sigma>$ y sea $\beta \in E$. Equivalen:
+
+1. $N_{E/K}(\beta) = 1$
+2. Existe $0\neq \alpha \in E$ tal que $\beta = \alpha/\sigma(\alpha)$
+#+end_theorem
+
+#+begin_proof
+Veamos que 2 implica 1.
+
+\[N_{E/K}(\beta) = \frac{N_{E/K}(\alpha)}{N_{E/K}(\sigma(\alpha))} = 1\]
+
+Usando que el grupo es cíclico.
+
+Veamos que 1 implica 2.
+
+$\beta \neq 0$ por ser $N_{E/K}(\beta)=1$. Los homomorfismos $id, \sigma, \ldots \sigma^{n-1}$ son distintos, luego linealmente independientes.
+
+Entonces la combinación de ellos, que llamaremos $\tau$ es no nula:
+
+\[\tau = id + \beta \sigma + (\beta \sigma(\beta))\sigma^2 + \ldots + (\beta \sigma(\beta) \ldots \sigma^{n-2}(\beta)) \sigma^{n-1}\]
+
+Tomamos $\theta \in E$ tal que $\alpha = \tau(\theta)\neq 0$, calculamos $\sigma(\alpha)$:
+
+
+\begin{align*}
+\sigma(\alpha) = \sigma(\tau(\theta)) &= \sigma(\theta) + \sigma(\beta)\sigma^2(\theta) + \ldots (\sigma(\beta)\sigma^2(\beta) \ldots \sigma^{n-1}(\beta)) \sigma^n(\theta)\\
+\alpha = \tau(\theta) = \theta &+ \beta \sigma(\theta) + (\beta \sigma(\beta))\sigma^2(\theta) + \ldots + (\beta \sigma(\beta) \ldots \sigma^{n-2}(\beta)) \sigma^{n-1}(\theta)
+\end{align*}
+
+Multiplicando $\sigma(\alpha)$ por $\beta$ el último sumando queda $N_{E/K}(\beta) \sigma^n(\theta) = \theta$ por ser $\sigma^n = id$ y $N(\beta)=1$ por hipótesis.
+#+end_proof
+
+#+begin_theorem
+*Forma aditiva teorema 90 de Hilbert*
+
+Sea $E/K$ extensión cíclica de grado $n$ con grupo $G=Gal(E/K)=<\sigma>$ y sea $\beta \in E$. Equivalen:
+
+1. $T_{E/K}(\beta) = 1$
+2. Existe $\alpha \in E$ tal que $\beta = \alpha - \sigma(\alpha)$
+#+end_theorem
 ** Ejercicios
 *** Ejercicio 1.24
 
