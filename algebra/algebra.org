@@ -1857,7 +1857,7 @@ La implicación de 2 a 3 es trivial.
 
 Veamos $3\implies 4$. Sea $E/K$ extensión algebraica $u\in K$. Entonces $f=Irr(u,K)$ es de grado 1. Por tanto $f=a(X-u)$ con $a, au\in K, lo que implica $$u\in K$.
 
-Veamos $4\implies 1$. Supongamos que existe un polinomio $f \in K[X]$ no constante. Por teorema de Kronecker, existe una extensión $F/K$ en la que $f$ tiene una raíz $u \in F$. Pero por hipótesis, $K = F$, luego $u\in K$.
+Veamos $4\implies 1$. Supongamos que existe un polinomio $f \in K[X]$ no constante. Por teorema de Kronecker, existe una extensión $F/K$, que además es algebraica, en la que $f$ tiene una raíz $u \in F$. Pero por hipótesis, $K = F$, luego $u\in K$.
 #+end_proof
 
 #+begin_fact
@@ -2139,7 +2139,7 @@ con $p$ primo y $t$ trascendente sobre $\mathbb{Z}_p$
 
 Tenemos que es extensión normal, por tenerse que $\mathbb{Z}_p(t^p)(t)$ es cuerpo de descomposición de $(X^p-t^p) = (X-t)^p$. 
 
-Y no es separable puesto que $Irr(t, \mathbb{Z}_p) = (X-t)^p$ con raíces repetidas. Para demostrar esto último, supongamos $gr(Irr(t, \mathbb{Z}_p))=m < p$. Entonces se tendría $(X-t)^m$ = f(t^p)$, lo que negaría que $t$ fuera transitivo sobre $\mathbb{Z}_p$
+Y no es separable puesto que $Irr(t, \mathbb{Z}_p(t^p)) = (X-t)^p$ con raíces repetidas. Para demostrar esto último, supongamos $gr(Irr(t, \mathbb{Z}_p(t^p)))=m < p$. Entonces se tendría que su último término está en $\mathbb{Z}_p(t^p)$, y $t^m = f(t^p)$, lo que negaría que $t$ fuera transitivo sobre $\mathbb{Z}_p$
 
 #+begin_definition
 *Grado separable*
@@ -2347,17 +2347,17 @@ Supongamos una combinación de longitud mínima $s$ de homomorfismos independien
 
 \[\sum_{i=1}^s a_i\sigma_i = 0\]
 
-Entonces, podemos despejar $\sigma_s = \sum_{i=1}^{s-1} \frac{a_i}{a_s} \sigma_i$.
+Entonces, podemos despejar $\sigma_s = \sum_{i=1}^{s-1} -\frac{a_i}{a_s} \sigma_i$.
 
 Sea $y\in G$ fijo tal que $\sigma_1(y) \neq \sigma_s(y)$ (existe por ser homomorfismos distintos).
 
 Entonces:
 
-\[\sigma_s(xy) = \sigma_s(x) \sigma_s(y) = \sum_{i=1}^{s-1} \frac{a_i}{a_s} \sigma_i(x) \sigma_i(y)\]
+\[\sigma_s(xy) = \sigma_s(x) \sigma_s(y) = \sum_{i=1}^{s-1} -\frac{a_i}{a_s} \sigma_i(x) \sigma_i(y)\]
 
 Y multiplicando por $\sigma_s(y)$:
 
-\[\sigma_s(x) \sigma_s(y) = \sum_{i=1}^{s-1} \frac{a_i}{a_s} \sigma_i(x) \sigma_s(y) \]
+\[\sigma_s(x) \sigma_s(y) = \sum_{i=1}^{s-1} -\frac{a_i}{a_s} \sigma_i(x) \sigma_s(y) \]
 
 Restando ambas igualdades llegamos a una combinación lineal finita nula y con el primer coeficiente no cero de longitud $s-1$, contradicción.
 
@@ -2466,7 +2466,7 @@ Por ser de Galois, $K = E^{G}$ para algún grupo $G$. Cada automorfismo $\sigma 
 
 Por tanto $[E:K]_{S} = [E:K] = |G|$ (Por Artin esta última igualdad), y la extensión es separable.
 
-$[E:K]_s = |G|$ nos da el número de homomorfismos $\tau: E/K \rightarrow \bar{K}/K$ y por tanto, como para cada $\sigma\in Aut(E/K)$ puedo tomar $i\circ \tau$ inclusión en $\bar{K}$, se tiene que $\tau(E) = E$ para $\tau :E/K\rightarrow \bar{K}/K$ arbitrario. Luego la extensión es normal.
+$[E:K]_s = |G|$ nos da el número de homomorfismos $\tau: E/K \rightarrow \bar{K}/K$ y por tanto, como para cada $\sigma\in G$ puedo tomar $i\circ \sigma$ inclusión en $\bar{K}$, se tiene que $\tau(E) = E$ para $\tau :E/K\rightarrow \bar{K}/K$ arbitrario.
 
 Hacia el lado opuesto. Sea $E/K$ extensión normal y separable. Existen $n=[E:K]_{S} = [E:K]$ (aquí estamos usando separabilidad) homomorfismos $\tau: E/K\rightarrow \bar{K}/K$ y para todos ellos $\tau(E) = E$ (y aquí normalidad). Por ello $G$ tiene orden $n$.
 
@@ -2632,11 +2632,11 @@ Dados $u,v \in S$, esto es $u^q=u, v^q=v$:
 (u+v)^q -(u+v) = u^q + v^q - u - v = 0\\
 (ub)^q - (uv) = u^q v^q - uv = uv-uv = 0\\
 (-u)^q - (-u) = -u^q + u = 0\\
-(u^{-1})^q -u^{-1} = u^-1 - u^-1 = 0
+(u^{-1})^q -u^{-1} = u^{-1} - u^{-1} = 0
 \end{align*}
 
 
-La isomorfía se da porque dados dos cuerpos con $p$ elementos, ambos serían cíclicos de orden $q-1$, ambos serían cuerpo de descomposición de $X^q - X$ sobre $\mathbb{Z}_p$, luego isomorfos.
+La isomorfía se da porque dados dos cuerpos con $p$ elementos, tendría grupo multiplicativo cíclico de orden $q-1$, ambos serían cuerpo de descomposición de $X^q - X$ sobre $\mathbb{Z}_p$, luego isomorfos.
 #+end_proof
 
 #+begin_definition
