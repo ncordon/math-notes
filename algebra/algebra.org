@@ -91,7 +91,7 @@ Sea $f$ un homomorfismo de anillos. Se cumple:
 
 Sea $R$ anillo, $R'\subset R$ es subanillo si:
 
-1. $(R',+)$ es subgrupo de $(R,+)$ sii $x-y\in R' \quad \forall x,y \in R$
+1. $(R',+)$ es subgrupo de $(R,+)$ sii $x-y\in R' \quad \forall x,y \in R'$
 2. $R'$ es cerrado para el producto
 3. $1\in R'$
 #+end_definition
@@ -125,7 +125,7 @@ Sea $R$ anillo. Entonces $\alpha \subset R$ es ideal si:
 
 Sea $R$ anillo, $X\subset R \neq \emptyset$. Definimos el ideal generado por $X$ como:
 
-\[(X) := \cap_{\alpha < R, X\subset \alpha} \alpha = \left\{\sum_{finita} r_i x_i, r_i\in R, x_i\in X \right\}\]
+\[(X) := \underset{\alpha < R, X\subset \alpha}{\cap} \alpha = \left\{\sum_{finita} r_i x_i, r_i\in R, x_i\in X \right\}\]
 #+end_definition
 
 #+begin_definition
@@ -156,7 +156,7 @@ Equivale al ideal generado por $\{xy: x\in \alpha, y\in \beta\}$
 
 
 + $\alpha^n$ es el ideal generado por $\left\{\prod_{i=1}^n x_i, x_i \in \alpha \right\}$
-+ $\alpha_0 := R$ 
++ $\alpha^0 := R$ 
 
 #+begin_definition
 *Ideales comaximales*
@@ -170,6 +170,7 @@ Siempre se verifica $\alpha\beta \subseteq \alpha\cap \beta$
 
 Además si hay comaximalidad, también se verifica $\alpha\cap \beta \subseteq \alpha\beta$
 
+Veamos esto último. Sean $\alpha, \beta \subseteq R$ comaximales. Entonces existen $x\in \alpha, y \in \beta$ verificando $x+y = 1$. Sea $z \in \alpha \cap \beta$. Entonces $z = zx + zy$, donde $zx\in \alpha \beta, zy\in \alpha \beta$ y como $\alpha\beta$ es cerrado para sumas, $z\in \alpha\beta$
 *** Anillo cociente
 
 #+begin_definition
@@ -223,7 +224,7 @@ Hay una relación biyectiva entre $\{\alpha < R: Ker(f)\subset \alpha\}$ y $\{\b
 #+begin_definition
 *Ideal primo*
 
-Sea $R$ un anillo. Un ideal $\Pi$ de $R$ diremos que es primo si $\Pi\neq R$ y siempre que $xy\in \Pi, x,y\in R$ entonces $x\in \Pi$ o  $\y\in \Pi$
+Sea $R$ un anillo. Un ideal $\Pi$ de $R$ diremos que es primo si $\Pi\neq R$ y siempre que $xy\in \Pi, x,y\in R$ entonces $x\in \Pi$ o  $y\in \Pi$
 #+end_definition
 
 #+begin_definition
@@ -238,6 +239,31 @@ Un ideal $\Pi$ de $R$ diremos que es maximal si $\Pi\neq R$y es un elementomaxim
 1. $\Pi$ es ideal primo $\Leftrightarrow$ $R/\Pi$ es dominio de integridad.
 2. $\mathcal{M}$ es maximal $\Leftrightarrow$ $R/\mathcal{M}$ es cuerpo.
 #+end_theorem
+
+#+begin_proof
+1. 
+
+$\Longrightarrow$ Supongamos $\Pi \neq R$ es ideal primo.
+
+Sean $x+\Pi, y+\Pi \in R/\Pi$, con $(x+\Pi)(y+\Pi) = xy + \Pi = 0 + \Pi$ luego $xy \in \Pi$. Entonces $x \in \Pi$ o $y \in \Pi$ por la primalidad de $\Pi$, luego $x+\Pi = 0 + \Pi$ o $y +\Pi = 0 + \Pi$.
+
+$\Longleftarrow$ Supongamos $R/\Pi$ es dominio de integridad.
+
+Sean $x,y \in R$ con $xy \in \Pi$. Entonces $(x+\Pi)(y+\Pi) = xy + \Pi = \Pi$ por lo que al ser $R/\Pi$ DI tenemos que $(x + \Pi) = \Pi \implies x\in \Pi$ o $(y + \Pi) = \Pi \implies y\in \Pi$
+
+2.
+
+$\Longrightarrow$
+
+Dado $x \in R\setminus \mathcal{M}$ entonces $\mathcal{M} \subset (x) + \mathcal{M}$ estrictamente. Luego $(x) + \mathcal{M} = R$ y entonces $(x) \cap \mathcal{M} = R$ luego $(x) = R$ y existe el inverso de $x$, ya que $1 \in (x)$. Luego $(x+ \mathal{M}) (x^{-1} + \mathcal{M}) = (xx^{-1} + \mathcal{M}) = R$ y $R/\mathcal{M}$ es cuerpo.
+
+$\Longleftarrow$
+
+Sea $I$ ideal verificando que $\mathcal{M} \subset I$ propiamente, y sea $x\in I\setminus \mathcal{M}$
+
+Dado $(x + \mathcal{M})$ existe su iverso en $R/\mathcal{M}$ de modo que $(x+\mathcal{M})(y+\mathcal{M}) = R$. Luego $(xy) = R$ y debe existir $r\in R: rxy = (ry)x = 1$ 
+Luego $1 \in I$ y por tanto $I = R$ y $\mathcal{M}$ es maximal.
+#+end_proof
 
 #+begin_fact
 1. Si $R$ es DIP todo ideal primo no nulo es maximal.
@@ -1367,7 +1393,7 @@ Sean:
 
 Sea $K$ cuerpo de descomposición para $fg$. En $K[X]$:
 
-\[f= a_n \prod_{i=1}^n(X-\alpha_i) label:poly-simpl\]
+\[f= a_n \prod_{i=1}^n(X-\alpha_i)\] label:poly-simpl
 \[g= b_m \prod_{j=1}^m(X-\beta_j)\]
 
 Definimos la resultante como:
@@ -2636,7 +2662,7 @@ Dados $u,v \in S$, esto es $u^q=u, v^q=v$:
 \end{align*}
 
 
-La isomorfía se da porque dados dos cuerpos con $p$ elementos, tendría grupo multiplicativo cíclico de orden $q-1$, ambos serían cuerpo de descomposición de $X^q - X$ sobre $\mathbb{Z}_p$, luego isomorfos.
+La isomorfía se da porque dados dos cuerpos con $q$ elementos, tendría grupo multiplicativo cíclico de orden $q-1$, ambos serían cuerpo de descomposición de $X^q - X$ sobre $\mathbb{Z}_p$, luego isomorfos.
 #+end_proof
 
 #+begin_definition
@@ -2736,7 +2762,7 @@ Llamamos $\zeta$ a la raíz n-ésima de la unidad. Todo $\sigma \in Gal(K(\zeta)
 
 \[ \Lambda : Gal(K(\zeta)/K) \rightarrow \mathbb{Z}_n^x, \quad \sigma(\zeta) = \zeta^r, \Lambda(\sigma) = r\]
 
-$\Lambda$ es homomorfismo por tenerse que si $\Lambda(\sigma) = a, \Lambda(\tau) = b$ entonces $\sigma \tau(\zeta) = \sigma(\zeta^b) = \sigma(\zeta^{ab})$.
+$\Lambda$ es homomorfismo por tenerse que si $\Lambda(\sigma) = a, \Lambda(\tau) = b$ entonces $\sigma \tau(\zeta) = \sigma(\zeta^b) = \zeta^{ab}$.
 
 Por primer teorema de isomorfía, como $Ker(\Lambda) = \{id\}$, tenemos que $Gal(K(\zeta)/K) \cong Img(\Lambda)$ subgrupo de $\mathbb{Z}_n^x$.
 #+end_proof
@@ -2968,12 +2994,8 @@ Si $K$ es un cuerpo de característica $p$ se verifica:
 *** Ejercicio 1.24
 
 #+begin_wording
-Dado un término $X_1^{e_1} \cdots X_n^{e_n}$ con $e_1 \ge \ldots \ge e_n$, el polinomio simétrico
-mínimo que contiene a $X_1^{e_1} \cdots X_n^{e_n}$ lo representamos por $(X_1^{e_1} \cdots X_n^{e_n})$, y podemos 
-escribirlo fácilmente como
-  $$(X_1^{e_1} \cdots X_n^{e_n}) = \frac{1}{k}\sum_{\sigma\in S_n} X_{\sigma(1)}^{e_1} \cdots X_{\sigma(n)}^{e_n}$$ donde $k$ es el número 
-de términos $X_{\sigma(1)}^{e_1} \cdots X_{\sigma(n)}^{e_n}$ que son iguales a
- $X_1^{e_1} \cdots X_n^{e_n}$.
+Dado un término $X_1^{e_1} \cdots X_n^{e_n}$ con $e_1 \ge \ldots \ge e_n$, el polinomio simétrico mínimo que contiene a $X_1^{e_1} \cdots X_n^{e_n}$ lo representamos por $(X_1^{e_1} \cdots X_n^{e_n})$, y podemos escribirlo fácilmente como  $$(X_1^{e_1} \cdots X_n^{e_n}) = \frac{1}{k}\sum_{\sigma\in S_n} X_{\sigma(1)}^{e_1} \cdots X_{\sigma(n)}^{e_n}$$ donde $k$ es el número de términos $X_{\sigma(1)}^{e_1} \cdots X_{\sigma(n)}^{e_n}$ que son iguales a $X_1^{e_1} \cdots X_n^{e_n}$.
+
 Calcula el valor de $k$, y el número de monomios de $(X_1^{e_1} \cdots X_n^{e_n})$.\\
 #+end_wording
 
@@ -2987,8 +3009,9 @@ de monomios de tipo $(X_1^{e_1} \cdots X_n^{e_n})$.\\
 *** Ejercicio 1.25
 
 #+begin_wording
-Se considera el polinomio $p(x)= x^3 - 5x - 5$ con raíces $\alpha,\beta,\gamma$. Calcula el 
-valor de $\left(\frac{1}{\alpha+1}\right)^3 + \left(\frac{1}{\beta+1}\right)^3 + \left(\frac{1}{\gamma+1}\right)^3$ \\
+Se considera el polinomio $p(x)= x^3 - 5x - 5$ con raíces $\alpha,\beta,\gamma$. 
+
+Calcula el valor de $\left(\frac{1}{\alpha+1}\right)^3 + \left(\frac{1}{\beta+1}\right)^3 + \left(\frac{1}{\gamma+1}\right)^3$ 
 #+end_wording
 
 $\frac{1}{\alpha+1}, \frac{1}{\beta+1}, \frac{1}{\gamma+1}$ anulan a $p(\frac{1}{x}-1)$ donde:
@@ -3324,7 +3347,7 @@ Por el primer ejercicio $X^{p}-t^{p}=(X-t)^p = Irr(t, \mathbb{F}_{p^2}(t^p))$, l
 *** Ejercicio 5.12
 
 #+begin_wording
-Sea $E$ un cuerpo y $\{\phi_1,\ldots, \phi_n\}$ un conjunto de $n$ automorfismos distintos de $E$. llamamos $K=\{e\in e| \phi_i(e)=e, 1\le i \le n\}$. demuestra que $[E:K]\ge n$
+Sea $E$ un cuerpo y $\{\phi_1,\ldots, \phi_n\}$ un conjunto de $n$ automorfismos distintos de $E$. Llamamos $K=\{e\in E| \phi_i(e)=e, 1\le i \le n\}$. Demuestra que $[E:K]\ge n$
 #+end_wording
 
 El teorema de Artin nos afirma que $[E:K]=n$
