@@ -298,6 +298,20 @@ Entonces $\exists \mathcal{M}\subseteq R$ *ideal primo* verificando:
 Y el ideal es maximal con estas dos condiciones (no tiene por qué ser maximal en $R$).
 #+end_theorem
 
+
+#+begin_proof
+Tomo $\Sigma = \{\beta \lneq R : \alpha \subseteq \beta, \beta \cap S = \emptyset\}$
+
+$\alpha \in \Sigma$, luego es no vacío y está ordenado por la inclusión.
+
+Sea $\beta_1 \subseteq \beta_2 \subseteq \ldots \subseteq \beta_n$ una cadena en $\Sigma$. Entonces $\gamma = \underset{i \ge 1} \beta_i$ es ideal de $R$ (al tener una cadena ascendente) que pertenece a $\Sigma$ por tenerse $\alpha \subseteq \beta_i, \forall i$ y $\gamma \cap S = \underset{i \ge 1} \cup (\beta_i \cap S) = \underset{i \ge 1} \cup \emptyset = \emptyset$. Luego por lema de Zorn existe un elemento maximal en $\Sigma$.
+
+
+Veamos que $\mathcal{M}$ es primo. Sean $x_1, x_2 \in R$ verificando $x_1 x_2 \in \mathcal{M}$ y supongamos que $x_i\notin \mathcal{M}$. Entonces $\mathcal{M} \subsetneq \mathcal{M} + (x_i)$. Entonces $[\mathcal{M} + (x_i)] \cap S \neq \emptyset$ ya que $\mathcal{M}$ era maximal en $\Sigma$.
+
+Esto último implica que $\exists s_1, s_2 \in S$ verificando $s_i = m_i + r_i x_i$ para algunos $m_i \in \mathcal{M}, r_i \in R$. Al multiplicar $st$ podemos comprobar que todos los sumandos están en $\mathcal{M}$, y $st \in S$ por ser $S$ multiplicativamente cerrado, luego $st \in S \cap \mathcal{M}$ que es contradicción.
+#+end_proof
+
 #+begin_corollary
 *Corolario, teorema de Krull*
 1. Sea $R$ anillo no trivial, $\alpha\le R, \alpha\neq R$. Entonces $\exists J\supseteq \alpha$ ideal maximal de $R$. Así, todo anillo tiene al menos un ideal maximal.
