@@ -413,36 +413,83 @@ Un anillo se dice reducido si su nilradical es nulo. En particular $R/Nil(R)$ es
 Sea $R$ anillo, $\alpha \le R$ entonces $\sqrt{\alpha} = \{x\in R: \exists n\in \mathbb{N}, x^n \in \alpha\}$
 #+end_definition
 
+
 #+begin_fact
 *Propiedades de radicales*
 
-1. $\sqrt{\alpha}$ es ideal de $R$ y $\sqrt{\alpha} = \bigcap_{\begin{array}{l}\Pi \in Spec(R)\\ \alpha \subset \Pi \end{array}} \Pi$
-2. $Nil(R/\alpha)= \sqrt{\alpha}/\alpha$
-3. $\alpha \subseteq \sqrt{\alpha}$
-4. $\sqrt{\alpha} = \bigcap_{\begin{array}{l}\Pi \in Spec(R)\\ \alpha \subset \Pi \end{array}} \Pi$
+1. $\sqrt{\alpha}$ es ideal de $R$.
+2. $Nil(R/\alpha)= \sqrt{\alpha}/\alpha$ y $\sqrt{\alpha} = \bigcap_{\begin{array}{l}\Pi \in Spec(R)\\ \alpha \subset \Pi \end{array}} \Pi$
+3. $\alpha \subseteq \sqrt{\alpha}$. Un ideal se dirá *ideal radical* si $\sqrt{\alpha} = \alpha$.
+4. Dos ideales $\alpha, \beta \le R$ son comaximales sii $\sqrt{\alpha} + \sqrt{\beta} = R$
 #+end_fact
 
-#+begin_fact
-*Caracterización de comaximalidad*
 
-$\alpha, \beta$ ideales de $R$. Entonces:
+#+begin_proof
+1. 
 
-\[\sqrt{\alpha} + \sqrt{\beta} = R \Leftrightarrow \alpha, \beta \quad comaximales\]
-#+end_fact
+Dados $x, y \in \sqrt{\alpha}$ entonces existen $n,m \in \mathbb{N}$ verificando $x^n \in \alpha, y^m \in \alpha$.
+
+Pero entonces $(x-y) \in \sqrt{\alpha}$ por:
+
+\begin{align*} 
+(x-y)^{n+m} &= \sum_{i=0}^{n+m} \binom{n+m}{i} x^i y^{n+m-i} = \\
+            &= \sum_{i=0}^{n} \binom{n+m}{i} x^i y^m\cdot y^{n-i} + \sum_{i=n+1}^{n+m} \binom{n+m}{i} x^n \cdot x^{i-n} y^{m+n-i} \in \alpha
+\end{align*}
+
+
+Además dado $r \in R$ entonces $(rx)^n = r^n x^n \in \alpha$ luego $rx\in \sqrt{\alpha}$. Esto prueba que $\sqrt{R} \le R$.
+
+2. 
+
+Tomamos $p: R \rightarrow R/\alpha$ la proyección sobre el anillo cociente. 
+
+Veamos que $p^{*}(Nil(R/\alpha)) = \sqrt{\alpha}$. Eso probaría, usando que $p$ es sobreyectiva que $Nil(R/\alpha) = \sqrt{\alpha}/\alpha$.
+
+Se tiene $x \in p^{*}(Nil(R/\alpha)) \Leftrightarrow p(x) = x + \alpha \in Nil(R/\alpha) \Leftrightarrow \exists n\ge 1 (x+\alpha)^n = x^n + \alpha = 0 + \alpha \Leftrightarrow \exists n\in \mathbb{N} : x^n \in \alpha$
+
+$\sqrt{\alpha} = p^{*}(Nil(R/\alpha)) = p^{*}(\underset{\alpha \subseteq \Pi, \Pi \in Spec(R)}{\cap} \Pi/\alpha) = \underset{\alpha \subseteq \Pi, \Pi \in Spec(R)}{\cap} p^{*}(\Pi/\alpha) = \underset{\alpha \subseteq \Pi, \Pi \in Spec(R)}{\cap} \Pi$
+
+
+3. 
+
+Dado $x\in \alpha$ entonces $x^1 = x \in \alpha$.
+
+4. 
+
+La implicación hacia la derecha es obvia usando $\alpha \subseteq \sqrt{\alpha}, \beta \subseteq \sqrt{\beta}$.
+
+Para la implicación hacia la izquierda existirían $x \in \sqrt{\alpha}, y \in \sqrt{\beta}$ verificando $x+y = 1$ y por tanto $\exists n,m \in \mathbb{N}$ tales que $x^n \in \alpha, y^m \in \beta$. Se puede probar desarrollando por binomio de Newton $1 = (x+y)^{n+m} \in \alpha + \beta$
+#+end_proof
+
 
 #+begin_definition
 *Radical de Jacobson*
 
 Sea $R$ anillo, entonces se define el radical de Jabobson como:
 
-\[J(R) = \bigcap_{\mathcal{M} maximal} \mathcal{M}\]
+\[J(R) = \bigcap_{\mathcal{M} \quad maximal} \mathcal{M}\]
 #+end_definition
+
+Veamos que es radical. El contenido $\sqrt{J(R)} \supseteq J(R)$ es trivial. Veamos que $\sqrt{J(R)} \subseteq J(R)$. Dado $x\in R : x^m \in \J(R)$ entonces $x^m \in \mathcal{M}$ para todo $\mathcal{M} \le $ ideal maximal. Usando que todo ideal maximal es primo entonces $x\in \mathcal{M}$ para todo $\mathcal{M} \le R$. Luego $x\in J(R)$.
 
 #+begin_fact
 *Caracterización de radicales de Jacobson*
 
-\[x\in J(R) \Leftrightarrow 1-xy \in U(R) \forall y\in R\]
+\[x\in J(R) \Leftrightarrow 1-xy \in U(R), \forall y\in R\]
 #+end_fact
+
+#+begin_proof
+
+Implicación hacia la derecha:
+
+Dado $x\in J(R)$ entonces $x\in \mathcal{M}$ para todo $\mathcal{M}$ maximal de $R$. Entonces $xy \in \mathcal{M}$ para todo $\mathcal{M}$ maximal de $R$ para cualquier $y\in R$.
+
+Si existiese $y \in R$ tal que $1-xy \notin U(R)$ entonces existiría $\mathcal{M}$ maximal (por consecuencia del teorema de Krull) tal que $1-xy \in \mathcal{M}$, pero $xy \in \mathcal{M}$ luego $1\in \mathcal{M}$ y $\mathcal{M}$ no sería maximal.
+
+Implicación hacia la izquierda:
+
+Si existiese $\mathcal{M}$ maximal tal que $x \notin \mathcal{M}$ entonces tendríamos $\mathcal{M} \subsetneq \mathcal{M} + (x) = R$. Por tanto $1 = m+xy$ con $m\in \mathcal{M}, y\in R$ y $m=1-xy \in \mathcal{M} \cap U(R) = \emptyset$
+#+end_proof
 
 *** Ideales cociente
 #+begin_definition
