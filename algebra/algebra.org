@@ -312,20 +312,31 @@ Veamos que $\mathcal{M}$ es primo. Sean $x_1, x_2 \in R$ verificando $x_1 x_2 \i
 Esto último implica que $\exists s_1, s_2 \in S$ verificando $s_i = m_i + r_i x_i$ para algunos $m_i \in \mathcal{M}, r_i \in R$. Al multiplicar $st$ podemos comprobar que todos los sumandos están en $\mathcal{M}$, y $st \in S$ por ser $S$ multiplicativamente cerrado, luego $st \in S \cap \mathcal{M}$ que es contradicción.
 #+end_proof
 
-#+begin_corollary
-*Corolario, teorema de Krull*
-1. Sea $R$ anillo no trivial, $\alpha\le R, \alpha\neq R$. Entonces $\exists J\supseteq \alpha$ ideal maximal de $R$. Así, todo anillo tiene al menos un ideal maximal.
-#+end_corollary
+#+begin_proof
+Aplicando el teorema anterior al caso $S=\{1\}$. El ideal $\mathcal{M}$ que obtenemos es maximal verificando que $1\neq \in \mathcal{M}$ y que $\alpha \subseteq \mathcal{M}$, luego es maximal el $R$.
+
+Aplicando el resultado recién probado al ideal $(0) \lneq R$ obtenemos que todo anillo tiene al menos un ideal maximal.
+#+end_proof
 
 #+begin_corollary
 Sea $R$ anillo no trivial y $x\in R$ *no unidad*. Entonces $\exists \mathcal{M}$ ideal maximal de $R$ verificando $x\in \mathcal{M}$.
 #+end_corollary
+
+#+begin_proof
+Trivial tomando como ideal $\alpha = (x)$ en el corolario anterior. Se verifica $I\neq R$ por ser $x$ no unidad.
+#+end_proof
 
 #+begin_fact
 *Intersección de ideales contenida en un primo*
 
 Sea $R$ anillo, $\alpha_1, \ldots \alpha_n$ ideales de $R$ y $\Pi$ ideal primo de $R$ tal que $\cap_{i=1}^n \alpha_i \subseteq \Pi$. Entonces $\exists i$ verificando $\alpha_i\subseteq \Pi$
 #+end_fact
+
+#+begin_proof
+Supongamos $\alpha_i \notsubset \Pi$ para ningún $i=1 \ldots n$. Entonces $\exists x_i \in \alpha_i : xi \notin \Pi \forall i=1 \ldots n$
+
+Sea $x_1 \cdots x_n \in \cap_{i=1}^n \alpha_i \subseteq \Pi$. Como $\Pi$ es ideal primo en un número finito de pasos demostramos que existe $i : x_i \in \Pi$, lo que es contradicción.
+#+end_proof
 
 #+begin_fact
 *Ideal contenido en unión de primos*
@@ -359,8 +370,36 @@ Se verifica:
 #+begin_definition
 *NilRadical*
 
-Se define el nilradical de un anillo $R$ como $Nil(R) = \{x\in R: x$ es nilpotente $\} = \cap_{\Pi\in Spec(R)\}$, donde $Spec(R)$ son los ideales primos de un anillo.
+Se define el nilradical de un anillo $R$ como $Nil(R) = \{x\in R: x$ es nilpotente $\}$, donde un elemento $x\in R$ es nilpotente si existe $m\in \mathbb{N}$ verificando $x^m = 0$.
 #+end_definition
+
+#+begin_fact
+Sea $R$ un anillo. Entonces $Nil(R)$ es ideal de $R$.
+#+end_fact
+
+#+begin_proof
+Dados $x,y \in Nil(R)$ se tiene que existen $n,m \in \mathbb{N}$ verificando $x^n = y^m = 0$.
+
+\begin{align*} 
+(x-y)^{n+m} &= \sum_{i=0}^{n+m} \binom{n+m}{i} x^i y^{n+m-i} = \\
+            &= \sum_{i=0}^{n} \binom{n+m}{i} x^i y^m\cdot y^{n-i} + \sum_{i=n+1}^{n+m} \binom{n+m}{i} x^n \cdot x^{i-n} y^{m+n-i} = 0
+\end{align*}
+
+#+end_proof
+
+#+begin_lemma
+*Caracterización de nilradical*
+
+Sea $R$ anillo. Entonces $Nil(R) = \cap_{\Pi\in Spec(R)\}$, donde $Spec(R)$ son los ideales primos de un anillo.
+#+end_lemma
+
+#+begin_proof
+Dado $x \in Nil(R)$ existe $n\in \mathbb{N}$ tal que $x^n = 0$
+
+Luego $x^n = 0 \in \Pi, \forall \Pi \in Spec(R)$. Entonces $x \in \Pi, \forall \Pi \in Spec(R)$ usando definición de ideal primo un número finito de veces. Hemos probado $Nil(R) \subseteq \underset{\Pi \in Spec(R)}{\cap} \Pi$
+
+Sea $x \notin Nil(R)$ y $S = \{1, x, x^2, \ldots x^n \}$. $S$ es multiplicativamente cerrado y se cumple $S \cap Nil(R) = \emptyset$. Luego por teorema de Krull existe $\Pi \in Spec(R)$ verificando $Nil(R) \subseteq \Pi$ y $\Pi \cap S = \emptyset$. Luego $x\notin \Pi$ y $x\notin \underset{\Pi \in Spec(R)}{\cap} \Pi$. Esto prueba el otro contenido.
+#+end_proof
 
 #+begin_definition
 *Anillo reducido*
