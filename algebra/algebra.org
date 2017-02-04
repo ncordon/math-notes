@@ -748,17 +748,19 @@ Diremos que es *monótono* si 0 es mínimo en $\mathbb{N}^n$
 Diremos que un orden es *monomial* si es compatible, total y monótono.
 #+end_definition
 
+No todo orden total en $\mathbb{N}^n$ es compatible o monótono. Como ejemplo podemos poner, en $\mathbb{N}^2$:
+
+\[(a,b) \le^{*} \Leftrightarrow \left\{\begin{array}{ll}
+a=1, b=0\\
+\vee \\
+a\neq 1, b\neq 0, c\neq 1, d\neq 0, (a,b)\le_{lex} (c,d)
+\end{array}\right.\]
 
 Definimos el *orden producto* como:
 #+begin_definition
 Si $\alpha, \beta \in \mathbb{N}^n$ entonces $\alpha \le_{pr} \beta$ sii $\alpha_i \le \beta_i$ para todo $i$.
 #+end_definition
 
-#+begin_theorem
-*Relación entre el orden producto y los órdenes monomiales*
-
-Si $\alpha, \beta \in \mathbb{N}^n$ verifican que $\alpha \le_{pr} \beta$ entonces $\alpha \le \beta$ para $\le$ un orden monomial
-#+end_theorem
 
 #+begin_fact
 *Relación entre órdenes monomiales y orden producto*
@@ -830,11 +832,12 @@ a $G$ lo llamamos sistema de generadores de $E$.
 
 
 #+begin_fact
-*Unicidad de base*
+*Unicidad de sistema de generadores de monoideal*
 
 Sean $G, G'$ 2 sistemas de generadores minimales de un monoideal $E\subseteq \mathbb{N}^n$. Entonces $G=G'$
 #+end_fact
 
+Fijamos en lo que sigue un orden monomial en $\mathbb{N}^n$
 
 #+begin_definition
 Sea $F= \sum_{\alpha \in \mathbb{N}^n} a_{\alpha} X^{\alpha} \in K[X_1, \ldots, X_n] \qquad F\neq 0$
@@ -858,7 +861,7 @@ Sean $\{\alpha_1, \ldots, \alpha_t\} \subseteq \mathbb{N}^n$, notamos:
 \Delta^2 := (\alpha_2 + \mathbb{N}^n) \setminus \Delta^1\\
 \Delta^3 := (\alpha_3 + \mahtbb{N}^n) \setminus (\Delta^1 \cup \Delta^2)\\
 \vdots\\
-\Delta^t := (\alpha_t + \mathbb{N}^n) \setminus (\cup_{i<t} \Delta^i\\
+\Delta^t := (\alpha_t + \mathbb{N}^n) \setminus \cup_{i<t} \Delta^i\\
 \bar{\Delta} := \mathbb{N}^n\setminus \cup_{i\le t} \Delta^i
 \end{align*}
 
@@ -888,6 +891,41 @@ Para cada $F\in K[X_1, \ldots X_n], F\neq 0$, existen únicos $Q_1 \ldots Q_t, R
 2. $R=0$ o $N(R) \subseteq \bar{\Delta}$
 3. $exp(G_i) + N(Q_i) \subset \Delta^i$ para cada $i=1 \ldots t$
 #+end_theorem
+
+#+begin_proof
+Procedemos por inducción sobre $exp(F)$. Supongamos $exp(F) = (0,\ldots 0)\in \mathbb{N}^n$. Entonces $F=a\in K$ con $a\neq 0$. Caben dos posibilidades excluyentes:
+
+a. $exp(F) = 0 \in \Delta^i$ para algún $i$
+b. $exp(F) = 0 \in \bar{\Delta}$
+
+Si estamos en la posibilidad a. existe $\gamma\in \mathbb{N}^n$ tal que $0 \le \exp(G_i) + \gamma = 0$ luego $\gamma = 0$ y $exp(G_i) = 0$. Podemos tomar $Q_i = a/G_i$, $Q_j = 0$ )ya que $G_i$ es no nulo) para todo $j\neq i$ y $R=0$.
+
+Si estamos en la posibilidad b. tomamos $R=F$ y $Q_i = 0$ para todo $i=1, \ldots t$.
+
+Supongamos $exp(F) > 0$ y el resultado cierto para todo $G\neq 0, G\in K[x_1, \ldots X_n]$ con $exp(G) < exp(F)$. De nuevo hay dos posibilidades.
+
+a. $exp(F) = \in \Delta^i$ para algún $i$
+b. $exp(F) = \in \bar{\Delta}$
+
+Si ocurre a. existe $\gamma \in \mathbb{N}^n$ verificando $exp(F) = exp(G_i) + \gamma$ Tomamos $H=X^\gamma G_i$ y $F_1 = F - \frac{cl(F)}{cl(H)} X^{\gamma} G_i$ por tanto $exp(F_1) < exp(F). Aplicando hipótesis de inducción:
+
+$F_1 = \sum_{i=1}^t Q_i' G_i + R'$ donde los $Q_i'$ y $R$ verifican las hipótesis ii. y iii. del teorema.
+
+Entonces $F = \sum_{i=1}^t Q_i G_i + R'$ donde $Q_j = Q_j', j\neq i$ y $Q_i = Q_i' + \frac{cl(F)}{cl(H)} X^{\lambda}$
+
+Por tanto sólo nos queda comprobar que se cumple la hipótesis ii. para $Q_i$.
+
+$exp(G_i) + N(Q_i) = exp(G_i) + (N(Q_i')\cup \{\lambda}) = \Big(exp(G_i) + N(Q_i')\Big) \cup \Big(exp(G_i) + \lambda \Big) \subseteq \Delta^i$
+
+En el caso b. tomo $F_1 = F - tl(F)$ y por hipótesis de inducción:
+
+$F_1  =\sum_{i=1}^t Q_i' G_i + R'$ donde $\{Q_1', \ldots Q_t'\}$ verifican las hipótesis ii. y iii. del teorema. Así $F = \sum_{i=1}^t Q_i' + R' + tl(F)$ donde $N(R' + tl(F)) \subseteq N(R') \cup \{exp(F)\} \subseteq \bar{\Delta}$
+
+
+Veamos la unicidad. Supongamos existen $Q_i, Q_i', R, R'$ verificando las hipótesis. Restando las dos expresiones de $F$ tendríamos:
+
+$0 = \sum_{i=1}^t (Q_i - Q_i') G_i + (R-R') \Leftrightarrow R' = \sum_{i=1}^t (Q_i - Q_i') G_i + R$. Si alguno de los $(Q_i - Q_i')$ fuese no nulos tendríamos $exp(R') \subseteq \cup_{i=1}^t \Delta^i$ (estamos usando que los $\Delta^i$ son disjuntos y por ello $exp \left(\sum_{i=1}^t (Q_i - Q_i')G_i \right) = max\{exp(G_i) + exp(Q_i-Q_i')\}$. Pero por otro lado $N(R') \subseteq \bar{\Delta}$ y esto entra en contradicción con $exp(R') \subseteq \cup_{i=1}^t \Delta^i$
+#+end_proof
 
 *** Bases de Groebner
 
