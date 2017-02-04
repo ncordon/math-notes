@@ -815,7 +815,19 @@ Se verifica:
 Sea $S \subseteq \mathbb{N}^n$, $S\neq \emptyset$. Etnonces $\exists G\subseteq S$ finito verificando que $S\subseteq (G + \mathbb{N}^n)$
 #+end_lemma
 
+#+begin_proof
+Por inducción sobre $n$. Si $n=1$ es trivial. Supuesto que el resultado se verifica hasta $n-1$, y dado $S\subseteq \mathbb{N}^n$
 
+Tomo $y=(y_1, \ldots y_n) \in S$ y llamamos $S_{ij} = \{(x_1, \ldots x_n) \in S : x_i = j\}$ para $j=0, \ldots y_{i-1}$
+
+Veamos $S = \{y\} \cup_{ij} S_{ij} + \mathbb{N}^n$.
+
+Dado $(x_1, \ldots x_n) \in S, x\notin y \mathbb{N}^n$ entonces existe $i: x_i < y_i$ y por tanto $x\in S_{i x_i}$.
+
+LLamo $S_{ij}' = \{(x_1, \ldots, x_{j-1}, x_{j+1}, \ldots x_n) : (x_1, \ldots j, \ldots x_n) \in S_{ij}\}$. Por hipótesis de inducción existe $G_{ij}' \in \mathbb{N}^{n-1}$ finito verificando $S_{ij}' \subseteq G_{ij}' + \mathbb{N}^n$. Por tanto llamando $G_{ij} = \{(x_1, \ldots x_{j-1}, j, x_{j}, \ldots x_{n-1}) : (x_1, \ldots, x_{n-1}) \in G_{ij}\}$ se tiene $S_{ij} \subseteq G_{ij} + \mathbb{N}^n$ con $G_{ij}$ finito por serlo $G_{ij}'$.
+
+Podemos tomar $G = \{y\} \cup_{ij} G_{ij}$ y tenemos el resutlado buscado.
+#+end_proof
 
 #+begin_fact
 *Todo orden monomial en $\mathbb{N}^n$ es un buen orden*
@@ -837,6 +849,12 @@ a $G$ lo llamamos sistema de generadores de $E$.
 Sean $G, G'$ 2 sistemas de generadores minimales de un monoideal $E\subseteq \mathbb{N}^n$. Entonces $G=G'$
 #+end_fact
 
+#+begin_proof
+Supongamos $G\neq G'$. Entonces tomando $\beta \in G$, $\beta \notin G'$ se tiene que $\exists \alpha \in G'$ con $\beta = \alpha + \gamma$, $\gamma > 0$ por ser $\beta \notin G'$. Pero $\alpha = \delta + \theta$ con $\delta \in G$. 
+
+En definitiva hemos probado: $\beta = \delta + \gamma + \theta$. con $\beta, \delta \in G$ y $\gamma > 0$, lo que contradice el hecho de que $G$ es minimal.
+#+end_proof
+
 Fijamos en lo que sigue un orden monomial en $\mathbb{N}^n$
 
 #+begin_definition
@@ -844,7 +862,7 @@ Sea $F= \sum_{\alpha \in \mathbb{N}^n} a_{\alpha} X^{\alpha} \in K[X_1, \ldots, 
 
 Llamamos:
 
-- *Diagrama de Newton: $N(F) := \{\alpha \in \mathbb{N}^n : a_{\alpha} \neq 0\}$
+- *Diagrama de Newton*: $N(F) := \{\alpha \in \mathbb{N}^n : a_{\alpha} \neq 0\}$
 - *Exponente*: $exp(F) := max\{\alpha : \alpha \in N(F)\}$
 - *Grado total*: $grtotal(F) := max\{|\alpha| : \alpha\in N(F)\}$
 - *Coef líder*: $cl(F) := a_{exp(F)}$
