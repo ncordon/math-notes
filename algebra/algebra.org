@@ -230,7 +230,7 @@ Sea $R$ un anillo. Un ideal $\Pi$ de $R$ diremos que es primo si $\Pi\neq R$ y s
 #+begin_definition
 *Ideal maximal*
 
-Un ideal $\Pi$ de $R$ diremos que es maximal si $\Pi\neq R$y es un elementomaximal del retículo de ideales del anillo $R$ (con la inclusión)
+Un ideal $\mathcal{M}$ de $R$ diremos que es maximal si $\mathcal{M}\neq R$ y es un elemento maximal del retículo de ideales del anillo $R$ (con la inclusión)
 #+end_definition
 
 #+begin_theorem
@@ -255,14 +255,13 @@ Sean $x,y \in R$ con $xy \in \Pi$. Entonces $(x+\Pi)(y+\Pi) = xy + \Pi = \Pi$ po
 
 $\Longrightarrow$
 
-Dado $x \in R\setminus \mathcal{M}$ entonces $\mathcal{M} \subset (x) + \mathcal{M}$ estrictamente. Luego $(x) + \mathcal{M} = R$ y entonces $(x) \cap \mathcal{M} = R$ luego $(x) = R$ y existe el inverso de $x$, ya que $1 \in (x)$. Luego $(x+ \mathal{M}) (x^{-1} + \mathcal{M}) = (xx^{-1} + \mathcal{M}) = R$ y $R/\mathcal{M}$ es cuerpo.
+Dado $x \in R\setminus \mathcal{M}$ entonces $\mathcal{M} \subset (x) + \mathcal{M}$ estrictamente. Luego $(x) + \mathcal{M} = R$ y entonces $rx + m = 1$. Luego $(x+ \mathal{M}) (r + \mathcal{M}) = (1 + \mathcal{M}) = R$ y $R/\mathcal{M}$ es cuerpo.
 
 $\Longleftarrow$
 
 Sea $I$ ideal verificando que $\mathcal{M} \subset I$ propiamente, y sea $x\in I\setminus \mathcal{M}$
 
-Dado $(x + \mathcal{M})$ existe su iverso en $R/\mathcal{M}$ de modo que $(x+\mathcal{M})(y+\mathcal{M}) = R$. Luego $(xy) = R$ y debe existir $r\in R: rxy = (ry)x = 1$ 
-Luego $1 \in I$ y por tanto $I = R$ y $\mathcal{M}$ es maximal.
+Dado $(x + \mathcal{M})$ existe su iverso en $R/\mathcal{M}$ de modo que $(x+\mathcal{M})(y+\mathcal{M}) = xy + \mathcal{M} = R$. Luego $xy+ m =1$ y $xy + m = 1 \subseteq I$ por lo que $I=R$
 #+end_proof
 
 #+begin_fact
@@ -304,7 +303,7 @@ Tomo $\Sigma = \{\beta \lneq R : \alpha \subseteq \beta, \beta \cap S = \emptyse
 
 $\alpha \in \Sigma$, luego es no vacío y está ordenado por la inclusión.
 
-Sea $\beta_1 \subseteq \beta_2 \subseteq \ldots \subseteq \beta_n$ una cadena en $\Sigma$. Entonces $\gamma = \underset{i \ge 1} \beta_i$ es ideal de $R$ (al tener una cadena ascendente) que pertenece a $\Sigma$ por tenerse $\alpha \subseteq \beta_i, \forall i$ y $\gamma \cap S = \underset{i \ge 1} \cup (\beta_i \cap S) = \underset{i \ge 1} \cup \emptyset = \emptyset$. Luego por lema de Zorn existe un elemento maximal en $\Sigma$.
+Sea $\beta_1 \subseteq \beta_2 \subseteq \ldots \subseteq \beta_n$ una cadena en $\Sigma$. Entonces $\gamma = \underset{i \ge 1}{\cup} \beta_i$ es ideal de $R$ (al tener una cadena ascendente) que pertenece a $\Sigma$ por tenerse $\alpha \subseteq \beta_i, \forall i$ y $\gamma \cap S = \underset{i \ge 1} \cup (\beta_i \cap S) = \underset{i \ge 1} \cup \emptyset = \emptyset$. Luego por lema de Zorn existe un elemento maximal en $\Sigma$.
 
 
 Veamos que $\mathcal{M}$ es primo. Sean $x_1, x_2 \in R$ verificando $x_1 x_2 \in \mathcal{M}$ y supongamos que $x_i\notin \mathcal{M}$. Entonces $\mathcal{M} \subsetneq \mathcal{M} + (x_i)$. Entonces $[\mathcal{M} + (x_i)] \cap S \neq \emptyset$ ya que $\mathcal{M}$ era maximal en $\Sigma$.
@@ -390,7 +389,7 @@ Dados $x,y \in Nil(R)$ se tiene que existen $n,m \in \mathbb{N}$ verificando $x^
 #+begin_lemma
 *Caracterización de nilradical*
 
-Sea $R$ anillo. Entonces $Nil(R) = \cap_{\Pi\in Spec(R)\}$, donde $Spec(R)$ son los ideales primos de un anillo.
+Sea $R$ anillo. Entonces $Nil(R) = \cap_{\Pi\in Spec(R)}\Pi$, donde $Spec(R)$ son los ideales primos de un anillo.
 #+end_lemma
 
 #+begin_proof
@@ -398,7 +397,7 @@ Dado $x \in Nil(R)$ existe $n\in \mathbb{N}$ tal que $x^n = 0$
 
 Luego $x^n = 0 \in \Pi, \forall \Pi \in Spec(R)$. Entonces $x \in \Pi, \forall \Pi \in Spec(R)$ usando definición de ideal primo un número finito de veces. Hemos probado $Nil(R) \subseteq \underset{\Pi \in Spec(R)}{\cap} \Pi$
 
-Sea $x \notin Nil(R)$ y $S = \{1, x, x^2, \ldots x^n \}$. $S$ es multiplicativamente cerrado y se cumple $S \cap Nil(R) = \emptyset$. Luego por teorema de Krull existe $\Pi \in Spec(R)$ verificando $Nil(R) \subseteq \Pi$ y $\Pi \cap S = \emptyset$. Luego $x\notin \Pi$ y $x\notin \underset{\Pi \in Spec(R)}{\cap} \Pi$. Esto prueba el otro contenido.
+Sea $x \notin Nil(R)$ y $S = \{1, x, x^2, \ldots x^n \ldots \}$. $S$ es multiplicativamente cerrado y se cumple $S \cap Nil(R) = \emptyset$. Luego por teorema de Krull existe $\Pi \in Spec(R)$ verificando $Nil(R) \subseteq \Pi$ y $\Pi \cap S = \emptyset$. Luego $x\notin \Pi$ y $x\notin \underset{\Pi \in Spec(R)}{\cap} \Pi$. Esto prueba el otro contenido.
 #+end_proof
 
 #+begin_definition
@@ -445,9 +444,9 @@ Tomamos $p: R \rightarrow R/\alpha$ la proyección sobre el anillo cociente.
 
 Veamos que $p^{*}(Nil(R/\alpha)) = \sqrt{\alpha}$. Eso probaría, usando que $p$ es sobreyectiva que $Nil(R/\alpha) = \sqrt{\alpha}/\alpha$.
 
-Se tiene $x \in p^{*}(Nil(R/\alpha)) \Leftrightarrow p(x) = x + \alpha \in Nil(R/\alpha) \Leftrightarrow \exists n\ge 1 (x+\alpha)^n = x^n + \alpha = 0 + \alpha \Leftrightarrow \exists n\in \mathbb{N} : x^n \in \alpha$
+Se tiene $x \in p^{*}(Nil(R/\alpha)) \Leftrightarrow p(x) = x + \alpha \in Nil(R/\alpha) \Leftrightarrow \exists n\ge 1 : (x+\alpha)^n = x^n + \alpha = 0 + \alpha \Leftrightarrow \exists n\in \mathbb{N} : x^n \in \alpha$
 
-$\sqrt{\alpha} = p^{*}(Nil(R/\alpha)) = p^{*}(\underset{\alpha \subseteq \Pi, \Pi \in Spec(R)}{\cap} \Pi/\alpha) = \underset{\alpha \subseteq \Pi, \Pi \in Spec(R)}{\cap} p^{*}(\Pi/\alpha) = \underset{\alpha \subseteq \Pi, \Pi \in Spec(R)}{\cap} \Pi$
+$\sqrt{\alpha} = p^{*}(Nil(R/\alpha)) = p^{*}(\underset{\Pi \in Spec(R)}{\cap} \Pi/\alpha) = \underset{\Pi \in Spec(R)}{\cap} p^{*}(\Pi/\alpha) = \underset{\alpha \subseteq \Pi, \Pi \in Spec(R)}{\cap} \Pi$
 
 
 3. 
@@ -555,13 +554,13 @@ p_j:\prod_{i=1}^n R_i \rightarrow R_j \qquad p_j(x_1,\ldots x_n) = x_j\\
 u_j: R_j \rightarrow \prod
 ** Tema 2: Variedades algebraicas
 *** Variedades algebraicas
-Sea $K$ cuerpo, $\mathbb{A}^n(K)$ espacio afín definido sobre $K^n$ con la función usual $(u,v) \mapsto v-u$. A partir de un polinomio $F\in K[X_1, \ldots X_n]$ definimos la función:
+Sea $K$ cuerpo, $\mathbb{A}^n(K)$ espacio afín definido sobre $K^n$ con la función afín usual $(u,v) \mapsto v-u$. A partir de un polinomio $F\in K[X_1, \ldots X_n]$ definimos la función:
 
 \[F^{\ast}: \mathbb{A}^n (K) \rightarrow K \qquad F^{\ast}(a_1, \ldots a_n) = F(a_1, \ldots a_n)\]
 
 A esta función la llamamos función polinómica y $P(\mathbb{A}^n (K))$ denota el conjunto de funciones polinómicas. Es una $K$ álgebra con las operaciones usuales.
 
-Se tiene que $\Delta : K[X_1, \ldots X_n] \rightarrow P(\mathbb{A}^n (K))$ es un homomorfismo de $K$ álgebras sobreyectivo, no inyectivo en general.
+Se tiene que $\Delta : K[X_1, \ldots X_n] \rightarrow P(\mathbb{A}^n (K))$, $\Delta(F) = F^{*}$ es un homomorfismo de $K$ álgebras sobreyectivo, no inyectivo en general.
 
 #+begin_fact
 Sea $K$ cuerpo infinito. Se verifica:
@@ -589,9 +588,21 @@ Si $\mathcal{F}_1 \subset \mathcal{F}_2$ entonces $\mathbb{V} (F_2) \supset \mat
 #+begin_fact
 Sea $\mathcal{F} \subseteq K[X_1, \ldots X_n]$ y sea $J = (\mathcal{F})$ el ideal generado por $\mathbb{F}$. Entonces:
 
-1. $\mathbb{V}(F) = \mathbb{V}(J)$
+1. $\mathbb{V}(\mathcal{F}) = \mathbb{V}(J)$
 2. $\exists F_1, \ldots F_t \in \mathcal{F}$ tal que $\mathbb{V}(\mathcal{F}) = \mathbb{V}(F_1, \ldots F_t)$ 
 #+end_fact
+
+#+begin_proof
+1. 
+
+$\mathbb{V}(\mathcal{F}) \supseteq \mathbb{V}(J)$ trivialemnte.
+
+Sea ahora $a\in \mathbb{V}(F)$, es decir $F(a) = 0, \forall F\in \mathcal{F}$. Sea $G\in J$. Entonces existen $F_1, \ldots F_r \in \mathcal{F}, G_1, \ldots G_r \in K[X_1, \ldots X_n]$ verificando $G=\sum_{i=1}^r F_i G_i$  y por tanto $G(a)=\sum_{i=1}^r F_i(a) G_i(a) = 0$. Luego $a \in \mathbb{V}(J)$.
+
+2.
+
+Todo ideal de un anillo de polinomios es finitamente generado según *Teorema de la base de Hilbert* y el apartado primero nos da el resultado buscado.
+#+end_proof
 
 #+begin_fact
 Se verifica:
@@ -642,12 +653,52 @@ Podemos establecer una relación entre $\{V \subseteq \mathbb{A}^n (K)$ variedad
 Sea $K$ cuerpo algebraicamente cerrado, $J$ ideal de $K[X_1, \ldots X_n]$. Entonces:
 
 \[\mathbb{I} \mathbb{V} (J) = \sqrt{J}\]
+#+end_theorem
 
 #+begin_corollary
 Sea $K$ cuerpo algebraicamente cerrado. Entonces existe una correspondencia biyectiva entre el retículo de las variedades algebraicas afines de $\mathbb{A}^n (K)$ y el retículo de ideales de polinomios que son variedades.
 
 \[\{V \subseteq \mathbb{A}^n (K) \quad variedad \} \leftrightarrow\{J \subseteq K[X_1, \ldots X_n] : J = \sqrt{J}\}\]
 #+end_corollary
+
+
+#+begin_definition
+*Aplicación polinómica*
+
+Sean $V \subseteq \mathbb{A}^n(K), W \subseteq \mathbb{A}^m(K)$ variedades algebraicas afines. Una aplicación polinómica de $V$ en $W$ es una aplicación $f : V \rightarrow W$ tal que existen $F_1, \ldots F_m \in K[X_1, \ldots X_n]$ de forma $f(a) = \big(F_1(a), \ldots F_m(a)\big), \forall a \in V$
+
+Se dice isomorfismo si existe otra aplicación polinómica $f : W \rightarrow V$ verificando $g \circ f = id$ y $f \circ g = id$
+#+end_definition
+
+
+#+begin_definition
+*Anillo de coordenadas*
+
+Sea $V \subseteq \mathbb{A}^n (K)$ v.a. afín. Definimos el anillo de coordenadas de $V$ como:
+
+\[K[V] := K[X_1, \ldots X_n]/\mathbb{I}(V)\]
+#+end_definition
+
+Si $K$ es infinito entonces $\mathbb{I}(\mathbb{A}^n (K)) = 0$ y por tanto el anillo de coordenadas de $\mathbb{A}^n(K)$ es $K[\mathbb{A}^n (K)] = K[X_1, \ldots X_n]$.
+
+
+#+begin_fact
+Sean $V\subseteq \mathbb{A}^n(K), W\subseteq \mathbb{A}^n (K)$ variedades algebraicas afines.
+
+1. Toda aplicación polinómica $f : V\rightarrow W$ define un homomofismo de $K$ álgebras entre los anillos de coordenadas $K[W], K[V]$, $\bar{f} : K[W] \rightarrow K[V]$.
+2. Para cada homomorfismo de $K$ álgebras $h: K[W] \rightarrow K[V]$ existe una única aplicación polinómica $f: V\rightarrow W$ tal que $\bar{f} = h$
+3. Si tenemos dos aplicaciones polinómicas $f:V_1 \rightarrow V_2$, $g: V_2 \rightarrow V_3$ entonces se verifica $\overline{g \circ f} = \bar{f} \circ \bar{g}$
+4. $f : V\rightarrow W$ aplicación polinómica es isomorfismo sii $\bar{f} : K[W] \rightarrow K[V]$ es isomorfismo de $K$ álgebras.
+#+end_fact
+
+Nótese que no toda aplicación polinómica biyectiva es isomorfismo. Como ejemplo:
+
+\[f : \mathbb{A}(K) \rightarrow \mathbb{V}(X^3 - Y^2) \subset \mathbb{A}^2(K), \quad f(a) = (a^2, a^3)\]
+
+Pero $\bar{f} : K[X,Y]/(X^3 - Y^2) \rightarrow K[T]$ dada por $\bar{f}(X + (X^3 - Y^2)) = T^2, \quad \bar{f}(Y + (X^3 - Y^2)) = T^3$ no define un isomorfismo porque $T\notin Img(\bar{f})$.
+
+
+
 
 ** Tema 3: Bases de Groebner y algoritmos básicos
 *** R-módulos
@@ -944,7 +995,6 @@ Veamos la unicidad. Supongamos existen $Q_i, Q_i', R, R'$ verificando las hipót
 
 $0 = \sum_{i=1}^t (Q_i - Q_i') G_i + (R-R') \Leftrightarrow R' = \sum_{i=1}^t (Q_i - Q_i') G_i + R$. Si alguno de los $(Q_i - Q_i')$ fuese no nulos tendríamos $exp(R') \subseteq \cup_{i=1}^t \Delta^i$ (estamos usando que los $\Delta^i$ son disjuntos y por ello $exp \left(\sum_{i=1}^t (Q_i - Q_i')G_i \right) = max\{exp(G_i) + exp(Q_i-Q_i')\}$. Pero por otro lado $N(R') \subseteq \bar{\Delta}$ y esto entra en contradicción con $exp(R') \subseteq \cup_{i=1}^t \Delta^i$
 #+end_proof
-
 *** Bases de Groebner
 
 #+begin_definition
