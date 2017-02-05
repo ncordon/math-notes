@@ -582,11 +582,11 @@ Un subconjunto $V\subseteq A^n (K)$ diremos que es una variedad algebraica afín
 #+end_definition
 
 #+begin_lemma
-Si $\mathcal{F}_1 \subset \mathcal{F}_2$ entonces $\mathbb{V} (F_2) \supset \mathbb{V} (F_1)$
+Si $\mathcal{F}_1 \subset \mathcal{F}_2$ entonces $\mathbb{V} (\mathcal{F}_2) \supset \mathbb{V} (\mathcal{F}_1)$
 #+end_lemma
 
 #+begin_fact
-Sea $\mathcal{F} \subseteq K[X_1, \ldots X_n]$ y sea $J = (\mathcal{F})$ el ideal generado por $\mathbb{F}$. Entonces:
+Sea $\mathcal{F} \subseteq K[X_1, \ldots X_n]$ y sea $J = (\mathcal{F})$ el ideal generado por $\mathcal{F}$. Entonces:
 
 1. $\mathbb{V}(\mathcal{F}) = \mathbb{V}(J)$
 2. $\exists F_1, \ldots F_t \in \mathcal{F}$ tal que $\mathbb{V}(\mathcal{F}) = \mathbb{V}(F_1, \ldots F_t)$ 
@@ -608,7 +608,7 @@ Todo ideal de un anillo de polinomios es finitamente generado según *Teorema de
 Se verifica:
 
 1. Sea $\{J_{\lambda}\}_{\lambda \in \Delta}$ una familia de ideales de $K[X_1, \ldots X_n]$. Entonces $\mathbb{V}(\sum_{\lambda \in \Delta} J_{\lambda}) = \bigcap_{\lambda \in \Delta} \mathbb{V} (J_{\lambda})$
-2. Sean $J_1, J_2 \subseteq K[X_1, \ldots X_n]$. Entonces $\mathbb{V}( J_1 J_2 ) = \mathbb{V} (J_1) \mathbb{V} (J_2) = \mathbb{V} (J_1 \cap J_2)$
+2. Sean $J_1, J_2 \subseteq K[X_1, \ldots X_n]$. Entonces $\mathbb{V}( J_1 J_2 ) = \mathbb{V} (J_1) \cup \mathbb{V} (J_2) = \mathbb{V} (J_1 \cap J_2)$
 3. $\mathbb{V}(0) = \mathbb{A}^n (K)$, y $\mathbb{V} (K[X_1, \ldots X_n]) = \emptyset$
 #+end_fact
 
@@ -661,6 +661,7 @@ Sea $K$ cuerpo algebraicamente cerrado. Entonces existe una correspondencia biye
 \[\{V \subseteq \mathbb{A}^n (K) \quad variedad \} \leftrightarrow\{J \subseteq K[X_1, \ldots X_n] : J = \sqrt{J}\}\]
 #+end_corollary
 
+*** Aplicaciones polinómicas
 
 #+begin_definition
 *Aplicación polinómica*
@@ -696,9 +697,6 @@ Nótese que no toda aplicación polinómica biyectiva es isomorfismo. Como ejemp
 \[f : \mathbb{A}(K) \rightarrow \mathbb{V}(X^3 - Y^2) \subset \mathbb{A}^2(K), \quad f(a) = (a^2, a^3)\]
 
 Pero $\bar{f} : K[X,Y]/(X^3 - Y^2) \rightarrow K[T]$ dada por $\bar{f}(X + (X^3 - Y^2)) = T^2, \quad \bar{f}(Y + (X^3 - Y^2)) = T^3$ no define un isomorfismo porque $T\notin Img(\bar{f})$.
-
-
-
 
 ** Tema 3: Bases de Groebner y algoritmos básicos
 *** R-módulos
@@ -980,20 +978,19 @@ Si ocurre a. existe $\gamma \in \mathbb{N}^n$ verificando $exp(F) = exp(G_i) + \
 
 $F_1 = \sum_{i=1}^t Q_i' G_i + R'$ donde los $Q_i'$ y $R$ verifican las hipótesis ii. y iii. del teorema.
 
-Entonces $F = \sum_{i=1}^t Q_i G_i + R'$ donde $Q_j = Q_j', j\neq i$ y $Q_i = Q_i' + \frac{cl(F)}{cl(H)} X^{\lambda}$
+Entonces $F = \sum_{i=1}^t Q_i G_i + R'$ donde $Q_j = Q_j', j\neq i$ y $Q_i = Q_i' + \frac{cl(F)}{cl(H)} X^{\gamma}$
 
 Por tanto sólo nos queda comprobar que se cumple la hipótesis ii. para $Q_i$.
 
-$exp(G_i) + N(Q_i) = exp(G_i) + (N(Q_i')\cup \{\lambda}) = \Big(exp(G_i) + N(Q_i')\Big) \cup \Big(exp(G_i) + \lambda \Big) \subseteq \Delta^i$
+$exp(G_i) + N(Q_i) = exp(G_i) + (N(Q_i')\cup \{\gamma\}) = \Big(exp(G_i) + N(Q_i')\Big) \cup \Big(exp(G_i) + \gamma \Big) \subseteq \Delta^i$
 
 En el caso b. tomo $F_1 = F - tl(F)$ y por hipótesis de inducción:
 
-$F_1  =\sum_{i=1}^t Q_i' G_i + R'$ donde $\{Q_1', \ldots Q_t'\}$ verifican las hipótesis ii. y iii. del teorema. Así $F = \sum_{i=1}^t Q_i' + R' + tl(F)$ donde $N(R' + tl(F)) \subseteq N(R') \cup \{exp(F)\} \subseteq \bar{\Delta}$
-
+$F_1  =\sum_{i=1}^t Q_i' G_i + R'$ donde $\{Q_1', \ldots Q_t'\}$ verifican las hipótesis ii. y iii. del teorema. Así $F = \sum_{i=1}^t Q_i'G_i + R' + tl(F)$ donde $N(R' + tl(F)) \subseteq N(R') \cup \{exp(F)\} \subseteq \bar{\Delta}$
 
 Veamos la unicidad. Supongamos existen $Q_i, Q_i', R, R'$ verificando las hipótesis. Restando las dos expresiones de $F$ tendríamos:
 
-$0 = \sum_{i=1}^t (Q_i - Q_i') G_i + (R-R') \Leftrightarrow R' = \sum_{i=1}^t (Q_i - Q_i') G_i + R$. Si alguno de los $(Q_i - Q_i')$ fuese no nulos tendríamos $exp(R') \subseteq \cup_{i=1}^t \Delta^i$ (estamos usando que los $\Delta^i$ son disjuntos y por ello $exp \left(\sum_{i=1}^t (Q_i - Q_i')G_i \right) = max\{exp(G_i) + exp(Q_i-Q_i')\}$. Pero por otro lado $N(R') \subseteq \bar{\Delta}$ y esto entra en contradicción con $exp(R') \subseteq \cup_{i=1}^t \Delta^i$
+$0 = \sum_{i=1}^t (Q_i - Q_i') G_i + (R-R') \Leftrightarrow R'-R = \sum_{i=1}^t (Q_i - Q_i') G_i + R$. Si alguno de los $(Q_i - Q_i')$ fuese no nulos tendríamos $exp(R'-R) \subseteq \cup_{i=1}^t \Delta^i$ (estamos usando que los $\Delta^i$ son disjuntos y $exp(G_i) + N(Q_i - Q_i') \subseteq exp(G_i) + N(Q_i)\cup N(Q_i') \subseteq \Delta^i$ y por ello $exp \left(\sum_{i=1}^t (Q_i - Q_i')G_i \right) = max\{exp(G_i) + exp(Q_i-Q_i')\}$. Pero por otro lado $N(R'-R) \subseteq \bar{\Delta}$ y esto entra en contradicción con $exp(R') \subseteq \cup_{i=1}^t \Delta^i$
 #+end_proof
 *** Bases de Groebner
 
@@ -1514,6 +1511,65 @@ Haz la división de $F$ por $\{G_1, G_2, G_3\}$ siendo $F=X^5 Y^2 + X^5 Z^2 + Y^
 *** TODO Ejercicio 2.34
 Algoritmo de Buchberger
 
+*** Ejercicio 3.5
+#+begin_wording
+Haciendo uso del teorema de los ceros de Hilbert, demostrad que para $J$ un ideal de $K[X_1, \ldots X_n]$ se tiene:
+
+\[J \subsetneq K[X_1, \ldots X_n] \Leftrightarrow \mathbb{V}(J) \neq \{0\}\]
+
+con $K$ algebraicamente cerrado.
+#+end_wording
+
+Si $J = K[X_1, \ldots X_n]$ entonces $\mathbb{V}(J) = \{0\}$ claramente.
+
+Supongamos $\mathbb{V}(J) = \{0\}$. Entonces $J \subseteq \sqrt{J} = \mathbb{I} \mathbb{V} (J) = \mathbb{I}(\{0\}) = K[X_1, \ldots X_n]$, lo que no puede ocurrir si $\sqrt{J}$ fuese intersección de maximales propiamente contenidos en $R$, luego $J=K[X_1, \ldots X_n]$.
+
+*** TODO Ejercicio 3.7
+#+begin_wording
+Sea $V$ una variedad algebraica, para cada $x\in V$ se considera $\mathcal{M}_x = \{f\in K[V] : f(x) = 0\}$. Se tiene:
+
+1. $\matcal{M}_x$ es un ideal maximal de $K[V]$.
+2. La aplicación $\lambda : V \rightarrow Max(K[V]), \lambda(x) = \mathcal{M}_x$ es una aplicación inyectiva.
+3. La aplicación $\lambda$ es una aplicación sobreyectiva si $K$ es algebraicamente cerrado.
+#+end_wording
+
+*** Ejercicio 3.22
+#+begin_wording
+Se considera $K = \mathbb{C}$ el conjunto algebraico $V = \{(1,2), (1,3), (1,4)\}$ y  el conjunto algebraico $W = \mathbb{V}((Y_1 - 1)^2)$ y la aplicación $f: V\rightarrow W$ definida por: 
+
+\[f(1,2) = (1,4,3), f(1,3) = (1,9,4), f(1,4) = (1,16,5)\]
+
+1. Calcula el homomorfismo $\bar{f} : K[W] \rightarrow K[V]$
+2. Calcular el núcleo de $\bar{f}$.
+3. Calcular la imagen de $\bar{f}$.
+4. Se considera la aplicación $g: K[V] \rightarrow K[W]$ definida por $g(X_1) = Y_1, g(X_2) = Y_3 - Y_1$. ¿Está $g$ bien definida?
+#+end_wording
+
+1. 
+Claramente $W = \{(1, y, z): x,z \in K\}$ y $f(X,Y) = (X, Y^2, X+Y)$
+
+LLamamos $F_1 = X, F_2 = Y^2, F_3 = X+Y$
+
+$\bar{f}$ viene dada por $\bar{f}(Y_j + \mathbb{I}(W)) = F_i + \mathbb{I}(V)$
+
+
+2. 
+
+\begin{align*}
+\mathbb{I}(V) = (X-1)^2 + (Y-2)^2 (Y-3)^2 (Y-4)^2 = \\
+= Y^6 - 18 Y^5 + 133 Y^4 - 516 Y^3 + 1108 Y^2 - 1248 Y + X^2 - 2X + 577
+\end{align*}
+
+
+$G + \mathbb{I}(W) \in Ker(\bar{f}) \implies G(X, Y^2, X+Y) \in \mathbb{I}(V)$. Y por tanto $G=0$
+
+
+Luego $\bar{f}$ es inyectiva.
+
+3. 
+
+
+4. 
 * Álgebra III
 ** Resumen
 *** TODO
