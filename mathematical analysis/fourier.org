@@ -120,7 +120,7 @@ Siempre se cumple la llamada desigualdad de Parseval: $||f||^2 \ge \sum_{n=1}^k 
 #+begin_theorem
 *Teorema de Lebesgue*
 
-$B = \left\{\frac{1}{\sqrt{\pi}}, \frac{1}{\sqrt{\pi}} cos(n(\cdot)), \frac{1}{\sqrt{\pi}} sen(n(\cdot))\right\}_{n\in \mathbb{N}}$ es base hilbertiana de $L^2(-\pi,\pi)$
+$B = \left\{\frac{1}{\sqrt{2\pi}}, \frac{1}{\sqrt{\pi}} cos(n(\cdot)), \frac{1}{\sqrt{\pi}} sen(n(\cdot))\right\}_{n\in \mathbb{N}}$ es base hilbertiana de $L^2(-\pi,\pi)$
 #+end_theorem
 
 Como consecuencia, dada $f\in L^2(-\pi, \pi)$, podemos expresar $f$ de la forma:

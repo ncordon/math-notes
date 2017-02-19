@@ -318,6 +318,18 @@ Aplicando el resultado recién probado al ideal $(0) \lneq R$ obtenemos que todo
 #+end_proof
 
 #+begin_corollary
+*Teorema de Krull*
+
+Sea $R$ anillo no trivial, $\alpha\le R, \alpha\neq R$. Entonces $\exists J\supseteq \alpha$ ideal maximal de $R$. Así, todo anillo tiene al menos un ideal maximal.
+#+end_corollary
+
+#+begin_proof
+Aplicando el teorema anterior al caso $S=\{1\}$. El ideal $\mathcal{M}$ que obtenemos es maximal verificando que $1\notin \mathcal{M}$ y que $\alpha \subseteq \mathcal{M}$, luego es maximal el $R$.
+
+Aplicando el resultado recién probado al ideal $(0) \lneq R$ obtenemos que todo anillo tiene al menos un ideal maximal.
+#+end_proof
+
+#+begin_corollary
 Sea $R$ anillo no trivial y $x\in R$ *no unidad*. Entonces $\exists \mathcal{M}$ ideal maximal de $R$ verificando $x\in \mathcal{M}$.
 #+end_corollary
 
@@ -656,7 +668,7 @@ Sea $K$ cuerpo algebraicamente cerrado, $J$ ideal de $K[X_1, \ldots X_n]$. Enton
 #+end_theorem
 
 #+begin_corollary
-Sea $K$ cuerpo algebraicamente cerrado. Entonces existe una correspondencia biyectiva entre el retículo de las variedades algebraicas afines de $\mathbb{A}^n (K)$ y el retículo de ideales de polinomios que son variedades.
+Sea $K$ cuerpo algebraicamente cerrado. Entonces existe una correspondencia biyectiva entre el retículo de las variedades algebraicas afines de $\mathbb{A}^n (K)$ y el retículo de ideales de polinomios que son radicales.
 
 \[\{V \subseteq \mathbb{A}^n (K) \quad variedad \} \leftrightarrow\{J \subseteq K[X_1, \ldots X_n] : J = \sqrt{J}\}\]
 #+end_corollary
@@ -698,6 +710,29 @@ Nótese que no toda aplicación polinómica biyectiva es isomorfismo. Como ejemp
 
 Pero $\bar{f} : K[X,Y]/(X^3 - Y^2) \rightarrow K[T]$ dada por $\bar{f}(X + (X^3 - Y^2)) = T^2, \quad \bar{f}(Y + (X^3 - Y^2)) = T^3$ no define un isomorfismo porque $T\notin Img(\bar{f})$.
 
+
+#+begin_fact
+Sea $V \subseteq \mathbb{A}^n (K), W\in \subseteq \mathbb{A}^m (K)$ variedades y un homomorfismo de $K$ álgebras $h: K[W] \rightarrow K[V]$.
+
+Supongamos $h(Y_j + \mathbb{I}(W)) = F_j + \mathbb{I}(V)$
+
+Sea $A= K[X_1, \ldots X_n, Y_1, \ldots Y_m]$ y sea $C$ el ideal de $A$ generado por $\{Y_i-F_i\} \cup \mathbb{I}$
+
+1. $Ker(h) = C\cap K[Y_1, \ldots Y_m] / \mathbb{I}(W)$
+2. Dada $\mathbb{G}$ base de Groebner reducida de $C$ con orden lexicográfico $X_1 > \ldots X_n > Y_1 > \ldots Y_m$ Entonces:
+
+\[F + \mathbb{I}(V) \in Img(h) \Leftrightarrow R(F,\mathbb{G}) \in K[Y_1, \ldots Y_m]\]
+
+Y en tal caso: $F + \mathbb{I}(V) = h(R(F, \mathbb{G}) + \mathbb{I}(W))$
+#+end_fact
+
+
+#+begin_corollary
+Para el homomorfismo de $K$ álgebras de la proposición anterior se cumple:
+
+1. $h$ es inyectiva sii $C\cap K[Y_1, \ldots Y_m] \subseteq \mathbb{I}(W)$
+2. $h$ es sobreyectiva sii para cada $i=1, \ldots n$ existe $M_i \in K[Y_1, \ldots Y_m]$ tal que $X_i-M_i \in \mathbb{G}$
+#+end_corollary
 ** Tema 3: Bases de Groebner y algoritmos básicos
 *** R-módulos
 #+begin_definition
@@ -971,8 +1006,8 @@ Si estamos en la posibilidad b. tomamos $R=F$ y $Q_i = 0$ para todo $i=1, \ldots
 
 Supongamos $exp(F) > 0$ y el resultado cierto para todo $G\neq 0, G\in K[x_1, \ldots X_n]$ con $exp(G) < exp(F)$. De nuevo hay dos posibilidades.
 
-a. $exp(F) = \in \Delta^i$ para algún $i$
-b. $exp(F) = \in \bar{\Delta}$
+a. $exp(F) \in \Delta^i$ para algún $i$
+b. $exp(F) \in \bar{\Delta}$
 
 Si ocurre a. existe $\gamma \in \mathbb{N}^n$ verificando $exp(F) = exp(G_i) + \gamma$ Tomamos $H=X^\gamma G_i$ y $F_1 = F - \frac{cl(F)}{cl(H)} X^{\gamma} G_i$ por tanto $exp(F_1) < exp(F). Aplicando hipótesis de inducción:
 
@@ -1412,7 +1447,7 @@ Usando el orden /invgrlex/ para $X > Y$
 *** Ejercicio 2.16
 
 #+begin_wording
-Sea $\le$ un orden en $\mathbb{N}^n$ que es total y compatible. Haciendo usod e la teoría de ideales monoiales, probad que $\le$ es un buen orden sii es monótono.
+Sea $\le$ un orden en $\mathbb{N}^n$ que es total y compatible. Haciendo uso de la teoría de ideales monomiales, probad que $\le$ es un buen orden sii es monótono.
 #+end_wording
 
 Hacia la izquierda, como $\le$ es monomial, entonces es buen orden.
@@ -1439,9 +1474,9 @@ Por tanto $I\cap J = (R_{ij}: i=1\ldots r, 1\le j \le n_i )$, luego $I\cap J$ es
 
 2. Es claro que $(M_{ij}) \subset I\cap J$
 
-Para el otro contenido, si $X^\alpha \in I\cap J$ entonces $X\alpha\in I \implies X^\alpha = FA_i$ y análogo para $X^\alpha \in J$, luego $M_{ij}|X^\alpha$.
+Para el otro contenido, si $X^\alpha \in I\cap J$ entonces $X^\alpha\in I \implies X^\alpha = FA_i$ y análogo para $X^\alpha \in J$, luego $M_{ij}|X^\alpha$.
 
-3. $I = (X=A_1, Y^2 Z = A_2, YZ^2=A_3)$, y por otor lado $J=(X^3 YZ = B_1, X^2Y = B_2, Y^2 Z^3 = B_3)$
+3. $I = (X=A_1, Y^2 Z = A_2, YZ^2=A_3)$, y por otro lado $J=(X^3 YZ = B_1, X^2Y = B_2, Y^2 Z^3 = B_3)$
 
 Calculando $M_{11} = mcm(A_1, B_1)$, $M_{12} = X^2 Y$.
 

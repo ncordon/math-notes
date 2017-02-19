@@ -1,0 +1,85 @@
+#+TITLE: Procesos estocásticos
+#+SUBTITLE:
+#+AUTHOR: Ignacio Cordón Castillo
+#+OPTIONS: toc:nil
+#+LANGUAGE: es
+#+STARTUP: indent
+#+DATE:
+
+#+latex_header: \usepackage{amsmath} 
+#+latex_header: \usepackage{amsthm}
+#+latex_header: \usepackage{mathabx}
+#+latex_header: \newtheorem*{theorem}{Teorema}
+#+latex_header: \newtheorem*{fact}{Proposición}
+#+latex_header: \newtheorem*{lemma}{Proposición}
+#+latex_header: \newtheorem*{definition}{Definición}
+#+latex_header: \setlength{\parindent}{0pt}
+#+latex_header: \setlength{\parskip}{1em}
+#+latex_header: \usepackage{color}
+#+latex_header: \newenvironment{wording}{\setlength{\parskip}{0pt}\rule{\textwidth}{0.5em}}{~\\\rule{\textwidth}{0.5em}}
+#+latex_header: \everymath{\displaystyle}
+
+#+attr_latex: :float t :width 4cm
+[[../by-nc-sa.png]]
+
+* Resumen
+** Tema 1: Teoría general de procesos estocásticos
+*** Repaso teoría de la medida y teoría de probabilidad
+**** Espacio medible
+Es una tupla $(\Omega, \mathcal{A})$ donde $\mathcal{A}$ es una $\sigma$ álgebra, esto es, es cerrada para uniones numerables y cerrada para complementarios.
+
+De la definición de $\sigma$ álgebra se puede deducir que es cerrada para intersecciones numerables y que el vacío y el total están en ella.
+
+Como caso particular de $\sigma$ álgebra, las finitas se llaman álgebras.
+
+**** Aplicación y función medible.
+
+Dados dos espacios medibles $(\Omega_1, \mathcal{A}_1)$ y $(\Omega_2, \mathcal{A}_2)$, una *aplicación medible* es una aplicación $f: \Omega_1 \rightarrow \Omega_2$ verificando que para todo $A_2 \in \mathcal{A}_2$ se tiene $f^{-1}(A_2) \in \mathcal{A}_1$.
+
+Una *función medible finita* es una aplicación medible que va a una $\sigma$ álgebra de Borel, multidimensional o unidimensional.
+
+#+begin_fact
+Una función $f: (\Omega, \mathcal{A}) \rightarrow (\mathbb{R}^n, \mathbb{B}^n)$ es una función medible multidimensional sii $f_i, \forall i=1,\ldots n$ es función medible unidimensional, donde $f=(f_1, \ldots f_n)^T$
+#+end_fact
+
+**** $\sigma$ álgebra generada por una clase de conjuntos
+Dada $\mathcal{D}$ clase de conjuntos, definimos $\sigma(\mathcal{D})$ como la menor $\sigma$ álgebra que contiene a $\mathcal{D}$
+
+#+begin_fact
+Una función $f: (\Omega_1, \mathcal{A}_1) \rightarrow (\Omega_2, \mathcal{A}_2)$ entre espacios medibles es aplicación medible sii $f^{-1}(\mathcal{D}) \subseteq \mathcal{A}_1$ con $\mathcal{D} : \sigma(\mathcal{D}) = \mathcal{A}_2$
+#+end_fact
+
+**** $\sigma$ álgebra de Borel
+
+Se define como $\mathbb{B}^n = \sigma(\{ ]-\infty, x], x \in \mathbb{R}^n\})$
+
+#+begin_fact
+Dada una función medible $f:(\Omega, \mathcal{A}) \rightarrow (\mathbb{R}^n, \mathbb{B}^n)$ $f$ es medible sii $f^{-1}(]-\infty, x]) = [f\le x] \in \mathcal{A}$ para todo $x\in \mathbb{R}^n$
+#+end_fact
+
+Hacemos una aclaración sobre la notación. $]-\infty,x] = ]-\infty, x_1] \times ]-\infty, x_2] \times \ldots \times ]-\infty, x_n]$ donde $x=(x_1, \ldots x_n) \in \mathbb{R}^n$.
+
+$[f\le x] = \{x\in \Omega: f_i(x) \le x_i\}$
+
+**** Medidas
+Dado un espacio medible $(\Omega, \mathcal{A})$ una medida es una aplicación $\mu : \mathcal{A} \rightarrow \mathbb{R}$ verificando que es no negativa y es $\sigma$ aditiva.
+
+A la terna $(\Omega, \mathcal{A}, \mu)$ se la llama *espacio de medida*.
+
+***** Axiomas de Kolmogorov
+Una medida $\mu$ sobre un espacio medible es probabilidad si además $\sigma(\Omega) = 1$. Los otros dos considerados axiomas de Kolmogorov son la no negatividad y $\sigma$ aditividad, ya incluidas en la definición de medida.
+
+Si $\mu$ es probabilidad, el espacio de medida asociado se denomina *espacio probabilístico*.
+
+
+**** Variables aleatorias
+
+$X: \mathcal{A} \rightarrow \mathbb{R}$ es una variable aleatoria sii es *función medible finita definida en un espacio probabilístico*. Esto implica que la función va de espacios $(\Omega, \mathcal{A})$ a $(\mathbb{R}, \mathbb{B})$
+
+Si la función llega al espacio $(\mathbb{R}^n, \mathbb{B}^n)$ tenemos un vector aleatorio.
+
+#+begin_fact
+$X=(X_1, \ldots X_n)^T$ es vector aleatorio sii $X_i$ es v.a. para todo $i=1, \ldots n$
+#+end_fact
+
+* Ejercicios
