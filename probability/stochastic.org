@@ -71,15 +71,100 @@ Una medida $\mu$ sobre un espacio medible es probabilidad si además $\sigma(\Om
 
 Si $\mu$ es probabilidad, el espacio de medida asociado se denomina *espacio probabilístico*.
 
-
 **** Variables aleatorias
 
 $X: \mathcal{A} \rightarrow \mathbb{R}$ es una variable aleatoria sii es *función medible finita definida en un espacio probabilístico*. Esto implica que la función va de espacios $(\Omega, \mathcal{A})$ a $(\mathbb{R}, \mathbb{B})$
 
 Si la función llega al espacio $(\mathbb{R}^n, \mathbb{B}^n)$ tenemos un vector aleatorio.
 
+Se notará v.a. indistintamente a variables aleatorias y vectores aleatorios. Se infiere su significado por el contexto.
+
 #+begin_fact
 $X=(X_1, \ldots X_n)^T$ es vector aleatorio sii $X_i$ es v.a. para todo $i=1, \ldots n$
 #+end_fact
+
+#+begin_definition
+*Distribución de probabilidad de una variable aleatoria*
+
+Sea $X$ v.a. sobre $(\Omega, \mathcal{A}, P)$ se define la distribución de la probabilidad de $X$ como $P_X(B) = P[X \in B], \forall B \in \mathbb{B}$.
+#+end_definition
+
+A partir de la distribución de probabilidad se define $F_X : \mathbb{R} \rightarrow [0,1]$ como $F_X(x) = P[X \le x]$, *función de distribución*. También podemos definir la *función característica* como $\varphi_X(t) = E[e^{itX}]$.
+
+#+begin_definition
+$\sigma$ álgebra a partir de $X$ v.a.
+
+Se define como $\sigma(X):= X^{-1}(\mathbb{B}^n)$
+#+end_definition
+
+#+begin_definition
+*v.a. discreta, v.a continua*
+
+$X$ va es:
+
+1. *discreta* sii $\exists E_x$ numerable verificando $P[X \in E_x] = 1$
+2. *continua* sii $\exists f$ función de densidad tal que $F(x) = \int_{-\infty}^x f(y) dy$
+#+end_definition
+
+#+begin_definition
+Se definen los momentos de orden $k$:
+
+*Momentos no centrados*: $E[X^k]$
+*Momentos centrados*: $E[(X-a)^k]$
+
+En el caso $k=2$, el momento no centrado $\sigma^2 = E[(X-a)^2] = EX^2 - (EX)^2$
+#+end_definition
+
+
+#+begin_definition
+*Covarianza*
+
+\[Cov(X,Y) = E[(X-EX)] E[(Y-EY)]\]
+#+end_definition
+
+
+
+
+*** Procesos estocásticos
+Un proceso estocástico es una familia $\{X_t}_{t\in T}$ de v.a. definidas en un espacio probabilístico $(\Omega, \mathcal{A}, P)$.
+
+$T$ será un conjunto ordenado arbitrario, que se denomina espacio paramétrico (discreto/continuo), donde discreto se entiende como numerable.
+
+En lo que sigue v.a. denotará variable aleatoria unidimensional.
+
+Todos los $X_t$ verifican que van desde el espacio de medida $(\Omega, \mathcal{A}, P)$ hasta el espacio de estados $(E, \mathbb{B}_E)$, con $E \subseteq \mathbb{R}$. Normalmente consideraremos espacio de estados $(\mathbb{R}, \mathbb{B})$
+
+#+begin_definition
+*Trayectoria*
+
+Dado un proceso estocástico $\{X_t\}_{t\in T}$ llamamos trayectoria asociada a un $\w \in \Omega$ fijo a la función $\mathcal{X} (w)(t) := X_t (w)$ 
+#+end_definition
+
+#+begin_definition
+*Proceso medible*
+
+Un proceso se dice medible si la función 
+
+\[\left\{\begin{array}{rcl} 
+T \times \Omega & \rightarrow & \mathbb{R}\\ 
+(t,w) \mapsto X(t,w) \end{array} \right.\]
+
+es medible.
+#+end_definition
+
+*** Características de procesos estocásticos
+
+Definimos, suponiendo que las esperanzas tienen siempre sentido:
+
+**** Función media
+$\mu : T \rightarrow \mathbb{R}$, con $\mu(t) = E(X_t)$
+**** Momentos
+$\mu_k : T \rightarrow \mathbb{R}$ con $\mu_k(t) = E[X_t^k]$
+**** Función correlación
+$R : T\times T \rightarrow \mathbb{R}$ con $R(t,s) = E[X_t X_s]$
+**** Función covarianza
+$C : T\times T \rightarrow \mathbb{R}$ con $C(t,s) = E[(X_t - \mu(t))(X_s - \mu(s))] = R(s,t) - \mu(t) \mu(s)$
+
+
 
 * Ejercicios
