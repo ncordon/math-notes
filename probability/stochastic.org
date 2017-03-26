@@ -124,7 +124,6 @@ En el caso $k=2$, el momento no centrado $\sigma^2 = E[(X-a)^2] = EX^2 - (EX)^2$
 
 
 
-
 *** Procesos estocásticos
 Un proceso estocástico es una familia $\{X_t}_{t\in T}$ de v.a. definidas en un espacio probabilístico $(\Omega, \mathcal{A}, P)$.
 
@@ -137,7 +136,7 @@ Todos los $X_t$ verifican que van desde el espacio de medida $(\Omega, \mathcal{
 #+begin_definition
 *Trayectoria*
 
-Dado un proceso estocástico $\{X_t\}_{t\in T}$ llamamos trayectoria asociada a un $\w \in \Omega$ fijo a la función $\mathcal{X} (w)(t) := X_t (w)$ 
+Dado un proceso estocástico $\{X_t\}_{t\in T}$ llamamos trayectoria asociada a un $\w \in \Omega$ fijo a la función $X (w)(t) := X_t (w)$ 
 #+end_definition
 
 #+begin_definition
@@ -165,6 +164,85 @@ $R : T\times T \rightarrow \mathbb{R}$ con $R(t,s) = E[X_t X_s]$
 **** Función covarianza
 $C : T\times T \rightarrow \mathbb{R}$ con $C(t,s) = E[(X_t - \mu(t))(X_s - \mu(s))] = R(s,t) - \mu(t) \mu(s)$
 
+*** Clasificación de los procesos estocásticos
+Sea $\{X_t\}_{t\in T}$ proceso estocástico con espacio de estados $(E, \mathbb{B}_E), E\subseteq \mathbb{R}$.
+
+**** En función del espacio paramétrico:
+- Si $T$ es discreto, tenemos PE en tiempo discreto
+- si $T$ es continuo, tenemos PE en tiempo continuo
+
+**** En función del espacio de estados:
+- Si $E$ es discreto, tenemos PE discreto (cadenas)
+- Si $E$ es continuo, tenemos PE continuo.
 
 
+A los PDTC (procesos discretos en tiempo continuo), los llamamos cadenas de Markov.
+
+**** Atendiendo a la relación entre las variables del proceso
+***** Incrementos independientes
+$X_{t_1}, X_{t_2}-X_{t_1}, \ldots X_{t_n} - X_{t_{n-1}}$ son v.a. independientes.
+***** Incrementos estacionarios
+$\{X_t\}_{t\in T}$ es un proceso con incrementos estacionarios si $X_t - X_s$ y $X_{t+h}-X_{s+h}$ tienen la misma distribución $\forall h>0$
+
+***** Procesos estrictamente estacionarios (estacionarios en sentido amplio)
+Para cualquier $n\in \mathbb{N}$, $\forall t_1, \ldots t_n$, $dist(X_{t_1}, \ldots X_{t_n}) = dist(X_{t_1 + h}, \ldots X_{t_n + h})$ para cualquier $h > 0$
+
+***** Procesos débilmente estacionarios
+Un proceso $\{X_t\}_{t\in T}$ es débilmente estacionario si:
+- Es de segudno orden, esto es $E[X_t^2] < \infty \forall t$
+- Tiene función media constante
+- Tiene función de covarianza verificando:
+\[C(s,t) := C(0,t-s)\]
+
+
+#+begin_fact
+Todo proceso estrictamente estacionario con momentos de segundo orden es débilmente estacionario.
+#+end_fact
+
+**** Martingala
+$\{X_n\}_{n\in \mathbb{N}}$ es *martingala* si $\forall n, EX_n < \infty$ y para todo $n\in \mathbb{N}$ se tiene $E[X_{n+1}/X_1, \ldots X_n] = X_n$ casi seguramente.
+**** Procesos de Markov
+$\{X_n\}_{n\in \mathbb{N}}$ es proceso de Markov sii:
+
+\[\forall n\in \mathbb{N}, \forall B \in \mathbb{B}, P[X_{n+1} \in B/ X_1, \ldots X_n] = P[X_{n+1} \in B/X_n], cs\]
+
+*** Trayectorias y distribución
+$\forall w \in \Omega$ fijo definimos $X(w): \mathbb{N} \rightarrow \mathbb{R}$ con $X(w)(n) = X_n(w) \in \mathbb{R}^{\mathbb{N}}$
+
+Por tanto podemos definir:
+
+\[\begin{array}{rccl}
+\mathcal{X}: & \Omega & \rightarrow & \mathbb{R}^{\mathbb{N}}\\
+& w & \mapsto & \{X_n(w)\}_n
+\end{array}\]
+
+Para ver que $\mathcal{X}$ es medible nos hace falta una $\sigma$ álgebra sobre $\mathbb{R}^{\mathbb{N}}$.
+
+**** Sigma álgebra Borel sobre $\mathbb{R}^{\mathbb{N}}$
+
+#+begin_definition
+Definimos el rectángulo de lados $B_1, \ldots B_k \in \mathbb{B}$ como:
+
+\[R(B_1, \ldots B_k) = \Big\{ \{x_n\}_{n\in\mathbb{N}} : x_i \in B_i, i=1,\ldots k\Big\}\]
+
+La clase de rectángulos medibles $\mathcal{C}^{\mathbb{N}}$ es semiálgebra (cerrado para el total y el vacío, para intersecciones, y verifica que para $A \in \mathcal{C}^{\mathbb{N}}$ existen $S_1, \ldots S_k$ disjuntos verificándose $\bar{A} = \bigcup_{j=1}^k S_j$.
+#+end_definition
+
+#+begin_definition
+Definimos $\sigma$ álgebra $\mathbb{B}^{\mathbb{N}} := \sigma(\mathcal{C}^{\mathbb{N}})$
+#+end_definition
+
+Usando que $\sigma(\mathcal{C}^{\mathbb{N}})$ es semiálgebra, la $\sigma$ álgebra se forma a partir de uniones finitas de elementos de $\mathcal{C}^{\mathbb{N}}$
+
+***** Teorema de medibilidad - caracterización de PETD
+\[\{X_n\}_{n\in \mathbb{N}} \quad PETD \Leftrightarrow 
+\begin{array}{rrll} 
+\mathcal{X} & : (\Omega, \mathcal{A}, P) & \rightarrow  &(\mathbb{R}^{\mathbb{N}}, \mathbb{B}^{\mathbb{N}})\\
+& w & \mapsto & \{X_n(w)\}_{n \in \mathbb{N}}
+\end{array} \Leftrightarrow \mathcal{X}^{-1}(C), \forall C\in \mathcal{C}^{\mathbb{N}}\]
+
+***** Distribución de $\{X_n\}_{n\in \mathbb{N}}$ PETD
+Dado $\{X_n\}_{n\in \mathbb{N}}$ PETD definimos la medida de probabilidad:
+
+\[P_{\mathcal{X}}: \mathbb{B}^{\mathbb{N}} \rightarrow [0,1], \quad P_{\mathcal{X}}(B) = P(\mathcal{X}^{-1}(B))\]
 * Ejercicios
