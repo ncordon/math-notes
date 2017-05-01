@@ -23,6 +23,9 @@
 [[../by-nc-sa.png]]
 
 * Resumen
+** Notaciones
+- Las igualdades entre probabilidades, esperanzas, etc las entendemos como igualdades casi seguramente, dado que la probabilidad es una medida de Lebesgue normalizada.
+
 ** Tema 1: Teoría general de procesos estocásticos
 *** Repaso teoría de la medida y teoría de probabilidad
 **** Espacio medible
@@ -121,7 +124,6 @@ En el caso $k=2$, el momento no centrado $\sigma^2 = E[(X-a)^2] = EX^2 - (EX)^2$
 
 \[Cov(X,Y) = E[(X-EX)] E[(Y-EY)]\]
 #+end_definition
-
 
 
 *** Procesos estocásticos
@@ -245,4 +247,30 @@ Usando que $\sigma(\mathcal{C}^{\mathbb{N}})$ es semiálgebra, la $\sigma$ álge
 Dado $\{X_n\}_{n\in \mathbb{N}}$ PETD definimos la medida de probabilidad:
 
 \[P_{\mathcal{X}}: \mathbb{B}^{\mathbb{N}} \rightarrow [0,1], \quad P_{\mathcal{X}}(B) = P(\mathcal{X}^{-1}(B))\]
+** Tema 3: Procesos de Markov
+Suponemos en lo que sigue un espacio de medida $(\Omega, \mathcal{A}, P)$, un espacio paramétrico $T= \mathbb{N} \cup \{0\}$, $(E,\mathcal{B}_E)$ espacio paramétrico con $E\subseteq \mathbb{R}$ y $\{X_n\}_{n\ge 0}$ PETD.
+
+#+begin_definition
+*Filtración de $\sigma$ álgebras*
+
+Se define una filtración de $\sigma$ álgebras como $\{\mathcal{F}_n}_{n\ge 0}$  donde $\mathcal{F}_n$ es $\sigma$ álgebra para $n \in \mathbb{N}$ arbitrario y $\mathcal{F}_n \subseteq \mathcal{F}_{n+1}$.
+#+end_definition
+
+A la filtración dada por $\mathcal{F}_n = \sigma(X_0, \ldots X_n)$ se le llama *filtración natural asociada al proceso $\{X_n\}$*
+
+*** Procesos de Markov respecto de una filtración de $\sigma$ álgebras
+#+begin_definition
+$\{X_n\}$ es proceso de Markov respecto de la filtración $\{\mathcal{F}_n\}$ sii:
+
+1. El proceso está adaptado a la $\sigma$ álgebra: $X_n^{-1} (\mathcal{B}_E) \subseteq \mathcal{F}_n$. Esto implica $\sigma(X_1, \ldots X_n) \subseteq \mathcal{F}_n$
+2. $\forall B\in \mathcal{B}_E$, $\forall n \ge 1$ se tiene $P[X_n \in B / \mathcal{F}_{n-1}] = P[X_n \in B/X_{n-1}]$
+#+end_definition
+
+
+#+begin_fact
+La segunda condición de la anterior definición equivale a decir que para toda $f: (E, \mathcal{B}_E) \longrightarrow (\mathbb{R}, \mathcal{B})$ medible y acotada, $\forall n \ge 1$ se verifica:
+
+\[E[f(X_n) / \mathcal{F}_{n-1}] = E[f(X_n) / X_{n-1}]\]
+#+end_fact
+
 * Ejercicios
