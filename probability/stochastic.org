@@ -295,19 +295,48 @@ Dado un PETD $\{X_n\}$ se tiene:
 Por tanto la distribución del proceso viene determinada por $dist(X_k/ X_{k-1}) \quad k=1, \ldots n$ y por $dist(X_0)$ o equivalentemente por $dist(X_{k-1}, X_{k}) \quad k=1, \ldots n$ y por $dist(X_k), \quad k=0,\ldots (n-1)$
 
 *** Procesos de Markov homogéneos
-Un PETD $\{X_n\}$ es homogéneo cuando:
+Sea un PETD $\{X_n\}$. Es homogéneo cuando:
 
 \[P[X_n\in B/X_{n-1}=x] = P[X_1 \in B / X_0=x] = p(x,B), \quad \forall B\in \mathcal{B}_E, n\ge 1, x\in E\]
 
+En lo que sigue suponemos $\{X_n\}$ un PETD homogéneo.
 
-#+begin_definition
-*Función de transición en un paso*
-
-Para un PETD $\{X_n\}$ homogéneo definimos su función de transición como $p(x,B)$ en la igualdad anterior.
-#+end_definition
-
-**** Propiedades de la función de transición
+**** Función de transición en un paso
+Definimos la función de transición como $p(x,B)$ en la igualdad anterior.
+***** Propiedades de la función de transición
 1. $\forall B \in \mathcal{B}_E$ fijo se tiene $P(\cdot, B): (E,\mathcal{B}_E) \rightarrow (\mathbb{R}, \mathcal{B})$ es medible.
 2. $\forall x \in E$ fijo se tiene $P(x, \cdot): \mathcal{B}_E \rightarrow \mathbb{R}$ es probabilidad.
+ 
+**** Función de distribución en un paso
+La definimos como: $F(y/x) = P[X_1 \le y / X_0=x]$
+**** Distribuciones absolutas del proceso
+Las definimos como: $P^{(n)} (B) = P[X_n \in B], \quad \forall B \in \mathcal{B}_E$
+**** Distribución del proceso
+En el caso de procesos de Markov, la distribución viene determinada por la función de transición en un paso $p(x,B)$ y por $P^{(0)}(B)$ para todo $B\in \mathcal{B}_E$
+**** Función de transición en n pasos
+Llamamos probabilidad de transición en $n$ pasos a:
+
+\[P[X_{n+m} \in B /X_m = x] = P[X_n\in B / X_0=x] := p_n(x,B) \quad \forall B\in \mathcal{B}_E, \forall n,m \in \mathbb{N}\]
+
+Donde la primera igualdad se deduce de la ecuación de Chapman-Kolmogorov.
+**** Función de distribución en $n$ pasos
+La definimos como: $F_n(y/x) = P[X_{n} \le y / X_0=x]$
+
+***** Propiedades de la función de transición en $n$ pasos
+1. Expresión recursiva: $p_n(x,B) = \int_E p_{n-1} (y,B) P(x,dy)$
+2. $P^{(n)}(B) = \int_E p_n(x,B) P^{(0)}(dx) = \int_E p(x,B) P^{(n-1)}(dx)$
+3. $P[X_{n_i}\in B_i, i=1, \ldots k] = \int_{B_1} P^{(n_1)} (dx_1) \cdot \int_{B_2} p_{n_2-n_1} (x_1, dx_2) \cdot \int_{B_{k-1}} p_{n_{k-1} - n_{k-2}} (x_{k-2}, dx_{k-1})$
+
+**** Distribución estacionaria y distribución límite
+#+begin_definition
+- Una distribución $\Pi$ es estacionaria frente a $p(x,B) \Leftrightarrow \forall B\in \mathcal{B}_E \Pi(B) = \int_E p(x,B) \Pi(dx)$
+- Una función de distribución $G$ es estacionaria frente a $F(y/x) \Leftrightarrow \forall y\in \mathbb{R} G(y) = \int_E F(y/x) dG(x)$
+- $\Pi$ es distribución límite sii $\Pi(B) = lim_{n} P^{(n)}(B) \quad \forall B \in \mathcal{B}_E$
+#+end_definition
+
+#+begin_fact
+1. Si existe una distribución límite $\Pi$ para el proceso, entonces $\Pi$ es estacionaria.
+2. Si $P^{(0)}$ es estacionaria entonces $P^{(n)}$ es estacionaria para todo $n\in \mathbb{N}$
+#+end_fact
 
 * Ejercicios
