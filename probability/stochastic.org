@@ -293,4 +293,21 @@ Dado un PETD $\{X_n\}$ se tiene:
 \[P[X_i \in B_i, i=0, \ldots n] = \prod_{i=1}^n P[X_i \in B_i/ X_{i-1} \in B_{i-1}] \cdot P[X_0 \in B_0]\]
 
 Por tanto la distribución del proceso viene determinada por $dist(X_k/ X_{k-1}) \quad k=1, \ldots n$ y por $dist(X_0)$ o equivalentemente por $dist(X_{k-1}, X_{k}) \quad k=1, \ldots n$ y por $dist(X_k), \quad k=0,\ldots (n-1)$
+
+*** Procesos de Markov homogéneos
+Un PETD $\{X_n\}$ es homogéneo cuando:
+
+\[P[X_n\in B/X_{n-1}=x] = P[X_1 \in B / X_0=x] = p(x,B), \quad \forall B\in \mathcal{B}_E, n\ge 1, x\in E\]
+
+
+#+begin_definition
+*Función de transición en un paso*
+
+Para un PETD $\{X_n\}$ homogéneo definimos su función de transición como $p(x,B)$ en la igualdad anterior.
+#+end_definition
+
+**** Propiedades de la función de transición
+1. $\forall B \in \mathcal{B}_E$ fijo se tiene $P(\cdot, B): (E,\mathcal{B}_E) \rightarrow (\mathbb{R}, \mathcal{B})$ es medible.
+2. $\forall x \in E$ fijo se tiene $P(x, \cdot): \mathcal{B}_E \rightarrow \mathbb{R}$ es probabilidad.
+
 * Ejercicios
