@@ -256,9 +256,9 @@ Suponemos en lo que sigue un espacio de medida $(\Omega, \mathcal{A}, P)$, un es
 Se define una filtración de $\sigma$ álgebras como $\{\mathcal{F}_n}_{n\ge 0}$  donde $\mathcal{F}_n$ es $\sigma$ álgebra para $n \in \mathbb{N}$ arbitrario y $\mathcal{F}_n \subseteq \mathcal{F}_{n+1}$.
 #+end_definition
 
-A la filtración dada por $\mathcal{F}_n = \sigma(X_0, \ldots X_n)$ se le llama *filtración natural asociada al proceso $\{X_n\}$*
+A la filtración dada por $\sigma_n = \sigma(X_0, \ldots X_n)$ se le llama *filtración natural asociada al proceso $\{X_n\}$*
 
-*** Procesos de Markov respecto de una filtración de $\sigma$ álgebras
+*** Procesos de Markov respecto de una filtración de $\sigma$ álgebras arbitraria
 #+begin_definition
 $\{X_n\}$ es proceso de Markov respecto de la filtración $\{\mathcal{F}_n\}$ sii:
 
@@ -273,4 +273,24 @@ La segunda condición de la anterior definición equivale a decir que para toda 
 \[E[f(X_n) / \mathcal{F}_{n-1}] = E[f(X_n) / X_{n-1}]\]
 #+end_fact
 
+*** Procesos de Markov respecto de la filtración natural
+La definición se extrae de la definición para filtración arbitraria sustituyendo $\{\mathcal{F}_n\}$ por la filtración natural $\{\sigma_n\}$, con la salvedad de que el primer punto de la definición ya se cumple por definición de filtración natural. A los procesos de Markov respecto de la filtración natural lo llamaremos simplemente proceso de Markov.
+
+Encontramos aparte de la caracterización dada para filtraciones arbitrarias, dos caracterizaciones más en el caso de PM respecto de la filtración natural.
+
+#+begin_fact
+1. $\forall f:E \rightarrow \mathbb{R}$ medible y acotada, para todo $n_1 < \ldots < n_k$ se tiene $E[f(X_n) / X_{n_1}, \ldots X_{n_k}] = E[f(X_n)/X_{n_k}]$
+2. $\forall B \in \mathcal{B}_E$, para todos $n_1 < \ldots < n_k < n$ se tiene: $P[X_n \in B/X_{n_1}, \ldots X_{n_k}] = P[X_n \in B /X_{n_k}]$
+#+end_fact
+
+**** Ecuación de Chapman-Kolmogorov
+Sea $\{X_n\}$ proceso de Markov con $m \le k < n$. Dado $x\in E$, para todo $B\in \mathcal{B}_E$ se tiene:
+
+\[P[X_n \in B/ X_m = x] = \int_E P[X_n \in B /X_k=y] P[X_k \in dy /X_m = x]\]
+*** Distribución de un proceso de Markov
+Dado un PETD $\{X_n\}$ se tiene:
+
+\[P[X_i \in B_i, i=0, \ldots n] = \prod_{i=1}^n P[X_i \in B_i/ X_{i-1} \in B_{i-1}] \cdot P[X_0 \in B_0]\]
+
+Por tanto la distribución del proceso viene determinada por $dist(X_k/ X_{k-1}) \quad k=1, \ldots n$ y por $dist(X_0)$ o equivalentemente por $dist(X_{k-1}, X_{k}) \quad k=1, \ldots n$ y por $dist(X_k), \quad k=0,\ldots (n-1)$
 * Ejercicios
