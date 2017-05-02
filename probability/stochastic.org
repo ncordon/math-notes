@@ -383,5 +383,32 @@ Dado $\{X_t\}$ PETC. Equivalen:
 4. $\forall 0\le t_1 < \ldots < t_k < t$, $\forall B\in \mathcal{B}_E$, $\forall f:(E, \mathcal{B}_E) \rightarrow (\mathbb{R}, \mathcal{B})$ medible y acotada se tiene $P[X_t \in B/X_{t_1}, \ldots X_{t_k}] = P[X_t \in B/X_{t_k}]$
 #+end_fact
 
+#+begin_fact
+Si $\{X_t\}$ es PM respecto de una filtración arbitraria $\{\mathcal{F}_t\}$ entonces es PM (respecto de la filtración natural.
+#+end_fact
+
+
+#+begin_fact
+*Ecuación de Chapman-Kolmogorov*
+
+Sea $\{X_t\}$ proceso de Markov. Entonces $\forall s <u \le t, \forall x\in E, \forall B\in \mathcal{B}_E$. Entonces:
+
+\[P[X_t \in B/X_s = x] = \int_E P[X_t \in B/X_u = y] P[X_u \in dy/X_s = x]\]
+#+end_fact
+
+
+**** Función de transición
+La definimos como $P(s,x,t,B) = P[X_t \in B/X_s = x]$ para todo $s\le t, B\in \mathcal{B}_E, x\in E$
+
+***** Propiedades de la función de transición
+1. $P(s,x,t, \cdot): \mathcal{B}_E \rightarrow \mathbb{R}$ es probabilidad
+2. $P(s,\cdot,t,\mathcal{B}): (E, \mathcal{B}_E) \rightarrow (\mathbb{R}, \mathcal{B})$
+3. $\forall B\in \mathcal{B}_E, \forall x\in E, \forall s<u<t$ se tiene $P(s,x,t,B) = \int_E P(u,y,t,B) P(s,x,u,dy)$
+4. $P(s,x,s,E-\{x\}) = 0$
+
+**** Proceso de Markov homogéneo
+Un proceso de Markov es homogéneo cuando:
+
+\[P[X_t \in B/X_s=x] = P[X_{t+h} \in B/X_{s+h} = x] = P[X_{t-s}\in B/X_0=x], \quad \forall B\in\mathcal{B}_E; x\in E\; t,s\le 0\]
 
 * Ejercicios
