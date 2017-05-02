@@ -248,6 +248,7 @@ Dado $\{X_n\}_{n\in \mathbb{N}}$ PETD definimos la medida de probabilidad:
 
 \[P_{\mathcal{X}}: \mathbb{B}^{\mathbb{N}} \rightarrow [0,1], \quad P_{\mathcal{X}}(B) = P(\mathcal{X}^{-1}(B))\]
 ** Tema 3: Procesos de Markov
+*** Procesos de Markov en tiempo discreto
 Suponemos en lo que sigue un espacio de medida $(\Omega, \mathcal{A}, P)$, un espacio paramétrico $T= \mathbb{N} \cup \{0\}$, $(E,\mathcal{B}_E)$ espacio paramétrico con $E\subseteq \mathbb{R}$ y $\{X_n\}_{n\ge 0}$ PETD.
 
 #+begin_definition
@@ -258,7 +259,7 @@ Se define una filtración de $\sigma$ álgebras como $\{\mathcal{F}_n}_{n\ge 0}$
 
 A la filtración dada por $\sigma_n = \sigma(X_0, \ldots X_n)$ se le llama *filtración natural asociada al proceso $\{X_n\}$*
 
-*** Procesos de Markov respecto de una filtración de $\sigma$ álgebras arbitraria
+**** Procesos de Markov respecto de una filtración de $\sigma$ álgebras arbitraria
 #+begin_definition
 $\{X_n\}$ es proceso de Markov respecto de la filtración $\{\mathcal{F}_n\}$ sii:
 
@@ -273,7 +274,7 @@ La segunda condición de la anterior definición equivale a decir que para toda 
 \[E[f(X_n) / \mathcal{F}_{n-1}] = E[f(X_n) / X_{n-1}]\]
 #+end_fact
 
-*** Procesos de Markov respecto de la filtración natural
+**** Procesos de Markov respecto de la filtración natural
 La definición se extrae de la definición para filtración arbitraria sustituyendo $\{\mathcal{F}_n\}$ por la filtración natural $\{\sigma_n\}$, con la salvedad de que el primer punto de la definición ya se cumple por definición de filtración natural. A los procesos de Markov respecto de la filtración natural lo llamaremos simplemente proceso de Markov.
 
 Encontramos aparte de la caracterización dada para filtraciones arbitrarias, dos caracterizaciones más en el caso de PM respecto de la filtración natural.
@@ -283,51 +284,51 @@ Encontramos aparte de la caracterización dada para filtraciones arbitrarias, do
 2. $\forall B \in \mathcal{B}_E$, para todos $n_1 < \ldots < n_k < n$ se tiene: $P[X_n \in B/X_{n_1}, \ldots X_{n_k}] = P[X_n \in B /X_{n_k}]$
 #+end_fact
 
-**** Ecuación de Chapman-Kolmogorov
+***** Ecuación de Chapman-Kolmogorov
 Sea $\{X_n\}$ proceso de Markov con $m \le k < n$. Dado $x\in E$, para todo $B\in \mathcal{B}_E$ se tiene:
 
 \[P[X_n \in B/ X_m = x] = \int_E P[X_n \in B /X_k=y] P[X_k \in dy /X_m = x]\]
-*** Distribución de un proceso de Markov
+**** Distribución de un proceso de Markov
 Dado un PETD $\{X_n\}$ se tiene:
 
 \[P[X_i \in B_i, i=0, \ldots n] = \prod_{i=1}^n P[X_i \in B_i/ X_{i-1} \in B_{i-1}] \cdot P[X_0 \in B_0]\]
 
 Por tanto la distribución del proceso viene determinada por $dist(X_k/ X_{k-1}) \quad k=1, \ldots n$ y por $dist(X_0)$ o equivalentemente por $dist(X_{k-1}, X_{k}) \quad k=1, \ldots n$ y por $dist(X_k), \quad k=0,\ldots (n-1)$
 
-*** Procesos de Markov homogéneos
+**** Procesos de Markov homogéneos
 Sea un PETD $\{X_n\}$. Es homogéneo cuando:
 
 \[P[X_n\in B/X_{n-1}=x] = P[X_1 \in B / X_0=x] = p(x,B), \quad \forall B\in \mathcal{B}_E, n\ge 1, x\in E\]
 
 En lo que sigue suponemos $\{X_n\}$ un PETD homogéneo.
 
-**** Función de transición en un paso
+***** Función de transición en un paso
 Definimos la función de transición como $p(x,B)$ en la igualdad anterior.
-***** Propiedades de la función de transición
+****** Propiedades de la función de transición
 1. $\forall B \in \mathcal{B}_E$ fijo se tiene $P(\cdot, B): (E,\mathcal{B}_E) \rightarrow (\mathbb{R}, \mathcal{B})$ es medible.
 2. $\forall x \in E$ fijo se tiene $P(x, \cdot): \mathcal{B}_E \rightarrow \mathbb{R}$ es probabilidad.
  
-**** Función de distribución en un paso
+***** Función de distribución en un paso
 La definimos como: $F(y/x) = P[X_1 \le y / X_0=x]$
-**** Distribuciones absolutas del proceso
+***** Distribuciones absolutas del proceso
 Las definimos como: $P^{(n)} (B) = P[X_n \in B], \quad \forall B \in \mathcal{B}_E$
-**** Distribución del proceso
+***** Distribución del proceso
 En el caso de procesos de Markov, la distribución viene determinada por la función de transición en un paso $p(x,B)$ y por $P^{(0)}(B)$ para todo $B\in \mathcal{B}_E$
-**** Función de transición en n pasos
+***** Función de transición en n pasos
 Llamamos probabilidad de transición en $n$ pasos a:
 
 \[P[X_{n+m} \in B /X_m = x] = P[X_n\in B / X_0=x] := p_n(x,B) \quad \forall B\in \mathcal{B}_E, \forall n,m \in \mathbb{N}\]
 
 Donde la primera igualdad se deduce de la ecuación de Chapman-Kolmogorov.
-**** Función de distribución en $n$ pasos
+***** Función de distribución en $n$ pasos
 La definimos como: $F_n(y/x) = P[X_{n} \le y / X_0=x]$
 
-***** Propiedades de la función de transición en $n$ pasos
+****** Propiedades de la función de transición en $n$ pasos
 1. Expresión recursiva: $p_n(x,B) = \int_E p_{n-1} (y,B) P(x,dy)$
 2. $P^{(n)}(B) = \int_E p_n(x,B) P^{(0)}(dx) = \int_E p(x,B) P^{(n-1)}(dx)$
 3. $P[X_{n_i}\in B_i, i=1, \ldots k] = \int_{B_1} P^{(n_1)} (dx_1) \cdot \int_{B_2} p_{n_2-n_1} (x_1, dx_2) \cdot \int_{B_{k-1}} p_{n_{k-1} - n_{k-2}} (x_{k-2}, dx_{k-1})$
 
-**** Distribución estacionaria y distribución límite
+***** Distribución estacionaria y distribución límite
 #+begin_definition
 - Una distribución $\Pi$ es estacionaria frente a $p(x,B) \Leftrightarrow \forall B\in \mathcal{B}_E \Pi(B) = \int_E p(x,B) \Pi(dx)$
 - Una función de distribución $G$ es estacionaria frente a $F(y/x) \Leftrightarrow \forall y\in \mathbb{R} G(y) = \int_E F(y/x) dG(x)$
@@ -338,5 +339,49 @@ La definimos como: $F_n(y/x) = P[X_{n} \le y / X_0=x]$
 1. Si existe una distribución límite $\Pi$ para el proceso, entonces $\Pi$ es estacionaria.
 2. Si $P^{(0)}$ es estacionaria entonces $P^{(n)}$ es estacionaria para todo $n\in \mathbb{N}$
 #+end_fact
+
+*** Procesos de Markov en tiempo continuo
+#+begin_definition
+Sea $(\Omega, \mathcal{A}, P)$ espacio probabilístico, $T=[0, +\infty[$, $(E,\mathcal{B}_E)$ con $E\subseteq \mathbb{R}$ espacio de estados, $\{X_t\}_{t\ge 0}$ PETC y $\{\mathcal{F}_t\}$ filtración. Decimos que $\{X_t\}_{t\ge 0}$ es proceso de Markov respecto a $\{\mathcal{F}_t\}$ si:
+
+1. $\forall t\ge 0$ $X_t$ es $\mathcal{F}_t$ medible (adaptado a la filtración.
+2. $\forall s < t, \forall B \in \mathcal{B}_E$ se tiene $P[X_t \in B/ \mathcal{F}_s] = P[X_t \in B/X_s]$
+#+end_definition
+
+#+begin_fact
+*Caracterización de proceso de Markov respecto a filtración arbitraria*
+
+$\{X_t\}$ es PETC respecto de $\{\mathcal{F}_t\}$ sii $\forall f:(E, \mathcal{B}_E) \rightarrow (\mathbb{R}, \mathcal{B})$ medible y acotada se tiene:
+
+\[E[f(X_t) / X_s] = E[f(X_t) / X_s]\]
+#+end_fact
+
+#+begin_fact
+Sean $\{\mathcal{F}_t^{(i)}\}_{t\ge 0}$ $i=1,2$ dos filtraciones tales que $\mathcal{F}^{(1)} \subseteq \mathcal{F}^{(2)}$. 
+Sea $\{X_t\}$ PM respecto $\{F_t^{(2)}\}$ y adaptado a $\{F_t^{(1)}\}$. Entonces es PM respecto a $\{F_t^{(1)}\}$
+#+end_fact
+
+#+begin_definition
+Se define la *filtración natural* para un PETC $\{X_t\}$ como la menor filtración que hace al proceso adaptado a ella, esto es:
+
+\[\sigma_t = \sigma(X_s, s\le t), \quad t\ge 0\]
+#+end_definition
+
+#+begin_definition
+$\{X_t\}$ es PM (respecto de la filtración natural) si $\forall s < t, B\in \mathcal{B}_E$ se tiene $P[X_t \in B/X_u, u\le s] = P[X_t \in B/ X_s]$
+#+end_definition
+
+
+#+begin_fact
+*Caracterización de proceso de Markov*
+
+Dado $\{X_t\}$ PETC. Equivalen:
+
+1. $\{X_t\}$ es proceso de Markov.
+2. $\forall f:(E, \mathcal{B}_E) \rightarrow (\mathbb{R}, \mathcal{B})$ medible y acotada, $\forall s<t$ se tiene: $E[f(X_t)/ X_u, u\le s] = E[f(X_t)/X_s]$
+3. $\forall 0\le t_1 < \ldots < t_k < t$, $\forall B\in \mathcal{B}_E$ se tiene $P[X_t \in B/X_{t_1}, \ldots X_{t_k}] = P[X_t \in B/X_{t_k}]$
+4. $\forall 0\le t_1 < \ldots < t_k < t$, $\forall B\in \mathcal{B}_E$, $\forall f:(E, \mathcal{B}_E) \rightarrow (\mathbb{R}, \mathcal{B})$ medible y acotada se tiene $P[X_t \in B/X_{t_1}, \ldots X_{t_k}] = P[X_t \in B/X_{t_k}]$
+#+end_fact
+
 
 * Ejercicios
