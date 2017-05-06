@@ -508,9 +508,24 @@ La definimos como $P(s,x,t,B) = P[X_t \in B/X_s = x]$ para todo $s\le t, B\in \m
 2. $P(s,\cdot,t,\mathcal{B}): (E, \mathcal{B}_E) \rightarrow (\mathbb{R}, \mathcal{B})$
 3. $\forall B\in \mathcal{B}_E, \forall x\in E, \forall s<u<t$ se tiene $P(s,x,t,B) = \int_E P(u,y,t,B) P(s,x,u,dy)$
 4. $P(s,x,s,E-\{x\}) = 0$
+*** Función de transición en $n$ pasos
+Viene dada por $p_n(x,B):= P[X_{n+m} \in B /X_m = x] = P[X_n \in B/X_0 = x]$ para $x\in E, B\in \mathbb{B}_E$
 
+A partir de ella se define la *función de distribución en $n$ pasos* como:
+
+\[F_n(y/x) = p_n(x, ]-\infty, y])\]
 *** Proceso de Markov homogéneo
 Un proceso de Markov es homogéneo cuando:
 
 \[P[X_t \in B/X_s=x] = P[X_{t+h} \in B/X_{s+h} = x] = P[X_{t-s}\in B/X_0=x], \quad \forall B\in\mathcal{B}_E; x\in E\; t,s\le 0\]
+*** Distribuciones estacionarias y límite
+#+begin_definition
+1. $\Pi$ es estacionaria frente a $p(x,B) sii $\forall B\in \mathbb{B}_E$ se tiene $\Pi(B) = \int_E p(x,B) \Pi(dx)$
+2. $G$ función de distribución es estacionaria frente a $F(y/x)$ sii $\forall y \in\mathbb{R}$ se tiene $G(y) = \int_E F(y/x) dG(x)$
+3. $\Pi$ es distribución límite sii $\Pi(B)$ = lim_n P^{(n)}(B), \forall B\in \mathbb{B}_E$
+#+end_definition
 
+#+begin_fact
+1. Si una distribución $\Pi$ es límite, entonces es estacionaria
+2. Si $P^{(0)}$ es estacionaria, entonces $P^{(n)}$ es estacionaria para cualquier $n\in\mathbb{N}$
+#+end_fact
