@@ -29,8 +29,8 @@
 + [X] Demostración de iii. en la página 15 de estocásticos
 + [ ] Demostración de iv. en la página 15 de estocásticos: condicionamiento por etapas.
 
-* Notaciones
-- Las igualdades entre probabilidades, esperanzas, etc las entendemos como igualdades casi seguramente, dado que la probabilidad es una medida de Lebesgue normalizada.
+* Notas
+Las igualdades entre probabilidades, esperanzas, etc cuando dan lugar a una variable aleatoria, las entendemos como igualdades casi seguramente, dado que la probabilidad es una medida de Lebesgue normalizada.
 * Tema 1: Teoría general de procesos estocásticos
 ** Repaso teoría de la medida y teoría de probabilidad
 *** Espacio medible
@@ -212,8 +212,8 @@ $\{X_n\}_{n\in \mathbb{N}}$ es proceso de Markov sii:
 
 \[\forall n\in \mathbb{N}, \forall B \in \mathbb{B}, P[X_{n+1} \in B/ X_1, \ldots X_n] = P[X_{n+1} \in B/X_n], cs\]
 
-** PETD
-*** Trayectorias
+*** PETD
+**** Trayectorias
 $\forall w \in \Omega$ fijo llamamos trayectoria en $w$ a $X(w): \mathbb{N} \rightarrow \mathbb{R}$ con $X(w)(n) = X_n(w) \in \mathbb{R}^{\mathbb{N}}$
 
 Por tanto podemos definir la función de trayectorias como:
@@ -225,7 +225,7 @@ Por tanto podemos definir la función de trayectorias como:
 
 Para ver que $\mathcal{X}$ es medible nos hace falta una $\sigma$ álgebra sobre $\mathbb{R}^{\mathbb{N}}$.
 
-**** Sigma álgebra Borel sobre $\mathbb{R}^{\mathbb{N}}$
+***** Sigma álgebra Borel sobre $\mathbb{R}^{\mathbb{N}}$
 
 #+begin_definition
 Definimos el rectángulo de lados $B_1, \ldots B_k \in \mathbb{B}$ como:
@@ -241,10 +241,10 @@ Definimos $\sigma$ álgebra $\mathbb{B}^{\mathbb{N}} := \sigma(\mathcal{C}^{\mat
 
 Usando que $\sigma(\mathcal{C}^{\mathbb{N}})$ es semiálgebra, la $\sigma$ álgebra se forma a partir de uniones finitas de elementos de $\mathcal{C}^{\mathbb{N}}$
 
-***** Teorema de medibilidad - caracterización de PETD
+****** Teorema de medibilidad - caracterización de PETD
 \[\{X_n\}_{n\in \mathbb{N}} \quad PETD \Leftrightarrow \mathcal{X}^{-1}(C), \forall C\in \mathcal{C}^{\mathbb{N}}\]
 
-*** Distribución de $\{X_n\}_{n\in \mathbb{N}}$ PETD
+**** Distribución de $\{X_n\}_{n\in \mathbb{N}}$ PETD
 Dado $\{X_n\}_{n\in \mathbb{N}}$ PETD definimos la medida de probabilidad:
 
 \[P_{\mathcal{X}}: \mathbb{B}^{\mathbb{N}} \rightarrow [0,1], \quad P_{\mathcal{X}}(B) = P(\mathcal{X}^{-1}(B))\]
@@ -261,9 +261,9 @@ $\forall n \in \mathbb{N}$ sea $P_n$ probabilidad en $(\mathbb{R}^n, \mathbb{B}^
 La distribución $P_{\mathcal{X}}$ del PETD $\{X_n\}_{n\in \mathbb{N}}$ viene determinada por las distriuciones finito dimensionales $dist(X_1, \ldots X_n)$
 #+end_corollary
 
-** PETC
+*** PETC
 Tenemos el espacio de medida $(\Omega, \mathcal{A}, P)$ y $T\subseteq \mathbb{R}$ espacio paramétrico. Nuestro espacio de estados es $(E, \mathbb{B}_E)= (\mathbb{R}, \mathbb{B})$ con $E\subseteq \mathbb{R}$.
-*** Trayectorias
+**** Trayectorias
 $\forall w \in \Omega$ fijo llamamos trayectoria en $w$ a $X(w): T \rightarrow \mathbb{R}$ con $X(w)(t) = X_t(w) \in \mathbb{R}^T$
 
 Por tanto podemos definir la función de trayectorias como:
@@ -274,7 +274,7 @@ Por tanto podemos definir la función de trayectorias como:
 \end{array}\]
 
 Para ver que $\mathcal{X}$ es medible nos hace falta una $\sigma$ álgebra sobre $\mathbb{R}^T$.
-*** Sigma álgebra Borel sobre $\mathbb{R}^T$
+***** Sigma álgebra Borel sobre $\mathbb{R}^T$
 
 #+begin_definition
 Definimos el rectángulo de lados $B_1, \ldots B_k \in \mathbb{B}$ como:
@@ -288,8 +288,37 @@ La clase de rectángulos medibles $\mathcal{C}^T$ es semiálgebra.
 Definimos $\sigma$ álgebra $\mathbb{B}^T := \sigma(\mathcal{C}^T)$
 #+end_definition
 
-**** Teorema de medibilidad - caracterización de PETC
+****** Caracterización de $\mathbb{B}^T$
+$B\in \mathbb{B}^T \Leftrightarrow \exists D\in \mathbb{B}^{\mathbb{N}}, \{t_n\}_{n\in \mathbb{N}} \subseteq T$ tales que $B = \{f \in \mathbb{R}^T: \{f(t_n)\}_{n\in\mathbb{N}} \in D\}$
+****** Teorema de medibilidad - caracterización de PETC
 \[\{X_t\}_{t\in T} \quad PETC \Leftrightarrow \mathcal{X}^{-1}(C), \forall C\in \mathcal{C}^T\]
+
+**** Distribución de $\{X_n\}_T$ PETC
+Dado $\{X_t\}_{t \in T}$ PETC definimos la medida de probabilidad:
+
+\[P_{\mathcal{X}}: \mathbb{B}^T \rightarrow [0,1], \quad P_{\mathcal{X}}(B) = P(\mathcal{X}^{-1}(B))\]
+
+#+begin_theorem
+*Extensión del teorema de consistencia de Kolmogorov*
+
+Si $\forall n \in \mathbb{N}$, para todo $t_1, \ldots t_n$, $t_i < t_{i+1}$ tenemos $P_{t1, \ldots t_n$ es probabilidad en $(\mathbb{R}^n, \mathbb{B}^n)$ verificando $P_{t1, \ldots t_n} (B_1 \times \ldots \times B_n) = P_{t_1 \ldots t_{n+1}}(B_1 \times \ldots \times B_n \times \mathbb{R})$ entonces $\exists_1 \widehat{P}$ en $(\mathbb{R}^T, \mathbb{B}^T)$ verificando que:
+
+\[\widehat{P}(\left\{f\in \mathbb{R}^T : f(t_i) \in B_i, i=1, \ldots n \right\}) = P_{t_1, \ldots t_n}(B_1, \times B_n) \quad \forall t_1 < \ldots < t_n, t_i \in T, \quad \forall B_i \in \mathbb{B}\]
+#+end_theorem
+*** Procesos equivalentes
+Sean $\{X_t\}_{t \in T}$, $\{Y_t\}_{t\in T}$
+
+#+begin_definition 
+Sean $\{X_t\}_{t\in T}$ y $\{Y_t\}_{t \in T}$, definidos sobre $(\Omega, \mathcal{A}, P)$:
+
+1. *Equivalentes en sentido amplio* sii \[P_{\mathcal{X}} = P_{\mahtcal{Y}}\]. Esta definición también puede extenderse a procesos definidos sobre distintos espacios de medida.
+2. *Procesos equivalentes* sii $P[X_t = Y_t] = 1, \forall t \in T$. 
+3. *Indistinguibles* sii $P(\bigcap_{t\in T} [X_t = Y_t]) = 1$.
+#+end_definition
+
+#+begin_fact
+$3 \implies 2 \implies 1$ en la anterior definición. Los reversos de las aplicaciones no son ciertos. 
+#+end_fact
 
 ** Condicionamiento
 Dado un espacio probabilístico $(\Omega, \mathcal{A}, P)$, $B,A \in \mathcal{A}$. Sea $\mathcal{D} \subseteq \mathcal{A}$ otra $\sigma$ álgebra.
