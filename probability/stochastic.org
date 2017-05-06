@@ -22,24 +22,25 @@
 #+attr_latex: :float t :width 4cm
 [[../by-nc-sa.png]]
 
-* TODO [1/3]
+* TODO [1/5]
++ [ ] Limpiar las demostraciones de condicionamiento
++ [ ] ¿Qué quiere decir medible finita?
 + [ ] Demostración de ii. en la página 15 de estocásticos
 + [X] Demostración de iii. en la página 15 de estocásticos
 + [ ] Demostración de iv. en la página 15 de estocásticos: condicionamiento por etapas.
 
-* Resumen
-** Notaciones
+* Notaciones
 - Las igualdades entre probabilidades, esperanzas, etc las entendemos como igualdades casi seguramente, dado que la probabilidad es una medida de Lebesgue normalizada.
-** Tema 1: Teoría general de procesos estocásticos
-*** Repaso teoría de la medida y teoría de probabilidad
-**** Espacio medible
+* Tema 1: Teoría general de procesos estocásticos
+** Repaso teoría de la medida y teoría de probabilidad
+*** Espacio medible
 Es una tupla $(\Omega, \mathcal{A})$ donde $\mathcal{A}$ es una $\sigma$ álgebra, esto es, es cerrada para uniones numerables y cerrada para complementarios.
 
 De la definición de $\sigma$ álgebra se puede deducir que es cerrada para intersecciones numerables y que el vacío y el total están en ella.
 
 Como caso particular de $\sigma$ álgebra, las finitas se llaman álgebras.
 
-**** Aplicación y función medible.
+*** Aplicación y función medible.
 
 Dados dos espacios medibles $(\Omega_1, \mathcal{A}_1)$ y $(\Omega_2, \mathcal{A}_2)$, una *aplicación medible* es una aplicación $f: \Omega_1 \rightarrow \Omega_2$ verificando que para todo $A_2 \in \mathcal{A}_2$ se tiene $f^{-1}(A_2) \in \mathcal{A}_1$.
 
@@ -49,14 +50,14 @@ Una *función medible finita* es una aplicación medible que va a una $\sigma$ �
 Una función $f: (\Omega, \mathcal{A}) \rightarrow (\mathbb{R}^n, \mathbb{B}^n)$ es una función medible multidimensional sii $f_i, \forall i=1,\ldots n$ es función medible unidimensional, donde $f=(f_1, \ldots f_n)^T$
 #+end_fact
 
-**** $\sigma$ álgebra generada por una clase de conjuntos
+*** $\sigma$ álgebra generada por una clase de conjuntos
 Dada $\mathcal{D}$ clase de conjuntos, definimos $\sigma(\mathcal{D})$ como la menor $\sigma$ álgebra que contiene a $\mathcal{D}$
 
 #+begin_fact
 Una función $f: (\Omega_1, \mathcal{A}_1) \rightarrow (\Omega_2, \mathcal{A}_2)$ entre espacios medibles es aplicación medible sii $f^{-1}(\mathcal{D}) \subseteq \mathcal{A}_1$ con $\mathcal{D} : \sigma(\mathcal{D}) = \mathcal{A}_2$
 #+end_fact
 
-**** $\sigma$ álgebra de Borel
+*** $\sigma$ álgebra de Borel
 
 Se define como $\mathbb{B}^n = \sigma(\{ ]-\infty, x], x \in \mathbb{R}^n\})$
 
@@ -68,17 +69,17 @@ Hacemos una aclaración sobre la notación. $]-\infty,x] = ]-\infty, x_1] \times
 
 $[f\le x] = \{x\in \Omega: f_i(x) \le x_i\}$
 
-**** Medidas
+*** Medidas
 Dado un espacio medible $(\Omega, \mathcal{A})$ una medida es una aplicación $\mu : \mathcal{A} \rightarrow \mathbb{R}$ verificando que es no negativa y es $\sigma$ aditiva.
 
 A la terna $(\Omega, \mathcal{A}, \mu)$ se la llama *espacio de medida*.
 
-***** Axiomas de Kolmogorov
+**** Axiomas de Kolmogorov
 Una medida $\mu$ sobre un espacio medible es probabilidad si además $\sigma(\Omega) = 1$. Los otros dos considerados axiomas de Kolmogorov son la no negatividad y $\sigma$ aditividad, ya incluidas en la definición de medida.
 
 Si $\mu$ es probabilidad, el espacio de medida asociado se denomina *espacio probabilístico*.
 
-**** Variables aleatorias
+*** Variables aleatorias
 
 $X: \mathcal{A} \rightarrow \mathbb{R}$ es una variable aleatoria sii es *función medible finita definida en un espacio probabilístico*. Esto implica que la función va de espacios $(\Omega, \mathcal{A})$ a $(\mathbb{R}, \mathbb{B})$
 
@@ -129,7 +130,7 @@ En el caso $k=2$, el momento no centrado $\sigma^2 = E[(X-a)^2] = EX^2 - (EX)^2$
 \[Cov(X,Y) = E[(X-EX)] E[(Y-EY)]\]
 #+end_definition
 
-*** Procesos estocásticos
+** Procesos estocásticos
 Un proceso estocástico es una familia $\{X_t}_{t\in T}$ de v.a. definidas en un espacio probabilístico $(\Omega, \mathcal{A}, P)$.
 
 $T$ será un conjunto ordenado arbitrario, que se denomina espacio paramétrico (discreto/continuo), donde discreto se entiende como numerable.
@@ -169,30 +170,30 @@ $R : T\times T \rightarrow \mathbb{R}$ con $R(t,s) = E[X_t X_s]$
 **** Función covarianza
 $C : T\times T \rightarrow \mathbb{R}$ con $C(t,s) = E[(X_t - \mu(t))(X_s - \mu(s))] = R(s,t) - \mu(t) \mu(s)$
 
-*** Clasificación de los procesos estocásticos
+** Clasificación de los procesos estocásticos
 Sea $\{X_t\}_{t\in T}$ proceso estocástico con espacio de estados $(E, \mathbb{B}_E), E\subseteq \mathbb{R}$.
 
-**** En función del espacio paramétrico:
+*** En función del espacio paramétrico:
 - Si $T$ es discreto, tenemos PE en tiempo discreto
 - si $T$ es continuo, tenemos PE en tiempo continuo
 
-**** En función del espacio de estados:
+*** En función del espacio de estados:
 - Si $E$ es discreto, tenemos PE discreto (cadenas)
 - Si $E$ es continuo, tenemos PE continuo.
 
 
 A los PDTC (procesos discretos en tiempo continuo), los llamamos cadenas de Markov.
 
-**** Atendiendo a la relación entre las variables del proceso
-***** Incrementos independientes
+*** Atendiendo a la relación entre las variables del proceso
+**** Incrementos independientes
 $X_{t_1}, X_{t_2}-X_{t_1}, \ldots X_{t_n} - X_{t_{n-1}}$ son v.a. independientes.
-***** Incrementos estacionarios
+**** Incrementos estacionarios
 $\{X_t\}_{t\in T}$ es un proceso con incrementos estacionarios si $X_t - X_s$ y $X_{t+h}-X_{s+h}$ tienen la misma distribución $\forall h>0$
 
-***** Procesos estrictamente estacionarios (estacionarios en sentido amplio)
+**** Procesos estrictamente estacionarios (estacionarios en sentido amplio)
 Para cualquier $n\in \mathbb{N}$, $\forall t_1, \ldots t_n$, $dist(X_{t_1}, \ldots X_{t_n}) = dist(X_{t_1 + h}, \ldots X_{t_n + h})$ para cualquier $h > 0$
 
-***** Procesos débilmente estacionarios
+**** Procesos débilmente estacionarios
 Un proceso $\{X_t\}_{t\in T}$ es débilmente estacionario si:
 - Es de segudno orden, esto es $E[X_t^2] < \infty \forall t$
 - Tiene función media constante
@@ -204,17 +205,18 @@ Un proceso $\{X_t\}_{t\in T}$ es débilmente estacionario si:
 Todo proceso estrictamente estacionario con momentos de segundo orden es débilmente estacionario.
 #+end_fact
 
-**** Martingala
+*** Martingala
 $\{X_n\}_{n\in \mathbb{N}}$ es *martingala* si $\forall n, EX_n < \infty$ y para todo $n\in \mathbb{N}$ se tiene $E[X_{n+1}/X_1, \ldots X_n] = X_n$ casi seguramente.
-**** Procesos de Markov
+*** Procesos de Markov
 $\{X_n\}_{n\in \mathbb{N}}$ es proceso de Markov sii:
 
 \[\forall n\in \mathbb{N}, \forall B \in \mathbb{B}, P[X_{n+1} \in B/ X_1, \ldots X_n] = P[X_{n+1} \in B/X_n], cs\]
 
-*** Trayectorias y distribución
-$\forall w \in \Omega$ fijo definimos $X(w): \mathbb{N} \rightarrow \mathbb{R}$ con $X(w)(n) = X_n(w) \in \mathbb{R}^{\mathbb{N}}$
+** PETD
+*** Trayectorias
+$\forall w \in \Omega$ fijo llamamos trayectoria en $w$ a $X(w): \mathbb{N} \rightarrow \mathbb{R}$ con $X(w)(n) = X_n(w) \in \mathbb{R}^{\mathbb{N}}$
 
-Por tanto podemos definir:
+Por tanto podemos definir la función de trayectorias como:
 
 \[\begin{array}{rccl}
 \mathcal{X}: & \Omega & \rightarrow & \mathbb{R}^{\mathbb{N}}\\
@@ -230,7 +232,7 @@ Definimos el rectángulo de lados $B_1, \ldots B_k \in \mathbb{B}$ como:
 
 \[R(B_1, \ldots B_k) = \Big\{ \{x_n\}_{n\in\mathbb{N}} : x_i \in B_i, i=1,\ldots k\Big\}\]
 
-La clase de rectángulos medibles $\mathcal{C}^{\mathbb{N}}$ es semiálgebra (cerrado para el total y el vacío, para intersecciones, y verifica que para $A \in \mathcal{C}^{\mathbb{N}}$ existen $S_1, \ldots S_k$ disjuntos verificándose $\bar{A} = \bigcup_{j=1}^k S_j$.
+La clase de rectángulos medibles $\mathcal{C}^{\mathbb{N}}$ es semiálgebra (cerrado para el total y el vacío, para intersecciones, y verifica que para $A \in \mathcal{C}^{\mathbb{N}}$ existen $S_1, \ldots S_k$ disjuntos verificándose $\bar{A} = \bigcup_{j=1}^k S_j$)
 #+end_definition
 
 #+begin_definition
@@ -240,17 +242,56 @@ Definimos $\sigma$ álgebra $\mathbb{B}^{\mathbb{N}} := \sigma(\mathcal{C}^{\mat
 Usando que $\sigma(\mathcal{C}^{\mathbb{N}})$ es semiálgebra, la $\sigma$ álgebra se forma a partir de uniones finitas de elementos de $\mathcal{C}^{\mathbb{N}}$
 
 ***** Teorema de medibilidad - caracterización de PETD
-\[\{X_n\}_{n\in \mathbb{N}} \quad PETD \Leftrightarrow 
-\begin{array}{rrll} 
-\mathcal{X} & : (\Omega, \mathcal{A}, P) & \rightarrow  &(\mathbb{R}^{\mathbb{N}}, \mathbb{B}^{\mathbb{N}})\\
-& w & \mapsto & \{X_n(w)\}_{n \in \mathbb{N}}
-\end{array} \Leftrightarrow \mathcal{X}^{-1}(C), \forall C\in \mathcal{C}^{\mathbb{N}}\]
+\[\{X_n\}_{n\in \mathbb{N}} \quad PETD \Leftrightarrow \mathcal{X}^{-1}(C), \forall C\in \mathcal{C}^{\mathbb{N}}\]
 
-***** Distribución de $\{X_n\}_{n\in \mathbb{N}}$ PETD
+*** Distribución de $\{X_n\}_{n\in \mathbb{N}}$ PETD
 Dado $\{X_n\}_{n\in \mathbb{N}}$ PETD definimos la medida de probabilidad:
 
 \[P_{\mathcal{X}}: \mathbb{B}^{\mathbb{N}} \rightarrow [0,1], \quad P_{\mathcal{X}}(B) = P(\mathcal{X}^{-1}(B))\]
-*** Condicionamiento
+
+#+begin_theorem
+*Teorema de consistencia de Kolmogorov*
+
+$\forall n \in \mathbb{N}$ sea $P_n$ probabilidad en $(\mathbb{R}^n, \mathbb{B}^n)$ verificando $P_n(B_1 \times \ldots \times B_n) = P_{n+1}(B_1 \times \ldots B_n \times \mathbb{R})$ para cualesquiera $B_i \in \mathbb{B}$. Bajo dichas hipótesis se verifica que existe una única $\widehat{P}$ en $(\mathbb{R}^n, \mathbb{B}^n)$ tal que:
+
+\[\widehat{P}(\left\{\{x_k\}_{k\in \mathbb{N}} : x_1 \in B_1, \ldots x_n \in B_n\right\}) = P_n(B_1 \times \ldots \times B_n)\]
+#+end_theorem
+
+#+begin_corollary
+La distribución $P_{\mathcal{X}}$ del PETD $\{X_n\}_{n\in \mathbb{N}}$ viene determinada por las distriuciones finito dimensionales $dist(X_1, \ldots X_n)$
+#+end_corollary
+
+** PETC
+Tenemos el espacio de medida $(\Omega, \mathcal{A}, P)$ y $T\subseteq \mathbb{R}$ espacio paramétrico. Nuestro espacio de estados es $(E, \mathbb{B}_E)= (\mathbb{R}, \mathbb{B})$ con $E\subseteq \mathbb{R}$.
+*** Trayectorias
+$\forall w \in \Omega$ fijo llamamos trayectoria en $w$ a $X(w): T \rightarrow \mathbb{R}$ con $X(w)(t) = X_t(w) \in \mathbb{R}^T$
+
+Por tanto podemos definir la función de trayectorias como:
+
+\[\begin{array}{rccl}
+\mathcal{X}: & \Omega & \rightarrow & \mathbb{R}^T\\
+& w & \mapsto & \{X_t(w)\}_{t\in T}
+\end{array}\]
+
+Para ver que $\mathcal{X}$ es medible nos hace falta una $\sigma$ álgebra sobre $\mathbb{R}^T$.
+*** Sigma álgebra Borel sobre $\mathbb{R}^T$
+
+#+begin_definition
+Definimos el rectángulo de lados $B_1, \ldots B_k \in \mathbb{B}$ como:
+
+\[R_{t_1, \ldots t_k}(B_1, \ldots B_k) = \Big\{ f:T \rightarrow \mathbb{R} : f(t_i) \in B_i, i=1,\ldots k\Big\}\]
+
+La clase de rectángulos medibles $\mathcal{C}^T$ es semiálgebra.
+#+end_definition
+
+#+begin_definition
+Definimos $\sigma$ álgebra $\mathbb{B}^T := \sigma(\mathcal{C}^T)$
+#+end_definition
+
+**** Teorema de medibilidad - caracterización de PETC
+\[\{X_t\}_{t\in T} \quad PETC \Leftrightarrow \mathcal{X}^{-1}(C), \forall C\in \mathcal{C}^T\]
+
+** Condicionamiento
 Dado un espacio probabilístico $(\Omega, \mathcal{A}, P)$, $B,A \in \mathcal{A}$. Sea $\mathcal{D} \subseteq \mathcal{A}$ otra $\sigma$ álgebra.
 
 Sea $X$ variable aleatoria con $EX < \infty$. 
@@ -309,10 +350,8 @@ Dada $Y$ variable aleatoria integrable, se definen:
 7. Sea $\mathcal{D}_1 \subseteq \mathcal{D}_2$ $\sigma$ álgebras. Entonces: $E[X/\mathcal{D}_1] = E[E[X/\mathcal{D}_1]/\mathcal{D}_2] = E[E[X/\mathcal{D}_2]/\mathcal{D}_1]$
 #+end_fact
 
-
-
-** Tema 3: Procesos de Markov
-*** Procesos de Markov en tiempo discreto
+* Tema 3: Procesos de Markov
+** Procesos de Markov en tiempo discreto
 Suponemos en lo que sigue un espacio de medida $(\Omega, \mathcal{A}, P)$, un espacio paramétrico $T= \mathbb{N} \cup \{0\}$, $(E,\mathcal{B}_E)$ espacio paramétrico con $E\subseteq \mathbb{R}$ y $\{X_n\}_{n\ge 0}$ PETD.
 
 #+begin_definition
@@ -323,7 +362,7 @@ Se define una filtración de $\sigma$ álgebras como $\{\mathcal{F}_n}_{n\ge 0}$
 
 A la filtración dada por $\sigma_n = \sigma(X_0, \ldots X_n)$ se le llama *filtración natural asociada al proceso $\{X_n\}$*
 
-**** Procesos de Markov respecto de una filtración de $\sigma$ álgebras arbitraria
+*** Procesos de Markov respecto de una filtración de $\sigma$ álgebras arbitraria
 #+begin_definition
 $\{X_n\}$ es proceso de Markov respecto de la filtración $\{\mathcal{F}_n\}$ sii:
 
@@ -338,7 +377,7 @@ La segunda condición de la anterior definición equivale a decir que para toda 
 \[E[f(X_n) / \mathcal{F}_{n-1}] = E[f(X_n) / X_{n-1}]\]
 #+end_fact
 
-**** Procesos de Markov respecto de la filtración natural
+*** Procesos de Markov respecto de la filtración natural
 La definición se extrae de la definición para filtración arbitraria sustituyendo $\{\mathcal{F}_n\}$ por la filtración natural $\{\sigma_n\}$, con la salvedad de que el primer punto de la definición ya se cumple por definición de filtración natural. A los procesos de Markov respecto de la filtración natural lo llamaremos simplemente proceso de Markov.
 
 Encontramos aparte de la caracterización dada para filtraciones arbitrarias, dos caracterizaciones más en el caso de PM respecto de la filtración natural.
@@ -348,51 +387,51 @@ Encontramos aparte de la caracterización dada para filtraciones arbitrarias, do
 2. $\forall B \in \mathcal{B}_E$, para todos $n_1 < \ldots < n_k < n$ se tiene: $P[X_n \in B/X_{n_1}, \ldots X_{n_k}] = P[X_n \in B /X_{n_k}]$
 #+end_fact
 
-***** Ecuación de Chapman-Kolmogorov
+**** Ecuación de Chapman-Kolmogorov
 Sea $\{X_n\}$ proceso de Markov con $m \le k < n$. Dado $x\in E$, para todo $B\in \mathcal{B}_E$ se tiene:
 
 \[P[X_n \in B/ X_m = x] = \int_E P[X_n \in B /X_k=y] P[X_k \in dy /X_m = x]\]
-**** Distribución de un proceso de Markov
+*** Distribución de un proceso de Markov
 Dado un PETD $\{X_n\}$ se tiene:
 
 \[P[X_i \in B_i, i=0, \ldots n] = \prod_{i=1}^n P[X_i \in B_i/ X_{i-1} \in B_{i-1}] \cdot P[X_0 \in B_0]\]
 
 Por tanto la distribución del proceso viene determinada por $dist(X_k/ X_{k-1}) \quad k=1, \ldots n$ y por $dist(X_0)$ o equivalentemente por $dist(X_{k-1}, X_{k}) \quad k=1, \ldots n$ y por $dist(X_k), \quad k=0,\ldots (n-1)$
 
-**** Procesos de Markov homogéneos
+*** Procesos de Markov homogéneos
 Sea un PETD $\{X_n\}$. Es homogéneo cuando:
 
 \[P[X_n\in B/X_{n-1}=x] = P[X_1 \in B / X_0=x] = p(x,B), \quad \forall B\in \mathcal{B}_E, n\ge 1, x\in E\]
 
 En lo que sigue suponemos $\{X_n\}$ un PETD homogéneo.
 
-***** Función de transición en un paso
+**** Función de transición en un paso
 Definimos la función de transición como $p(x,B)$ en la igualdad anterior.
-****** Propiedades de la función de transición
+***** Propiedades de la función de transición
 1. $\forall B \in \mathcal{B}_E$ fijo se tiene $P(\cdot, B): (E,\mathcal{B}_E) \rightarrow (\mathbb{R}, \mathcal{B})$ es medible.
 2. $\forall x \in E$ fijo se tiene $P(x, \cdot): \mathcal{B}_E \rightarrow \mathbb{R}$ es probabilidad.
  
-***** Función de distribución en un paso
+**** Función de distribución en un paso
 La definimos como: $F(y/x) = P[X_1 \le y / X_0=x]$
-***** Distribuciones absolutas del proceso
+**** Distribuciones absolutas del proceso
 Las definimos como: $P^{(n)} (B) = P[X_n \in B], \quad \forall B \in \mathcal{B}_E$
-***** Distribución del proceso
+**** Distribución del proceso
 En el caso de procesos de Markov, la distribución viene determinada por la función de transición en un paso $p(x,B)$ y por $P^{(0)}(B)$ para todo $B\in \mathcal{B}_E$
-***** Función de transición en n pasos
+**** Función de transición en n pasos
 Llamamos probabilidad de transición en $n$ pasos a:
 
 \[P[X_{n+m} \in B /X_m = x] = P[X_n\in B / X_0=x] := p_n(x,B) \quad \forall B\in \mathcal{B}_E, \forall n,m \in \mathbb{N}\]
 
 Donde la primera igualdad se deduce de la ecuación de Chapman-Kolmogorov.
-***** Función de distribución en $n$ pasos
+**** Función de distribución en $n$ pasos
 La definimos como: $F_n(y/x) = P[X_{n} \le y / X_0=x]$
 
-****** Propiedades de la función de transición en $n$ pasos
+***** Propiedades de la función de transición en $n$ pasos
 1. Expresión recursiva: $p_n(x,B) = \int_E p_{n-1} (y,B) P(x,dy)$
 2. $P^{(n)}(B) = \int_E p_n(x,B) P^{(0)}(dx) = \int_E p(x,B) P^{(n-1)}(dx)$
 3. $P[X_{n_i}\in B_i, i=1, \ldots k] = \int_{B_1} P^{(n_1)} (dx_1) \cdot \int_{B_2} p_{n_2-n_1} (x_1, dx_2) \cdot \int_{B_{k-1}} p_{n_{k-1} - n_{k-2}} (x_{k-2}, dx_{k-1})$
 
-***** Distribución estacionaria y distribución límite
+**** Distribución estacionaria y distribución límite
 #+begin_definition
 - Una distribución $\Pi$ es estacionaria frente a $p(x,B) \Leftrightarrow \forall B\in \mathcal{B}_E \Pi(B) = \int_E p(x,B) \Pi(dx)$
 - Una función de distribución $G$ es estacionaria frente a $F(y/x) \Leftrightarrow \forall y\in \mathbb{R} G(y) = \int_E F(y/x) dG(x)$
@@ -404,7 +443,7 @@ La definimos como: $F_n(y/x) = P[X_{n} \le y / X_0=x]$
 2. Si $P^{(0)}$ es estacionaria entonces $P^{(n)}$ es estacionaria para todo $n\in \mathbb{N}$
 #+end_fact
 
-*** Procesos de Markov en tiempo continuo
+** Procesos de Markov en tiempo continuo
 #+begin_definition
 Sea $(\Omega, \mathcal{A}, P)$ espacio probabilístico, $T=[0, +\infty[$, $(E,\mathcal{B}_E)$ con $E\subseteq \mathbb{R}$ espacio de estados, $\{X_t\}_{t\ge 0}$ PETC y $\{\mathcal{F}_t\}$ filtración. Decimos que $\{X_t\}_{t\ge 0}$ es proceso de Markov respecto a $\{\mathcal{F}_t\}$ si:
 
@@ -461,18 +500,17 @@ Sea $\{X_t\}$ proceso de Markov. Entonces $\forall s <u \le t, \forall x\in E, \
 #+end_fact
 
 
-**** Función de transición
+*** Función de transición
 La definimos como $P(s,x,t,B) = P[X_t \in B/X_s = x]$ para todo $s\le t, B\in \mathcal{B}_E, x\in E$
 
-***** Propiedades de la función de transición
+**** Propiedades de la función de transición
 1. $P(s,x,t, \cdot): \mathcal{B}_E \rightarrow \mathbb{R}$ es probabilidad
 2. $P(s,\cdot,t,\mathcal{B}): (E, \mathcal{B}_E) \rightarrow (\mathbb{R}, \mathcal{B})$
 3. $\forall B\in \mathcal{B}_E, \forall x\in E, \forall s<u<t$ se tiene $P(s,x,t,B) = \int_E P(u,y,t,B) P(s,x,u,dy)$
 4. $P(s,x,s,E-\{x\}) = 0$
 
-**** Proceso de Markov homogéneo
+*** Proceso de Markov homogéneo
 Un proceso de Markov es homogéneo cuando:
 
 \[P[X_t \in B/X_s=x] = P[X_{t+h} \in B/X_{s+h} = x] = P[X_{t-s}\in B/X_0=x], \quad \forall B\in\mathcal{B}_E; x\in E\; t,s\le 0\]
 
-* Ejercicios
