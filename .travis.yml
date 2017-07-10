@@ -1,0 +1,14 @@
+dist: trusty
+
+#before_install:
+#- openssl aes-256-cbc -K $encrypted_7000bf93944d_key -iv $encrypted_7000bf93944d_iv
+#  -in secret.json.enc -out secret.json -d
+
+install:
+  - sudo apt-get update
+  - git clone https://github.com/ncordon/.emacs.d.git ~/.emacs.d
+  
+script:
+  - emacs analysis/fisymat.org --batch -u `id -un` --eval '(load user-init-file)' -f org-html-export-to-html
+  - mv analysis/fisymat.html docs/
+
