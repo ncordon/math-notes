@@ -22,7 +22,7 @@
 #+latex_header: \usepackage[left=3.5cm, right=3cm, top=3cm]{geometry}
 #+attr_latex: :float t :width 4cm
 
-#+SETUPFILE: theme-readtheorg.setup
+#+SETUPFILE: ../theme-readtheorg.setup
 
 [[../by-nc-sa.png]]
 
