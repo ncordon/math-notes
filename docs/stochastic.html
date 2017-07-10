@@ -1,0 +1,1334 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es">
+<head>
+<title>Procesos estocásticos</title>
+<!-- 2017-07-10 lun 06:04 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="Ignacio Cordón Castillo" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.right  { text-align: center;  }
+  th.left   { text-align: center;   }
+  th.center { text-align: center; }
+  td.right  { text-align: right;  }
+  td.left   { text-align: left;   }
+  td.center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara:nth-child(2) { display: inline; }
+  .footpara { display: block; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css" href="http://www.pirilampo.org/styles/readtheorg/css/htmlize.css"/>
+<link rel="stylesheet" type="text/css" href="http://www.pirilampo.org/styles/readtheorg/css/readtheorg.css"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="http://www.pirilampo.org/styles/lib/js/jquery.stickytableheaders.min.js"></script>
+<script type="text/javascript" src="http://www.pirilampo.org/styles/readtheorg/js/readtheorg.js"></script>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+<script type="text/javascript" src="http://orgmode.org/mathjax/MathJax.js"></script>
+<script type="text/javascript">
+<!--/*--><![CDATA[/*><!--*/
+    MathJax.Hub.Config({
+        // Only one of the two following lines, depending on user settings
+        // First allows browser-native MathML display, second forces HTML/CSS
+        //  config: ["MMLorHTML.js"], jax: ["input/TeX"],
+            jax: ["input/TeX", "output/HTML-CSS"],
+        extensions: ["tex2jax.js","TeX/AMSmath.js","TeX/AMSsymbols.js",
+                     "TeX/noUndefined.js"],
+        tex2jax: {
+            inlineMath: [ ["\\(","\\)"] ],
+            displayMath: [ ['$$','$$'], ["\\[","\\]"], ["\\begin{displaymath}","\\end{displaymath}"] ],
+            skipTags: ["script","noscript","style","textarea","pre","code"],
+            ignoreClass: "tex2jax_ignore",
+            processEscapes: false,
+            processEnvironments: true,
+            preview: "TeX"
+        },
+        showProcessingMessages: true,
+        displayAlign: "center",
+        displayIndent: "2em",
+
+        "HTML-CSS": {
+             scale: 100,
+             availableFonts: ["STIX","TeX"],
+             preferredFont: "TeX",
+             webFont: "TeX",
+             imageFont: "TeX",
+             showMathMenu: true,
+        },
+        MMLorHTML: {
+             prefer: {
+                 MSIE:    "MML",
+                 Firefox: "MML",
+                 Opera:   "HTML",
+                 other:   "HTML"
+             }
+        }
+    });
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Procesos estocásticos</h1>
+
+<div class="figure">
+<p><img src="../by-nc-sa.png" alt="by-nc-sa.png" />
+</p>
+</div>
+
+<p>
+Las igualdades entre probabilidades, esperanzas, etc cuando dan lugar a una variable aleatoria, las entendemos como igualdades casi seguramente, dado que la probabilidad es una medida.
+</p>
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> Teoría general de procesos estocásticos</h2>
+<div class="outline-text-2" id="text-1">
+</div><div id="outline-container-sec-1-1" class="outline-3">
+<h3 id="sec-1-1"><span class="section-number-3">1.1</span> Repaso teoría de la medida y teoría de probabilidad</h3>
+<div class="outline-text-3" id="text-1-1">
+</div><div id="outline-container-sec-1-1-1" class="outline-4">
+<h4 id="sec-1-1-1"><span class="section-number-4">1.1.1</span> Espacio medible</h4>
+<div class="outline-text-4" id="text-1-1-1">
+<p>
+Es una tupla \((\Omega, \mathcal{A})\) donde \(\mathcal{A}\) es una \(\sigma\) álgebra, esto es, es cerrada para uniones numerables y cerrada para complementarios.
+</p>
+
+<p>
+De la definición de \(\sigma\) álgebra se puede deducir que es cerrada para intersecciones numerables y que el vacío y el total están en ella.
+</p>
+
+<p>
+Como caso particular de \(\sigma\) álgebra, las finitas se llaman álgebras.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-1-1-2" class="outline-4">
+<h4 id="sec-1-1-2"><span class="section-number-4">1.1.2</span> Aplicación y función medible.</h4>
+<div class="outline-text-4" id="text-1-1-2">
+<p>
+Dados dos espacios medibles \((\Omega_1, \mathcal{A}_1)\) y \((\Omega_2, \mathcal{A}_2)\), una <b>aplicación medible</b> es una aplicación \(f: \Omega_1 \rightarrow \Omega_2\) verificando que para todo \(A_2 \in \mathcal{A}_2\) se tiene \(f^{-1}(A_2) \in \mathcal{A}_1\).
+</p>
+
+<p>
+Una <b>función medible finita</b> es una aplicación medible donde \(\mathcal{A}_2\) es \(\sigma\) álgebra de Borel, multidimensional o unidimensional.
+</p>
+
+<div class="fact">
+<p>
+Una función \(f: (\Omega, \mathcal{A}) \rightarrow (\mathbb{R}^n, \mathbb{B}^n)\) es una función medible multidimensional sii \(f_i, \forall i=1,\ldots n\) es función medible unidimensional, donde \(f=(f_1, \ldots f_n)^T\)
+</p>
+
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-1-1-3" class="outline-4">
+<h4 id="sec-1-1-3"><span class="section-number-4">1.1.3</span> \(\sigma\) álgebra generada por una clase de conjuntos</h4>
+<div class="outline-text-4" id="text-1-1-3">
+<p>
+Sea \(\mathcal{D}\) clase de conjuntos. Se define \(\sigma(\mathcal{D})\) como la menor \(\sigma\) álgebra que contiene a \(\mathcal{D}\).
+</p>
+
+<div class="fact">
+<p>
+\(f: (\Omega_1, \mathcal{A}_1) \rightarrow (\Omega_2, \mathcal{A}_2)\) entre espacios medibles es aplicación medible sii \(f^{-1}(\mathcal{D}) \subseteq \mathcal{A}_1\) con \(\mathcal{D} : \sigma(\mathcal{D}) = \mathcal{A}_2\)
+</p>
+
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-1-1-4" class="outline-4">
+<h4 id="sec-1-1-4"><span class="section-number-4">1.1.4</span> \(\sigma\) álgebra de Borel</h4>
+<div class="outline-text-4" id="text-1-1-4">
+<p>
+Se define como \(\mathbb{B}^n = \sigma(\{ ]-\infty, x], x \in \mathbb{R}^n\})\), donde \(]-\infty,x] = ]-\infty, x_1] \times \ldots \times ]-\infty, x_n]\).
+</p>
+
+<div class="fact">
+<p>
+Una función \(f:(\Omega, \mathcal{A}) \rightarrow (\mathbb{R}^n, \mathbb{B}^n)\) es medible sii \[f^{-1}(]-\infty, x]) = [f\le x] \in \mathcal{A}, \quad \forall x\in \mathbb{R}^n\]
+</p>
+
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-1-1-5" class="outline-4">
+<h4 id="sec-1-1-5"><span class="section-number-4">1.1.5</span> Medida</h4>
+<div class="outline-text-4" id="text-1-1-5">
+<p>
+Dado un espacio medible \((\Omega, \mathcal{A})\) una medida es una aplicación \(\mu : \mathcal{A} \rightarrow \mathbb{R}\) verificando que es no negativa y es \(\sigma\) aditiva.
+</p>
+
+<p>
+A la terna \((\Omega, \mathcal{A}, \mu)\) se la llama <b>espacio de medida</b>.
+</p>
+
+<div class="definition">
+<p>
+<b>Axiomas de Kolmogorov</b>
+</p>
+
+<p>
+Una medida \(\mu\) sobre un espacio medible es probabilidad si además \(\sigma(\Omega) = 1\). Los otros dos considerados axiomas de Kolmogorov son la no negatividad y \(\sigma\) aditividad, ya incluidas en la definición de medida.
+</p>
+
+<p>
+Si \(\mu\) es probabilidad, el espacio de medida asociado se denomina <b>espacio probabilístico</b>.
+</p>
+
+</div>
+</div>
+</div>
+<div id="outline-container-sec-1-1-6" class="outline-4">
+<h4 id="sec-1-1-6"><span class="section-number-4">1.1.6</span> Variables aleatorias</h4>
+<div class="outline-text-4" id="text-1-1-6">
+<p>
+\(X: \mathcal{A} \rightarrow \mathbb{R}\) es una variable aleatoria sii es <b>función medible finita definida en un espacio probabilístico</b>. Esto implica que la función va de espacios \((\Omega, \mathcal{A}, P)\) a \((\mathbb{R}, \mathbb{B})\)
+</p>
+
+<p>
+Si la función llega al espacio \((\mathbb{R}^n, \mathbb{B}^n)\) tenemos un vector aleatorio.
+</p>
+
+<div class="fact">
+<p>
+\(X=(X_1, \ldots X_n)^T\) es vector aleatorio sii \(X_i\) es v.a. para todo \(i=1, \ldots n\)
+</p>
+
+</div>
+
+<div class="definition">
+<p>
+Sea \(X\) v.a. sobre \((\Omega, \mathcal{A}, P)\) se define:
+</p>
+
+<ul class="org-ul">
+<li><b>Distribución de la probabilidad</b> de \(X\) como \(P_X(B) = P[X \in B], \forall B \in \mathbb{B}\).
+</li>
+<li><b>Función de distribución</b> como \(F_X(x) = P[X \le x]\)
+</li>
+<li><b>Función característica</b> como \(\varphi_X(t) = E[e^{itX}]\).
+</li>
+</ul>
+
+</div>
+
+<div class="definition">
+<p>
+Se define la <b>\(\sigma\) álgebra generada</b> por \(X\) como \(\sigma(X):= X^{-1}(\mathbb{B}^n)\)
+</p>
+
+</div>
+
+<div class="definition">
+<p>
+\(X\) va es:
+</p>
+
+<ul class="org-ul">
+<li><b>discreta</b> sii \(\exists E_x\) numerable verificando \(P[X \in E_x] = 1\)
+</li>
+<li><b>continua</b> sii \(\exists f\) función de densidad tal que \(F(x) = \int_{-\infty}^x f(y) dy\)
+</li>
+</ul>
+
+</div>
+
+<div class="definition">
+<p>
+Se define:
+</p>
+<ul class="org-ul">
+<li><b>Momentos no centrados</b>: \(E[X^k]\)
+</li>
+<li><b>Momentos centrados</b>: \(E[(X-a)^k]\)
+</li>
+</ul>
+
+<p>
+Como caso particular: \(\sigma^2 = E[(X-E[X])^2] = EX^2 - (EX)^2\)
+</p>
+
+</div>
+
+
+<div class="definition">
+<p>
+<b>Covarianza</b>
+</p>
+
+<p>
+\[Cov(X,Y) = E[(X-EX)] E[(Y-EY)] = E[XY] - E[X]E[Y]\]
+</p>
+
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-1-2" class="outline-3">
+<h3 id="sec-1-2"><span class="section-number-3">1.2</span> Procesos estocásticos</h3>
+<div class="outline-text-3" id="text-1-2">
+<p>
+<b>Un proceso estocástico</b> (PE) es una familia \(\{X_t\}_{t\in T}\) de v.a. definidas en \((\Omega, \mathcal{A}, P)\).
+</p>
+
+<p>
+\(T\) será un conjunto totalmente ordenado arbitrario, que se denomina <b>espacio paramétrico</b> (discreto/continuo).
+</p>
+
+<p>
+En lo que sigue v.a. denotará variable aleatoria unidimensional.
+</p>
+
+<p>
+Todos los \(X_t\) verifican que van desde el espacio probabilístico \((\Omega, \mathcal{A}, P)\) hasta el espacio de estados \((E, \mathbb{B}_E)\), con \(E \subseteq \mathbb{R}\).
+</p>
+<div class="definition">
+<p>
+<b>Trayectoria</b>
+</p>
+
+<p>
+Dado un proceso estocástico \(\{X_t\}_{t\in T}\) llamamos trayectoria asociada a un \(w \in \Omega\) fijo a la función \(X (w)(t) := X_t (w)\)
+</p>
+
+</div>
+
+<div class="definition">
+<p>
+<b>Proceso medible</b>
+</p>
+
+<p>
+Un proceso se dice medible sii la siguiente función es medible:
+</p>
+
+<p>
+\[\begin{array}{rcl}
+T \times \Omega & \rightarrow & \mathbb{R}\\
+(t,w) & \mapsto & X(w)(t) \end{array} \]
+</p>
+
+</div>
+</div>
+
+<div id="outline-container-sec-1-2-1" class="outline-4">
+<h4 id="sec-1-2-1"><span class="section-number-4">1.2.1</span> Características de procesos estocásticos</h4>
+<div class="outline-text-4" id="text-1-2-1">
+<p>
+Definimos, suponiendo que las esperanzas tienen siempre sentido:
+</p>
+</div>
+
+<ol class="org-ol"><li><a id="sec-1-2-1-1" name="sec-1-2-1-1"></a>Función media<br  /><div class="outline-text-5" id="text-1-2-1-1">
+<p>
+\(\mu : T \rightarrow \mathbb{R}\), con \(\mu(t) = E(X_t)\)
+</p>
+</div>
+</li>
+<li><a id="sec-1-2-1-2" name="sec-1-2-1-2"></a>Momentos<br  /><div class="outline-text-5" id="text-1-2-1-2">
+<p>
+\(\mu_k : T \rightarrow \mathbb{R}\) con \(\mu_k(t) = E[X_t^k]\)
+</p>
+</div>
+</li>
+<li><a id="sec-1-2-1-3" name="sec-1-2-1-3"></a>Función correlación<br  /><div class="outline-text-5" id="text-1-2-1-3">
+<p>
+\(R:T\times T \rightarrow \mathbb{R}\) con \(R(t,s) = E[X_t X_s]\)
+</p>
+</div>
+</li>
+<li><a id="sec-1-2-1-4" name="sec-1-2-1-4"></a>Función covarianza<br  /><div class="outline-text-5" id="text-1-2-1-4">
+<p>
+\(C:T\times T \rightarrow \mathbb{R}\) con \(C(t,s) = R(s,t) - \mu(t) \mu(s)\)
+</p>
+</div>
+</li></ol>
+</div>
+</div>
+
+<div id="outline-container-sec-1-3" class="outline-3">
+<h3 id="sec-1-3"><span class="section-number-3">1.3</span> Clasificación de los procesos estocásticos</h3>
+<div class="outline-text-3" id="text-1-3">
+<p>
+Sea \(\{X_t\}_{t\in T}\) proceso estocástico (PE) con espacio de estados \((E, \mathbb{B}_E), E\subseteq \mathbb{R}\).
+</p>
+</div>
+
+<div id="outline-container-sec-1-3-1" class="outline-4">
+<h4 id="sec-1-3-1"><span class="section-number-4">1.3.1</span> En función del espacio paramétrico:</h4>
+<div class="outline-text-4" id="text-1-3-1">
+<ul class="org-ul">
+<li>Si \(T\) es discreto, tenemos PE en tiempo discreto (PETD)
+</li>
+<li>si \(T\) es continuo, tenemos PE en tiempo continuo (PETC)
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-sec-1-3-2" class="outline-4">
+<h4 id="sec-1-3-2"><span class="section-number-4">1.3.2</span> En función del espacio de estados:</h4>
+<div class="outline-text-4" id="text-1-3-2">
+<ul class="org-ul">
+<li>Si \(E\) es discreto, tenemos PE discreto (cadenas) (PD)
+</li>
+<li>Si \(E\) es continuo, tenemos PE continuo. (PC)
+</li>
+</ul>
+
+<p>
+A los PDTC (procesos discretos en tiempo continuo), los llamamos cadenas de Markov.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-1-3-3" class="outline-4">
+<h4 id="sec-1-3-3"><span class="section-number-4">1.3.3</span> Atendiendo a la relación entre las variables del proceso</h4>
+<div class="outline-text-4" id="text-1-3-3">
+<ul class="org-ul">
+<li><b>Incrementos independientes</b>: \(X_{t_1}, X_{t_2}-X_{t_1}, \ldots, X_{t_n} - X_{t_{n-1}}\) son v.a. independientes, donde \(t_1 < t_2 \ldots t_n\) .
+</li>
+<li><b>Incrementos estacionarios</b>: \(\{X_t\}_{t\in T}\) es un proceso con incrementos estacionarios si \(X_t - X_s\) y \(X_{t+h}-X_{s+h}\) tienen la misma distribución \(\forall h>0\)
+</li>
+<li><b>Procesos estrictamente estacionarios</b> (estacionarios en sentido amplio): Para cualquier \(n\in \mathbb{N}, h>0, \, \forall t_1, \, \ldots t_n, \, dist(X_{t_1}, \ldots X_{t_n}) = dist(X_{t_1 + h}, \ldots X_{t_n + h})\).
+</li>
+<li><b>Procesos débilmente estacionarios</b>: \(\{X_t\}\) es de segundo orden (\(E[X_t^2] < \infty \quad \forall t\)), \(\mu(t)\) es contante y \(C(s,t) := C(0,t-s)\)
+</li>
+</ul>
+
+
+<div class="fact">
+<p>
+Todo proceso estrictamente estacionario con momentos de segundo orden es débilmente estacionario.
+</p>
+
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-1-3-4" class="outline-4">
+<h4 id="sec-1-3-4"><span class="section-number-4">1.3.4</span> Martingala</h4>
+<div class="outline-text-4" id="text-1-3-4">
+<p>
+\(\{X_n\}_{n\in \mathbb{N}}\) es <b>martingala</b> si \(\forall n, \, EX_n < \infty, \, E[X_{n+1}/X_1, \ldots X_n] = X_n\) casi seguramente.
+</p>
+</div>
+</div>
+<div id="outline-container-sec-1-3-5" class="outline-4">
+<h4 id="sec-1-3-5"><span class="section-number-4">1.3.5</span> PETD</h4>
+<div class="outline-text-4" id="text-1-3-5">
+</div><ol class="org-ol"><li><a id="sec-1-3-5-1" name="sec-1-3-5-1"></a>Trayectorias<br  /><div class="outline-text-5" id="text-1-3-5-1">
+<p>
+\(\forall w \in \Omega\) fijo llamamos trayectoria en \(w\) a \(X(w): \mathbb{N} \rightarrow \mathbb{R}\) con \(X(w)(n) = X_n(w)\)
+</p>
+
+<p>
+Por tanto podemos definir la <b>función de trayectorias</b> como:
+</p>
+
+<p>
+\[\begin{array}{rccl}
+\mathcal{X}: & \Omega & \rightarrow & \mathbb{R}^{\mathbb{N}}\\
+& w & \mapsto & \{X_n(w)\}_n
+\end{array}\]
+</p>
+
+<p>
+Para ver que \(\mathcal{X}\) es medible nos hace falta una \(\sigma\) álgebra sobre \(\mathbb{R}^{\mathbb{N}}\).
+</p>
+
+<div class="definition">
+<p>
+Definimos el rectángulo de lados \(B_1, \ldots B_k \in \mathbb{B}\) como:
+</p>
+
+<p>
+\[R(B_1, \ldots B_k) = \Big\{ \{x_n\}_{n\in\mathbb{N}} : x_i \in B_i, i=1,\ldots k\Big\}\]
+</p>
+
+<p>
+La clase de rectángulos medibles \(\mathcal{C}^{\mathbb{N}}\) es semiálgebra (cerrado para el total y el vacío, para intersecciones, y verifica que para \(A \in \mathcal{C}^{\mathbb{N}}\) existen \(S_1, \ldots S_k\) disjuntos verificándose \(A^c = \bigcup_{j=1}^k S_j\))
+</p>
+
+</div>
+
+<div class="definition">
+<p>
+Definimos la \(\sigma\) álgebra \(\mathbb{B}^{\mathbb{N}} := \sigma(\mathcal{C}^{\mathbb{N}})\)
+</p>
+
+</div>
+
+<p>
+Usando que \(\sigma(\mathcal{C}^{\mathbb{N}})\) es semiálgebra, la \(\sigma\) álgebra se forma a partir de uniones finitas de elementos de \(\mathcal{C}^{\mathbb{N}}\)
+</p>
+
+<div class="theorem">
+<p>
+<b>Teorema de medibilidad - caracterización de PETD</b>
+</p>
+
+<p>
+\[\{X_n\}_{n\in \mathbb{N}} \quad PETD \Leftrightarrow \mathcal{X}^{-1}(C), \, \forall C\in \mathcal{C}^{\mathbb{N}}\]
+</p>
+
+</div>
+</div>
+</li>
+<li><a id="sec-1-3-5-2" name="sec-1-3-5-2"></a>Distribución de \(\{X_n\}_{n\in \mathbb{N}}\) PETD<br  /><div class="outline-text-5" id="text-1-3-5-2">
+<p>
+Dado \(\{X_n\}_{n\in \mathbb{N}}\) PETD definimos la medida de probabilidad:
+</p>
+
+<p>
+\[P_{\mathcal{X}}: \mathbb{B}^{\mathbb{N}} \rightarrow [0,1], \quad P_{\mathcal{X}}(B) = P(\mathcal{X}^{-1}(B))\]
+</p>
+
+<div class="theorem">
+<p>
+<b>Teorema de consistencia de Kolmogorov</b>
+</p>
+
+<p>
+\(\forall n \in \mathbb{N}\) sea \(P_n\) probabilidad en \((\mathbb{R}^n, \mathbb{B}^n)\) verificando \(P_n(B_1 \times \ldots \times B_n) = P_{n+1}(B_1 \times \ldots B_n \times \mathbb{R})\) para cualesquiera \(B_i \in \mathbb{B}\). Bajo dichas hipótesis se verifica que existe una única \(\widehat{P}\) en \((\mathbb{R}^n, \mathbb{B}^n)\) tal que:
+</p>
+
+<p>
+\[\widehat{P}(\left\{\{x_k\}_{k\in \mathbb{N}} : x_1 \in B_1, \ldots x_n \in B_n\right\}) = P_n(B_1 \times \ldots \times B_n)\]
+</p>
+
+</div>
+
+<div class="corollary">
+<p>
+La distribución \(P_{\mathcal{X}}\) del PETD \(\{X_n\}_{n\in \mathbb{N}}\) viene determinada por las distribuciones finito dimensionales \(dist(X_1, \ldots X_n)\)
+</p>
+
+</div>
+</div>
+</li></ol>
+</div>
+
+<div id="outline-container-sec-1-3-6" class="outline-4">
+<h4 id="sec-1-3-6"><span class="section-number-4">1.3.6</span> PETC</h4>
+<div class="outline-text-4" id="text-1-3-6">
+<p>
+Tenemos el espacio de medida \((\Omega, \mathcal{A}, P)\) y \(T\subseteq \mathbb{R}\) espacio paramétrico. Nuestro espacio de estados es \((E, \mathbb{B}_E)= (\mathbb{R}, \mathbb{B})\) con \(E\subseteq \mathbb{R}\).
+</p>
+</div>
+
+<ol class="org-ol"><li><a id="sec-1-3-6-1" name="sec-1-3-6-1"></a>Trayectorias<br  /><div class="outline-text-5" id="text-1-3-6-1">
+<p>
+\(\forall w \in \Omega\) fijo llamamos trayectoria en \(w\) a \(X(w): T \rightarrow \mathbb{R}\) con \(X(w)(t) = X_t(w)\)
+</p>
+
+<p>
+Por tanto podemos definir la función de trayectorias como:
+</p>
+
+<p>
+\[\begin{array}{rccl}
+\mathcal{X}: & \Omega & \rightarrow & \mathbb{R}^T\\
+& w & \mapsto & \{X_t(w)\}_{t\in T}
+\end{array}\]
+</p>
+
+<p>
+Para ver que \(\mathcal{X}\) es medible nos hace falta una \(\sigma\) álgebra sobre \(\mathbb{R}^T\).
+</p>
+
+<div class="definition">
+<p>
+Definimos los rectángulos de lados \(B_1, \ldots B_k \in \mathbb{B}\) como (\(t_i \in T\)):
+</p>
+
+<p>
+\[R_{t_1, \ldots t_k}(B_1, \ldots B_k) = \Big\{ f:T \rightarrow \mathbb{R} : f(t_i) \in B_i, i=1,\ldots k\Big\}\]
+</p>
+
+<p>
+La clase de rectángulos medibles \(\mathcal{C}^T\) es semiálgebra.
+</p>
+
+</div>
+
+<div class="definition">
+<p>
+Definimos \(\sigma\) álgebra \(\mathbb{B}^T := \sigma(\mathcal{C}^T)\)
+</p>
+
+</div>
+
+<div class="fact">
+<p>
+<b>Caracterización de \(\mathbb{B}^T\)</b>
+</p>
+
+<p>
+\(B\in \mathbb{B}^T \Leftrightarrow \exists D\in \mathbb{B}^{\mathbb{N}}, \{t_n\}_{n\in \mathbb{N}} \subseteq T\) tales que \(B = \{f \in \mathbb{R}^T: \{f(t_n)\}_{n\in\mathbb{N}} \in D\}\)
+</p>
+
+</div>
+
+<div class="theorem">
+<p>
+<b>Teorema de medibilidad - caracterización de PETC</b>
+</p>
+
+<p>
+\[\{X_t\}_{t\in T} \quad PETC \Leftrightarrow \mathcal{X}^{-1}(C), \forall C\in \mathcal{C}^T\]
+</p>
+
+</div>
+</div>
+</li>
+
+<li><a id="sec-1-3-6-2" name="sec-1-3-6-2"></a>Distribución de \(\{X_t\}_T\) PETC<br  /><div class="outline-text-5" id="text-1-3-6-2">
+<p>
+Dado \(\{X_t\}_{t \in T}\) PETC definimos la medida de probabilidad:
+</p>
+
+<p>
+\[P_{\mathcal{X}}: \mathbb{B}^T \rightarrow [0,1], \quad P_{\mathcal{X}}(B) = P(\mathcal{X}^{-1}(B))\]
+</p>
+
+<div class="theorem">
+<p>
+<b>Extensión del teorema de consistencia de Kolmogorov</b>
+</p>
+
+<p>
+Si \(\forall n \in \mathbb{N}\), para todo \(t_1, \ldots t_n\), \(t_i < t_{i+1}\) tenemos \(P_{t_1, \ldots t_n\) es probabilidad en \((\mathbb{R}^n, \mathbb{B}^n)\) verificando \(P_{t_1, \ldots t_n} (B_1 \times \ldots \times B_n) = P_{t_1 \ldots t_{n+1}}(B_1 \times \ldots \times B_n \times \mathbb{R})\) entonces \(\exists_1 \widehat{P}\) en \((\mathbb{R}^T, \mathbb{B}^T)\) verificando que \(\forall t_1 < \ldots < t_n, t_i \in T, \quad \forall B_i \in \mathbb{B}\):
+</p>
+
+<p>
+\[\widehat{P}(\left\{f\in \mathbb{R}^T : f(t_i) \in B_i, i=1, \ldots n \right\}) = P_{t_1, \ldots t_n}(B_1, \times B_n)\]
+</p>
+
+</div>
+</div>
+</li></ol>
+</div>
+<div id="outline-container-sec-1-3-7" class="outline-4">
+<h4 id="sec-1-3-7"><span class="section-number-4">1.3.7</span> Procesos equivalentes</h4>
+<div class="outline-text-4" id="text-1-3-7">
+<p>
+Sean \(\{X_t\}_{t \in T}\), \(\{Y_t\}_{t\in T}\)
+</p>
+
+<div class="definition">
+<p>
+Sean \(\{X_t\}_{t\in T}\) y \(\{Y_t\}_{t \in T}\), definidos sobre \((\Omega, \mathcal{A}, P)\). Se dicen:
+</p>
+
+<ol class="org-ol">
+<li><b>Equivalentes en sentido amplio</b> sii \[P_{\mathcal{X}} = P_{\mahtcal{Y}}\] Esta definición también puede extenderse a procesos definidos sobre distintos espacios de medida.
+</li>
+<li><b>Procesos equivalentes</b> sii \(P[X_t = Y_t] = 1, \forall t \in T\).
+</li>
+<li><b>Indistinguibles</b> sii \(P(\bigcap_{t\in T} [X_t = Y_t]) = 1\).
+</li>
+</ol>
+
+</div>
+
+<div class="fact">
+<p>
+\(3 \implies 2 \implies 1\) en la anterior definición. Los reversos de las implicaciones no son ciertos.
+</p>
+
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-1-4" class="outline-3">
+<h3 id="sec-1-4"><span class="section-number-3">1.4</span> Condicionamiento</h3>
+<div class="outline-text-3" id="text-1-4">
+<p>
+Dado un espacio probabilístico \((\Omega, \mathcal{A}, P)\), \(B,A \in \mathcal{A}\). Sea \(\mathcal{D} \subseteq \mathcal{A}\) otra \(\sigma\) álgebra y \(X\) variable aleatoria con \(EX < \infty\).
+</p>
+
+<div class="definition">
+<p>
+<b>Probabilidad condicionada</b>
+</p>
+
+<p>
+\(P(\cdot/B): \mathcal{A} \rightarrow [0,1]\) definida por \(P(A/B) = P(A\cap B)\) es función de probabilidad condicionada a \(B\).
+Además \((\Omega, \mathcal{A}, P(\cdot/B))\) es espacio de probabilidad.
+</p>
+
+</div>
+
+<div class="definition">
+<p>
+<b>Esperanza condicionada a un hecho</b>
+</p>
+
+<p>
+Se define la esperanza condicionada de \(X\) a \(B\) como:
+</p>
+
+<p>
+\[E[X/B] = \int_{\Omega} X dP(\cdot/B) = \frac{E[X1_B]}{P(B)}\]
+</p>
+
+<p>
+En particular \(E[1_A/B] = P(A/B)\)
+</p>
+
+</div>
+
+<div class="definition">
+<p>
+<b>Esperanza condicionada a una \(\sigma\) álgebra</b>
+</p>
+
+<p>
+Se define \(E[X/\mathcal{D}]\) como la única función cs(\(P_{\mathcal{D}}\)), \(\mathcal{D}\) medible que verifica:
+</p>
+
+<p>
+\[\int_D E[X/\mathcal{D}] dP_{\mathcal{D}} = \int_D X dP \quad \forall D \in \mathcal{D}\]
+</p>
+
+</div>
+
+<div class="definition">
+<p>
+<b>Probabilidad condicionada a una \(\sigma\) álgebra</b>
+</p>
+
+<p>
+Se define \(P(A/\mathcal{D}) = E[1_A/\mathcal{D}]\) para todo \(A\in \mathcal{A}\).
+</p>
+
+<p>
+Esta función cumple que es \(\mathcal{D}\) medible, variable aletoria y que \(E[P(A/\mathcal{D})] = P(A)\)
+</p>
+
+</div>
+
+<div class="definition">
+<p>
+<b>Esperanza y probabilidad condicionadas a una variable aleatoria</b>
+</p>
+
+<p>
+Dada \(Y\) variable aleatoria integrable, se definen:
+</p>
+
+<ol class="org-ol">
+<li>\(E[X/Y] = E[X/\sigma(Y)]\)
+</li>
+<li>\(P(A/Y) = P(A/\sigma(Y)) = E[1_A/\sigma(Y)]\)
+</li>
+</ol>
+
+</div>
+
+<div class="fact">
+<p>
+<b>Propiedades del condicionamiento</b>
+</p>
+
+<ol class="org-ol">
+<li>\(X=c, cs(P)\) entonces \(E[X/\mathcal{D}]=c, cs(P_{\mathcal{D}})\)
+</li>
+<li>Linealidad: \(E[aX + bY/\mathcal{D}] = aE[X/\mathcal{D}] + bE[Y/\mathcal{D}]\)
+</li>
+<li>\(X \ge Y, cs(P)\) entonces \(E[X/\mathcal{D}] \ge E[Y/\mathcal{D}], cs(P_{\mathcal{D})\)
+</li>
+<li>\(X\) es \(\mathcal{D}\) medible, entonces \(E[X/\mathcal{D}] = X, cs(P_{\mathcal{D}})\)
+</li>
+<li>\(X\) es \(\mathcal{D}\) medible, \(X, Y, XY\) integrables, entonces \(E[XY/\mathcal{D}] = XE[Y/\mathcal{D}]\)
+</li>
+<li>Si \(X\) es independiente de \(\mathcal{D}\) entonces \(E[X/\mathcal{D}] = E[X], cs(P_{\mathcal{D}})\)
+</li>
+<li>Sea \(\mathcal{D}_1 \subseteq \mathcal{D}_2 \subseteq \mathcal{D}\) \(\sigma\) álgebras. Entonces: \[E[X/\mathcal{D}_1] = E[E[X/\mathcal{D}_1]/\mathcal{D}_2] = E[E[X/\mathcal{D}_2]/\mathcal{D}_1], cs(P_{\mathcal{D}})\]
+</li>
+</ol>
+
+</div>
+
+<p>
+\newpage
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> Procesos de Markov</h2>
+<div class="outline-text-2" id="text-2">
+</div><div id="outline-container-sec-2-1" class="outline-3">
+<h3 id="sec-2-1"><span class="section-number-3">2.1</span> Procesos de Markov en tiempo discreto</h3>
+<div class="outline-text-3" id="text-2-1">
+<p>
+Suponemos en lo que sigue un espacio de medida \((\Omega, \mathcal{A}, P)\), un espacio paramétrico \(T= \mathbb{N} \cup \{0\}\), \((E,\mathcal{B}_E)\) espacio de estados con \(E\subseteq \mathbb{R}\) y \(\{X_n\}_{n\ge 0}\) PETD.
+</p>
+
+<div class="definition">
+<p>
+<b>Filtración de \(\sigma\) álgebras</b>
+</p>
+
+<p>
+Se define una filtración de \(\sigma\) álgebras como \(\{\mathcal{F}_n\}_{n\ge 0}\)  donde \(\mathcal{F}_n\) es \(\sigma\) álgebra para \(n \in \mathbb{N}\) arbitrario y \(\mathcal{F}_n \subseteq \mathcal{F}_{n+1}\).
+</p>
+
+</div>
+
+<p>
+A la filtración dada por \(\sigma_n = \sigma(X_0, \ldots X_n)\) se le llama <b>filtración natural asociada al proceso \(\{X_n\}\)</b>
+</p>
+</div>
+
+<div id="outline-container-sec-2-1-1" class="outline-4">
+<h4 id="sec-2-1-1"><span class="section-number-4">2.1.1</span> Procesos de Markov respecto de una filtración de \(\sigma\) álgebras arbitraria</h4>
+<div class="outline-text-4" id="text-2-1-1">
+<div class="definition">
+<p>
+\(\{X_n\}\) es proceso de Markov respecto de la filtración \(\{\mathcal{F}_n\}\) sii:
+</p>
+
+<ol class="org-ol">
+<li>El proceso está adaptado a la \(\sigma\) álgebra: \(X_n^{-1} (\mathcal{B}_E) \subseteq \mathcal{F}_n\). Esto implica \(\sigma(X_1, \ldots X_n) \subseteq \mathcal{F}_n\)
+</li>
+<li>\(\forall B\in \mathcal{B}_E\), \(\forall n \ge 1\) se tiene \(P[X_n \in B / \mathcal{F}_{n-1}] = P[X_n \in B/X_{n-1}]\)
+</li>
+</ol>
+
+</div>
+
+
+<div class="fact">
+<p>
+La segunda condición de la anterior definición equivale a decir que para toda \(f: (E, \mathcal{B}_E) \longrightarrow (\mathbb{R}, \mathcal{B})\) medible y acotada, \(\forall n \ge 1\) se verifica:
+</p>
+
+<p>
+\[E[f(X_n) / \mathcal{F}_{n-1}] = E[f(X_n) / X_{n-1}]\]
+</p>
+
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-2-1-2" class="outline-4">
+<h4 id="sec-2-1-2"><span class="section-number-4">2.1.2</span> Procesos de Markov respecto de la filtración natural</h4>
+<div class="outline-text-4" id="text-2-1-2">
+<p>
+La definición se obtiene sustituyendo \(\{\mathcal{F}_n\}\) por la filtración natural \(\{\sigma_n\}\) en la anterior, con la salvedad de que el primer punto de la definición ya se cumple por ser el proceso adaptado a la filtración natural. A los procesos de Markov respecto de la filtración natural lo llamaremos simplemente procesos de Markov (PM).
+</p>
+
+<div class="fact">
+<p>
+Equivalen:
+</p>
+
+<ol class="org-ol">
+<li>\(\{X_n\}\) es de Markov
+</li>
+<li>\(\forall f:E \rightarrow \mathbb{R}\) medible y acotada, para todo \(0 \le n_1 < \ldots < n_k\) se tiene \[E[f(X_n) / X_{n_1}, \ldots X_{n_k}] = E[f(X_n)/X_{n_k}]\]
+</li>
+<li>\(\forall B \in \mathcal{B}_E\), para todos \(0 \le n_1 < \ldots < n_k < n\) se tiene: \[P[X_n \in B/X_{n_1}, \ldots X_{n_k}] = P[X_n \in B /X_{n_k}]\]
+</li>
+</ol>
+
+</div>
+
+<div class="fact">
+<p>
+<b>Ecuación de Chapman-Kolmogorov</b>
+</p>
+
+<p>
+Sea \(\{X_n\}\) proceso de Markov con \(m \le k < n\). Dado \(x\in E\), para todo \(B\in \mathcal{B}_E\) se tiene:
+</p>
+
+<p>
+\[P[X_n \in B/ X_m = x] = \int_E P[X_n \in B /X_k=y] P[X_k \in dy /X_m = x]\]
+</p>
+
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-2-1-3" class="outline-4">
+<h4 id="sec-2-1-3"><span class="section-number-4">2.1.3</span> Distribución de un proceso de Markov</h4>
+<div class="outline-text-4" id="text-2-1-3">
+<p>
+Dado un PETD \(\{X_n\}\) se tiene:
+</p>
+
+<p>
+\[P[X_i \in B_i, i=0, \ldots n] = \prod_{i=1}^n P[X_i \in B_i/ X_{i-1} \in B_{i-1}] \cdot P[X_0 \in B_0]\]
+</p>
+
+<p>
+Por tanto la distribución del proceso viene determinada por \(dist(X_k/ X_{k-1}) \quad k=1, \ldots n\) y por \(dist(X_0)\) o equivalentemente por \(dist(X_{k-1}, X_{k}) \quad k=1, \ldots n\) y por \(dist(X_k), \quad k=0,\ldots (n-1)\)
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2-1-4" class="outline-4">
+<h4 id="sec-2-1-4"><span class="section-number-4">2.1.4</span> Procesos de Markov homogéneos</h4>
+<div class="outline-text-4" id="text-2-1-4">
+<p>
+Sea un PETD \(\{X_n\}\). Es homogéneo cuando:
+</p>
+
+<p>
+\[P[X_n\in B/X_{n-1}=x] = P[X_1 \in B / X_0=x] = p(x,B), \quad \forall B\in \mathcal{B}_E, n\ge 1, x\in E\]
+</p>
+
+<p>
+En lo que sigue suponemos \(\{X_n\}\) un PETD homogéneo.
+</p>
+</div>
+
+<ol class="org-ol"><li><a id="sec-2-1-4-1" name="sec-2-1-4-1"></a><b>Función de transición en un paso</b><br  /><div class="outline-text-5" id="text-2-1-4-1">
+<p>
+Definimos la función de transición como \(p(x,B)\) en la igualdad anterior.
+</p>
+
+<div class="fact">
+<p>
+<b>Propiedades de la función de transición</b>
+</p>
+
+<ul class="org-ul">
+<li>\(\forall B \in \mathcal{B}_E\) fijo se tiene \(p(\cdot, B): (E,\mathcal{B}_E) \rightarrow (\mathbb{R}, \mathcal{B})\) es medible.
+</li>
+<li>\(\forall x \in E\) fijo se tiene \(p(x, \cdot): \mathcal{B}_E \rightarrow \mathbb{R}\) es probabilidad.
+</li>
+</ul>
+
+</div>
+</div>
+</li>
+
+<li><a id="sec-2-1-4-2" name="sec-2-1-4-2"></a><b>Función de distribución en un paso</b><br  /><div class="outline-text-5" id="text-2-1-4-2">
+<p>
+La definimos como: \(F(y/x) = P[X_1 \le y / X_0=x]\)
+</p>
+</div>
+</li>
+<li><a id="sec-2-1-4-3" name="sec-2-1-4-3"></a><b>Distribuciones absolutas del proceso</b><br  /><div class="outline-text-5" id="text-2-1-4-3">
+<p>
+Las definimos como: \(P^{(n)} (B) = P[X_n \in B], \quad \forall B \in \mathcal{B}_E\)
+</p>
+</div>
+</li>
+<li><a id="sec-2-1-4-4" name="sec-2-1-4-4"></a><b>Distribución del proceso</b><br  /><div class="outline-text-5" id="text-2-1-4-4">
+<p>
+En el caso de PM homogéneos, la distribución viene determinada por la función de transición en un paso \(p(x,B)\) y por \(P^{(0)}(B)\) para todo \(B\in \mathcal{B}_E\)
+</p>
+</div>
+</li>
+<li><a id="sec-2-1-4-5" name="sec-2-1-4-5"></a><b>Función de transición en n pasos</b><br  /><div class="outline-text-5" id="text-2-1-4-5">
+<p>
+Llamamos probabilidad de transición en \(n\) pasos a:
+</p>
+
+<p>
+\[P[X_{n+m} \in B /X_m = x] = P[X_n\in B / X_0=x] := p_n(x,B) \quad \forall B\in \mathcal{B}_E, \forall n,m \in \mathbb{N}\]
+</p>
+
+<p>
+Donde la primera igualdad se deduce de la ecuación de Chapman-Kolmogorov.
+</p>
+</div>
+</li>
+<li><a id="sec-2-1-4-6" name="sec-2-1-4-6"></a><b>Función de distribución en \(n\) pasos</b><br  /><div class="outline-text-5" id="text-2-1-4-6">
+<p>
+La definimos como: \(F_n(y/x) = P[X_{n} \le y / X_0=x]\)
+</p>
+
+<div class="fact">
+<p>
+<b>Propiedades de la función de transición en \(n\) pasos</b>
+</p>
+
+<ol class="org-ol">
+<li>Expresión recursiva: \(p_n(x,B) = \int_E p_{n-1} (y,B) p(x,dy)\)
+</li>
+<li>\(P^{(n)}(B) = \int_E p_n(x,B) P^{(0)}(dx) = \int_E p(x,B) P^{(n-1)}(dx)\)
+</li>
+<li>Se tiene:
+</li>
+</ol>
+<p>
+\[\begin{array}{rl}
+&P[X_{n_i}\in B_i, i=1, \ldots k] = \\
+=\int_{B_1} P^{(n_1)} (dx_1) \cdot \int_{B_2} p_{n_2-n_1} (x_1, dx_2) &\cdots \int_{B_{k-1}} p_{n_{k-1} - n_{k-2}} (x_{k-2}, dx_{k-1}) p_{n_k - n_{k-1}}(x_{k-1}, B_k)
+\end{array}\]
+</p>
+
+</div>
+</div>
+</li>
+
+<li><a id="sec-2-1-4-7" name="sec-2-1-4-7"></a><b>Distribución estacionaria y distribución límite</b><br  /><div class="outline-text-5" id="text-2-1-4-7">
+<ul class="org-ul">
+<li>Una distribución \(\Pi\) es estacionaria frente a \(p(x,B)\) sii: \[\forall B\in \mathcal{B}_E, \, \Pi(B) = \int_E p(x,B) \Pi(dx)\]
+</li>
+<li>Una función de distribución \(G\) es estacionaria frente a \(F(y/x)\) sii: \[\forall y\in \mathbb{R}, \, G(y) = \int_E F(y/x) dG(x)\]
+</li>
+<li>\(\Pi\) es distribución límite sii: \[\Pi(B) = lim_{n} P^{(n)}(B) \quad \forall B \in \mathcal{B}_E\]
+</li>
+</ul>
+
+<div class="fact">
+<p>
+\\~<br  />
+</p>
+<ol class="org-ol">
+<li>Si existe una distribución límite \(\Pi\) para el proceso, entonces \(\Pi\) es estacionaria.
+</li>
+<li>Si \(P^{(0)}\) es estacionaria entonces \(P^{(n)}\) es estacionaria para todo \(n\in \mathbb{N}\)
+</li>
+</ol>
+
+</div>
+</div>
+</li></ol>
+</div>
+</div>
+
+<div id="outline-container-sec-2-2" class="outline-3">
+<h3 id="sec-2-2"><span class="section-number-3">2.2</span> Procesos de Markov en tiempo continuo</h3>
+<div class="outline-text-3" id="text-2-2">
+<div class="definition">
+<p>
+Sea \((\Omega, \mathcal{A}, P)\) espacio probabilístico, \(T=[0, +\infty[\), \((E,\mathcal{B}_E)\) con \(E\subseteq \mathbb{R}\) espacio de estados, \(\{X_t\}_{t\ge 0}\) PETC y \(\{\mathcal{F}_t\}\) filtración. Decimos que \(\{X_t\}_{t\ge 0}\) es proceso de Markov(PM) respecto a \(\{\mathcal{F}_t\}\) si:
+</p>
+
+<ol class="org-ol">
+<li>\(\forall t\ge 0\) se tiene que \(X_t\) es \(\mathcal{F}_t\) medible (adaptado a la filtración).
+</li>
+<li>\(\forall s < t, \forall B \in \mathcal{B}_E\) se tiene \(P[X_t \in B/ \mathcal{F}_s] = P[X_t \in B/X_s]\)
+</li>
+</ol>
+
+</div>
+
+<div class="fact">
+<p>
+<b>Caracterización de PM respecto a filtración arbitraria</b>
+</p>
+
+<p>
+\(\{X_t\}\) es PETC respecto de \(\{\mathcal{F}_t\}\) sii \(\forall f:(E, \mathcal{B}_E) \rightarrow (\mathbb{R}, \mathcal{B})\) medible y acotada se tiene:
+</p>
+
+<p>
+\[E[f(X_t) / \mathcal{F}_s] = E[f(X_t) / X_s]\]
+</p>
+
+</div>
+
+<div class="fact">
+<p>
+Sean \(\{\mathcal{F}_t^{(i)}\}_{t\ge 0}\) \(i=1,2\) dos filtraciones tales que \(\mathcal{F}^{(1)} \subseteq \mathcal{F}^{(2)}\).
+Sea \(\{X_t\}\) PM respecto \(\{F_t^{(2)}\}\) y adaptado a \(\{F_t^{(1)}\}\). Entonces es PM respecto a \(\{F_t^{(1)}\}\)
+</p>
+
+</div>
+
+<div class="definition">
+<p>
+Se define la <b>filtración natural</b> para un PETC \(\{X_t\}\) como la menor filtración que hace al proceso adaptado a ella, esto es:
+</p>
+
+<p>
+\[\sigma_t = \sigma(X_s, s\le t), \quad t\ge 0\]
+</p>
+
+</div>
+
+<div class="definition">
+<p>
+\(\{X_t\}\) es PM (respecto de la filtración natural) si \(\forall s < t, B\in \mathcal{B}_E\) se tiene \[P[X_t \in B/X_u, u\le s] = P[X_t \in B/ X_s]\]
+</p>
+
+</div>
+
+
+<div class="fact">
+<p>
+<b>Caracterización de proceso de Markov</b>
+</p>
+
+<p>
+Dado \(\{X_t\}\) PETC. Equivalen:
+</p>
+<ol class="org-ol">
+<li>\(\{X_t\}\) es proceso de Markov.
+</li>
+<li>\(\forall f:(E, \mathcal{B}_E) \rightarrow (\mathbb{R}, \mathcal{B})\) medible y acotada, \(\forall s<t\) se tiene: \(E[f(X_t)/ X_u, u\le s] = E[f(X_t)/X_s]\)
+</li>
+<li>\(\forall 0\le t_1 < \ldots < t_k < t\), \(\forall B\in \mathcal{B}_E\) se tiene \(P[X_t \in B/X_{t_1}, \ldots X_{t_k}] = P[X_t \in B/X_{t_k}]\)
+</li>
+<li>\(\forall 0\le t_1 < \ldots < t_k < t\), \(\forall f:(E, \mathcal{B}_E) \rightarrow (\mathbb{R}, \mathcal{B})\) medible y acotada se tiene \(E[f(X_t) /X_{t_1}, \ldots X_{t_k}] = E[f(X_t) \in B/X_{t_k}]\)
+</li>
+</ol>
+
+</div>
+
+<div class="fact">
+<p>
+Si \(\{X_t\}\) es PM respecto de una filtración arbitraria \(\{\mathcal{F}_t\}\) entonces es PM.
+</p>
+
+</div>
+
+
+<div class="fact">
+<p>
+<b>Ecuación de Chapman-Kolmogorov</b>
+</p>
+
+<p>
+Sea \(\{X_t\}\) proceso de Markov. Entonces \(\forall s <u < t, \forall x\in E, \forall B\in \mathcal{B}_E\) :
+</p>
+
+<p>
+\[P[X_t \in B/X_s = x] = \int_E P[X_t \in B/X_u = y] P[X_u \in dy/X_s = x]\]
+</p>
+
+</div>
+</div>
+
+
+<div id="outline-container-sec-2-2-1" class="outline-4">
+<h4 id="sec-2-2-1"><span class="section-number-4">2.2.1</span> Función de transición</h4>
+<div class="outline-text-4" id="text-2-2-1">
+<p>
+La definimos como \(P(s,x,t,B) = P[X_t \in B/X_s = x]\) para todo \(s< t, B\in \mathcal{B}_E, x\in E\)
+</p>
+
+<div class="fact">
+<p>
+<b>Propiedades de la función de transición</b>
+</p>
+<ol class="org-ol">
+<li>\(P(s,x,t, \cdot): \mathcal{B}_E \rightarrow \mathbb{R}\) es probabilidad
+</li>
+<li>\(P(s,\cdot,t,\mathcal{B}): (E, \mathcal{B}_E) \rightarrow (\mathbb{R}, \mathcal{B})\) es \(\mathcal{B}_E\) medible.
+</li>
+<li>\(\forall B\in \mathcal{B}_E, \forall x\in E, \forall s<u<t\) se tiene \(P(s,x,t,B) = \int_E P(u,y,t,B) P(s,x,u,dy)\)
+</li>
+<li>\(P(s,x,s,E-\{x\}) = 0\)
+</li>
+</ol>
+
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-2-2-2" class="outline-4">
+<h4 id="sec-2-2-2"><span class="section-number-4">2.2.2</span> Proceso de Markov homogéneo</h4>
+<div class="outline-text-4" id="text-2-2-2">
+<p>
+Un proceso de Markov es homogéneo cuando \(\forall B\in\mathcal{B}_E; x\in E\; t > s \ge 0, \forall h\ge -s\):
+\[P[X_t \in B/X_s=x] = P[X_{t+h} \in B/X_{s+h} = x] = P[X_{t-s}\in B/X_0=x] := p(x,t-s, B)\]
+</p>
+
+<p>
+\newpage
+</p>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> Ejercicios</h2>
+<div class="outline-text-2" id="text-3">
+</div><div id="outline-container-sec-3-1" class="outline-3">
+<h3 id="sec-3-1"><span class="section-number-3">3.1</span> Imagen inversa y sigma álgebras</h3>
+<div class="outline-text-3" id="text-3-1">
+<div class="wording">
+<p>
+Dada \(f:X \rightarrow Y\) y \(\mathcal{D}\) una \(\sigma\) álgebra definida sobre \(Y\). Entonces \(f^{-1}(\mathcal{D})\) es \(\sigma\) álgebra.
+</p>
+
+</div>
+
+<p>
+LLamamos \(\widehat{\mathcal{D}} = f^{-1}(\mathcal{D})\):
+</p>
+
+<p>
+La demostración es trivial sin más que asegurar que dados \(\{A_n\}_{n\in\mathbb{N}} = \{f^{-1}(B_n)\}_{n\in\mathbb{N}} \subseteq \widehat{\mathcal{D}}\), donde \(B_n \in \mathcal{D}\) tenemos \(\cup_{n\in \mathbb{N}} = f^{-1}(\cup_{n\in\mathbb{N}} B_n)\) con \(\cup_{n\in\mathbb{N}} B_n \in \mathcal{D}\).
+</p>
+
+<p>
+Además dado \(A = f^{-1}(B) \in \widehat{\mathcal{D}}, B\in \mathcal{D}\), se tiene \(A^c = f^{-1}(B^c)\).
+</p>
+
+<p>
+Luego es cerrada para uniones y complementarios.
+</p>
+</div>
+</div>
+<div id="outline-container-sec-3-2" class="outline-3">
+<h3 id="sec-3-2"><span class="section-number-3">3.2</span> Imagen inversa y sigma álgebras generadas por un conjunto</h3>
+<div class="outline-text-3" id="text-3-2">
+<div class="wording">
+<p>
+Dada \(f:X \rightarrow Y\) y \(\mathcal{D} = \sigma (W)\) una \(\sigma\) álgebra definida sobre \(Y\). Entonces \(f^{-1}(\mathcal{D}) = \sigma (f^{-1}(W))\)
+</p>
+
+</div>
+
+
+<p>
+Claramente \(f^{-1}(W) \subseteq f^{-1}(\sigma(W))\), luego tomando \(\sigma\) álgebras en ambos miembros, \(\sigma(f^{-1}(W)) \subseteq f^{-1}(\sigma(W))\).
+</p>
+
+<p>
+Claramente \(f^{-1}(W) \in \sigma(f^{-1}(W)) = \mathcal{F}\). Tomo:
+</p>
+
+<p>
+\[\mathcal{J} = \{ A\subseteq Y : f^{-1}(A) \in \mathcal{F}\}\]
+</p>
+
+<p>
+\(W \subseteq \mathcal{J}\) claramente y \(\mathcal{J}\) es \(\sigma\) álgebra por tenerse que la \(f^{-1}\) funciona bien para complementarios y para uniones. Luego \(\sigma(W) \subseteq \mathcal{J}\) y eso acaba la demostración.
+</p>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Autor: Ignacio Cordón Castillo</p>
+<p class="date">Created: 2017-07-10 lun 06:04</p>
+<p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 25.1.1 (<a href="http://orgmode.org">Org</a> mode 8.2.10)</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

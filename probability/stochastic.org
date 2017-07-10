@@ -21,14 +21,10 @@
 #+latex_header: \everymath{\displaystyle}
 #+latex_header: \usepackage[left=3.5cm, right=3cm, top=3cm]{geometry}
 #+attr_latex: :float t :width 4cm
-[[../by-nc-sa.png]]
 
-* TODO [1/5]
-+ [ ] Limpiar las demostraciones de condicionamiento
-+ [ ] ¿Qué quiere decir medible finita?
-+ [ ] Demostración de ii. en la página 15 de estocásticos
-+ [X] Demostración de iii. en la página 15 de estocásticos
-+ [ ] Demostración de iv. en la página 15 de estocásticos: condicionamiento por etapas.
+#+SETUPFILE: theme-readtheorg.setup
+
+[[../by-nc-sa.png]]
 
 Las igualdades entre probabilidades, esperanzas, etc cuando dan lugar a una variable aleatoria, las entendemos como igualdades casi seguramente, dado que la probabilidad es una medida.
 
