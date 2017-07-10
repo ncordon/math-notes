@@ -1,0 +1,7 @@
+*ltxpng*
+*ltximg*
+*.fls
+*.pyg
+*.tex
+*.org_archive
+*.fdb_latexmk
