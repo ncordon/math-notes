@@ -1,0 +1,73 @@
+#+TITLE: Fisymat 
+#+SUBTITLE:
+#+AUTHOR: Ignacio Cordón Castillo
+#+OPTIONS: toc:nil
+#+LANGUAGE: es
+#+STARTUP: indent
+#+DATE:
+
+#+BEGIN_HTML
+\(
+  \newcommand{\seq}[2]{\{ {#1} \} \rightarrow {#2}}
+  \newcommand{\dseq}[3]{\{ {#1} \} \overset{{#3}}{\longrightarrow} {#2}}
+\)
+#+END_HTML
+
+#+latex_header: \newcommand{\seq}[2]{\{ {#1} \} \longrightarrow {#2}}
+#+latex_header: \newcommand{\dseq}[3]{\{ {#1} \} \overset{{#3}}{\rightarrow} {#2}}
+
+#+latex_header: \usepackage{amsmath} 
+#+latex_header: \usepackage{amsthm}
+#+latex_header: \usepackage{mathabx}
+#+latex_header: \newtheorem*{theorem}{Teorema}
+#+latex_header: \newtheorem*{fact}{Proposición}
+#+latex_header: \newtheorem*{definition}{Definición}
+#+latex_header: \setlength{\parindent}{0pt}
+#+latex_header: \setlength{\parskip}{1em}
+#+latex_header: \usepackage{color}
+#+latex_header: \everymath{\displaystyle}
+#+attr_latex: :float t :width 4cm
+
+#+SETUPFILE: ../theme-readtheorg.setup
+
+* Espacios de Hilbert
+** Producto escalar
+Un producto escalar se define como una aplicación $\langle \cdot, \cdot\rangle: V \rangle V \rightarrow \mathbb{R}$ que verifica:
+1. Bilineal
+2. Simétrica
+3. $\langle u,u\rangle \ge 0, \forall u\in V$ y $\langle u,u\rangle = 0 \Leftrightarrow u = 0$
+   
+*** Norma asociada al producto escalar
+Se verifica, que definiendo $||u|| = \sqrt{\langle u,u\rangle}$, es norma (no negativa, nula sólo para el elemento 0, y saca escalares).
+
+También podemos recuperar el producto escalar a partir de la norma definida a partir de él:
+
+\[\langle u,v\rangle = \frac{1}{4} (||u+v||^2 - ||u-v||^2)\]
+
+1. Desigualdad de Schwarz: $|\langle u,v\rangle| \le ||u|| ||v||$
+2. Desigualdad triangular: $||u+v|| \le ||u|| + ||v||$
+3. Identidad del paralelogramo: $||u+v||^2 + ||u-v||^2 = 2(||u||^2 + ||v||^2), \quad \forall u,v \in V$
+
+**** Demostración
+La demostración de ii es trivial una vez tenemos i. La demostración de iii. consiste en hacer un simple desarrollo de $||u+v||^2$ y $||u-v||^2$.
+
+Veamos i:
+
+\[||u||^2 + 2\lambda \langle u,v\rangle + \lambda^2 ||v||^2 = \langle u+\lambda v, u+\lambda v\rangle \ge 0\]
+
+y tomando $\lambda = -\frac{\langle u,v\rangle}{||v||^2}$ se llega al resultado buscado.
+*** Continuidad del producto escalar
+Dada $\dseq{w_n}{w}{||\cdot||}$, entonces $\seq{\langle v,w_n\rangle}{\langle v,w\rangle}$.
+
+**** Demostración
+Trivial desde Cauchy Schwarz
+** Espacio de Hilbert
+Dado $V$ espacio vectorial, decimos que es espacio de Hilbert si es completo respecto de la norma inducida por dicho producto escalar.
+
+*** Ejemplos
+- $\mathbb{R}^n$ con el producto escalar usual
+- $l_2$ espacio de sucesiones tal que $\sum_{n\ge 1} x_n^2$ con $\langle \bar{x}, \bar{y}\rangle = \sum_{n\ge 1} x_n y_n$, $\bar{x} = \{x_n\}$
+- $\Omega \subset \mathbb{R}^n$, $L^2(\Omega)$ con el producto escalar $\langle f,g\rangle = \int_{\Omega} fg$
+
+**** Demostración
+Veamos una demostración de la afirmación de que $l_2$ es de Hilbert:
