@@ -1,13 +1,13 @@
 dist: trusty
 
 install:
-  - sudo add-apt-repository ppa:ubuntu-elisp/ppa -y
+  - sudo add-apt-repository ppa:kelleyk/emacs -y
   - sudo apt-get update
-  - sudo apt-get install emacs-snapshot
+  - sudo apt-get install emacs25
   - git clone https://github.com/ncordon/.emacs.d.git ~/.emacs.d
   
 script:
-  - emacs analysis/fisymat.org --batch -u `id -un` --eval '(load user-init-file)' -f org-html-export-to-html
+  - /usr/bin/emacs-25.2 analysis/fisymat.org --batch -u `id -un` --eval '(load user-init-file)' -f org-html-export-to-html
   - mv analysis/fisymat.html ..
   - rm -r *
   - mv ../fisymat.html .
