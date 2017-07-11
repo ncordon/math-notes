@@ -1,14 +1,25 @@
 dist: trusty
 
-#before_install:
-#- openssl aes-256-cbc -K $encrypted_7000bf93944d_key -iv $encrypted_7000bf93944d_iv
-#  -in secret.json.enc -out secret.json -d
-
 install:
+  - sudo add-apt-repository ppa:ubuntu-elisp/ppa -y
   - sudo apt-get update
+  - sudo apt-get install emacs-snapshot
   - git clone https://github.com/ncordon/.emacs.d.git ~/.emacs.d
   
 script:
   - emacs analysis/fisymat.org --batch -u `id -un` --eval '(load user-init-file)' -f org-html-export-to-html
-  - mv analysis/fisymat.html docs/
+  - mv analysis/fisymat.html ..
+  - rm -r *
+  - mv ../fisymat.html .
+  
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github_token: $GITHUB_API_TOKEN
+  on:
+    branch: master
+  target_branch: gh-pages
+
+notifications:
+  email: false
 
