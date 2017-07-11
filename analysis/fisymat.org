@@ -13,8 +13,8 @@
 \)
 #+END_HTML
 
-#+latex_header: \newcommand{\seq}[2]{\{ {#1} \} \longrightarrow {#2}}
-#+latex_header: \newcommand{\dseq}[3]{\{ {#1} \} \overset{{#3}}{\rightarrow} {#2}}
+#+latex_header: \newcommand{\seq}[2]{\{ {#1} \} \rightarrow {#2}}
+#+latex_header: \newcommand{\dseq}[3]{\{ {#1} \} \overset{{#3}}{\longrightarrow} {#2}}
 
 #+latex_header: \usepackage{amsmath} 
 #+latex_header: \usepackage{amsthm}
@@ -63,7 +63,6 @@ Dada $\dseq{w_n}{w}{||\cdot||}$, entonces $\seq{\langle v,w_n\rangle}{\langle v,
 Trivial desde Cauchy Schwarz
 ** Espacio de Hilbert
 Dado $V$ espacio vectorial, decimos que es espacio de Hilbert si es completo respecto de la norma inducida por dicho producto escalar.
-
 *** Ejemplos
 - $\mathbb{R}^n$ con el producto escalar usual
 - $l_2$ espacio de sucesiones tal que $\sum_{n\ge 1} x_n^2$ con $\langle \bar{x}, \bar{y}\rangle = \sum_{n\ge 1} x_n y_n$, $\bar{x} = \{x_n\}$
@@ -71,3 +70,37 @@ Dado $V$ espacio vectorial, decimos que es espacio de Hilbert si es completo res
 
 **** Demostración
 Veamos una demostración de la afirmación de que $l_2$ es de Hilbert:
+*** Suma de espacios Hilbert
+La suma directa $H_1 \oplus H_2$ de dos espacios Hilbert $H_1$ y $H_2$ con el producto escalar 
+
+\[\langle u_1 + u_2, v_1 + v_2 \rangle_{H_1 \oplus H_2} = \langle u_1, v_1\rangle_{H_1} + \langle u_2, v_2\rangle_{H_2}\]
+
+Podemos definir la norma asociada como $||u||_{H_1 \oplus H_2} = \sqrt{||u_1||_{H_1}^2 + ||u_2||_{H_2}^2}$ con $u=u_1 + u_2$ y $u_i \in H_i$.
+
+**** Demostración
+Sabemos de geometría que $H_1 \oplus H_2$ es espacio vectorial. Veamos que es $\langle \cdot, \cdot \rangle$ definido arriba es producto escalar en $H_1 \oplus H_2$ y que además $H_1 \oplus H_2$ es completo para la norma asociada.
+
+Veamos linealidad en la primera variable: 
+
+\[\begin{align*}
+\langle au + bv, w \rangle &= \langle au_1 + b_v1 + au_2 + bv_2, w \rangle = \langle au_1 + bv_1, w_1\rangle_{H_1} + \langle au_2 + bv_2, w_2\rangle_{H_2} = \\
+&= a \left[\langle u_1, w_1\rangle_{H_1} + \langle u_2, w_2\rangle_{H_2} \right] + b \left[\langle v_1, w_1\rangle_{H_1} + \langle v_2, w_2\rangle_{H_2} \right] = \\
+&= a \langle v_1, w_1 \rangle_{H_1 \oplus H_2} + b \langle v_2, w_2 \rangle_{H_1 \oplus H_2}
+\end{align*}\]
+
+La linealidad en la segunda variable es análoga.
+
+Trivialmente $\langle u, u \rangle_{H_1 \oplus H_2} \ge 0$ y la simetría también se deduce de la simetría de los productos escalares en $H_1$ y $H_2$
+
+Veamos que $H_1 \oplus H_2$ es completo.
+
+Sea $\{u_n\} \subset H_1 \oplus H_2$ de Cauchy. Entonces dado $\epsilon > 0$, existe $n\in \mathbb{N}$ tal que para todo $p,q \ge n$:
+
+\[\langle u_p - u_q, u_p - u_q \rangle \le \epsilon \Rightarrow ||(u_i)_p - (u_i)_q||^2 \le \epsilon\]
+
+
+Esto último implica que $(u_1)_n$ y $(u_2)_n$ son de Cauchy, y por tanto $\seq{(u_i)_n}{u_i}, \quad u_i\in H_i$
+
+Se sigue:
+
+\[||u_n - u||^2 = ||(u_1)_n - u_1||^2 + ||(u_2)_n - u_2||^2 \rightarrow 0\]
