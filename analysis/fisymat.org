@@ -10,12 +10,19 @@
 \(
   \newcommand{\seq}[2]{\{ {#1} \} \rightarrow {#2}}
   \newcommand{\dseq}[3]{\{ {#1} \} \overset{{#3}}{\longrightarrow} {#2}}
+  \newcommand{\dotprod}[2]{\langle {#1}, \rangle {#2} \rangle}
+  \newcommand{\norm}[1]{||{#1}||}
+  \newcommand{\opnorm}[3]{||{#1}||_{\mathcal{L}({#2}, {#3})}}
+  \DeclareMathOperator*{\argmin}{arg\,min }
 \)
 #+END_HTML
 
 #+latex_header: \newcommand{\seq}[2]{\{ {#1} \} \rightarrow {#2}}
 #+latex_header: \newcommand{\dseq}[3]{\{ {#1} \} \overset{{#3}}{\longrightarrow} {#2}}
-
+#+latex_header: \newcommand{\dotprod}[2]{\langle {#1}, {#2} \rangle}
+#+latex_header: \newcommand{\norm}[1]{||{#1}||}
+#+latex_header: \newcommand{\opnorm}[3]{||{#1}||_{\mathcal{L}({#2}, {#3})}}
+#+latex_header: \DeclareMathOperator*{\argmin}{arg\,min }
 #+latex_header: \usepackage{amsmath} 
 #+latex_header: \usepackage{amsthm}
 #+latex_header: \usepackage{mathabx}
@@ -26,7 +33,6 @@
 #+latex_header: \setlength{\parskip}{1em}
 #+latex_header: \usepackage{color}
 #+latex_header: \everymath{\displaystyle}
-#+attr_latex: :float t :width 4cm
 
 #+SETUPFILE: ../theme-readtheorg.setup
 
@@ -104,3 +110,90 @@ Esto último implica que $(u_1)_n$ y $(u_2)_n$ son de Cauchy, y por tanto $\seq{
 Se sigue:
 
 \[||u_n - u||^2 = ||(u_1)_n - u_1||^2 + ||(u_2)_n - u_2||^2 \rightarrow 0\]
+** Complemento ortogonal
+Sea $V \subseteq H$ sub. vectorial, $H$ espacio Hilbert, entonces se define el *espacio ortogonal* de $V$ como:
+
+\[V^\perp:= \{w\in H : \langle w,v \rangle = 0 \forall v\in V\}\]
+
+Claramente $V^\perp$ es sub vectorial de $H$ y además $V\subseteq (V^\perp)^\perp$. En $\mathbb{R}^n$, $V = (V^\perp)^\perp$, pero en espacios de Hilbert arbitrarios no tiene por qué cumplirse.
+
+Más adelante definiremos el *complemento ortogonal* exigiéndole a un espacio ortogonal que sea lo suficientemente "bueno" para que $V \oplus V^\perp = H$
+
+Sea $V\subseteq H$ sub. vectorial de $H$ Hilbert en lo que sigue.
+*** Un espacio ortogonal es cerrado en un Hilbert
+Dado $V\subseteq H$ sub. vectorial, entonces $V^\perp$ es cerrado.
+
+**** Demostración
+Sea $\{w_n\} \subseteq V$ con $\seq{w_n}{w \in H}$
+
+Entonces $0 = \lim_n \dotprod{w_n}{v} = \dotprod{w}{v}$ para cualquier $v \in V$. Luego $w\in V^\perp$
+
+*** Caracterización del ortogonal
+Sea $w\in H$. Entonces:
+\[w\in V^\perp \Leftrightarrow ||w|| = \inf_{v\in V}||w-v||\]
+
+label:claim:ortogonal
+**** Demostración
+***** Hacia la derecha
+\[\dotprod{w-v}{w-v} = \dotprod{w}{w} - 2\dotprod{w}{v} + \dotprod{v}{v} = \dotprod{w}{w} + \dotprod{v}{v} \ge ||w||^2\]
+
+Y tomando $v=0\in V$ terminamos
+***** Hacia la izquierda
+Fijamos un $v\in V$ y tomamos $f_v : \mathbb{R} \rightarrow \mathbb{R}$ definida por $f_v(t) = \dotprod{w-tv}{w-tv}$.
+
+Por hipótesis $f_v(t) \ge f_v(0)$, pero $f_v'(t) = -2\dotprod{v}{w-tv} = 0$ sii $\frac{\dotprod{v}{w}}{||v||^2} = t$
+
+*** La distancia a un Hilbert se materializa
+Sea $u\in H$, entonces existe un único $v\in V$ verificando $||u-v|| = \inf_{w\in V} ||u-w||$
+
+label:fact:dist
+**** Demostración
+Llamamos $L=\inf_{w\in V} ||u-w||$. Podemos tomar $\{v_n\} \in H$ verificándose $\seq{||u-v_n||}{L}$. Basta ver que $\{v_n\}$ es de Cauchy.
+
+
+\[\begin{align}
+\dotprod{w_p - w_q}{w_p - w_q} &= \dotprod{(w_p-u) - (w_q-u)}{(w_p-u) - (w_q-u)} = \\ 
+&= ||w_p-u||^2 + ||w_q-u||^2 - 2\dotprod{w_p-u}{w_q-u} = \\
+&= ||w_p-u||^2 + ||w_q-u||^2 - 2\dotprod{w_p-u}{w_p - w_p + w_q-u} = \\
+&= ||w_p-u||^2 + ||w_q-u||^2 - 2||w_p-u||^2 - 2\dotprod{w_p-u}{w_q - w_p} \le \\
+&\le (||w_p-u||^2 + L) + (||w_q-u||^2 + L) - 2(||w_p-u||^2 +L) + 2||w_p-u||||w_q - w_p||
+\end{align}\]
+
+Y usando la convergencia $\seq{||u-v_n||}{L}$ y que $\{v_n\}$ es de Cauchay, llegamos al resultado buscado.
+
+Por tanto $\seq{v_n}{v} \in H$, y ello prueba la existencia. Veamos la unicidad: sea otro $\bar{v} \in H$ materializando la distancia:
+
+\[\begin{align}
+\norm{v-\bar{v}}^2 &= \norm{v-u -(\bar{v}-u)}^2 \underset{(*)}{=} 2(\norm{v-u}^2 + \norm{\bar{v}-u}^2) - \norm{v+\bar{v}-2u}^2 = \\
+&= 2L^2 - 2\norm{\frac{v+\bar{v}}{2} - u} \le 2L^2 - 2L^2 = 0
+\end{align}\]
+
+donde se ha usado la identidad del paralelogramo en (*).
+*** Proyección ortogonal (de $H$ sobre $V$)
+A partir de ref:fact:dist podemos definir la proyección ortogonal como:
+
+Se define como $p_V: H \rightarrow V$ dada por $p_V(u) = \argmin_{v\in V} \norm{u-v}$
+
+**** Caracterización de $p_V$
+Si $V$ es sub.cerrado de $H$ y $u\in H$ entonces $p_V(u)$ es el único elemento de $V$ verificando $u-p_V(u) \in V^\perp$
+
+***** Demostración
+La existencia es trivial a partir de label:claim:ortogonal y el hecho de que $p_V(u)$ minimiza la distancia de $u$ a $V$. 
+
+\[u-p_V(u) \in V^\perp \Leftrightarrow \norm{u-p_V(u)} = \inf_{w\in V} \norm{u-p_V(u) - w}\]
+
+Pero $\inf_{w\in V} \norm{u-p_V(u) - w} = \inf_{w\in V} \norm{u-w}$ y se cumple lo anterior por la definición de $p_V(u)$.
+
+La unicidad viene dada por ref:fact:dist
+*** Complemento ortogonal
+Decimos que $V^\perp$ es complemento ortogonal de $V$ en $H$ si $V\oplus V^\perp = H$
+
+**** Teorema del complemento ortogonal
+Sea $V$ subespacio vectorial cerrado de $H$. Se cumple:
+
+1. $p_V$ es la única aplicación lineal en $V^H$ verificando que $p_V \circ p_V = p_V$ y $Ker p_V = V^\perp$
+2. $p_V$ es continua y $\opnorm{p_V}{H}{V} = 1$ si $V\neq \emptyset$
+3. $i:V \oplus V^\perp \hookrightarrow H$ es isometría lineal.
+
+
+Recordamos que la norma de operadores se define como $\opnorm{T}{H}{V} = \sup_{v\in V, \quad \norm{v}_V = 1} \norm{T(v)}_W$
