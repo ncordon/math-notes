@@ -21,7 +21,8 @@
 #+latex_header: \newcommand{\dseq}[3]{\{ {#1} \} \overset{{#3}}{\longrightarrow} {#2}}
 #+latex_header: \newcommand{\dotprod}[2]{\langle {#1}, {#2} \rangle}
 #+latex_header: \newcommand{\norm}[1]{||{#1}||}
-#+latex_header: \newcommand{\opnorm}[3]{||{#1}||_{\mathcal{L}({#2}, {#3})}}
+#+latex_header: \newcommand{\opspace}[2]{\mathcal{L}({#1}, {#2})}
+#+latex_header: \newcommand{\opnorm}[3]{||{#1}||_{\opspace{#2}{#3}}}
 #+latex_header: \DeclareMathOperator*{\argmin}{arg\,min }
 #+latex_header: \usepackage{amsmath} 
 #+latex_header: \usepackage{amsthm}
@@ -115,12 +116,12 @@ Sea $V \subseteq H$ sub. vectorial, $H$ espacio Hilbert, entonces se define el *
 
 \[V^\perp:= \{w\in H : \langle w,v \rangle = 0 \forall v\in V\}\]
 
-Claramente $V^\perp$ es sub vectorial de $H$ y además $V\subseteq (V^\perp)^\perp$. En $\mathbb{R}^n$, $V = (V^\perp)^\perp$, pero en espacios de Hilbert arbitrarios no tiene por qué cumplirse.
+Claramente $V^\perp$ es sub vectorial de $H$ y además $V\subseteq (V^\perp)^\perp$. En $\mathbb{R}^n$, $V = (V^\perp)^\perp$, pero en espacios de Hilbert arbitrarios no tiene por qué cumplirse. Como veremos, que $V$ sea cerrado es condición necesaria por ref:claim-cerrado y suficiente por ref:th:complemento
 
 Más adelante definiremos el *complemento ortogonal* exigiéndole a un espacio ortogonal que sea lo suficientemente "bueno" para que $V \oplus V^\perp = H$
 
 Sea $V\subseteq H$ sub. vectorial de $H$ Hilbert en lo que sigue.
-*** Un espacio ortogonal es cerrado en un Hilbert
+*** Un espacio ortogonal es cerrado en un Hilbert label:claim-cerrado
 Dado $V\subseteq H$ sub. vectorial, entonces $V^\perp$ es cerrado.
 
 **** Demostración
@@ -128,11 +129,10 @@ Sea $\{w_n\} \subseteq V$ con $\seq{w_n}{w \in H}$
 
 Entonces $0 = \lim_n \dotprod{w_n}{v} = \dotprod{w}{v}$ para cualquier $v \in V$. Luego $w\in V^\perp$
 
-*** Caracterización del ortogonal
+*** Caracterización del ortogonal label:claim:ortogonal
 Sea $w\in H$. Entonces:
 \[w\in V^\perp \Leftrightarrow ||w|| = \inf_{v\in V}||w-v||\]
 
-label:claim:ortogonal
 **** Demostración
 ***** Hacia la derecha
 \[\dotprod{w-v}{w-v} = \dotprod{w}{w} - 2\dotprod{w}{v} + \dotprod{v}{v} = \dotprod{w}{w} + \dotprod{v}{v} \ge ||w||^2\]
@@ -143,10 +143,9 @@ Fijamos un $v\in V$ y tomamos $f_v : \mathbb{R} \rightarrow \mathbb{R}$ definida
 
 Por hipótesis $f_v(t) \ge f_v(0)$, pero $f_v'(t) = -2\dotprod{v}{w-tv} = 0$ sii $\frac{\dotprod{v}{w}}{||v||^2} = t$
 
-*** La distancia a un Hilbert se materializa
+*** La distancia a un Hilbert se materializa label:fact:dist
 Sea $u\in H$, entonces existe un único $v\in V$ verificando $||u-v|| = \inf_{w\in V} ||u-w||$
 
-label:fact:dist
 **** Demostración
 Llamamos $L=\inf_{w\in V} ||u-w||$. Podemos tomar $\{v_n\} \in H$ verificándose $\seq{||u-v_n||}{L}$. Basta ver que $\{v_n\}$ es de Cauchy.
 
@@ -161,7 +160,7 @@ Llamamos $L=\inf_{w\in V} ||u-w||$. Podemos tomar $\{v_n\} \in H$ verificándose
 
 Y usando la convergencia $\seq{||u-v_n||}{L}$ y que $\{v_n\}$ es de Cauchay, llegamos al resultado buscado.
 
-Por tanto $\seq{v_n}{v} \in H$, y ello prueba la existencia. Veamos la unicidad: sea otro $\bar{v} \in H$ materializando la distancia:
+Por tanto $\seq{v_n}{v} \in H$, y usando que $V$ es cerrado, $v\in V$, y ello prueba la existencia. Veamos la unicidad: sea otro $\bar{v} \in V$ materializando la distancia:
 
 \[\begin{align}
 \norm{v-\bar{v}}^2 &= \norm{v-u -(\bar{v}-u)}^2 \underset{(*)}{=} 2(\norm{v-u}^2 + \norm{\bar{v}-u}^2) - \norm{v+\bar{v}-2u}^2 = \\
@@ -169,7 +168,7 @@ Por tanto $\seq{v_n}{v} \in H$, y ello prueba la existencia. Veamos la unicidad:
 \end{align}\]
 
 donde se ha usado la identidad del paralelogramo en (*).
-*** Proyección ortogonal (de $H$ sobre $V$)
+*** Proyección ortogonal (de $H$ sobre $V$) label:claim:proy
 A partir de ref:fact:dist podemos definir la proyección ortogonal como:
 
 Se define como $p_V: H \rightarrow V$ dada por $p_V(u) = \argmin_{v\in V} \norm{u-v}$
@@ -185,9 +184,11 @@ La existencia es trivial a partir de label:claim:ortogonal y el hecho de que $p_
 Pero $\inf_{w\in V} \norm{u-p_V(u) - w} = \inf_{w\in V} \norm{u-w}$ y se cumple lo anterior por la definición de $p_V(u)$.
 
 La unicidad viene dada por ref:fact:dist
-*** Complemento ortogonal
+*** Complemento ortogonal label:th:complemento
 Decimos que $V^\perp$ es complemento ortogonal de $V$ en $H$ si $V\oplus V^\perp = H$
 
+Nótese que si un espacio no es cerrado, no podríamos definir la proyección, y el siguiente teorema no sería válido.
+ 
 **** Teorema del complemento ortogonal
 Sea $V$ subespacio vectorial cerrado de $H$. Se cumple:
 
@@ -196,4 +197,39 @@ Sea $V$ subespacio vectorial cerrado de $H$. Se cumple:
 3. $i:V \oplus V^\perp \hookrightarrow H$ es isometría lineal.
 
 
-Recordamos que la norma de operadores se define como $\opnorm{T}{H}{V} = \sup_{v\in V, \quad \norm{v}_V = 1} \norm{T(v)}_W$
+Recordamos que la norma de operadores se define como $\opnorm{T}{V}{W} = \sup_{v\in V, \, \norm{v}_V = 1} \norm{T(v)}_W$, donde $\opspace{V}{W} = \{h:V\rightarrow W$ continua y lineal$\}$
+
+***** Demostración
+****** Primer punto
+$p_V \circ p_V = p_V$ es trivial
+
+$Ker p_V = V^\perp$, ya que dado $x\in H, p_V(x)=0$, tenemos $0 = p_V(x) = \argmin_{w\in V} \norm{w-x}$, sii $\norm{x} = \min_{w\in V} \norm{w-x}$. Por último: ref:claim:ortogonal nos dice que lo anterior se cumple sii $x\in V^\perp$
+
+$p_V$ es lineal, porque por ref:claim:proy, como $\lambda u + \mu w - \lambda p_V(u) + \mu p_V(w) = \lambda (u-p_V(u)) + \mu (w-p_V(w)) \in V^\perp$, entonces $p_V(\lambda u + \mu w) = \lambda p_V(u) + \mu p_V(w)$.
+
+Es la única aplicación lineal que cumple eso porque dada $f$ lineal verificando ambas condiciones, entonces:
+
+\[f(f(x)-x) = f(f(x)) - f(x) \underset{f\circ f=f}{=} f(x) - f(x) = 0\]
+
+Luego $f(x) - x \in V^\perp$ sii, por ref:claim:ortogonal $\norm{f(x)-x} = \inf_{w \in V} \norm{f(x) - x - w} \underset{f(x) \in V}{=} \inf_{w \in V} \norm{x-w}$, luego como por ser $V$ cerrado existe un único elemento que materializa la distancia, por label:fact:dist  entonces $f(x) = p_V(x)$
+****** Segundo punto
+Escribimos $u = u - p_V(u) + p_V(u)$, donde sabemos $u - p_V(u) \in V^\perp$, luego: 
+
+\[\dotprod{u}{u-p_V(u)} = \norm{u}^2 - \dotprod{u}{p_V(u)} = \norm{u-p_V(u)}^2\]
+
+Es decir:
+
+\[\norm{u}^2 - \dotprod{u-p_V(u) + p_V(u)}{p_V(u)} = \norm{u}^2 - \norm{p_V(u)}^2 = \norm{u-p_V(u)}^2\]
+
+Y se deduce $\norm{p_V(u)} \le \norm{u}$, y de aquí $\opnorm{p_V}{H}{V} \le 1$. Esto nos da continuidad.
+
+Si $V \neq 0$, tomando $v\in V$, $p_V\left(\frac{v}{\norm{v}}\right) = \frac{v}{\norm{v}}$ y por tanto $\opnorm{p_V}{H}{V} = 1$
+****** Tercer punto
+Es claramente una función lineal, de kernel nulo, luego inyectiva, y es biyectiva, ya que dado $y\in H$, $i((y - p_V(y)) + p_V(y)) = y$, luego es isomorfismo lineal.
+
+Es isometría por ser $\norm{u+v}_H^2 = ||u||^2 + ||v||^2 = \norm{u+v}_{V\oplus V^\perp}^2$, para $u\in V, v\in V^\perp$.
+
+
+
+
+** Teorema de representación de Riesz-Fréchet
