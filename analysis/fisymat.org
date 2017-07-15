@@ -10,9 +10,11 @@
 \(
   \newcommand{\seq}[2]{\{ {#1} \} \rightarrow {#2}}
   \newcommand{\dseq}[3]{\{ {#1} \} \overset{{#3}}{\longrightarrow} {#2}}
-  \newcommand{\dotprod}[2]{\langle {#1}, \rangle {#2} \rangle}
+  \newcommand{\dotprod}[2]{\langle {#1}, {#2} \rangle}
   \newcommand{\norm}[1]{||{#1}||}
-  \newcommand{\opnorm}[3]{||{#1}||_{\mathcal{L}({#2}, {#3})}}
+  \newcommand{\opspace}[2]{\mathcal{L}({#1}, {#2})}
+  \newcommand{\opnorm}[3]{||{#1}||_{\opspace{#2}{#3}}}
+  \newcommand{\dual}[1]{\opspace{#1}{\mathbb{R}}}
   \DeclareMathOperator*{\argmin}{arg\,min }
 \)
 #+END_HTML
@@ -23,6 +25,7 @@
 #+latex_header: \newcommand{\norm}[1]{||{#1}||}
 #+latex_header: \newcommand{\opspace}[2]{\mathcal{L}({#1}, {#2})}
 #+latex_header: \newcommand{\opnorm}[3]{||{#1}||_{\opspace{#2}{#3}}}
+#+latex_header: \newcommand{\dual}[1]{\opspace{#1}{\mathbb{R}}}
 #+latex_header: \DeclareMathOperator*{\argmin}{arg\,min }
 #+latex_header: \usepackage{amsmath} 
 #+latex_header: \usepackage{amsthm}
@@ -63,7 +66,7 @@ Veamos i:
 \[||u||^2 + 2\lambda \langle u,v\rangle + \lambda^2 ||v||^2 = \langle u+\lambda v, u+\lambda v\rangle \ge 0\]
 
 y tomando $\lambda = -\frac{\langle u,v\rangle}{||v||^2}$ se llega al resultado buscado.
-*** Continuidad del producto escalar
+*** Continuidad del producto escalar label:fact:dotcont
 Dada $\dseq{w_n}{w}{||\cdot||}$, entonces $\seq{\langle v,w_n\rangle}{\langle v,w\rangle}$.
 
 **** Demostración
@@ -116,12 +119,12 @@ Sea $V \subseteq H$ sub. vectorial, $H$ espacio Hilbert, entonces se define el *
 
 \[V^\perp:= \{w\in H : \langle w,v \rangle = 0 \forall v\in V\}\]
 
-Claramente $V^\perp$ es sub vectorial de $H$ y además $V\subseteq (V^\perp)^\perp$. En $\mathbb{R}^n$, $V = (V^\perp)^\perp$, pero en espacios de Hilbert arbitrarios no tiene por qué cumplirse. Como veremos, que $V$ sea cerrado es condición necesaria por ref:claim-cerrado y suficiente por ref:th:complemento
+Claramente $V^\perp$ es sub vectorial de $H$ y además $V\subseteq (V^\perp)^\perp$. En $\mathbb{R}^n$, $V = (V^\perp)^\perp$, pero en espacios de Hilbert arbitrarios no tiene por qué cumplirse. Como veremos, que $V$ sea cerrado es condición necesaria por ref:fact-cerrado-hilbert y suficiente por ref:th:complemento
 
 Más adelante definiremos el *complemento ortogonal* exigiéndole a un espacio ortogonal que sea lo suficientemente "bueno" para que $V \oplus V^\perp = H$
 
 Sea $V\subseteq H$ sub. vectorial de $H$ Hilbert en lo que sigue.
-*** Un espacio ortogonal es cerrado en un Hilbert label:claim-cerrado
+*** Un espacio ortogonal es cerrado en un Hilbert label:fact:cerrado-hilbert
 Dado $V\subseteq H$ sub. vectorial, entonces $V^\perp$ es cerrado.
 
 **** Demostración
@@ -231,5 +234,40 @@ Es isometría por ser $\norm{u+v}_H^2 = ||u||^2 + ||v||^2 = \norm{u+v}_{V\oplus 
 
 
 
-
 ** Teorema de representación de Riesz-Fréchet
+Sea $H$ espacio Hilbert
+*** Dual topológico de $H$
+Llamamos dual topológico de $H$ a $\dual{H}$.
+*** Funciones del dual descritas por un producto escalar
+Dado $w\in H$, la función de $\dual{H}$ dada por $T_w(v):=\dotprod{w}{v}$ es lineal, continua, y de norma $\norm{w}_H$
+
+**** Demostración
+Que es lineal y continua es claro por la linealidad y la continuidad del producto escalar, demostrada en ref:fact:dotcont
+
+\[|T_w(v)| = |\dotprod{w}{v}| \le \norm{w}\norm{v}\] 
+
+por Cauchy Schwarz, luego $\opnorm{T_w}{H}{\mathbb{R}} \le \norm{w}$ y para ver que es de hecho $\norm{w}$ basta evaluar en $\frac{w}{\norm{w}}$ si $w\neq 0$.
+*** Teorema de representación de Riesz-Fréchet label:th:rieszfrechet
+Sea $H$ espacio de Hilbert y $T\in \dual{H}$ (espacio de funciones lineales y continuas de $H$ a $\mathbb{R}$).
+Entonces existe un único $w\in H$ verificando:
+
+\[T(u) = T_w(u)\]
+
+De hecho la aplicación $i: H \hookrightarrow \dual{H}$ dada por $i(w) = T_w$ es isomorfismo lineal e isometría.
+*** Principio de Dirichlet
+Sea $V$ espacio vectorial con un producto escalar $\dotprod{\cdot}{\cdot}$, $T\in \opspace{V}{\mathbb{R}$. 
+Entonces $T = T_w = \dotprod{w}{\cdot}$ sii $w\in V$ es mínimo del funcional $J(u) = \frac{1}{2} \norm{u}^2 - T(u)$
+
+**** Demostración
+***** Hacia la derecha
+Por desigualdad de Cauchy-Schwarz: $J(u) = \frac{1}{2} \norm{u}^2 - \dotprod{w}{u} \ge \frac{1}{2} \norm{u}^2 - \norm{w}\norm{u}$
+
+Y el polinomio $\frac{1}{2}x^2 - \norm{w}x$ tiene un mínimo en $\norm{u} = x = \norm{w}$, pero la desigualdad anterior es estricta
+sii $u = tw, t\ge 0$. Juntando estas dos condiciones $u = w$
+***** Hacia la izquierda
+Fijo $u\in V$ arbitrario y llamo $J_u(t) = J(w+tu) = \frac{1}{2}\dotprod{w+tu}{w+tu} - T(w) - tT(u) \ge J(w)$.
+
+Su derivada es $J_u'(t) = \dotprod{u}{w+tu} - T(u)$ y esta función tiene un mínimo en $0$, luego:
+
+\[J_u'(0) = 0 = \dotprod{u}{w} - T(u)\]
+
