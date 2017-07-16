@@ -9,6 +9,7 @@
 #+BEGIN_HTML
 \(
   \newcommand{\seq}[2]{\{ {#1} \} \rightarrow {#2}}
+  \newcommand{\weakseq}[2]{\{ {#1} \} \rightharpoonup {#2}}
   \newcommand{\dseq}[3]{\{ {#1} \} \overset{{#3}}{\longrightarrow} {#2}}
   \newcommand{\dotprod}[2]{\langle {#1}, {#2} \rangle}
   \newcommand{\norm}[1]{||{#1}||}
@@ -21,6 +22,7 @@
 #+END_HTML
 
 #+latex_header: \newcommand{\seq}[2]{\{ {#1} \} \rightarrow {#2}}
+#+latex_header: \newcommand{\weakseq}[2]{\{ {#1} \} \rightharpoonup {#2}}
 #+latex_header: \newcommand{\dseq}[3]{\{ {#1} \} \overset{{#3}}{\longrightarrow} {#2}}
 #+latex_header: \newcommand{\dotprod}[2]{\langle {#1}, {#2} \rangle}
 #+latex_header: \newcommand{\norm}[1]{||{#1}||}
@@ -295,3 +297,40 @@ Y el polinomio $\frac{1}{2}x^2-T(w_0)x$ tiene su mínimo en $x=\norm{u} = T(w_0)
 Es decir, tomando $u=T(w_0)w_0$ llegamos al resultado buscado.
 
 La unicidad del representante se tiene porque dados $w,\bar{w} \in H$ verificando $T(u) = \dotprod{w}{u} = \dotprod{\bar{w}}{u}$ para todo $u\in H$, se tiene $\dotprod{w-\bar{w}}{u} = 0$ para todo $u\in H$, en particular para $u=w-\bar{w}$, lo que implica que $\norm{w-\bar{w}} = 0$ y $w=\bar{w}$
+** Bases de Hilbert
+Sea $H$ espacio Hilbert
+*** Subespacio lineal generado por $X$
+Sea $X\subseteq H$, denotamos por $lin X:= \left\{\sum_{i=1}^m \alpha_i v_i : \alpha_i\in \mathbb{R}, v_i \in X, m\in \mathbb{N}\right\}$
+*** Subconjunto ortogonal
+Sea $O\subseteq H$. $O$ es conjunto ortogonal sii $\dotprod{u,v} = 0$ para todos $u,v \in O$, con $u\neq v$.
+
+Decimos que $O$ es ortonormal si es ortogonal y $\norm{u} = 1$ para todo $u\in V$
+*** Base de Hilbert
+$B\subseteq H$ se dice base de Hilbert de $H$ si es ortonormal y $H = \widebar{lin B}$
+
+**** Base de Hilbert vs base algebraica
+El concepto de base de Hilbert y de base algebraica no coincide. Ej: El conjunto formado por las sucesiones $(x_n)_k := \delta_{k,n}$ donde $\delta_{k,n}$ es la delta de Dirac, es base de Hilbert de $l_2$, pero no es base algebraica.
+** Convergencia débil
+Sea $H$ espacio de Hilbert
+*** Definición de convergencia débil
+Una sucesión $\{x_n\}_n$ en $H$ se dice que converge débilmente a $u\in H$ si para cada $v\in H$ se verifica:
+
+\[\lim_{n} \dotprod{x_n}{v} = \dotprod{u}{v}\]
+
+Lo notamos $\weakseq{x_n}{u}$ y decimos que $u$ es el límite débil de $\{x_n\}$
+
+Además dicho límite, caso de existir, es único
+
+**** Demostración (unicidad del límite)
+Sean $u, \bar{u}$ dos límites distintos. Entonces para todo $v \in H$ se tiene:
+
+\[0 = \lim_{n} \dotprod{x_n}{v} - \lim_{n} \dotprod{x_n}{v} = \dotprod{u}{v} - \dotprod{\bar{u}}{v} = \dotprod{u-\bar{u}}{v}\]
+
+En particular $\dotprod{u-\bar{u}}{u-\bar{u}} = 0$, y por tanto $u = \bar{u}$
+*** Convergencia fuerte (convencional) implica convergencia débil
+Sea $\{x_n\}$ sucesión en $H$ verificando $\seq{x_n}{x \in H}$. Entonces $\weakseq{x_n}{x}$
+**** Demostración
+\[\dotprod{x_n}{v} - \dotprod{x}{v} = \dotprod{x_n - x}{v} \overset{n\rightarrow \infty} \rightarrow 0\]
+
+donde se ha usado continuidad del producto escalar.
+**** El recíproco no es cierto
