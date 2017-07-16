@@ -16,6 +16,7 @@
   \newcommand{\opnorm}[3]{||{#1}||_{\opspace{#2}{#3}}}
   \newcommand{\dual}[1]{\opspace{#1}{\mathbb{R}}}
   \DeclareMathOperator*{\argmin}{arg\,min }
+  \DeclareMathOperator*{\argmin}{arg\,max }
 \)
 #+END_HTML
 
@@ -27,6 +28,7 @@
 #+latex_header: \newcommand{\opnorm}[3]{||{#1}||_{\opspace{#2}{#3}}}
 #+latex_header: \newcommand{\dual}[1]{\opspace{#1}{\mathbb{R}}}
 #+latex_header: \DeclareMathOperator*{\argmin}{arg\,min }
+#+latex_header: \DeclareMathOperator*{\argmin}{arg\,max }
 #+latex_header: \usepackage{amsmath} 
 #+latex_header: \usepackage{amsthm}
 #+latex_header: \usepackage{mathabx}
@@ -247,13 +249,6 @@ Que es lineal y continua es claro por la linealidad y la continuidad del product
 \[|T_w(v)| = |\dotprod{w}{v}| \le \norm{w}\norm{v}\] 
 
 por Cauchy Schwarz, luego $\opnorm{T_w}{H}{\mathbb{R}} \le \norm{w}$ y para ver que es de hecho $\norm{w}$ basta evaluar en $\frac{w}{\norm{w}}$ si $w\neq 0$.
-*** Teorema de representación de Riesz-Fréchet label:th:rieszfrechet
-Sea $H$ espacio de Hilbert y $T\in \dual{H}$ (espacio de funciones lineales y continuas de $H$ a $\mathbb{R}$).
-Entonces existe un único $w\in H$ verificando:
-
-\[T(u) = T_w(u)\]
-
-De hecho la aplicación $i: H \hookrightarrow \dual{H}$ dada por $i(w) = T_w$ es isomorfismo lineal e isometría.
 *** Principio de Dirichlet
 Sea $V$ espacio vectorial con un producto escalar $\dotprod{\cdot}{\cdot}$, $T\in \opspace{V}{\mathbb{R}$. 
 Entonces $T = T_w = \dotprod{w}{\cdot}$ sii $w\in V$ es mínimo del funcional $J(u) = \frac{1}{2} \norm{u}^2 - T(u)$
@@ -271,3 +266,32 @@ Su derivada es $J_u'(t) = \dotprod{u}{w+tu} - T(u)$ y esta función tiene un mí
 
 \[J_u'(0) = 0 = \dotprod{u}{w} - T(u)\]
 
+*** Teorema de representación de Riesz-Fréchet label:th:rieszfrechet
+Sea $H$ espacio de Hilbert y $T\in \dual{H}$ (espacio de funciones lineales y continuas de $H$ a $\mathbb{R}$).
+Entonces existe un único $w\in H$ verificando:
+
+\[T(u) = T_w(u)\]
+
+De hecho la aplicación $i: H \hookrightarrow \dual{H}$ dada por $i(w) = T_w$ es isomorfismo lineal e isometría.
+
+**** Demostración
+Supongamos que se cumplen las primeras hipótesis, y veamos que $i$ es isometría.
+
+\[i(\lambda v + \mu w) (u) = \dotprod{\lambda v + \mu w}{u} = \lambda\dotprod{v}{u} + \mu\dotprod{w}{u} = (\lambda T_v + \mu T_w) (u)\]
+
+Esto prueba que $i$ es lineal, y las primeras hipótesis que $i$ es biyectiva (hay un único $w\in H$ para cada $T\in \dual{H}$
+
+
+Usamos el principio de Dirichlet para demostrar la primera parte del teorema. Basta ver que $J(u) = \frac{1}{2} \norm{u}^2 - T(u)$ siempre tiene un mínimo.
+
+Sea $w_0 = \arg max_{u\in H, \norm{u}=1} T(u)$
+
+Entonces:
+
+\[J(u) = \frac{1}{2} \norm{u}^2 - \norm{u} T(\frac{u}{\norm{u}}) \ge \frac{1}{2} \norm{u}^2 - \norm{u} T(w_0)\]
+
+Y el polinomio $\frac{1}{2}x^2-T(w_0)x$ tiene su mínimo en $x=\norm{u} = T(w_0)$
+
+Es decir, tomando $u=T(w_0)w_0$ llegamos al resultado buscado.
+
+La unicidad del representante se tiene porque dados $w,\bar{w} \in H$ verificando $T(u) = \dotprod{w}{u} = \dotprod{\bar{w}}{u}$ para todo $u\in H$, se tiene $\dotprod{w-\bar{w}}{u} = 0$ para todo $u\in H$, en particular para $u=w-\bar{w}$, lo que implica que $\norm{w-\bar{w}} = 0$ y $w=\bar{w}$
