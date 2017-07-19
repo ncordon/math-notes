@@ -13,6 +13,7 @@
   \newcommand{\dseq}[3]{\{ {#1} \} \overset{{#3}}{\longrightarrow} {#2}}
   \newcommand{\dotprod}[2]{\langle {#1}, {#2} \rangle}
   \newcommand{\norm}[1]{||{#1}||}
+  \newcommand{\abs}[1]{|{#1}|}
   \newcommand{\opspace}[2]{\mathcal{L}({#1}, {#2})}
   \newcommand{\opnorm}[3]{||{#1}||_{\opspace{#2}{#3}}}
   \newcommand{\dual}[1]{\opspace{#1}{\mathbb{R}}}
@@ -26,6 +27,7 @@
 #+latex_header: \newcommand{\dseq}[3]{\{ {#1} \} \overset{{#3}}{\longrightarrow} {#2}}
 #+latex_header: \newcommand{\dotprod}[2]{\langle {#1}, {#2} \rangle}
 #+latex_header: \newcommand{\norm}[1]{||{#1}||}
+#+latex_header: \newcommand{\abs}[1]{|{#1}|}
 #+latex_header: \newcommand{\opspace}[2]{\mathcal{L}({#1}, {#2})}
 #+latex_header: \newcommand{\opnorm}[3]{||{#1}||_{\opspace{#2}{#3}}}
 #+latex_header: \newcommand{\dual}[1]{\opspace{#1}{\mathbb{R}}}
@@ -334,3 +336,68 @@ Sea $\{x_n\}$ sucesión en $H$ verificando $\seq{x_n}{x \in H}$. Entonces $\weak
 
 donde se ha usado continuidad del producto escalar.
 **** El recíproco no es cierto
+Sea un espacio de dimensión infinita, $H$ y una base ortogonal $B$. Entonces tomando una sucesión $\{u_n\} \subseteq B$ y llamamos $e_n = \frac{u_n}{\norm{u_n}}$, se tiene que fijado $v\in H$, $\dotprod{e_n}{v} = 0$ para $n \ge 1$ suficientemente grande, ya que $v= \sum_{i=1}^N \alpha_i v_i$ con $v_i\in B$ por ser $B$ base y $B$ es ortonormal, de donde se desprende la afirmación que hemos hecho.
+
+Hemos probado que $\weakseq{x_n}{0}$, pero $\norm{e_n}=1$ para todo $n$, luego no hay convergencia fuerte a $0$.
+*** Condiciones suficientes para que convergencia débil implique convergencia fuerte
+Se cumple:
+
+1. Si $\weakseq{u_n}{u \in H}$ entonces $\norm{u} \le \liminf_{n} \norm{u_n}$
+2. Si $\weakseq{u_n}{u \in H}$ entonces $\seq{u_n}{u}$ sii $\seq{\norm{u_n}}{\norm{u}}$
+
+**** Demostración
+***** Primer apartado
+$\dotprod{u_n}{u} \le \norm{u_n} \norm{u}$ y tomando $\liminf_{n}$ en ambos miembros llegamos al resultado buscado.
+***** Segundo apartado
+Hacia la izquierda es evidente. Vemos hacia la derecha:
+
+\[\dotprod{u_n - u}{u_n - u} = \norm{u_n}^2 - 2\dotprod{u_n}{u} + \norm{u}^2\]
+
+De donde tomando límites en $n$ llegamos a $\seq{\norm{u_n-u}^2}{0}$
+
+*** Condiciones suficientes para que haya convergencia débil
+Sea $\{u_n\}$ sucesión acotada en $H$ verificando que $\{\dotprod{u_n}{v}\}$ converge en $\mathbb{R}$ para cualquier $v\in H$. Entonces existe $u\in H$ verificando $\weakseq{u_n}{u}$
+
+label:lemma:weakconv
+**** Demostración
+Definimos $T:H\rightarrow \mathbb{R}$ por $T(v) = \lim_n \dotprod{u_n}{u}$.
+
+$T$ es lineal, y continua porque dado $v\in H, \norm{v}=1$ entonces $|T(v)| = \lim_n \dotprod{u_n}{u} \le \alpha$ donde $\alpha$ es una cota para cualquier $\norm{u_n}$.
+
+Luego $T$ es continua, y por teorema de Riesz-Fréchet ref:th:rieszfrechet existe $u\in H$, y $T(v) = \dotprod{u}{v}$.
+*** Propiedad fundamental de convergencia débil
+Sea una sucesión acotada en $H$. Entonces contiene una subsucesión débilmente convergente en $H$.
+
+**** Demostración
+Sea $\{u_n\} \subseteq H$ verificando $\norm{u_n}\le \alpha$ para todo $n\ge 1$. Si $\alpha = 0$, $u_n=0$ para todo $n$ y ya tendríamos el resultado. Supongamos $\alpha\neq 0$. Entonces $\dotprod{u_n}{u_1} \le \alpha \norm{u_1}$ y existe una parcial de $\{u_n\}$, que llamamos $\{u_n^{(1)}\}$ que hace $\dotprod{u_n^{(1)}}{u_1}$ converja.
+
+Recursivamente, podemos definir $\{u_n^{(k)}\}$ como la parcial de $\{u_n^{(k-1)}\}$ que hace que $\dotprod{u_n^{(k)}}{u_{k-1}}$ converja.
+
+Definimos la sucesión $w_n = u_n^{(n)}$ (el elemento $n$-ésimo de la parcial $n$-ésima)
+
+Veamos que $\dotprod{w_n}{v}$ converge para todo $v\in H$.
+
+Si $v = u_m$ para algún $m$, entonces $\dotprod{u_n^{(m)}}{u_m}$ converge en $n$, y por tanto, $\dotprod{w_m}{u_m}$ también, por ser $\{w_{n+m}\}$ una subsucesión de $\{u_n^{(m)}\}$, luego $\dotprod{w_n}{v}$ converge.
+
+Si $v \in V:=lin\{u_n : n\in\mathbb{N}\}$ entonces por un argumento similar tendríamos que $\dotprod{w_n}{v}$ converge.
+
+Si $v \in \bar{V}$, tomamos $y\in V$ con $\norm{v-y} \le \frac{\epsilon}{4\alpha}$. Como $y\in V$, tenemos que existe $m\in\mathbb{N}$ tal que para todo $p,q \ge m$, $|\dotprod{w_p -w_q}{y}| \le \epsilon$. Vamos a ver que $\dotprod{w_n}{v}$ es de Cauchy en $\mathbb{R}$, luego convergente por ser $\mathbb{R}$ espacio Banach. 
+
+Así:
+
+\begin{align}
+\abs{\dotprod{w_p - w_q}{v}} &= \abs{\dotprod{w_p-w_q}{v-y+y}} = 
+                              \abs{\dotprod{w_p-w_q}{v-y} + \dotprod{w_p-w_q}{y}}\le \\ 
+                              &\le (\norm{w_p}+\norm{w_q})\abs{v-y} + \frac{\epsilon}{2} 
+                              \le 2\alpha \cdot \frac{\epsilon}{4\alpha} + 
+                              \frac{\epsilon}{2}\le \epsilon
+\end{align}
+
+Como $H$ es de Hilbert, $\bar{V}\oplus \bar{V}^\perp = H$, y dado $v\in H$ arbitrario, $v = a+b$ con $a\in \bar{V}$ y $b\in \bar{V}^\perp$. Luego:
+
+\[\dotprod{w_n}{v} = \dotprod{w_n}{a} + \dotprod{w_n}{b} = \dotprod{w_n}{a}\]
+
+Por ser $b\in \bar{V}^\perp$ y $w_n\in V$. Y hemos probado que $\dotprod{w_n}{a}$ converge.
+
+Estamos en condiciones de aplicar ref:lemma:weakconv
+
