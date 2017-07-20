@@ -1,7 +1,7 @@
 #+TITLE: Fisymat 
 #+SUBTITLE:
 #+AUTHOR: Ignacio Cordón Castillo
-#+OPTIONS: toc:nil
+#+OPTIONS: toc:t
 #+LANGUAGE: es
 #+STARTUP: indent
 #+DATE:
@@ -110,9 +110,9 @@ Trivialmente $\langle u, u \rangle_{H_1 \oplus H_2} \ge 0$ y la simetría tambi�
 
 Veamos que $H_1 \oplus H_2$ es completo.
 
-Sea $\{u_n\} \subset H_1 \oplus H_2$ de Cauchy. Entonces dado $\epsilon > 0$, existe $n\in \mathbb{N}$ tal que para todo $p,q \ge n$:
+Sea $\{u_n\} \subset H_1 \oplus H_2$ de Cauchy. Entonces dado $\varepsilon > 0$, existe $n\in \mathbb{N}$ tal que para todo $p,q \ge n$:
 
-\[\langle u_p - u_q, u_p - u_q \rangle \le \epsilon \Rightarrow ||(u_i)_p - (u_i)_q||^2 \le \epsilon\]
+\[\langle u_p - u_q, u_p - u_q \rangle \le \varepsilon \Rightarrow ||(u_i)_p - (u_i)_q||^2 \le \varepsilon\]
 
 
 Esto último implica que $(u_1)_n$ y $(u_2)_n$ son de Cauchy, y por tanto $\seq{(u_i)_n}{u_i}, \quad u_i\in H_i$
@@ -254,7 +254,7 @@ Que es lineal y continua es claro por la linealidad y la continuidad del product
 
 por Cauchy Schwarz, luego $\opnorm{T_w}{H}{\mathbb{R}} \le \norm{w}$ y para ver que es de hecho $\norm{w}$ basta evaluar en $\frac{w}{\norm{w}}$ si $w\neq 0$.
 *** Principio de Dirichlet
-Sea $V$ espacio vectorial con un producto escalar $\dotprod{\cdot}{\cdot}$, $T\in \opspace{V}{\mathbb{R}$. 
+Sea $V$ espacio vectorial con un producto escalar $\dotprod{\cdot}{\cdot}$, $T\in \opspace{V}{\mathbb{R}}$. 
 Entonces $T = T_w = \dotprod{w}{\cdot}$ sii $w\in V$ es mínimo del funcional $J(u) = \frac{1}{2} \norm{u}^2 - T(u)$
 
 **** Demostración
@@ -308,7 +308,7 @@ Sea $O\subseteq H$. $O$ es conjunto ortogonal sii $\dotprod{u,v} = 0$ para todos
 
 Decimos que $O$ es ortonormal si es ortogonal y $\norm{u} = 1$ para todo $u\in V$
 *** Base de Hilbert
-$B\subseteq H$ se dice base de Hilbert de $H$ si es ortonormal y $H = \widebar{lin B}$
+$B\subseteq H$ se dice base de Hilbert de $H$ si es ortonormal y $H = \overline{lin B}$
 
 **** Base de Hilbert vs base algebraica
 El concepto de base de Hilbert y de base algebraica no coincide. Ej: El conjunto formado por las sucesiones $(x_n)_k := \delta_{k,n}$ donde $\delta_{k,n}$ es la delta de Dirac, es base de Hilbert de $l_2$, pero no es base algebraica.
@@ -381,16 +381,16 @@ Si $v = u_m$ para algún $m$, entonces $\dotprod{u_n^{(m)}}{u_m}$ converge en $n
 
 Si $v \in V:=lin\{u_n : n\in\mathbb{N}\}$ entonces por un argumento similar tendríamos que $\dotprod{w_n}{v}$ converge.
 
-Si $v \in \bar{V}$, tomamos $y\in V$ con $\norm{v-y} \le \frac{\epsilon}{4\alpha}$. Como $y\in V$, tenemos que existe $m\in\mathbb{N}$ tal que para todo $p,q \ge m$, $|\dotprod{w_p -w_q}{y}| \le \epsilon$. Vamos a ver que $\dotprod{w_n}{v}$ es de Cauchy en $\mathbb{R}$, luego convergente por ser $\mathbb{R}$ espacio Banach. 
+Si $v \in \bar{V}$, tomamos $y\in V$ con $\norm{v-y} \le \frac{\varepsilon}{4\alpha}$. Como $y\in V$, tenemos que existe $m\in\mathbb{N}$ tal que para todo $p,q \ge m$, $|\dotprod{w_p -w_q}{y}| \le \varepsilon$. Vamos a ver que $\dotprod{w_n}{v}$ es de Cauchy en $\mathbb{R}$, luego convergente por ser $\mathbb{R}$ espacio Banach. 
 
 Así:
 
 \begin{align}
 \abs{\dotprod{w_p - w_q}{v}} &= \abs{\dotprod{w_p-w_q}{v-y+y}} = 
-                              \abs{\dotprod{w_p-w_q}{v-y} + \dotprod{w_p-w_q}{y}}\le \\ 
-                              &\le (\norm{w_p}+\norm{w_q})\abs{v-y} + \frac{\epsilon}{2} 
-                              \le 2\alpha \cdot \frac{\epsilon}{4\alpha} + 
-                              \frac{\epsilon}{2}\le \epsilon
+                             \abs{\dotprod{w_p-w_q}{v-y} + \\ 
+                             &+ \dotprod{w_p-w_q}{y}}\le \le (\norm{w_p}+\norm{w_q})\abs{v-y} +\\
+                             &+ \frac{\varepsilon}{2} \le 2\alpha \cdot \frac{\varepsilon}{4\alpha} + 
+                             \frac{\varepsilon}{2}\le \varepsilon
 \end{align}
 
 Como $H$ es de Hilbert, $\bar{V}\oplus \bar{V}^\perp = H$, y dado $v\in H$ arbitrario, $v = a+b$ con $a\in \bar{V}$ y $b\in \bar{V}^\perp$. Luego:
@@ -400,4 +400,25 @@ Como $H$ es de Hilbert, $\bar{V}\oplus \bar{V}^\perp = H$, y dado $v\in H$ arbit
 Por ser $b\in \bar{V}^\perp$ y $w_n\in V$. Y hemos probado que $\dotprod{w_n}{a}$ converge.
 
 Estamos en condiciones de aplicar ref:lemma:weakconv
+
+*** Acotación de sucesiones débilmente convergentes
+Sea $\weakseq{x_n}{x}$ en $H$ espacio de Hilbert. Entonces $\{x_n\}$ está acotada.
+
+**** Demostración
+Llamamos $V_m = \{v\in H: \abs{\dotprod{x_k}{v}} < m, \forall k\}$
+
+Como $\seq{\dotprod{x_n}{v}}{\dotprod{x}{v}}$, y $\{\dotprod{x_n}{v}\}$ es una sucesión acotada para $v\in H$ arbitrario, entonces $H = \bigcup_{n\ge 1}V_m$
+
+y debe existir algún $V_m$ no vacío. Tomamos $V_k \neq \emptyset$
+
+Entonces dado $v\in V_k$, existe, por ser $V_k$ abierto, una bola $B(v,\varepsilon)$ verificando $B(v,\varepsilon) \subseteq V_k$
+
+Dado $x_k$ no nulo arbitrario (si es nulo $\norm{x_k}=0$) $v + \frac{\varepsilon}{2}\frac{x_k}{\norm{x_k}} \in B(v,\epsilon) \subseteq V_k$, luego:
+
+\[\abs{ \dotprod{x_k}{v+\frac{\varepsilon}{2}\frac{x_k}{\norm{x_k}}}} = \abs{\dotprod{x_k}{v} + \frac{\varepsilon}{2}\norm{x_k}} \le m\]
+
+Pero $\abs{\dotprod{x_k}{v}} \le m$ es decir, usando desigualdad triangular:
+
+\[\norm{x_k} \le \frac{4m}{\varepsilon}\]
+
 
