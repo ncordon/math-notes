@@ -422,3 +422,7 @@ Pero $\abs{\dotprod{x_k}{v}} \le m$ es decir, usando desigualdad triangular:
 \[\norm{x_k} \le \frac{4m}{\varepsilon}\]
 
 
+*** Convergencia débil equivale a convergencia fuerte en espacios de dimensión finita
+Sea $H$ un Hilbert de dimensión finita. Si $\weakseq{x_n}{x}$ entonces $\seq{x_n}{x}$
+**** Demostración
+Sea $B = \{e_1, \ldots e_N\}$ una base ortonormal de $H$. Entonces $\seq{\dotprod{x_n}{e_k}}{\dotprod{x_n}{e_k}}$, es decir $\seq{\dotprod{x_n-x}{e_k}}{0}$, pero $x_n - x = \sum_{i=1}^{N}a_k^n e_k$, y $\dotprod{x_n-x}{e_k} = a_k^n$ convergente a $0$, luego $x_n - x$ es suma finita de sucesiones que convergen a $0$, luego converge a $0$, luego $\seq{x_n}{x}$.
