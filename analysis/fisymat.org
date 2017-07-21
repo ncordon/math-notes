@@ -14,6 +14,7 @@
   \newcommand{\dotprod}[2]{\langle {#1}, {#2} \rangle}
   \newcommand{\norm}[1]{||{#1}||}
   \newcommand{\abs}[1]{|{#1}|}
+  \newcommand{\ce}{\mathcal{C}}
   \newcommand{\opspace}[2]{\mathcal{L}({#1}, {#2})}
   \newcommand{\opnorm}[3]{||{#1}||_{\opspace{#2}{#3}}}
   \newcommand{\dual}[1]{\opspace{#1}{\mathbb{R}}}
@@ -29,6 +30,7 @@
 #+latex_header: \newcommand{\norm}[1]{||{#1}||}
 #+latex_header: \newcommand{\abs}[1]{|{#1}|}
 #+latex_header: \newcommand{\opspace}[2]{\mathcal{L}({#1}, {#2})}
+#+latex_header: \newcommand{\ce}{\mathcal{C}}
 #+latex_header: \newcommand{\opnorm}[3]{||{#1}||_{\opspace{#2}{#3}}}
 #+latex_header: \newcommand{\dual}[1]{\opspace{#1}{\mathbb{R}}}
 #+latex_header: \DeclareMathOperator*{\argmin}{arg\,min }
@@ -45,6 +47,13 @@
 #+latex_header: \everymath{\displaystyle}
 
 #+SETUPFILE: ../theme-readtheorg.setup
+
+* Preliminares
+Sea $\Omega \subseteq \mathbb{R}^n$, abierto.
+
+LLamamos $\ce_c(\Omega)$ a las funciones continuas en $\Omega$ con soporte compacto.
+
+LLamamos $\ce_b(Omega)$ a las funciones continuas en $\Omega$ acotadas.
 
 * Espacios de Hilbert
 ** Producto escalar
@@ -83,9 +92,10 @@ Dado $V$ espacio vectorial, decimos que es espacio de Hilbert si es completo res
 - $\mathbb{R}^n$ con el producto escalar usual
 - $l_2$ espacio de sucesiones tal que $\sum_{n\ge 1} x_n^2$ con $\langle \bar{x}, \bar{y}\rangle = \sum_{n\ge 1} x_n y_n$, $\bar{x} = \{x_n\}$
 - $\Omega \subset \mathbb{R}^n$, $L^2(\Omega)$ con el producto escalar $\langle f,g\rangle = \int_{\Omega} fg$
+- No todo subespacio de un Hilbert es Hilbert. Ejemplo: Las funciones continuas con soporte compacto no son un Hilbert, pero sí subespacio de $L^2(\Omega)$
 
-**** Demostración
-Veamos una demostración de la afirmación de que $l_2$ es de Hilbert:
+**** TODO Demostración
+
 *** Suma de espacios Hilbert
 La suma directa $H_1 \oplus H_2$ de dos espacios Hilbert $H_1$ y $H_2$ con el producto escalar 
 
@@ -125,7 +135,7 @@ Sea $V \subseteq H$ sub. vectorial, $H$ espacio Hilbert, entonces se define el *
 
 \[V^\perp:= \{w\in H : \langle w,v \rangle = 0 \forall v\in V\}\]
 
-Claramente $V^\perp$ es sub vectorial de $H$ y además $V\subseteq (V^\perp)^\perp$. En $\mathbb{R}^n$, $V = (V^\perp)^\perp$, pero en espacios de Hilbert arbitrarios no tiene por qué cumplirse. Como veremos, que $V$ sea cerrado es condición necesaria por ref:fact-cerrado-hilbert y suficiente por ref:th:complemento
+Claramente $V^\perp$ es sub vectorial de $H$ y además $V\subseteq (V^\perp)^\perp$. En $\mathbb{R}^n$, $V = (V^\perp)^\perp$, pero en espacios de Hilbert arbitrarios no tiene por qué cumplirse. Como veremos, que $V$ sea cerrado es condición necesaria por ref:fact:cerrado-hilbert y suficiente por ref:th:complemento
 
 Más adelante definiremos el *complemento ortogonal* exigiéndole a un espacio ortogonal que sea lo suficientemente "bueno" para que $V \oplus V^\perp = H$
 
@@ -237,7 +247,6 @@ Si $V \neq 0$, tomando $v\in V$, $p_V\left(\frac{v}{\norm{v}}\right) = \frac{v}{
 Es claramente una función lineal, de kernel nulo, luego inyectiva, y es biyectiva, ya que dado $y\in H$, $i((y - p_V(y)) + p_V(y)) = y$, luego es isomorfismo lineal.
 
 Es isometría por ser $\norm{u+v}_H^2 = ||u||^2 + ||v||^2 = \norm{u+v}_{V\oplus V^\perp}^2$, para $u\in V, v\in V^\perp$.
-
 
 
 ** Teorema de representación de Riesz-Fréchet
@@ -425,4 +434,46 @@ Pero $\abs{\dotprod{x_k}{v}} \le m$ es decir, usando desigualdad triangular:
 *** Convergencia débil equivale a convergencia fuerte en espacios de dimensión finita
 Sea $H$ un Hilbert de dimensión finita. Si $\weakseq{x_n}{x}$ entonces $\seq{x_n}{x}$
 **** Demostración
+Veamos que convergencia débil implica fuerte.
+
 Sea $B = \{e_1, \ldots e_N\}$ una base ortonormal de $H$. Entonces $\seq{\dotprod{x_n}{e_k}}{\dotprod{x_n}{e_k}}$, es decir $\seq{\dotprod{x_n-x}{e_k}}{0}$, pero $x_n - x = \sum_{i=1}^{N}a_k^n e_k$, y $\dotprod{x_n-x}{e_k} = a_k^n$ convergente a $0$, luego $x_n - x$ es suma finita de sucesiones que convergen a $0$, luego converge a $0$, luego $\seq{x_n}{x}$.
+
+La implicación de que convergencia fuerte implica débil ya la habíamos visto.
+* Espacios de Sobolev
+Los espacios de Sobolev son muy importantes porque nos permiten estudiar la existencia de soluciones a ecuaciones en derivadas parciales usando operadores funcionales, para después comprobar si las soluciones que encontramos tienen suficientes condiciones de diferenciabilidad.
+
+** Derivadas débiles
+Sea $\Omega \subseteq \mathbb{R}^n$ abierto.
+
+Llamamos funciones $\ce^k$ con soporte compacto a $\ce_c^k(\Omega):= \ce_c(\Omega) \cap \ce^k(\Omega)$.
+
+La fórmula de integración por partes es el punto de partida para definir derivadas débiles.
+
+*** Integración por partes
+Sea $\varphi\in C_c^1(\Omega), f\in C^1(\Omega)$, entonces:
+
+\[\int_{\Omega} \partial_i{\varphi} = 0, \quad \forall i=1,\ldots n\]
+
+\[\int_{\Omega} \varphi \partial_i{f} + \int_{\Omega} f\partial_i{\varphi} = 0, \quad \forall i=1,\ldots, n\]
+
+**** Demostración
+Podemos suponer spg. que $i=1$. Además como $\varphi$ tiene soporte compacto, podemos suponer $\varphi$ la extensión a $\mathbb{R}^n$ de $\varphi$, que vale $0$ en $\mathbb{R}^n \setminus \Omega$, y $sop(\varphi) \subseteq [-\varepsilon, \varepsilon]^n$
+
+\begin{align*}
+\int_{\Omega} \partial_i{\varphi} &= \int_{\mathbb{R}^n} \partial_i{\varphi} = 
+\int_{\mathbb{R}^{n-1}} \left(\int_{[-2\varepsilon, 2\varepsilon]} 
+\partial_i{\varphi} (x,y) dx \right)dy = \\
+&= \int_{\mathbb{R}^{n-1}} \varphi(2\varepsilon, y) - \varphi(-2\varepsilon, y) dy = 0
+\end{align*}
+
+La segunda parte se deduce aplicando lo anteriro a $\varphi f$ que tendría soporte compacto por tenerlo $\varphi$.
+
+*** Definición de derivada débil
+Sea $u \in L^1_{loc}(\Omega)$. Decimos que $u$ es débilmente diferenciable en $\Omega$ y si existen $\u_1, \ldots u_n \in L^1_{loc}(\Omega)$ verificando que para $i=1,\ldots,n$
+
+\[\int_{\Omega} u \partial_i \varphi + \int_{\Omega} u_i \varphi = 0 \quad \forall \varphi \in^C_c^{\infty} (\Omega)\]
+
+A $D_iu := u_i$ se le llama derivada débil de $u$ en $\Omega$
+
+Se define el gradiente débil de $u$ como $\nabla u := (u_1, \ldots u_n)$
+
