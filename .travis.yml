@@ -1,0 +1,25 @@
+dist: trusty
+
+install:
+  - sudo add-apt-repository ppa:kelleyk/emacs -y
+  - sudo apt-get update
+  - sudo apt-get install emacs25
+  - git clone https://github.com/ncordon/.emacs.d.git ~/.emacs.d
+  
+script:
+  - /usr/bin/emacs-25.2 analysis/fisymat.org --batch -u `id -un` --eval '(load user-init-file)' -f org-html-export-to-html
+  - mv analysis/fisymat.html ..
+  - rm -r *
+  - mv ../fisymat.html .
+  
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github_token: $GITHUB_API_TOKEN
+  on:
+    branch: master
+  target_branch: gh-pages
+
+notifications:
+  email: false
+

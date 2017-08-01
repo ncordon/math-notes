@@ -1,0 +1,1398 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es">
+<head>
+<title>Fisymat</title>
+<!-- 2017-08-01 Tue 18:25 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="Ignacio Cordón Castillo" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.right  { text-align: center;  }
+  th.left   { text-align: center;   }
+  th.center { text-align: center; }
+  td.right  { text-align: right;  }
+  td.left   { text-align: left;   }
+  td.center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara:nth-child(2) { display: inline; }
+  .footpara { display: block; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css" href="https://www.pirilampo.org/styles/readtheorg/css/htmlize.css"/>
+<link rel="stylesheet" type="text/css" href="https://www.pirilampo.org/styles/readtheorg/css/readtheorg.css"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="https://www.pirilampo.org/styles/lib/js/jquery.stickytableheaders.min.js"></script>
+<script type="text/javascript" src="https://www.pirilampo.org/styles/readtheorg/js/readtheorg.js"></script>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script type="text/javascript">
+<!--/*--><![CDATA[/*><!--*/
+    MathJax.Hub.Config({
+        // Only one of the two following lines, depending on user settings
+        // First allows browser-native MathML display, second forces HTML/CSS
+        //  config: ["MMLorHTML.js"], jax: ["input/TeX"],
+            jax: ["input/TeX", "output/HTML-CSS"],
+        extensions: ["tex2jax.js","TeX/AMSmath.js","TeX/AMSsymbols.js",
+                     "TeX/noUndefined.js"],
+        tex2jax: {
+            inlineMath: [ ["\\(","\\)"] ],
+            displayMath: [ ['$$','$$'], ["\\[","\\]"], ["\\begin{displaymath}","\\end{displaymath}"] ],
+            skipTags: ["script","noscript","style","textarea","pre","code"],
+            ignoreClass: "tex2jax_ignore",
+            processEscapes: false,
+            processEnvironments: true,
+            preview: "TeX"
+        },
+        showProcessingMessages: true,
+        displayAlign: "center",
+        displayIndent: "2em",
+
+        "HTML-CSS": {
+             scale: 100,
+             availableFonts: ["STIX","TeX"],
+             preferredFont: "TeX",
+             webFont: "TeX",
+             imageFont: "TeX",
+             showMathMenu: true,
+        },
+        MMLorHTML: {
+             prefer: {
+                 MSIE:    "MML",
+                 Firefox: "MML",
+                 Opera:   "HTML",
+                 other:   "HTML"
+             }
+        }
+    });
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Fisymat</h1>
+<div id="table-of-contents">
+<h2>&Iacute;ndice</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1. Preliminares</a></li>
+<li><a href="#sec-2">2. Espacios de Hilbert</a>
+<ul>
+<li><a href="#sec-2-1">2.1. Producto escalar</a>
+<ul>
+<li><a href="#sec-2-1-1">2.1.1. Norma asociada al producto escalar</a></li>
+<li><a href="#sec-2-1-2">2.1.2. Continuidad del producto escalar </a></li>
+</ul>
+</li>
+<li><a href="#sec-2-2">2.2. Espacio de Hilbert</a>
+<ul>
+<li><a href="#sec-2-2-1">2.2.1. Ejemplos</a></li>
+<li><a href="#sec-2-2-2">2.2.2. Suma de espacios Hilbert</a></li>
+</ul>
+</li>
+<li><a href="#sec-2-3">2.3. Complemento ortogonal</a>
+<ul>
+<li><a href="#sec-2-3-1">2.3.1. Un espacio ortogonal es cerrado en un Hilbert </a></li>
+<li><a href="#sec-2-3-2">2.3.2. Caracterización del ortogonal </a></li>
+<li><a href="#sec-2-3-3">2.3.3. La distancia a un Hilbert se materializa </a></li>
+<li><a href="#sec-2-3-4">2.3.4. Proyección ortogonal (de \(H\) sobre \(V\)) </a></li>
+<li><a href="#sec-2-3-5">2.3.5. Complemento ortogonal </a></li>
+</ul>
+</li>
+<li><a href="#sec-2-4">2.4. Teorema de representación de Riesz-Fréchet</a>
+<ul>
+<li><a href="#sec-2-4-1">2.4.1. Dual topológico de \(H\)</a></li>
+<li><a href="#sec-2-4-2">2.4.2. Funciones del dual descritas por un producto escalar</a></li>
+<li><a href="#sec-2-4-3">2.4.3. Principio de Dirichlet</a></li>
+<li><a href="#sec-2-4-4">2.4.4. Teorema de representación de Riesz-Fréchet </a></li>
+</ul>
+</li>
+<li><a href="#sec-2-5">2.5. Bases de Hilbert</a>
+<ul>
+<li><a href="#sec-2-5-1">2.5.1. Subespacio lineal generado por \(X\)</a></li>
+<li><a href="#sec-2-5-2">2.5.2. Subconjunto ortogonal</a></li>
+<li><a href="#sec-2-5-3">2.5.3. Base de Hilbert</a></li>
+</ul>
+</li>
+<li><a href="#sec-2-6">2.6. Convergencia débil</a>
+<ul>
+<li><a href="#sec-2-6-1">2.6.1. Definición de convergencia débil</a></li>
+<li><a href="#sec-2-6-2">2.6.2. Convergencia fuerte (convencional) implica convergencia débil</a></li>
+<li><a href="#sec-2-6-3">2.6.3. Condiciones suficientes para que convergencia débil implique convergencia fuerte</a></li>
+<li><a href="#sec-2-6-4">2.6.4. Condiciones suficientes para que haya convergencia débil</a></li>
+<li><a href="#sec-2-6-5">2.6.5. Propiedad fundamental de convergencia débil</a></li>
+<li><a href="#sec-2-6-6">2.6.6. Acotación de sucesiones débilmente convergentes</a></li>
+<li><a href="#sec-2-6-7">2.6.7. Convergencia débil equivale a convergencia fuerte en espacios de dimensión finita</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#sec-3">3. Espacios de Sobolev</a>
+<ul>
+<li><a href="#sec-3-1">3.1. Derivadas débiles</a>
+<ul>
+<li><a href="#sec-3-1-1">3.1.1. Integración por partes</a></li>
+<li><a href="#sec-3-1-2">3.1.2. Definición de derivada débil</a></li>
+<li><a href="#sec-3-1-3">3.1.3. Linealidad de la derivada débil</a></li>
+<li><a href="#sec-3-1-4">3.1.4. Derivada débil de un producto</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+\(
+  \newcommand{\seq}[2]{\{ {#1} \} \rightarrow {#2}}
+  \newcommand{\weakseq}[2]{\{ {#1} \} \rightharpoonup {#2}}
+  \newcommand{\dseq}[3]{\{ {#1} \} \overset{{#3}}{\longrightarrow} {#2}}
+  \newcommand{\dotprod}[2]{\langle {#1}, {#2} \rangle}
+  \newcommand{\norm}[1]{||{#1}||}
+  \newcommand{\abs}[1]{|{#1}|}
+  \newcommand{\ce}{\mathcal{C}}
+  \newcommand{\opspace}[2]{\mathcal{L}({#1}, {#2})}
+  \newcommand{\opnorm}[3]{||{#1}||_{\opspace{#2}{#3}}}
+  \newcommand{\dual}[1]{\opspace{#1}{\mathbb{R}}}
+  \newcommand{\lunoloc}{L^1_{loc}(\Omega)}
+  \DeclareMathOperator*{\argmin}{arg\,min }
+  \DeclareMathOperator*{\argmin}{arg\,max }
+\)
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> Preliminares</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+Sea \(\Omega \subseteq \mathbb{R}^n\), abierto.
+</p>
+
+<p>
+LLamamos \(\ce_c(\Omega)\) a las funciones continuas en \(\Omega\) con soporte compacto.
+</p>
+
+<p>
+LLamamos \(\ce_b(Omega)\) a las funciones continuas en \(\Omega\) acotadas.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> Espacios de Hilbert</h2>
+<div class="outline-text-2" id="text-2">
+</div><div id="outline-container-sec-2-1" class="outline-3">
+<h3 id="sec-2-1"><span class="section-number-3">2.1</span> Producto escalar</h3>
+<div class="outline-text-3" id="text-2-1">
+<p>
+Un producto escalar se define como una aplicación \(\langle \cdot, \cdot\rangle: V \rangle V \rightarrow \mathbb{R}\) que verifica:
+</p>
+<ol class="org-ol">
+<li>Bilineal
+</li>
+<li>Simétrica
+</li>
+<li>\(\langle u,u\rangle \ge 0, \forall u\in V\) y \(\langle u,u\rangle = 0 \Leftrightarrow u = 0\)
+</li>
+</ol>
+</div>
+
+<div id="outline-container-sec-2-1-1" class="outline-4">
+<h4 id="sec-2-1-1"><span class="section-number-4">2.1.1</span> Norma asociada al producto escalar</h4>
+<div class="outline-text-4" id="text-2-1-1">
+<p>
+Se verifica, que definiendo \(||u|| = \sqrt{\langle u,u\rangle}\), es norma (no negativa, nula sólo para el elemento 0, y saca escalares).
+</p>
+
+<p>
+También podemos recuperar el producto escalar a partir de la norma definida a partir de él:
+</p>
+
+<p>
+\[\langle u,v\rangle = \frac{1}{4} (||u+v||^2 - ||u-v||^2)\]
+</p>
+
+<ol class="org-ol">
+<li>Desigualdad de Schwarz: \(|\langle u,v\rangle| \le ||u|| ||v||\)
+</li>
+<li>Desigualdad triangular: \(||u+v|| \le ||u|| + ||v||\)
+</li>
+<li>Identidad del paralelogramo: \(||u+v||^2 + ||u-v||^2 = 2(||u||^2 + ||v||^2), \quad \forall u,v \in V\)
+</li>
+</ol>
+</div>
+
+<ol class="org-ol"><li><a id="sec-2-1-1-1" name="sec-2-1-1-1"></a>Demostración<br  /><div class="outline-text-5" id="text-2-1-1-1">
+<p>
+La demostración de ii es trivial una vez tenemos i. La demostración de iii. consiste en hacer un simple desarrollo de \(||u+v||^2\) y \(||u-v||^2\).
+</p>
+
+<p>
+Veamos i:
+</p>
+
+<p>
+\[||u||^2 + 2\lambda \langle u,v\rangle + \lambda^2 ||v||^2 = \langle u+\lambda v, u+\lambda v\rangle \ge 0\]
+</p>
+
+<p>
+y tomando \(\lambda = -\frac{\langle u,v\rangle}{||v||^2}\) se llega al resultado buscado.
+</p>
+</div>
+</li></ol>
+</div>
+<div id="outline-container-sec-2-1-2" class="outline-4">
+<h4 id="sec-2-1-2"><span class="section-number-4">2.1.2</span> Continuidad del producto escalar <div id="fact:dotcont"></h4>
+<div class="outline-text-4" id="text-2-1-2">
+<p>
+Dada \(\dseq{w_n}{w}{||\cdot||}\), entonces \(\seq{\langle v,w_n\rangle}{\langle v,w\rangle}\).
+</p>
+</div>
+
+<ol class="org-ol"><li><a id="sec-2-1-2-1" name="sec-2-1-2-1"></a>Demostración<br  /><div class="outline-text-5" id="text-2-1-2-1">
+<p>
+Trivial desde Cauchy Schwarz
+</p>
+</div>
+</li></ol>
+</div>
+</div>
+<div id="outline-container-sec-2-2" class="outline-3">
+<h3 id="sec-2-2"><span class="section-number-3">2.2</span> Espacio de Hilbert</h3>
+<div class="outline-text-3" id="text-2-2">
+<p>
+Dado \(V\) espacio vectorial, decimos que es espacio de Hilbert si es completo respecto de la norma inducida por dicho producto escalar.
+</p>
+</div>
+<div id="outline-container-sec-2-2-1" class="outline-4">
+<h4 id="sec-2-2-1"><span class="section-number-4">2.2.1</span> Ejemplos</h4>
+<div class="outline-text-4" id="text-2-2-1">
+<ul class="org-ul">
+<li>\(\mathbb{R}^n\) con el producto escalar usual
+</li>
+<li>\(l_2\) espacio de sucesiones tal que \(\sum_{n\ge 1} x_n^2\) con \(\langle \bar{x}, \bar{y}\rangle = \sum_{n\ge 1} x_n y_n\), \(\bar{x} = \{x_n\}\)
+</li>
+<li>\(\Omega \subset \mathbb{R}^n\), \(L^2(\Omega)\) con el producto escalar \(\langle f,g\rangle = \int_{\Omega} fg\)
+</li>
+<li>No todo subespacio de un Hilbert es Hilbert. Ejemplo: Las funciones continuas con soporte compacto no son un Hilbert, pero sí subespacio de \(L^2(\Omega)\)
+</li>
+</ul>
+</div>
+
+<ol class="org-ol"><li><a id="sec-2-2-1-1" name="sec-2-2-1-1"></a><span class="todo TODO">TODO</span> Demostración<br  /></li></ol>
+</div>
+
+<div id="outline-container-sec-2-2-2" class="outline-4">
+<h4 id="sec-2-2-2"><span class="section-number-4">2.2.2</span> Suma de espacios Hilbert</h4>
+<div class="outline-text-4" id="text-2-2-2">
+<p>
+La suma directa \(H_1 \oplus H_2\) de dos espacios Hilbert \(H_1\) y \(H_2\) con el producto escalar 
+</p>
+
+<p>
+\[\langle u_1 + u_2, v_1 + v_2 \rangle_{H_1 \oplus H_2} = \langle u_1, v_1\rangle_{H_1} + \langle u_2, v_2\rangle_{H_2}\]
+</p>
+
+<p>
+Podemos definir la norma asociada como \(||u||_{H_1 \oplus H_2} = \sqrt{||u_1||_{H_1}^2 + ||u_2||_{H_2}^2}\) con \(u=u_1 + u_2\) y \(u_i \in H_i\).
+</p>
+</div>
+
+<ol class="org-ol"><li><a id="sec-2-2-2-1" name="sec-2-2-2-1"></a>Demostración<br  /><div class="outline-text-5" id="text-2-2-2-1">
+<p>
+Sabemos de geometría que \(H_1 \oplus H_2\) es espacio vectorial. Veamos que es \(\langle \cdot, \cdot \rangle\) definido arriba es producto escalar en \(H_1 \oplus H_2\) y que además \(H_1 \oplus H_2\) es completo para la norma asociada.
+</p>
+
+<p>
+Veamos linealidad en la primera variable: 
+</p>
+
+<p>
+\[\begin{align*}
+\langle au + bv, w \rangle &= \langle au_1 + b_v1 + au_2 + bv_2, w \rangle = \langle au_1 + bv_1, w_1\rangle_{H_1} + \langle au_2 + bv_2, w_2\rangle_{H_2} = \\
+&= a \left[\langle u_1, w_1\rangle_{H_1} + \langle u_2, w_2\rangle_{H_2} \right] + b \left[\langle v_1, w_1\rangle_{H_1} + \langle v_2, w_2\rangle_{H_2} \right] = \\
+&= a \langle v_1, w_1 \rangle_{H_1 \oplus H_2} + b \langle v_2, w_2 \rangle_{H_1 \oplus H_2}
+\end{align*}\]
+</p>
+
+<p>
+La linealidad en la segunda variable es análoga.
+</p>
+
+<p>
+Trivialmente \(\langle u, u \rangle_{H_1 \oplus H_2} \ge 0\) y la simetría también se deduce de la simetría de los productos escalares en \(H_1\) y \(H_2\)
+</p>
+
+<p>
+Veamos que \(H_1 \oplus H_2\) es completo.
+</p>
+
+<p>
+Sea \(\{u_n\} \subset H_1 \oplus H_2\) de Cauchy. Entonces dado \(\varepsilon > 0\), existe \(n\in \mathbb{N}\) tal que para todo \(p,q \ge n\):
+</p>
+
+<p>
+\[\langle u_p - u_q, u_p - u_q \rangle \le \varepsilon \Rightarrow ||(u_i)_p - (u_i)_q||^2 \le \varepsilon\]
+</p>
+
+
+<p>
+Esto último implica que \((u_1)_n\) y \((u_2)_n\) son de Cauchy, y por tanto \(\seq{(u_i)_n}{u_i}, \quad u_i\in H_i\)
+</p>
+
+<p>
+Se sigue:
+</p>
+
+<p>
+\[||u_n - u||^2 = ||(u_1)_n - u_1||^2 + ||(u_2)_n - u_2||^2 \rightarrow 0\]
+</p>
+</div>
+</li></ol>
+</div>
+</div>
+<div id="outline-container-sec-2-3" class="outline-3">
+<h3 id="sec-2-3"><span class="section-number-3">2.3</span> Complemento ortogonal</h3>
+<div class="outline-text-3" id="text-2-3">
+<p>
+Sea \(V \subseteq H\) sub. vectorial, \(H\) espacio Hilbert, entonces se define el <b>espacio ortogonal</b> de \(V\) como:
+</p>
+
+<p>
+\[V^\perp:= \{w\in H : \langle w,v \rangle = 0 \forall v\in V\}\]
+</p>
+
+<p>
+Claramente \(V^\perp\) es sub vectorial de \(H\) y además \(V\subseteq (V^\perp)^\perp\). En \(\mathbb{R}^n\), \(V = (V^\perp)^\perp\), pero en espacios de Hilbert arbitrarios no tiene por qué cumplirse. Como veremos, que \(V\) sea cerrado es condición necesaria por <a href="#fact:cerrado-hilbert">fact:cerrado-hilbert</a> y suficiente por <a href="#th:complemento">th:complemento</a>
+</p>
+
+<p>
+Más adelante definiremos el <b>complemento ortogonal</b> exigiéndole a un espacio ortogonal que sea lo suficientemente "bueno" para que \(V \oplus V^\perp = H\)
+</p>
+
+<p>
+Sea \(V\subseteq H\) sub. vectorial de \(H\) Hilbert en lo que sigue.
+</p>
+</div>
+<div id="outline-container-sec-2-3-1" class="outline-4">
+<h4 id="sec-2-3-1"><span class="section-number-4">2.3.1</span> Un espacio ortogonal es cerrado en un Hilbert <div id="fact:cerrado-hilbert"></h4>
+<div class="outline-text-4" id="text-2-3-1">
+<p>
+Dado \(V\subseteq H\) sub. vectorial, entonces \(V^\perp\) es cerrado.
+</p>
+</div>
+
+<ol class="org-ol"><li><a id="sec-2-3-1-1" name="sec-2-3-1-1"></a>Demostración<br  /><div class="outline-text-5" id="text-2-3-1-1">
+<p>
+Sea \(\{w_n\} \subseteq V\) con \(\seq{w_n}{w \in H}\)
+</p>
+
+<p>
+Entonces \(0 = \lim_n \dotprod{w_n}{v} = \dotprod{w}{v}\) para cualquier \(v \in V\). Luego \(w\in V^\perp\)
+</p>
+</div>
+</li></ol>
+</div>
+
+<div id="outline-container-sec-2-3-2" class="outline-4">
+<h4 id="sec-2-3-2"><span class="section-number-4">2.3.2</span> Caracterización del ortogonal <div id="claim:ortogonal"></h4>
+<div class="outline-text-4" id="text-2-3-2">
+<p>
+Sea \(w\in H\). Entonces:
+\[w\in V^\perp \Leftrightarrow ||w|| = \inf_{v\in V}||w-v||\]
+</p>
+</div>
+
+<ol class="org-ol"><li><a id="sec-2-3-2-1" name="sec-2-3-2-1"></a>Demostración<br  /><ol class="org-ol"><li><a id="sec-2-3-2-1-1" name="sec-2-3-2-1-1"></a>Hacia la derecha<br  /><div class="outline-text-6" id="text-2-3-2-1-1">
+<p>
+\[\dotprod{w-v}{w-v} = \dotprod{w}{w} - 2\dotprod{w}{v} + \dotprod{v}{v} = \dotprod{w}{w} + \dotprod{v}{v} \ge ||w||^2\]
+</p>
+
+<p>
+Y tomando \(v=0\in V\) terminamos
+</p>
+</div>
+</li>
+<li><a id="sec-2-3-2-1-2" name="sec-2-3-2-1-2"></a>Hacia la izquierda<br  /><div class="outline-text-6" id="text-2-3-2-1-2">
+<p>
+Fijamos un \(v\in V\) y tomamos \(f_v : \mathbb{R} \rightarrow \mathbb{R}\) definida por \(f_v(t) = \dotprod{w-tv}{w-tv}\).
+</p>
+
+<p>
+Por hipótesis \(f_v(t) \ge f_v(0)\), pero \(f_v'(t) = -2\dotprod{v}{w-tv} = 0\) sii \(\frac{\dotprod{v}{w}}{||v||^2} = t\)
+</p>
+</div>
+</li></ol>
+</li></ol>
+</div>
+
+<div id="outline-container-sec-2-3-3" class="outline-4">
+<h4 id="sec-2-3-3"><span class="section-number-4">2.3.3</span> La distancia a un Hilbert se materializa <div id="fact:dist"></h4>
+<div class="outline-text-4" id="text-2-3-3">
+<p>
+Sea \(u\in H\), entonces existe un único \(v\in V\) verificando \(||u-v|| = \inf_{w\in V} ||u-w||\)
+</p>
+</div>
+
+<ol class="org-ol"><li><a id="sec-2-3-3-1" name="sec-2-3-3-1"></a>Demostración<br  /><div class="outline-text-5" id="text-2-3-3-1">
+<p>
+Llamamos \(L=\inf_{w\in V} ||u-w||\). Podemos tomar \(\{v_n\} \in H\) verificándose \(\seq{||u-v_n||}{L}\). Basta ver que \(\{v_n\}\) es de Cauchy.
+</p>
+
+
+<p>
+\[\begin{align}
+\dotprod{w_p - w_q}{w_p - w_q} &= \dotprod{(w_p-u) - (w_q-u)}{(w_p-u) - (w_q-u)} = \\ 
+&= ||w_p-u||^2 + ||w_q-u||^2 - 2\dotprod{w_p-u}{w_q-u} = \\
+&= ||w_p-u||^2 + ||w_q-u||^2 - 2\dotprod{w_p-u}{w_p - w_p + w_q-u} = \\
+&= ||w_p-u||^2 + ||w_q-u||^2 - 2||w_p-u||^2 - 2\dotprod{w_p-u}{w_q - w_p} \le \\
+&\le (||w_p-u||^2 + L) + (||w_q-u||^2 + L) - 2(||w_p-u||^2 +L) + 2||w_p-u||||w_q - w_p||
+\end{align}\]
+</p>
+
+<p>
+Y usando la convergencia \(\seq{||u-v_n||}{L}\) y que \(\{v_n\}\) es de Cauchay, llegamos al resultado buscado.
+</p>
+
+<p>
+Por tanto \(\seq{v_n}{v} \in H\), y usando que \(V\) es cerrado, \(v\in V\), y ello prueba la existencia. Veamos la unicidad: sea otro \(\bar{v} \in V\) materializando la distancia:
+</p>
+
+<p>
+\[\begin{align}
+\norm{v-\bar{v}}^2 &= \norm{v-u -(\bar{v}-u)}^2 \underset{(*)}{=} 2(\norm{v-u}^2 + \norm{\bar{v}-u}^2) - \norm{v+\bar{v}-2u}^2 = \\
+&= 2L^2 - 2\norm{\frac{v+\bar{v}}{2} - u} \le 2L^2 - 2L^2 = 0
+\end{align}\]
+</p>
+
+<p>
+donde se ha usado la identidad del paralelogramo en (*).
+</p>
+</div>
+</li></ol>
+</div>
+<div id="outline-container-sec-2-3-4" class="outline-4">
+<h4 id="sec-2-3-4"><span class="section-number-4">2.3.4</span> Proyección ortogonal (de \(H\) sobre \(V\)) <div id="claim:proy"></h4>
+<div class="outline-text-4" id="text-2-3-4">
+<p>
+A partir de <a href="#fact:dist">fact:dist</a> podemos definir la proyección ortogonal como:
+</p>
+
+<p>
+Se define como \(p_V: H \rightarrow V\) dada por \(p_V(u) = \argmin_{v\in V} \norm{u-v}\)
+</p>
+</div>
+
+<ol class="org-ol"><li><a id="sec-2-3-4-1" name="sec-2-3-4-1"></a>Caracterización de \(p_V\)<br  /><div class="outline-text-5" id="text-2-3-4-1">
+<p>
+Si \(V\) es sub.cerrado de \(H\) y \(u\in H\) entonces \(p_V(u)\) es el único elemento de \(V\) verificando \(u-p_V(u) \in V^\perp\)
+</p>
+</div>
+
+<ol class="org-ol"><li><a id="sec-2-3-4-1-1" name="sec-2-3-4-1-1"></a>Demostración<br  /><div class="outline-text-6" id="text-2-3-4-1-1">
+<p>
+La existencia es trivial a partir de <div id="claim:ortogonal"> y el hecho de que \(p_V(u)\) minimiza la distancia de \(u\) a \(V\). 
+</p>
+
+<p>
+\[u-p_V(u) \in V^\perp \Leftrightarrow \norm{u-p_V(u)} = \inf_{w\in V} \norm{u-p_V(u) - w}\]
+</p>
+
+<p>
+Pero \(\inf_{w\in V} \norm{u-p_V(u) - w} = \inf_{w\in V} \norm{u-w}\) y se cumple lo anterior por la definición de \(p_V(u)\).
+</p>
+
+<p>
+La unicidad viene dada por <a href="#fact:dist">fact:dist</a>
+</p>
+</div>
+</li></ol>
+</li></ol>
+</div>
+<div id="outline-container-sec-2-3-5" class="outline-4">
+<h4 id="sec-2-3-5"><span class="section-number-4">2.3.5</span> Complemento ortogonal <div id="th:complemento"></h4>
+<div class="outline-text-4" id="text-2-3-5">
+<p>
+Decimos que \(V^\perp\) es complemento ortogonal de \(V\) en \(H\) si \(V\oplus V^\perp = H\)
+</p>
+
+<p>
+Nótese que si un espacio no es cerrado, no podríamos definir la proyección, y el siguiente teorema no sería válido.
+</p>
+</div>
+
+<ol class="org-ol"><li><a id="sec-2-3-5-1" name="sec-2-3-5-1"></a>Teorema del complemento ortogonal<br  /><div class="outline-text-5" id="text-2-3-5-1">
+<p>
+Sea \(V\) subespacio vectorial cerrado de \(H\). Se cumple:
+</p>
+
+<ol class="org-ol">
+<li>\(p_V\) es la única aplicación lineal en \(V^H\) verificando que \(p_V \circ p_V = p_V\) y \(Ker p_V = V^\perp\)
+</li>
+<li>\(p_V\) es continua y \(\opnorm{p_V}{H}{V} = 1\) si \(V\neq \emptyset\)
+</li>
+<li>\(i:V \oplus V^\perp \hookrightarrow H\) es isometría lineal.
+</li>
+</ol>
+
+
+<p>
+Recordamos que la norma de operadores se define como \(\opnorm{T}{V}{W} = \sup_{v\in V, \, \norm{v}_V = 1} \norm{T(v)}_W\), donde \(\opspace{V}{W} = \{h:V\rightarrow W\) continua y lineal\(\}\)
+</p>
+</div>
+
+<ol class="org-ol"><li><a id="sec-2-3-5-1-1" name="sec-2-3-5-1-1"></a>Demostración<br  /><ol class="org-ol"><li><a id="sec-2-3-5-1-1-1" name="sec-2-3-5-1-1-1"></a>Primer punto<br  /><div class="outline-text-7" id="text-2-3-5-1-1-1">
+<p>
+\(p_V \circ p_V = p_V\) es trivial
+</p>
+
+<p>
+\(Ker p_V = V^\perp\), ya que dado \(x\in H, p_V(x)=0\), tenemos \(0 = p_V(x) = \argmin_{w\in V} \norm{w-x}\), sii \(\norm{x} = \min_{w\in V} \norm{w-x}\). Por último: <a href="#claim:ortogonal">claim:ortogonal</a> nos dice que lo anterior se cumple sii \(x\in V^\perp\)
+</p>
+
+<p>
+\(p_V\) es lineal, porque por <a href="#claim:proy">claim:proy</a>, como \(\lambda u + \mu w - \lambda p_V(u) + \mu p_V(w) = \lambda (u-p_V(u)) + \mu (w-p_V(w)) \in V^\perp\), entonces \(p_V(\lambda u + \mu w) = \lambda p_V(u) + \mu p_V(w)\).
+</p>
+
+<p>
+Es la única aplicación lineal que cumple eso porque dada \(f\) lineal verificando ambas condiciones, entonces:
+</p>
+
+<p>
+\[f(f(x)-x) = f(f(x)) - f(x) \underset{f\circ f=f}{=} f(x) - f(x) = 0\]
+</p>
+
+<p>
+Luego \(f(x) - x \in V^\perp\) sii, por <a href="#claim:ortogonal">claim:ortogonal</a> \(\norm{f(x)-x} = \inf_{w \in V} \norm{f(x) - x - w} \underset{f(x) \in V}{=} \inf_{w \in V} \norm{x-w}\), luego como por ser \(V\) cerrado existe un único elemento que materializa la distancia, por <div id="fact:dist">  entonces \(f(x) = p_V(x)\)
+</p>
+</div>
+</li>
+<li><a id="sec-2-3-5-1-1-2" name="sec-2-3-5-1-1-2"></a>Segundo punto<br  /><div class="outline-text-7" id="text-2-3-5-1-1-2">
+<p>
+Escribimos \(u = u - p_V(u) + p_V(u)\), donde sabemos \(u - p_V(u) \in V^\perp\), luego: 
+</p>
+
+<p>
+\[\dotprod{u}{u-p_V(u)} = \norm{u}^2 - \dotprod{u}{p_V(u)} = \norm{u-p_V(u)}^2\]
+</p>
+
+<p>
+Es decir:
+</p>
+
+<p>
+\[\norm{u}^2 - \dotprod{u-p_V(u) + p_V(u)}{p_V(u)} = \norm{u}^2 - \norm{p_V(u)}^2 = \norm{u-p_V(u)}^2\]
+</p>
+
+<p>
+Y se deduce \(\norm{p_V(u)} \le \norm{u}\), y de aquí \(\opnorm{p_V}{H}{V} \le 1\). Esto nos da continuidad.
+</p>
+
+<p>
+Si \(V \neq 0\), tomando \(v\in V\), \(p_V\left(\frac{v}{\norm{v}}\right) = \frac{v}{\norm{v}}\) y por tanto \(\opnorm{p_V}{H}{V} = 1\)
+</p>
+</div>
+</li>
+<li><a id="sec-2-3-5-1-1-3" name="sec-2-3-5-1-1-3"></a>Tercer punto<br  /><div class="outline-text-7" id="text-2-3-5-1-1-3">
+<p>
+Es claramente una función lineal, de kernel nulo, luego inyectiva, y es biyectiva, ya que dado \(y\in H\), \(i((y - p_V(y)) + p_V(y)) = y\), luego es isomorfismo lineal.
+</p>
+
+<p>
+Es isometría por ser \(\norm{u+v}_H^2 = ||u||^2 + ||v||^2 = \norm{u+v}_{V\oplus V^\perp}^2\), para \(u\in V, v\in V^\perp\).
+</p>
+</div>
+</li></ol>
+</li></ol>
+</li></ol>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2-4" class="outline-3">
+<h3 id="sec-2-4"><span class="section-number-3">2.4</span> Teorema de representación de Riesz-Fréchet</h3>
+<div class="outline-text-3" id="text-2-4">
+<p>
+Sea \(H\) espacio Hilbert
+</p>
+</div>
+<div id="outline-container-sec-2-4-1" class="outline-4">
+<h4 id="sec-2-4-1"><span class="section-number-4">2.4.1</span> Dual topológico de \(H\)</h4>
+<div class="outline-text-4" id="text-2-4-1">
+<p>
+Llamamos dual topológico de \(H\) a \(\dual{H}\).
+</p>
+</div>
+</div>
+<div id="outline-container-sec-2-4-2" class="outline-4">
+<h4 id="sec-2-4-2"><span class="section-number-4">2.4.2</span> Funciones del dual descritas por un producto escalar</h4>
+<div class="outline-text-4" id="text-2-4-2">
+<p>
+Dado \(w\in H\), la función de \(\dual{H}\) dada por \(T_w(v):=\dotprod{w}{v}\) es lineal, continua, y de norma \(\norm{w}_H\)
+</p>
+</div>
+
+<ol class="org-ol"><li><a id="sec-2-4-2-1" name="sec-2-4-2-1"></a>Demostración<br  /><div class="outline-text-5" id="text-2-4-2-1">
+<p>
+Que es lineal y continua es claro por la linealidad y la continuidad del producto escalar, demostrada en <a href="#fact:dotcont">fact:dotcont</a>
+</p>
+
+<p>
+\[|T_w(v)| = |\dotprod{w}{v}| \le \norm{w}\norm{v}\] 
+</p>
+
+<p>
+por Cauchy Schwarz, luego \(\opnorm{T_w}{H}{\mathbb{R}} \le \norm{w}\) y para ver que es de hecho \(\norm{w}\) basta evaluar en \(\frac{w}{\norm{w}}\) si \(w\neq 0\).
+</p>
+</div>
+</li></ol>
+</div>
+<div id="outline-container-sec-2-4-3" class="outline-4">
+<h4 id="sec-2-4-3"><span class="section-number-4">2.4.3</span> Principio de Dirichlet</h4>
+<div class="outline-text-4" id="text-2-4-3">
+<p>
+Sea \(V\) espacio vectorial con un producto escalar \(\dotprod{\cdot}{\cdot}\), \(T\in \opspace{V}{\mathbb{R}}\). 
+Entonces \(T = T_w = \dotprod{w}{\cdot}\) sii \(w\in V\) es mínimo del funcional \(J(u) = \frac{1}{2} \norm{u}^2 - T(u)\)
+</p>
+</div>
+
+<ol class="org-ol"><li><a id="sec-2-4-3-1" name="sec-2-4-3-1"></a>Demostración<br  /><ol class="org-ol"><li><a id="sec-2-4-3-1-1" name="sec-2-4-3-1-1"></a>Hacia la derecha<br  /><div class="outline-text-6" id="text-2-4-3-1-1">
+<p>
+Por desigualdad de Cauchy-Schwarz: \(J(u) = \frac{1}{2} \norm{u}^2 - \dotprod{w}{u} \ge \frac{1}{2} \norm{u}^2 - \norm{w}\norm{u}\)
+</p>
+
+<p>
+Y el polinomio \(\frac{1}{2}x^2 - \norm{w}x\) tiene un mínimo en \(\norm{u} = x = \norm{w}\), pero la desigualdad anterior es estricta
+sii \(u = tw, t\ge 0\). Juntando estas dos condiciones \(u = w\)
+</p>
+</div>
+</li>
+<li><a id="sec-2-4-3-1-2" name="sec-2-4-3-1-2"></a>Hacia la izquierda<br  /><div class="outline-text-6" id="text-2-4-3-1-2">
+<p>
+Fijo \(u\in V\) arbitrario y llamo \(J_u(t) = J(w+tu) = \frac{1}{2}\dotprod{w+tu}{w+tu} - T(w) - tT(u) \ge J(w)\).
+</p>
+
+<p>
+Su derivada es \(J_u'(t) = \dotprod{u}{w+tu} - T(u)\) y esta función tiene un mínimo en \(0\), luego:
+</p>
+
+<p>
+\[J_u'(0) = 0 = \dotprod{u}{w} - T(u)\]
+</p>
+</div>
+</li></ol>
+</li></ol>
+</div>
+
+<div id="outline-container-sec-2-4-4" class="outline-4">
+<h4 id="sec-2-4-4"><span class="section-number-4">2.4.4</span> Teorema de representación de Riesz-Fréchet <div id="th:rieszfrechet"></h4>
+<div class="outline-text-4" id="text-2-4-4">
+<p>
+Sea \(H\) espacio de Hilbert y \(T\in \dual{H}\) (espacio de funciones lineales y continuas de \(H\) a \(\mathbb{R}\)).
+Entonces existe un único \(w\in H\) verificando:
+</p>
+
+<p>
+\[T(u) = T_w(u)\]
+</p>
+
+<p>
+De hecho la aplicación \(i: H \hookrightarrow \dual{H}\) dada por \(i(w) = T_w\) es isomorfismo lineal e isometría.
+</p>
+</div>
+
+<ol class="org-ol"><li><a id="sec-2-4-4-1" name="sec-2-4-4-1"></a>Demostración<br  /><div class="outline-text-5" id="text-2-4-4-1">
+<p>
+Supongamos que se cumplen las primeras hipótesis, y veamos que \(i\) es isometría.
+</p>
+
+<p>
+\[i(\lambda v + \mu w) (u) = \dotprod{\lambda v + \mu w}{u} = \lambda\dotprod{v}{u} + \mu\dotprod{w}{u} = (\lambda T_v + \mu T_w) (u)\]
+</p>
+
+<p>
+Esto prueba que \(i\) es lineal, y las primeras hipótesis que \(i\) es biyectiva (hay un único \(w\in H\) para cada \(T\in \dual{H}\)
+</p>
+
+
+<p>
+Usamos el principio de Dirichlet para demostrar la primera parte del teorema. Basta ver que \(J(u) = \frac{1}{2} \norm{u}^2 - T(u)\) siempre tiene un mínimo.
+</p>
+
+<p>
+Sea \(w_0 = \arg max_{u\in H, \norm{u}=1} T(u)\)
+</p>
+
+<p>
+Entonces:
+</p>
+
+<p>
+\[J(u) = \frac{1}{2} \norm{u}^2 - \norm{u} T(\frac{u}{\norm{u}}) \ge \frac{1}{2} \norm{u}^2 - \norm{u} T(w_0)\]
+</p>
+
+<p>
+Y el polinomio \(\frac{1}{2}x^2-T(w_0)x\) tiene su mínimo en \(x=\norm{u} = T(w_0)\)
+</p>
+
+<p>
+Es decir, tomando \(u=T(w_0)w_0\) llegamos al resultado buscado.
+</p>
+
+<p>
+La unicidad del representante se tiene porque dados \(w,\bar{w} \in H\) verificando \(T(u) = \dotprod{w}{u} = \dotprod{\bar{w}}{u}\) para todo \(u\in H\), se tiene \(\dotprod{w-\bar{w}}{u} = 0\) para todo \(u\in H\), en particular para \(u=w-\bar{w}\), lo que implica que \(\norm{w-\bar{w}} = 0\) y \(w=\bar{w}\)
+</p>
+</div>
+</li></ol>
+</div>
+</div>
+<div id="outline-container-sec-2-5" class="outline-3">
+<h3 id="sec-2-5"><span class="section-number-3">2.5</span> Bases de Hilbert</h3>
+<div class="outline-text-3" id="text-2-5">
+<p>
+Sea \(H\) espacio Hilbert
+</p>
+</div>
+<div id="outline-container-sec-2-5-1" class="outline-4">
+<h4 id="sec-2-5-1"><span class="section-number-4">2.5.1</span> Subespacio lineal generado por \(X\)</h4>
+<div class="outline-text-4" id="text-2-5-1">
+<p>
+Sea \(X\subseteq H\), denotamos por \(lin X:= \left\{\sum_{i=1}^m \alpha_i v_i : \alpha_i\in \mathbb{R}, v_i \in X, m\in \mathbb{N}\right\}\)
+</p>
+</div>
+</div>
+<div id="outline-container-sec-2-5-2" class="outline-4">
+<h4 id="sec-2-5-2"><span class="section-number-4">2.5.2</span> Subconjunto ortogonal</h4>
+<div class="outline-text-4" id="text-2-5-2">
+<p>
+Sea \(O\subseteq H\). \(O\) es conjunto ortogonal sii \(\dotprod{u,v} = 0\) para todos \(u,v \in O\), con \(u\neq v\).
+</p>
+
+<p>
+Decimos que \(O\) es ortonormal si es ortogonal y \(\norm{u} = 1\) para todo \(u\in V\)
+</p>
+</div>
+</div>
+<div id="outline-container-sec-2-5-3" class="outline-4">
+<h4 id="sec-2-5-3"><span class="section-number-4">2.5.3</span> Base de Hilbert</h4>
+<div class="outline-text-4" id="text-2-5-3">
+<p>
+\(B\subseteq H\) se dice base de Hilbert de \(H\) si es ortonormal y \(H = \overline{lin B}\)
+</p>
+</div>
+
+<ol class="org-ol"><li><a id="sec-2-5-3-1" name="sec-2-5-3-1"></a>Base de Hilbert vs base algebraica<br  /><div class="outline-text-5" id="text-2-5-3-1">
+<p>
+El concepto de base de Hilbert y de base algebraica no coincide. Ej: El conjunto formado por las sucesiones \((x_n)_k := \delta_{k,n}\) donde \(\delta_{k,n}\) es la delta de Dirac, es base de Hilbert de \(l_2\), pero no es base algebraica.
+</p>
+</div>
+</li></ol>
+</div>
+</div>
+<div id="outline-container-sec-2-6" class="outline-3">
+<h3 id="sec-2-6"><span class="section-number-3">2.6</span> Convergencia débil</h3>
+<div class="outline-text-3" id="text-2-6">
+<p>
+Sea \(H\) espacio de Hilbert
+</p>
+</div>
+<div id="outline-container-sec-2-6-1" class="outline-4">
+<h4 id="sec-2-6-1"><span class="section-number-4">2.6.1</span> Definición de convergencia débil</h4>
+<div class="outline-text-4" id="text-2-6-1">
+<p>
+Una sucesión \(\{x_n\}_n\) en \(H\) se dice que converge débilmente a \(u\in H\) si para cada \(v\in H\) se verifica:
+</p>
+
+<p>
+\[\lim_{n} \dotprod{x_n}{v} = \dotprod{u}{v}\]
+</p>
+
+<p>
+Lo notamos \(\weakseq{x_n}{u}\) y decimos que \(u\) es el límite débil de \(\{x_n\}\)
+</p>
+
+<p>
+Además dicho límite, caso de existir, es único
+</p>
+</div>
+
+<ol class="org-ol"><li><a id="sec-2-6-1-1" name="sec-2-6-1-1"></a>Demostración (unicidad del límite)<br  /><div class="outline-text-5" id="text-2-6-1-1">
+<p>
+Sean \(u, \bar{u}\) dos límites distintos. Entonces para todo \(v \in H\) se tiene:
+</p>
+
+<p>
+\[0 = \lim_{n} \dotprod{x_n}{v} - \lim_{n} \dotprod{x_n}{v} = \dotprod{u}{v} - \dotprod{\bar{u}}{v} = \dotprod{u-\bar{u}}{v}\]
+</p>
+
+<p>
+En particular \(\dotprod{u-\bar{u}}{u-\bar{u}} = 0\), y por tanto \(u = \bar{u}\)
+</p>
+</div>
+</li></ol>
+</div>
+<div id="outline-container-sec-2-6-2" class="outline-4">
+<h4 id="sec-2-6-2"><span class="section-number-4">2.6.2</span> Convergencia fuerte (convencional) implica convergencia débil</h4>
+<div class="outline-text-4" id="text-2-6-2">
+<p>
+Sea \(\{x_n\}\) sucesión en \(H\) verificando \(\seq{x_n}{x \in H}\). Entonces \(\weakseq{x_n}{x}\)
+</p>
+</div>
+<ol class="org-ol"><li><a id="sec-2-6-2-1" name="sec-2-6-2-1"></a>Demostración<br  /><div class="outline-text-5" id="text-2-6-2-1">
+<p>
+\[\dotprod{x_n}{v} - \dotprod{x}{v} = \dotprod{x_n - x}{v} \overset{n\rightarrow \infty} \rightarrow 0\]
+</p>
+
+<p>
+donde se ha usado continuidad del producto escalar.
+</p>
+</div>
+</li>
+<li><a id="sec-2-6-2-2" name="sec-2-6-2-2"></a>El recíproco no es cierto<br  /><div class="outline-text-5" id="text-2-6-2-2">
+<p>
+Sea un espacio de dimensión infinita, \(H\) y una base ortogonal \(B\). Entonces tomando una sucesión \(\{u_n\} \subseteq B\) y llamamos \(e_n = \frac{u_n}{\norm{u_n}}\), se tiene que fijado \(v\in H\), \(\dotprod{e_n}{v} = 0\) para \(n \ge 1\) suficientemente grande, ya que \(v= \sum_{i=1}^N \alpha_i v_i\) con \(v_i\in B\) por ser \(B\) base y \(B\) es ortonormal, de donde se desprende la afirmación que hemos hecho.
+</p>
+
+<p>
+Hemos probado que \(\weakseq{x_n}{0}\), pero \(\norm{e_n}=1\) para todo \(n\), luego no hay convergencia fuerte a \(0\).
+</p>
+</div>
+</li></ol>
+</div>
+<div id="outline-container-sec-2-6-3" class="outline-4">
+<h4 id="sec-2-6-3"><span class="section-number-4">2.6.3</span> Condiciones suficientes para que convergencia débil implique convergencia fuerte</h4>
+<div class="outline-text-4" id="text-2-6-3">
+<p>
+Se cumple:
+</p>
+
+<ol class="org-ol">
+<li>Si \(\weakseq{u_n}{u \in H}\) entonces \(\norm{u} \le \liminf_{n} \norm{u_n}\)
+</li>
+<li>Si \(\weakseq{u_n}{u \in H}\) entonces \(\seq{u_n}{u}\) sii \(\seq{\norm{u_n}}{\norm{u}}\)
+</li>
+</ol>
+</div>
+
+<ol class="org-ol"><li><a id="sec-2-6-3-1" name="sec-2-6-3-1"></a>Demostración<br  /><ol class="org-ol"><li><a id="sec-2-6-3-1-1" name="sec-2-6-3-1-1"></a>Primer apartado<br  /><div class="outline-text-6" id="text-2-6-3-1-1">
+<p>
+\(\dotprod{u_n}{u} \le \norm{u_n} \norm{u}\) y tomando \(\liminf_{n}\) en ambos miembros llegamos al resultado buscado.
+</p>
+</div>
+</li>
+<li><a id="sec-2-6-3-1-2" name="sec-2-6-3-1-2"></a>Segundo apartado<br  /><div class="outline-text-6" id="text-2-6-3-1-2">
+<p>
+Hacia la izquierda es evidente. Vemos hacia la derecha:
+</p>
+
+<p>
+\[\dotprod{u_n - u}{u_n - u} = \norm{u_n}^2 - 2\dotprod{u_n}{u} + \norm{u}^2\]
+</p>
+
+<p>
+De donde tomando límites en \(n\) llegamos a \(\seq{\norm{u_n-u}^2}{0}\)
+</p>
+</div>
+</li></ol>
+</li></ol>
+</div>
+
+<div id="outline-container-sec-2-6-4" class="outline-4">
+<h4 id="sec-2-6-4"><span class="section-number-4">2.6.4</span> Condiciones suficientes para que haya convergencia débil</h4>
+<div class="outline-text-4" id="text-2-6-4">
+<p>
+Sea \(\{u_n\}\) sucesión acotada en \(H\) verificando que \(\{\dotprod{u_n}{v}\}\) converge en \(\mathbb{R}\) para cualquier \(v\in H\). Entonces existe \(u\in H\) verificando \(\weakseq{u_n}{u}\)
+</p>
+
+<p>
+<div id="lemma:weakconv">
+</p>
+</div>
+<ol class="org-ol"><li><a id="sec-2-6-4-1" name="sec-2-6-4-1"></a>Demostración<br  /><div class="outline-text-5" id="text-2-6-4-1">
+<p>
+Definimos \(T:H\rightarrow \mathbb{R}\) por \(T(v) = \lim_n \dotprod{u_n}{u}\).
+</p>
+
+<p>
+\(T\) es lineal, y continua porque dado \(v\in H, \norm{v}=1\) entonces \(|T(v)| = \lim_n \dotprod{u_n}{u} \le \alpha\) donde \(\alpha\) es una cota para cualquier \(\norm{u_n}\).
+</p>
+
+<p>
+Luego \(T\) es continua, y por teorema de Riesz-Fréchet <a href="#th:rieszfrechet">th:rieszfrechet</a> existe \(u\in H\), y \(T(v) = \dotprod{u}{v}\).
+</p>
+</div>
+</li></ol>
+</div>
+<div id="outline-container-sec-2-6-5" class="outline-4">
+<h4 id="sec-2-6-5"><span class="section-number-4">2.6.5</span> Propiedad fundamental de convergencia débil</h4>
+<div class="outline-text-4" id="text-2-6-5">
+<p>
+Sea una sucesión acotada en \(H\). Entonces contiene una subsucesión débilmente convergente en \(H\).
+</p>
+</div>
+
+<ol class="org-ol"><li><a id="sec-2-6-5-1" name="sec-2-6-5-1"></a>Demostración<br  /><div class="outline-text-5" id="text-2-6-5-1">
+<p>
+Sea \(\{u_n\} \subseteq H\) verificando \(\norm{u_n}\le \alpha\) para todo \(n\ge 1\). Si \(\alpha = 0\), \(u_n=0\) para todo \(n\) y ya tendríamos el resultado. Supongamos \(\alpha\neq 0\). Entonces \(\dotprod{u_n}{u_1} \le \alpha \norm{u_1}\) y existe una parcial de \(\{u_n\}\), que llamamos \(\{u_n^{(1)}\}\) que hace \(\dotprod{u_n^{(1)}}{u_1}\) converja.
+</p>
+
+<p>
+Recursivamente, podemos definir \(\{u_n^{(k)}\}\) como la parcial de \(\{u_n^{(k-1)}\}\) que hace que \(\dotprod{u_n^{(k)}}{u_{k-1}}\) converja.
+</p>
+
+<p>
+Definimos la sucesión \(w_n = u_n^{(n)}\) (el elemento \(n\)-ésimo de la parcial \(n\)-ésima)
+</p>
+
+<p>
+Veamos que \(\dotprod{w_n}{v}\) converge para todo \(v\in H\).
+</p>
+
+<p>
+Si \(v = u_m\) para algún \(m\), entonces \(\dotprod{u_n^{(m)}}{u_m}\) converge en \(n\), y por tanto, \(\dotprod{w_m}{u_m}\) también, por ser \(\{w_{n+m}\}\) una subsucesión de \(\{u_n^{(m)}\}\), luego \(\dotprod{w_n}{v}\) converge.
+</p>
+
+<p>
+Si \(v \in V:=lin\{u_n : n\in\mathbb{N}\}\) entonces por un argumento similar tendríamos que \(\dotprod{w_n}{v}\) converge.
+</p>
+
+<p>
+Si \(v \in \bar{V}\), tomamos \(y\in V\) con \(\norm{v-y} \le \frac{\varepsilon}{4\alpha}\). Como \(y\in V\), tenemos que existe \(m\in\mathbb{N}\) tal que para todo \(p,q \ge m\), \(|\dotprod{w_p -w_q}{y}| \le \varepsilon\). Vamos a ver que \(\dotprod{w_n}{v}\) es de Cauchy en \(\mathbb{R}\), luego convergente por ser \(\mathbb{R}\) espacio Banach. 
+</p>
+
+<p>
+Así:
+</p>
+
+\begin{align}
+\abs{\dotprod{w_p - w_q}{v}} &= \abs{\dotprod{w_p-w_q}{v-y+y}} = 
+                             \abs{\dotprod{w_p-w_q}{v-y} + \\ 
+                             &+ \dotprod{w_p-w_q}{y}}\le \le (\norm{w_p}+\norm{w_q})\abs{v-y} +\\
+                             &+ \frac{\varepsilon}{2} \le 2\alpha \cdot \frac{\varepsilon}{4\alpha} + 
+                             \frac{\varepsilon}{2}\le \varepsilon
+\end{align}
+
+<p>
+Como \(H\) es de Hilbert, \(\bar{V}\oplus \bar{V}^\perp = H\), y dado \(v\in H\) arbitrario, \(v = a+b\) con \(a\in \bar{V}\) y \(b\in \bar{V}^\perp\). Luego:
+</p>
+
+<p>
+\[\dotprod{w_n}{v} = \dotprod{w_n}{a} + \dotprod{w_n}{b} = \dotprod{w_n}{a}\]
+</p>
+
+<p>
+Por ser \(b\in \bar{V}^\perp\) y \(w_n\in V\). Y hemos probado que \(\dotprod{w_n}{a}\) converge.
+</p>
+
+<p>
+Estamos en condiciones de aplicar <a href="#lemma:weakconv">lemma:weakconv</a>
+</p>
+</div>
+</li></ol>
+</div>
+
+<div id="outline-container-sec-2-6-6" class="outline-4">
+<h4 id="sec-2-6-6"><span class="section-number-4">2.6.6</span> Acotación de sucesiones débilmente convergentes</h4>
+<div class="outline-text-4" id="text-2-6-6">
+<p>
+Sea \(\weakseq{x_n}{x}\) en \(H\) espacio de Hilbert. Entonces \(\{x_n\}\) está acotada.
+</p>
+</div>
+
+<ol class="org-ol"><li><a id="sec-2-6-6-1" name="sec-2-6-6-1"></a>Demostración<br  /><div class="outline-text-5" id="text-2-6-6-1">
+<p>
+Llamamos \(V_m = \{v\in H: \abs{\dotprod{x_k}{v}} < m, \forall k\}\)
+</p>
+
+<p>
+Como \(\seq{\dotprod{x_n}{v}}{\dotprod{x}{v}}\), y \(\{\dotprod{x_n}{v}\}\) es una sucesión acotada para \(v\in H\) arbitrario, entonces \(H = \bigcup_{n\ge 1}V_m\)
+</p>
+
+<p>
+y debe existir algún \(V_m\) no vacío. Tomamos \(V_k \neq \emptyset\)
+</p>
+
+<p>
+Entonces dado \(v\in V_k\), existe, por ser \(V_k\) abierto, una bola \(B(v,\varepsilon)\) verificando \(B(v,\varepsilon) \subseteq V_k\)
+</p>
+
+<p>
+Dado \(x_k\) no nulo arbitrario (si es nulo \(\norm{x_k}=0\)) \(v + \frac{\varepsilon}{2}\frac{x_k}{\norm{x_k}} \in B(v,\epsilon) \subseteq V_k\), luego:
+</p>
+
+<p>
+\[\abs{ \dotprod{x_k}{v+\frac{\varepsilon}{2}\frac{x_k}{\norm{x_k}}}} = \abs{\dotprod{x_k}{v} + \frac{\varepsilon}{2}\norm{x_k}} \le m\]
+</p>
+
+<p>
+Pero \(\abs{\dotprod{x_k}{v}} \le m\) es decir, usando desigualdad triangular:
+</p>
+
+<p>
+\[\norm{x_k} \le \frac{4m}{\varepsilon}\]
+</p>
+</div>
+</li></ol>
+</div>
+
+
+<div id="outline-container-sec-2-6-7" class="outline-4">
+<h4 id="sec-2-6-7"><span class="section-number-4">2.6.7</span> Convergencia débil equivale a convergencia fuerte en espacios de dimensión finita</h4>
+<div class="outline-text-4" id="text-2-6-7">
+<p>
+Sea \(H\) un Hilbert de dimensión finita. Si \(\weakseq{x_n}{x}\) entonces \(\seq{x_n}{x}\)
+</p>
+</div>
+<ol class="org-ol"><li><a id="sec-2-6-7-1" name="sec-2-6-7-1"></a>Demostración<br  /><div class="outline-text-5" id="text-2-6-7-1">
+<p>
+Veamos que convergencia débil implica fuerte.
+</p>
+
+<p>
+Sea \(B = \{e_1, \ldots e_N\}\) una base ortonormal de \(H\). Entonces \(\seq{\dotprod{x_n}{e_k}}{\dotprod{x_n}{e_k}}\), es decir \(\seq{\dotprod{x_n-x}{e_k}}{0}\), pero \(x_n - x = \sum_{i=1}^{N}a_k^n e_k\), y \(\dotprod{x_n-x}{e_k} = a_k^n\) convergente a \(0\), luego \(x_n - x\) es suma finita de sucesiones que convergen a \(0\), luego converge a \(0\), luego \(\seq{x_n}{x}\).
+</p>
+
+<p>
+La implicación de que convergencia fuerte implica débil ya la habíamos visto.
+</p>
+</div>
+</li></ol>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> Espacios de Sobolev</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+Los espacios de Sobolev son muy importantes porque nos permiten estudiar la existencia de soluciones a ecuaciones en derivadas parciales usando operadores funcionales, para después comprobar si las soluciones que encontramos tienen suficientes condiciones de diferenciabilidad.
+</p>
+</div>
+
+<div id="outline-container-sec-3-1" class="outline-3">
+<h3 id="sec-3-1"><span class="section-number-3">3.1</span> Derivadas débiles</h3>
+<div class="outline-text-3" id="text-3-1">
+<p>
+Sea \(\Omega \subseteq \mathbb{R}^n\) abierto.
+</p>
+
+<p>
+Llamamos funciones \(\ce^k\) con soporte compacto a \(\ce_c^k(\Omega):= \ce_c(\Omega) \cap \ce^k(\Omega)\).
+</p>
+
+<p>
+La fórmula de integración por partes es el punto de partida para definir derivadas débiles.
+</p>
+</div>
+
+<div id="outline-container-sec-3-1-1" class="outline-4">
+<h4 id="sec-3-1-1"><span class="section-number-4">3.1.1</span> Integración por partes</h4>
+<div class="outline-text-4" id="text-3-1-1">
+<p>
+Sea \(\varphi\in C_c^1(\Omega), f\in C^1(\Omega)\), entonces:
+</p>
+
+<p>
+\[\int_{\Omega} \partial_i{\varphi} = 0, \quad \forall i=1,\ldots n\]
+</p>
+
+<p>
+\[\int_{\Omega} \varphi \partial_i{f} + \int_{\Omega} f\partial_i{\varphi} = 0, \quad \forall i=1,\ldots, n\]
+</p>
+
+<p>
+<div id="partint">
+</p>
+</div>
+<ol class="org-ol"><li><a id="sec-3-1-1-1" name="sec-3-1-1-1"></a>Demostración<br  /><div class="outline-text-5" id="text-3-1-1-1">
+<p>
+Podemos suponer spg. que \(i=1\). Además como \(\varphi\) tiene soporte compacto, podemos suponer \(\varphi\) la extensión a \(\mathbb{R}^n\) de \(\varphi\), que vale \(0\) en \(\mathbb{R}^n \setminus \Omega\), y \(sop(\varphi) \subseteq [-\varepsilon, \varepsilon]^n\)
+</p>
+
+\begin{align*}
+\int_{\Omega} \partial_i{\varphi} &= \int_{\mathbb{R}^n} \partial_i{\varphi} = 
+\int_{\mathbb{R}^{n-1}} \left(\int_{[-2\varepsilon, 2\varepsilon]} 
+\partial_i{\varphi} (x,y) dx \right)dy = \\
+&= \int_{\mathbb{R}^{n-1}} \varphi(2\varepsilon, y) - \varphi(-2\varepsilon, y) dy = 0
+\end{align*}
+
+<p>
+La segunda parte se deduce aplicando lo anteriro a \(\varphi f\) que tendría soporte compacto por tenerlo \(\varphi\).
+</p>
+</div>
+</li></ol>
+</div>
+
+<div id="outline-container-sec-3-1-2" class="outline-4">
+<h4 id="sec-3-1-2"><span class="section-number-4">3.1.2</span> Definición de derivada débil</h4>
+<div class="outline-text-4" id="text-3-1-2">
+<p>
+Sea \(u \in L^1_{loc}(\Omega)\). Decimos que \(u\) es débilmente diferenciable en \(\Omega\) y si existen \(\u_1, \ldots u_n \in L^1_{loc}(\Omega)\) verificando que para \(i=1,\ldots,n\)
+</p>
+
+<p>
+\[\int_{\Omega} u \partial_i \varphi + \int_{\Omega} u_i \varphi = 0 \quad \forall \varphi \in^C_c^{\infty} (\Omega)\]
+</p>
+
+<p>
+A \(\partial_i u := u_i\) se le llama derivada débil de \(u\) en \(\Omega\). Además la derivada débil, caso
+de existir, es única casi por doquier.
+</p>
+
+<p>
+Se define el gradiente débil de \(u\) como \(\nabla u := (u_1, \ldots u_n)\)
+</p>
+</div>
+<ol class="org-ol"><li><a id="sec-3-1-2-1" name="sec-3-1-2-1"></a>Ejemplos<br  /><ol class="org-ol"><li><a id="sec-3-1-2-1-1" name="sec-3-1-2-1-1"></a>Funciones \(C^1(\Omega)\)<br  /><div class="outline-text-6" id="text-3-1-2-1-1">
+<p>
+Si \(u \in C^1(\Omega)\), entonces el concepto de derivada y derivada débil coincide por <a href="#partint">partint</a>.
+</p>
+</div>
+</li>
+<li><a id="sec-3-1-2-1-2" name="sec-3-1-2-1-2"></a>Función valor absoluto<br  /><div class="outline-text-6" id="text-3-1-2-1-2">
+<p>
+Es claro que la función valor absoluto no es derivable en sentido usual. Pero lo es en sentido débil. Veámoslo:
+</p>
+
+<p>
+Sea \(\varphi\in C^{\infty}_{c}\). Entonces \(\varphi\) es diferenciable, y por teorema fundamental del cálculo, suponiendo \(sop(\varphi) \subseteq [-a,a]\):
+</p>
+
+\begin{align*}
+\int_{-a}^a \varphi'(x) \abs{x} + \int_{-a}^0 -\varphi(x) + \int_{0}^a \varphi(x) = \\
+= \int_{-a}^0 \left(-\varphi'(x) x - \varphi(x)\right) + \int_{0}^a \left(\varphi'(x) x + \varphi(x)\right) = \\
+= [-\phi(x) x]_a^0 + [\phi(x) x]_0^a = 0
+\end{align*}
+
+<p>
+Luego la función \(x \mapsto 1\) si \(x > 0\) y \(x\mapsto -1\) si \(x < 0\) es derivada débil de \(x\mapsto \abs{x}\)-
+</p>
+</div>
+</li>
+<li><a id="sec-3-1-2-1-3" name="sec-3-1-2-1-3"></a>\(\mathds{1}_{]-\infty,0[}\) no tiene derivada débil<br  /><div class="outline-text-6" id="text-3-1-2-1-3">
+<p>
+Por tanto la restricción de una función débilmente diferenciable no es, en general, débilmente diferenciable.
+</p>
+</div>
+</li>
+<li><a id="sec-3-1-2-1-4" name="sec-3-1-2-1-4"></a>Dada \(\gamma \in \mathbb{R}\), con \(\gamma + n > 1\). Entonces \(u(x) = \norm{x}^{\gamma}\) verifica \(\partial_i u(x) = \gamma \norm{x}^{\gamma-2}x_i\) en sentido débil.<br  /><div class="outline-text-6" id="text-3-1-2-1-4">
+<p>
+\(u(x)\) es localmente integrable sii \(\gamma + n > 0\), por la fórmula de la coárea:
+</p>
+
+<p>
+\[\int_{B(0,r)} \norm{x}^{\gamma} = \int_0^r \int_{C^n(0,z)} z^\gamma = w_n \int_0^r z^{\gamma} z^{n-1} = w_n \frac{[z^{\gamma + n}]_0^r}{\gamma + n} = a r^{\gamma + n}\]
+</p>
+
+<p>
+donde \(w_n = \int_{C^n(0,1)}\)
+</p>
+
+<p>
+\(|\partial_i u(x)| \le \gamma \norm{x}^{\gamma - 1}\) localmente integrable sii \(\gamma - 1 + n \ge 0\).
+</p>
+
+<p>
+El problema con este ejemplo es que \(u\) es diferenciable respecto a la \(i\)-ésima variable y su derivada es \(\partial_i u\) en todos los puntos menos en \(0\). Eso es un problema para aplicar Barrow.
+</p>
+
+<p>
+La clave para demostrarlo es tomar \(\Psi \in C^{\infty}(\mathbb{R}^n)\) verificando \(0 \le \Psi(x) \le 1\) para todo \(x \in \mathbb{R}^n\), \(\Psi(x) = 0\) si \(\norm{x} \le 1\) y \(\Psi(x) = 1\) si \(\norm{x} \ge 2\). Definimos \(\Psi_k(x) = \Psi(kx)\), que verifica \(0\le \Psi \le 1\), y:
+</p>
+
+\begin{align*}
+ \Psi_k(x) = 0, \quad \norm{x} \le \frac{1}{k} \\
+ \Psi_k(x) = 1, \quad \norm{x} \ge \frac{2}{k}
+\end{align*}
+
+<p>
+Entonces tendríamos \(u\Psi_k \in C^1(\mathbb{R}^n)\) y <a href="#partint">partint</a> asegura:
+</p>
+
+<p>
+\[\int_{\mathbb{R}^n} u\Psi_k \partial_i \varphi + \int_{\mathbb{R}^n} \left(\partial_i u\Psi_k + u \partial_i \Psi_k \right) \varphi = 0\]
+</p>
+
+<p>
+Hay que tomar el límite en \(k \rightarrow \infty\) en cada uno de los sumandos y se puede probar que es:
+</p>
+
+<p>
+\[\int_{\mathbb{R}^n} u \partial_i \varphi + \int_{\mathbb{R}^n} \partial_i u \varphi = 0\]
+</p>
+
+<p>
+La parte más delicada consiste en probar que \(\lim_k \int_{\mathbb{R}^n} u \partial_i\Psi_k \varphi = 0\).
+</p>
+
+<p>
+Usamos \(\norm{\partial_i \Psi_k}_{\infty} \le k \norm{\partial_i \Psi}_{\infty}\). Además \(\partial_i \Psi_k\) sólo puede ser no nula en \([1/k, 2/k]\).
+</p>
+
+\begin{align*}
+\left|\int_{\mathbb{R}^n} u \partial_i\Psi_k \varphi \right| &\le k \norm{\partial_i 
+ \Psi}_{\infty} \norm{\varphi}_{\infty} \int_{[1/k, 2/k]} |u| \le \\
+&\le k \norm{\partial_i \Psi}_{\infty} \norm{\varphi}_{\infty} \int_{[0, 2/k]} |u| \le \\
+&\le k \norm{\partial_i \Psi}_{\infty} a \left(\frac{2}{k}\right)^{\gamma +n}
+\end{align*}
+
+<p>
+Y como \(\gamma + n > 1\) el límite en \(k\) de la anterior expresión es \(0\).
+</p>
+</div>
+</li></ol>
+</li></ol>
+</div>
+<div id="outline-container-sec-3-1-3" class="outline-4">
+<h4 id="sec-3-1-3"><span class="section-number-4">3.1.3</span> Linealidad de la derivada débil</h4>
+<div class="outline-text-4" id="text-3-1-3">
+<p>
+Dadas \(u,v\in \lunoloc\) débilmente diferenciables. Entonces dados \(\lambda, \mu \in \mathbb{R}\), \(\lambda u + \mu v\) es débilmente diferenciable, con:
+</p>
+
+<p>
+\[\partial_i (\lambda u + \mu v) = \lambda \partial_i u + \mu \partial_i v\]
+</p>
+</div>
+</div>
+<div id="outline-container-sec-3-1-4" class="outline-4">
+<h4 id="sec-3-1-4"><span class="section-number-4">3.1.4</span> Derivada débil de un producto</h4>
+<div class="outline-text-4" id="text-3-1-4">
+<p>
+Sea \(u \in \lunoloc\) débilmente diferenciable, \(\xi \in C^{\infty}_c(\Omega)\). Entonces la extensión trivial de \(u \xi\) es débilmente diferenciable, con:
+</p>
+
+<p>
+\[\partial_i (u \xi) = u \partial_i \xi + \xi \partial_i u\]
+</p>
+</div>
+
+<ol class="org-ol"><li><a id="sec-3-1-4-1" name="sec-3-1-4-1"></a>Demostración<br  /><div class="outline-text-5" id="text-3-1-4-1">
+<p>
+Claramente \(u \xi \in \lunoloc\) y \(\xi \varphi \in C^{\infty}_c\), luego una aplicación directa de <a href="#partint">partint</a> nos da el resultado.
+</p>
+</div>
+</li></ol>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Autor: Ignacio Cordón Castillo</p>
+<p class="date">Created: 2017-08-01 Tue 18:25</p>
+<p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 25.2.2 (<a href="http://orgmode.org">Org</a> mode 8.2.10)</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>
