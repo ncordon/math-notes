@@ -18,6 +18,7 @@
   \newcommand{\opspace}[2]{\mathcal{L}({#1}, {#2})}
   \newcommand{\opnorm}[3]{||{#1}||_{\opspace{#2}{#3}}}
   \newcommand{\dual}[1]{\opspace{#1}{\mathbb{R}}}
+  \newcommand{\lunoloc}{L^1_{loc}(\Omega)}
   \DeclareMathOperator*{\argmin}{arg\,min }
   \DeclareMathOperator*{\argmin}{arg\,max }
 \)
@@ -33,6 +34,7 @@
 #+latex_header: \newcommand{\ce}{\mathcal{C}}
 #+latex_header: \newcommand{\opnorm}[3]{||{#1}||_{\opspace{#2}{#3}}}
 #+latex_header: \newcommand{\dual}[1]{\opspace{#1}{\mathbb{R}}}
+#+latex_header: \newcommand{\lunoloc}{L^1_{loc}(\Omega)}
 #+latex_header: \DeclareMathOperator*{\argmin}{arg\,min }
 #+latex_header: \DeclareMathOperator*{\argmin}{arg\,max }
 #+latex_header: \usepackage{amsmath} 
@@ -456,6 +458,7 @@ Sea $\varphi\in C_c^1(\Omega), f\in C^1(\Omega)$, entonces:
 
 \[\int_{\Omega} \varphi \partial_i{f} + \int_{\Omega} f\partial_i{\varphi} = 0, \quad \forall i=1,\ldots, n\]
 
+label:partint
 **** Demostración
 Podemos suponer spg. que $i=1$. Además como $\varphi$ tiene soporte compacto, podemos suponer $\varphi$ la extensión a $\mathbb{R}^n$ de $\varphi$, que vale $0$ en $\mathbb{R}^n \setminus \Omega$, y $sop(\varphi) \subseteq [-\varepsilon, \varepsilon]^n$
 
@@ -473,7 +476,74 @@ Sea $u \in L^1_{loc}(\Omega)$. Decimos que $u$ es débilmente diferenciable en $
 
 \[\int_{\Omega} u \partial_i \varphi + \int_{\Omega} u_i \varphi = 0 \quad \forall \varphi \in^C_c^{\infty} (\Omega)\]
 
-A $D_iu := u_i$ se le llama derivada débil de $u$ en $\Omega$
+A $\partial_i u := u_i$ se le llama derivada débil de $u$ en $\Omega$. Además la derivada débil, caso
+de existir, es única casi por doquier.
 
 Se define el gradiente débil de $u$ como $\nabla u := (u_1, \ldots u_n)$
+**** Ejemplos
+***** Funciones $C^1(\Omega)$
+Si $u \in C^1(\Omega)$, entonces el concepto de derivada y derivada débil coincide por ref:partint.
+***** Función valor absoluto
+Es claro que la función valor absoluto no es derivable en sentido usual. Pero lo es en sentido débil. Veámoslo:
+
+Sea $\varphi\in C^{\infty}_{c}$. Entonces $\varphi$ es diferenciable, y por teorema fundamental del cálculo, suponiendo $sop(\varphi) \subseteq [-a,a]$:
+
+\begin{align*}
+\int_{-a}^a \varphi'(x) \abs{x} + \int_{-a}^0 -\varphi(x) + \int_{0}^a \varphi(x) = \\
+= \int_{-a}^0 \left(-\varphi'(x) x - \varphi(x)\right) + \int_{0}^a \left(\varphi'(x) x + \varphi(x)\right) = \\
+= [-\phi(x) x]_a^0 + [\phi(x) x]_0^a = 0
+\end{align*}
+
+Luego la función $x \mapsto 1$ si $x > 0$ y $x\mapsto -1$ si $x < 0$ es derivada débil de $x\mapsto \abs{x}$-
+***** $\mathds{1}_{]-\infty,0[}$ no tiene derivada débil
+Por tanto la restricción de una función débilmente diferenciable no es, en general, débilmente diferenciable.
+***** Dada $\gamma \in \mathbb{R}$, con $\gamma + n > 1$. Entonces $u(x) = \norm{x}^{\gamma}$ verifica $\partial_i u(x) = \gamma \norm{x}^{\gamma-2}x_i$ en sentido débil.
+$u(x)$ es localmente integrable sii $\gamma + n > 0$, por la fórmula de la coárea:
+
+\[\int_{B(0,r)} \norm{x}^{\gamma} = \int_0^r \int_{C^n(0,z)} z^\gamma = w_n \int_0^r z^{\gamma} z^{n-1} = w_n \frac{[z^{\gamma + n}]_0^r}{\gamma + n} = a r^{\gamma + n}\]
+
+donde $w_n = \int_{C^n(0,1)}$
+
+$|\partial_i u(x)| \le \gamma \norm{x}^{\gamma - 1}$ localmente integrable sii $\gamma - 1 + n \ge 0$.
+
+El problema con este ejemplo es que $u$ es diferenciable respecto a la $i$-ésima variable y su derivada es $\partial_i u$ en todos los puntos menos en $0$. Eso es un problema para aplicar Barrow.
+
+La clave para demostrarlo es tomar $\Psi \in C^{\infty}(\mathbb{R}^n)$ verificando $0 \le \Psi(x) \le 1$ para todo $x \in \mathbb{R}^n$, $\Psi(x) = 0$ si $\norm{x} \le 1$ y $\Psi(x) = 1$ si $\norm{x} \ge 2$. Definimos $\Psi_k(x) = \Psi(kx)$, que verifica $0\le \Psi \le 1$, y:
+
+\begin{align*}
+ \Psi_k(x) = 0, \quad \norm{x} \le \frac{1}{k} \\
+ \Psi_k(x) = 1, \quad \norm{x} \ge \frac{2}{k}
+\end{align*}
+
+Entonces tendríamos $u\Psi_k \in C^1(\mathbb{R}^n)$ y ref:partint asegura:
+
+\[\int_{\mathbb{R}^n} u\Psi_k \partial_i \varphi + \int_{\mathbb{R}^n} \left(\partial_i u\Psi_k + u \partial_i \Psi_k \right) \varphi = 0\]
+
+Hay que tomar el límite en $k \rightarrow \infty$ en cada uno de los sumandos y se puede probar que es:
+
+\[\int_{\mathbb{R}^n} u \partial_i \varphi + \int_{\mathbb{R}^n} \partial_i u \varphi = 0\]
+
+La parte más delicada consiste en probar que $\lim_k \int_{\mathbb{R}^n} u \partial_i\Psi_k \varphi = 0$.
+
+Usamos $\norm{\partial_i \Psi_k}_{\infty} \le k \norm{\partial_i \Psi}_{\infty}$. Además $\partial_i \Psi_k$ sólo puede ser no nula en $[1/k, 2/k]$.
+
+\begin{align*}
+\left|\int_{\mathbb{R}^n} u \partial_i\Psi_k \varphi \right| &\le k \norm{\partial_i 
+ \Psi}_{\infty} \norm{\varphi}_{\infty} \int_{[1/k, 2/k]} |u| \le \\
+&\le k \norm{\partial_i \Psi}_{\infty} \norm{\varphi}_{\infty} \int_{[0, 2/k]} |u| \le \\
+&\le k \norm{\partial_i \Psi}_{\infty} a \left(\frac{2}{k}\right)^{\gamma +n}
+\end{align*}
+
+Y como $\gamma + n > 1$ el límite en $k$ de la anterior expresión es $0$.
+*** Linealidad de la derivada débil
+Dadas $u,v\in \lunoloc$ débilmente diferenciables. Entonces dados $\lambda, \mu \in \mathbb{R}$, $\lambda u + \mu v$ es débilmente diferenciable, con:
+
+\[\partial_i (\lambda u + \mu v) = \lambda \partial_i u + \mu \partial_i v\]
+*** Derivada débil de un producto
+Sea $u \in \lunoloc$ débilmente diferenciable, $\xi \in C^{\infty}_c(\Omega)$. Entonces la extensión trivial de $u \xi$ es débilmente diferenciable, con:
+
+\[\partial_i (u \xi) = u \partial_i \xi + \xi \partial_i u\]
+
+**** Demostración
+Claramente $u \xi \in \lunoloc$ y $\xi \varphi \in C^{\infty}_c$, luego una aplicación directa de ref:partint nos da el resultado.
 
