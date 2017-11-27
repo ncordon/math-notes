@@ -1,0 +1,264 @@
+#+TITLE: Análisis numérico de EDP, Fisymat
+#+SUBTITLE:
+#+AUTHOR: Ignacio Cordón Castillo
+#+OPTIONS: toc:nil
+#+LANGUAGE: es
+#+STARTUP: indent
+#+DATE:
+
+#+latex_header: \usepackage{amsmath}
+#+latex_header: \usepackage{amsthm}
+#+latex_header: \newtheorem*{theorem}{Teorema}
+#+latex_header: \newtheorem*{fact}{Proposición}
+#+latex_header: \newtheorem*{corollary}{Corolario}
+#+latex_header: \newtheorem*{lemma}{Proposición}
+#+latex_header: \newtheorem*{definition}{Definición}
+#+latex_header: \setlength{\parindent}{0pt}
+#+latex_header: \setlength{\parskip}{1em}
+#+latex_header: \usepackage{color}
+#+latex_header: \newenvironment{wording}{\setlength{\parskip}{0pt}\rule{\textwidth}{0.5em}}{~\\\rule{\textwidth}{0.5em}}
+#+latex_header: \everymath{\displaystyle}
+#+latex_header: \usepackage[left=3.5cm, right=3cm, top=3cm]{geometry}
+#+SETUPFILE: ../theme-readtheorg.setup
+#+attr_latex: :float t :width 4cm
+[[../by-nc-sa.png]]
+
+* Ejercicio 1
+#+begin_wording
+En la simulación numérica de ciertas ecuaciones se proponen condiciones periódicas del siguiente tipo:
+
+\[\begin{cases}
+u''(t) - u(t) = f(t) & t\in [0,1]\\
+u(0) = u(1)\\
+u'(0) = u'(1)
+\end{cases}\]
+
+Aplicando las aproximaciones siguientes:
+
+\begin{align*}
+& u''(t_n) \approx \frac{u(t_n + h) - 2u(t_n) + u(t_n - h)}{h^2}  \qquad n=0,1, \ldots, N\\
+& u'(0) \approx \frac{u(t_0) - u(t_0 - h)}{h}, u'(1) \approx \frac{u(t_{N+1}) - u(t_N)}{h}
+\end{align*}
+
+deduce que el sistema $N+1 x N+1$ a resolver viene dado por:
+
+\[
+\frac{1}{h^2} \begin{pmatrix}
+a & 1 & 0 & \ldots & 0 & 1\\
+1 & a & 1 & 0 & \ldots & 0\\
+0 & 1 & a & 1 & \ddots & \vdots\\
+\vdots & \ddots & \ddots & \ddots & \ddots & 0\\
+0 & \ldots & 0 & 1 & a & 1\\
+1 & 0 & \ldots & 0 & 1 & a
+\end{pmatrix} \begin{pmatrix}
+y_0 \\ y_1 \\ y_2 \\ \vdots \\ y_{N-1} \\ y_N
+\end{pmatrix} = \begin{pmatrix}
+f_0 \\ f_1 \\ f_2 \\ \vdots \\ f_{N-1} \\ f_N
+\end{pmatrix}
+\]
+
+donde $a=-2-h^2, f_n = f(t_n)$ e $y_n \approx u(t_n)$ con $n=0,1, \ldots N, N+1 (t_n = nh$ con $h=\frac{1}{N+1})$.
+
+Analiza la consistencia, estabilidad y convergencia de dicho método.
+
+A partir del código dado en clase programa el método anterior para $fj(t) = cos(\pi t)$. Compara el resultado obtenido con la solución exacta $u(t) = \frac{e^{1-t} - e^t - (-1+e)cos(\pi t)}{(e-1)(1+\pi^2)}$.
+#+end_wording
+
+De la condición $u(0) = u(1)$ deducimos $u(t_0) = u(t_{N+1})$.
+
+De $u'(0) = u'(1)$ imponemos $\frac{u(t_0) - u(t_0 - h)}{h} = \frac{u(t_{N+1}) - u(t_N)}{h}$ y por ser $u(t_0) = u(t_N)$ deducimos $u(t_0 - h) = u(t_N)$.
+
+Por tanto sustituyendo las aproximaciones en la ecuación inicial, obtenemos:
+\begin{equation}
+& \frac{u(t_n + h) - 2u(t_n) + u(t_n - h)}{h^2}  - \frac{h^2 u(t_n)}{h^2} = f(t_n) \qquad n=0,1, \ldots, N
+\end{equation}
+
+Es decir:
+\begin{align*}
+& \frac{y_{n+1} + (- 2 - h^2)y_n + y_{n-1}}{h^2} = f_n \qquad n=1, \ldots, N-1\\
+& \frac{y_1 + (- 2 - h^2)y_0 + y_N}{h^2} = f_0 \\
+& \frac{y_0 + (- 2 - h^2)y_N + y_{N-1}}{h^2} = f_N
+\end{align*}
+
+De donde se deduce el sistema:
+\[
+\frac{1}{h^2} \begin{pmatrix}
+a & 1 & 0 & \ldots & 0 & 1\\
+1 & a & 1 & 0 & \ldots & 0\\
+0 & 1 & a & 1 & \ddots & \vdots\\
+\vdots & \ddots & \ddots & \ddots & \ddots & 0\\
+0 & \ldots & 0 & 1 & a & 1\\
+1 & 0 & \ldots & 0 & 1 & a
+\end{pmatrix} \begin{pmatrix}
+y_0 \\ y_1 \\ y_2 \\ \vdots \\ y_{N-1} \\ y_N
+\end{pmatrix} = \begin{pmatrix}
+f_0 \\ f_1 \\ f_2 \\ \vdots \\ f_{N-1} \\ f_N
+\end{pmatrix}
+\]
+
+#+begin_src octave :results file :exports results :tangle ejercicio1.m :cache yes
+% solve the periodic boundary value problem 
+%       u'' - u = f(t) on [0,1] 
+% with Dirichlet conditions u(0) = u(1), u'(0) = u'(1).  
+% Modified from http://www.amath.washington.edu/~rjl/fdmbook/chapter3
+
+f = @(t) cos(pi * t)
+% True solution to Poisson problem
+truefn = @(t) (exp(1-t) - exp(t) -(-1+e)*f(t)) / ((e-1)*(1 + pi*pi))
+
+% number of interior points 
+N = 20; 
+h = 1/(N + 1);
+a = -2 - h*h
+
+% grid points x including boundaries
+x = linspace(0, 1, N+1);
+X = x';
+rhs = f(X);
+              
+% form matrix A:
+A = sparse(N+1, N+1);
+% Assign diagonals
+A(1:N+2:end) = a
+A(2:N+2:end) = 1
+A(N+2:N+2:end) = 1
+% Assign firs/last 1 of last/first row resp.
+A(1 + (N+1)*N) = A(N+1) = 1
+A *= 1/(h*h)
+
+% Approximated solution
+uapprox = A\rhs;
+
+% True solution for test problem
+utrue = truefn(X)
+
+err = max(max(abs(uapprox - utrue)));
+fprintf('Error relative to true solution of PDE = %10.3e \n', err)
+
+
+% plot results:
+figure( 1, "visible", "off" )
+clf
+hold on
+
+% plot true and aproximated solution:
+plot(X, utrue, X, uapprox)
+title('Plot of approximated and true solution')
+legend("True solution", "Approximated solution")
+print -dpng ejercicio1.png;
+ans = "ejercicio1.png";
+#+end_src
+
+#+RESULTS[00194cd282ad66e9a12cdd6a25a492cf0ceee251]:
+[[file:ejercicio1.png]]
+
+* Ejercicio 2
+#+begin_wording
+Simula a partir del código dado en clase el resultado del problema de valores en la frontera:
+
+\begin{align*}
+\Delta u = 2\pi^2 sin(\pi x) cos(\pi y) && (x,y) \in [0,1] \times [0,1]\\
+-u(x,0) = u(x,1) = sin(\pi x)\\
+ u(0,y) = u(1,y) = 0
+\end{align*}
+
+Compara los resultados con la solución exacta $u(x,y) = -cos(\pi y) sin(\pi y)$. Representa los 
+errores máximos cometidso en función de $h$ y compara con el análisis de convergencia hecho 
+anteriormente.
+#+end_wording
+
+#+begin_src octave :session :results none :exports none :tangle poissonErrorEx2.m
+% Solve the Poisson problem u_{xx} + u_{yy} = f(x,y) on [a,b] x [a,b]
+%
+% Based on  http://www.amath.washington.edu/~rjl/fdmbook/chapter3
+
+function err = poissonErrorEx2(N)
+  a = 0; 
+  b = 1; 
+  % number of inner nodes
+  % N = 20;
+  h = (b - a)/(N + 1);
+  % grid points x including boundaries 
+  x = linspace(a, b, N+2);
+  % grid points y including boundaries
+  y = linspace(a, b, N+2);
+
+  % 2d arrays of x,y values
+  [X, Y] = meshgrid(x, y);      
+  X = X';
+  Y = Y';                     
+
+  % indices of interior points in x and y
+  Iint = 2:N+1;              
+  Jint = 2:N+1;              
+  Xint = X(Iint, Jint);        
+  Yint = Y(Iint, Jint);
+
+  f = @(x,y) 2 * pi^2 * sin(pi * x) * cos(pi * y);
+  % true solution for test problem
+  utrue = -cos(pi * Y) * sin(pi * X);
+
+  % set boundary conditions around edges of usoln array:
+  % use true solution for this test problem
+  % This sets full array, but only boundary values
+  % are used below.  For a problem where utrue
+  % is not known, would have to set each edge of
+  % usoln to the desired Dirichlet boundary values.
+  usoln = utrue;
+
+  % Compute rhs
+  rhs = f(Xint,Yint); 
+  rhs(:, 1) = rhs(:, 1) - usoln(Iint, 1)/h^2;
+  rhs(:, N) = rhs(:, N) - usoln(Iint, N+2)/h^2;
+  rhs(1, :) = rhs(1, :) - usoln(1, Jint)/h^2;
+  rhs(N, :) = rhs(N, :) - usoln(N+2, Jint)/h^2;
+
+
+  % convert the 2d grid function rhs into a column vector for rhs of system:
+  % reshape runs through the matrix by columns
+  F = reshape(rhs, N * N,1);
+
+                                % form matrix A:
+  I = speye(N); % sparse identity matrix
+  e = ones(N, 1);
+  % [-1 0 1] indicates order of diags, where -1 is the lower-diagonal, 0 is the main diagonal
+  % and 1 is the upper-diagonal
+  T = spdiags([e -4*e e], [-1 0 1], N, N);
+  S = spdiags([e e], [-1 1], N, N);
+  A = (kron(I,T) + kron(S,I)) / h^2;
+
+
+  % Solve the linear system:
+  uvec = A\F;  
+
+  % reshape vector solution uvec as a grid function and 
+  % insert this interior solution into usoln for plotting purposes:
+  % (recall boundary conditions in usoln are already set) 
+
+  usoln(Iint, Jint) = reshape(uvec, N, N);
+
+  % assuming true solution is known and stored in utrue:
+  err = max(max(abs(usoln - utrue)));
+endfunction
+#+end_src
+
+#+begin_src octave :session :results file :exports results :tangle ejercicio2.m :cache yes
+Ns = 1:10:300
+hs = 1./(Ns + 1)
+errs = arrayfun(@poissonErrorEx2, Ns);
+
+% plot results:
+figure(1, "visible", "off" )
+clf
+hold on
+
+% plot approximation errors
+plot(hs, errs)
+title('Approximation errors')
+print -dpng ejercicio2.png;
+ans = "ejercicio2.png";
+#+end_src
+
+#+RESULTS[5c149ed9f8e6334de691474e6f2ef434095c7e0f]:
+[[file:ejercicio2.png]]
+
