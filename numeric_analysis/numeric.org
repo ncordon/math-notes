@@ -192,7 +192,7 @@ print -dpng ejercicio1.png;
 ans = "ejercicio1.png";
 #+end_src
 
-#+RESULTS[00194cd282ad66e9a12cdd6a25a492cf0ceee251]:
+#+RESULTS[df3616241b57c1b25352ea1abaeb8503162b5c46]:
 [[file:ejercicio1.png]]
 
 * Ejercicio 2
@@ -288,8 +288,8 @@ function err = poissonErrorEx2(N)
 endfunction
 #+end_src
 
-#+begin_src octave :session :results file :exports results :tangle ejercicio2.m :cache yes
-Ns = 1:10:300
+#+begin_src octave :session :results file :exports results :tangle ejercicio2.m
+Ns = 1:1:100
 hs = 1./(Ns + 1)
 errs = arrayfun(@poissonErrorEx2, Ns);
 
@@ -319,9 +319,103 @@ u_t = u_{xx}, \quad x\in [0,1], t\in [0,2], \quad u(t,0) = u(t,1) = 0, \quad u(0
 y compara los resultados con la solución exacta $u(t,x) = exp(-\pi^2 t) \cdot sin(\pi x)$.
 #+end_wording
 
-#+begin_src octave
+El método de Euler implícito consiste en hacer:
 
+\[U_j^{n+1} = U_{j}^n + \frac{k}{h^2}\left(U_{j+1}^{n+1} - 2U_{j}^{n+1} + U_{j-1}^{n+1}\right), \quad j=1, \ldots, \frac{1}{h}-1, \quad n= 0, \ldots\]
+
+#+begin_src octave :session :results file :exports results :tangle ejercicio3.m
+% Solve u_t = u * u_{xx} on [ax,bx] with Dirichlet boundary conditions,
+% using the Crank-Nicolson method with m interior points.
+%
+%
+% Based on http://www.amath.washington.edu/~rjl/fdmbook/heat_CN.m
+
+
+% Number of interior points
+N = 20;
+% [0,1] space interval
+ax = 0;           
+bx = 1;
+% [0,2] time interval
+tfinal = 2;
+
+h = (bx - ax)/(N + 1);
+x = linspace(ax, bx, N + 2)';
+
+% time step, 4* not necessary, since this algorithm hasn't got an stability condition
+k = 4*h;
+% number of time steps
+nsteps = round(tfinal / k);
+
+
+% true solution for comparison and definition of the boundary conditions
+utrue = @(t, x) exp(-pi * pi * t) * sin(pi * x)
+
+% initial conditions:
+u0 = utrue(0, x);
+
+
+% Each time step we solve MOL system U' = AU + g using the Trapezoidal method
+
+% set up matrixes:
+r = k/(h^2);
+e = ones(N, 1);
+A = spdiags([e -2*e e], [-1 0 1], N, N);
+A1 = eye(N) - r * A;
+A2 = eye(N);
+
+
+% initial data on fine grid for plotting:
+xfine = linspace(ax, bx, 1001);
+ufine = utrue(0, xfine);
+
+% initialize u and plot:
+tn = 0;
+u = u0;
+
+figure(1, "visible", "off" )
+clf
+hold on
+
+plot(x, u, 'b.-', xfine, ufine, 'r')
+legend('computed', 'true')
+
+% main time-stepping loop:
+for n = 1:nsteps
+  tnp = tn + k;   % = t_{n+1}
+
+  % boundary values u(0,t) = g_0(t) and u(1,t) = g_1(t) at times tn and tnp:
+  g0n = u(1);
+  g1n = u(N + 2);
+  g0np = utrue(tnp, ax);
+  g1np = utrue(tnp, bx);
+
+  % compute right hand side for linear system:
+  uint = u(2:(N + 1));   % interior points (unknowns)
+  rhs = A2*uint;
+  % fix-up right hand side using BC's (i.e. add vector g to A2*uint)
+  rhs(1) = rhs(1) + r*(g0n + g0np);
+  rhs(N) = rhs(N) + r*(g1n + g1np);
+
+  % solve linear system:
+  uint = A1\rhs;
+
+  % augment with boundary values:
+  u = [g0np; uint; g1np];
+
+  %Plot results
+  ufine = utrue(tnp, xfine);
+  plot(x, u, 'b.-', xfine, ufine, 'r')
+
+  % for next time step
+  tn = tnp;
+end
+
+print -dpng ejercicio3.png;
+ans = "ejercicio3.png";
 #+end_src
+
+
 * Ejercicio 4
 #+begin_wording
 Justifique las siguientes fórmulas de derivación numérica y obtenga cotas para el error comentado:
