@@ -230,7 +230,96 @@ En el caso particular $\varphi = 1$ tendríamos:
     M = \int\int \phi_0(r,u,\alpha) dv_0 dx_0 = \int\int \phi(r,u,\alpha,t) dv dx = 4\pi \int_0^{\infty} \rho(s,t) s^2 ds 
 \]
 
+\begin{lemma}[Desigualdad de Gronwall]
+Sean $\alpha, \beta, u$ funcones continuas, con $\alpha$ no decreciente, verificando para todo $t\in I$ intervalo:
+\[
+ u(t) \le \alpha(t) + \int_a^t \beta(s) u(s)
+\]
 
+Entonces: $u(t) \le \alpha(t) \cdot exp\left\{\int_a^t \beta(s) ds\right\}$ para todo $t\in I$.
+\end{lemma}
+
+\begin{fact}
+ Existe una función creciente $K(t) \ge 1$ dependiente sólo de $\phi_0$ verificando que para todo $c_1=(r_1,u_1,\alpha_1), \, c_2=(r_2,u_2,\alpha_2) \in \mathcal{C}$ y para todo $t\ge 0$:
+ \[|z(c_1,t) - z(c_2,t)| + |z_t(c_1,t) - z_t(c_2,t)| \le K(t)|c_1 - c_2|\]
+\end{fact}
+
+\begin{proof}
+ Fijamos $c_1, c_2$ y notamos:
+ \begin{align*}
+    z_i(t) &= z(t; 0, c_i)\\
+    Q(t) &= \sup\{|z_1(s) - z_2(s)| + |z_1'(s) - z_2'(s)|: 0 \le s \le t\}
+ \end{align*}
+ 
+ 
+ Usaremos:
+ \begin{align*}
+ |r_1 u_1 sen(\alpha_1) - r_2 u_2 sen(\alpha_2)| &= |r_1 u_1 (sen(\alpha_1) - sen(\alpha_2) + sen(\alpha_2)) - (r_2 - r_1 + r_1) u_2 sen(\alpha_2)| \\
+ &\le r_1 u_1 |sen(\alpha_1) - sen(\alpha_2)| + r_1|u_1 - u_2| sen(\alpha_2) + u_2|r_1 - r_2| sen(\alpha_2) \\
+ &\underset{|sen(\alpha_1) - sen(\alpha_2)| \le |\alpha_1 - \alpha_2|}{\le} L_0|\alpha_1 - \alpha_2| + R_0|u_1 - u_2| + U_0|r_1 - r_2| \le K|c_1 - c_2|
+ \end{align*}
+ 
+ Análogamente:
+ \[
+  |r_1 u_1 cos(\alpha_1) - r_2 u_2 cos(\alpha_2)| \le K|c_1 - c_2|
+ \]
+ 
+ Además:
+ 
+\[
+ |M(z_1, t) - M(z_2, t)| = \bigg|4\pi \int_{z_1}^{z_2} \rho(s,t) s^2 ds \bigg| \le 4\pi(R_0 + U_0t)^2 \rho_0 |z_1 - z_2|
+\]
+
+ 
+ 
+ Así, para todo $t\ge 0$ se cumple:
+ 
+ \begin{align*}
+  |z_1'' - z_2''| &=
+  \bigg|(r_1 u_1 sen(\alpha_1))^2 z_1^{-3} - (r_2 u_2 sen(\alpha_2))^2 z_2^{-3} + \gamma M(z_1, t) z_1^{-2} - \gamma M(z_2, t) z_2^{-2} \bigg| \\
+  &= \bigg|(r_1 u_1 sen(\alpha_1))^2 z_1^{-3} - (r_2 u_2 sen(\alpha_2))^2 (z_2^{-3} - z_1^{-3} + z_1^{-3}) \\
+  &+ \gamma M(z_1, t) z_1^{-2} - \gamma M(z_2, t) (z_2^{-2} - z_1^{-2} + z_1^{2}) \bigg| \\
+  &\le \bigg|(r_1 u_1 sen(\alpha_1)^2 - (r_2 u_2 sen(\alpha_2)^2 \bigg| z_1^{-3} + (r_2 u_2 sen(\alpha_2))^2 \bigg|z_1^{-3} - z_2^{-3}\bigg| \\
+  &+ \bigg|M(z_1,t) - M(z_2,t) \bigg|z_1^{-2} + M(z_2, t) \bigg|z_1^{-2} - z_2^{-2}\bigg| \\
+  &\le (r_1 u_1 sen(\alpha_1)+ r_2 u_2 sen(\alpha_2))\bigg|r_1 u_1 sen(\alpha_1) - r_2 u_2 sen(\alpha_2)\bigg| r_0^{-3} \\
+  &+ L_0^2 z_1^{-3}z_2^{-3} \bigg|z_2^3 - z_1^3 \bigg| + \bigg|M(z_1,t) - M(z_2,t)\bigg| r_0^{-2} + Mz_1^{-2} z_2^{-2} \bigg|z_2^2 - z_1^2\bigg| \\
+  &\le 2L_0 r_0^{-3}\bigg|r_1 u_1 sen(\alpha_1) - r_2 u_2 sen(\alpha_2)\bigg|
+  + L_0 r_0^{-6}(z_1^2 + z_1 z_2 + z_2^2)\bigg|z_1 - z_2\bigg|\\
+  &+ r_0^{-2}\bigg|M(z_1,t) - M(z_2,t)\bigg| + Mr_0^{-4}(z_1 + z_2) \bigg|z_1 - z_2\bigg| \le 2L_0 r_0^{-3} K|c_1 - c_2| \\
+  &+ L_0 r_0^{-6} 3(R_0 + U_0t)^2 |z_1 - z_2| + r_0^{-2} 4\pi (R_0 + U_0t)^2 \rho_0 |z_1 - z_2| + Mr_0^{-4} 2(R_0 + U_0t) |z_1 - z_2|\\
+  &= K|c_1 - c_2| + K(t)|z_1 - z_2|
+ \end{align*}
+ 
+ donde $K(t)$ es una función creciente.
+ 
+ \begin{align*}
+  |z_1 - z_2| + |z_1' - z_2'| &= \left|r_1 - r_2 + \int_0^t (z_1' - z_2')\right| + \left|u_1 cos(\alpha_1) - u_2 cos(\alpha_2) + \int_0^t (z_1'' - z_2'') \right|\\
+  &\le |r_1 - r_2| + |u_1 cos(\alpha_1) - u_2 cos(\alpha_2)| + \int_0^t \bigg(|z_1' - z_2'| + |z_1'' - z_2''|\bigg) \\
+  &\le |r_1 - r_2| + |u_1 cos(\alpha_1) - u_2 cos(\alpha_2)| + \int_0^t \bigg(Q(s) + K|c_1 - c_2| + K(s)Q(s)\bigg) ds \\
+  &\le |r_1 - r_2| + |u_1 cos(\alpha_1) - u_2 cos(\alpha_2)| + Kt|c_1 - c_2| + (1 + K(t)) \int_0^t Q(s) ds\\
+  &\le \bar{K}(t)|c_1 - c_2| + \bar{K}(t) \int_0^t Q(s) ds
+ \end{align*}
+
+ para cierta $\bar{K} \ge 1$ creciente. Pero $\bar{K}(t)$ es creciente, luego para todo $0 \le s \le t$:
+ \[
+    |z_1(s) - z_2(s)| + |z_1'(s) - z_2'(s)|  \le \bar{K}(t)|c_1 - c_2| + \bar{K}(t) \int_0^t Q(s)
+ \]
+
+ Luego para $t\in [0,T]$:
+ \[
+  Q(t) \le \bar{K}(t)|c_1 - c_2| + \bar{K}(t) \int_0^t Q(s) \le \bar{K}(T)|c_1 - c_2| + \bar{K}(T) \int_0^t Q(s)ds
+ \]
+ y por la desigualdad de Gronwall:
+ \[
+  Q(t) \le \bar{K}(T)|c_1 - c_2| \cdot e^{C(T)t}
+ \]
+ 
+ Por consiguiente para $T$ arbitrario:
+ \[
+  Q(T) \le \bar{K}(T)\cdot e^{TC(T)} \cdot |c_1 - c_2|
+ \]
+ 
+\end{proof}
 
 \newpage
 \begin{thebibliography}{10}
