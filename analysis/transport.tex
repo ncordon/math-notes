@@ -1,0 +1,257 @@
+\documentclass[a4paper,10pt]{scrartcl}
+
+% Inclusión de paquetes
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumerate}
+\usepackage{verbatim}
+\usepackage{amsthm}
+% Imágenes
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{tikz}
+\usetikzlibrary{arrows}
+
+% Enlaces dentro del documento
+\usepackage{hyperref}
+
+% Definiciones
+\theoremstyle{definition}
+\newtheorem*{mydef}{Definición}
+%\newtheorem{mydefn}{Definición}
+\newtheorem*{theorem*}{Teorema}
+\newtheorem{theorem}{Teorema}
+\newtheorem*{lemma*}{Lema}
+\newtheorem{lemma}{Lema}
+\newtheorem*{fact*}{Proposición}
+\newtheorem{fact}{Proposición}
+\newtheorem*{corollary*}{Corolario}
+\newtheorem{corollary}{Corolario}
+\newtheorem*{rmk*}{Nota}
+\newtheorem*{eg}{Ejemplo}
+
+% Displaystyle por defecto
+\everymath{\displaystyle}
+
+% Comandos
+\newcommand{\Referencia}[4]{\indent #1, \textbf{#2}. \textit{#3}, \textit{#4}.\\}
+\renewcommand\refname{Referencias}
+\renewcommand\contentsname{Contenidos}
+\numberwithin{equation}{section}
+\setlength{\parindent}{0cm} % Sin sangrías
+\setlength{\parskip}{0.3cm}
+
+
+\title{Aproximación discreta de la ecuación de Vlasov}
+\author{
+	Ignacio Cordón
+}
+\date{}
+
+\begin{document}
+\maketitle
+\begin{center}
+    %\includegraphics[width=0.4\textwidth]{./imgs/by-nc-sa.png}
+\end{center}
+\tableofcontents
+\pagebreak
+
+\section{Introducción}
+En la naturaleza podemos encontrar 4 estados de la materia: sólido, líquido, gaseoso y plasma. Este último se alcanza con grandes temperaturas a las que los electrones de los átomos abandonan la órbita alrededor del núcleo al que pertenecen, dando lugar a una mezcla de iones, electrones y particulas gobernadas por fuerzas electromagnéticas. Este estado de la materia cobra especial relevancia en procesos como la fusión termonuclear, para la que se necesitan grandes temperaturas.  
+
+La ecuación de \textit{Vlasov} modeliza la evolución de las partículas de un plasma desde un punto de vista estadístico-físico:
+
+\begin{equation}
+ \frac{\partial f}{\partial t} + v \frac{\partial f}{\partial x} + \frac{q}{m} (E + v\times B) \cdot \frac{\partial f}{\partial v} = 0
+\end{equation}
+
+donde:
+
+\begin{itemize}
+ \item $f = f(x,v,t)$ es una función de densidad representando la probabilida de tener una partícula con posición $x \in \mathbb{R}^3$ y velocidad $v \in \mathbb{R}^3$ en un instante de tiempo $t$.
+ \item $E$ representa el campo eléctrico.
+ \item $B$ representa el campo de inducción magnética.
+ \item $F(x,t) = \frac{q}{m}(E + v\times B)$ es la fuerza de Lorentz.
+\end{itemize}
+
+El campo electromagnético viene dado por las ecuaciones de Maxwell:
+
+\begin{align*}
+ -\frac{1}{c^2} \frac{\partial E}{\partial t} + \nabla \times B = \mu_0 J\\
+ \frac{\partial B}{\partial t} + \nabla \times E = 0\\
+ \nabla \cdot E = \frac{\rho}{\epsilon_0}\\
+ \nabla \cdot B = 0
+\end{align*}
+
+donde 
+\begin{align*}
+\rho(x,t) = q \int f(x,v,t) dv\\
+J(x,t) = q \int (x,v,t) v dv
+\end{align*}
+
+Cuando el campo magnético es despreciable en comparación con el eléctrico, las ecuaciones de Maxwell quedan reducidas a:
+
+\begin{equation*}
+ \nabla \times E = 0, \quad \nabla \cdot E = \frac{\rho}{\epsilon_0}
+\end{equation*}
+
+Bajo ciertas condiciones geométricas, $\nabla \times E = 0$ implica que existe un potencial electroestático, $U$, esto es, $E = - \nabla U$, verificando que es solución de la ecuación de Poisson $-\Delta U = \frac{\rho}{\epsilon_0}$ y nuestro modelo se reduce a la ecuación de Vlasov-Poisson:
+\begin{align}
+ \frac{\partial f}{\partial t} + v \nabla_x f + \frac{q}{m}\nabla_x U \cdot \nabla_v f = 0\\
+ \rho(x,t) = q \int f(x,v,t) dv \nonumber\\
+ -\Delta U = \frac{\rho}{\epsilon_0} \nonumber
+\end{align}
+
+
+La ecuación de Vlasov-Poisson modela el comportamiento de partículas sometidas a un campo eléctrico sin colisiones:
+
+\begin{align}
+\label{eqn:v-poisson}
+ \frac{\partial f}{\partial t} + v \nabla_x f + F(x,t) \cdot \nabla_v f = 0\\
+ F(x,t) = - \nabla_x U(x,t) \nonumber \\ 
+ U(x,t) = \gamma \int \frac{\sigma(y,t)}{|x-y|} dy \nonumber \\
+ \sigma(x,t) = \int f(x,v,t) dv \nonumber
+\end{align}
+
+donde $f:\mathbb{R}^3 \times \mathbb{R}^3 \times \mathbb{R}^{+}_0 \rightarrow \mathbb{R}$ modela la densidad de partículas en el espacio de fases, $\gamma = -1$ en el caso gravitacional y $+1$ en el caso Coulombiano.
+
+El problema de Cauchy consiste en resolver \eqref{eqn:v-poisson} con condición inicial $f(x,v,0) = f_0(x,v)$.
+
+La existencia de solución global es un problema abierto (está probada la existencia local en ciertos casos particulares).
+
+\section{Preliminares}
+Dada $f_0(x,v) = \phi(|x|, |v|, cos^{-1}\left(\frac{x\cdot v}{|x||v|}\right)$ donde $\phi \in C_0^1(]0,+\infty[^2 \times ]0,+\pi[)$. Llamando $r = |x|, u = |v|, \alpha = cos^{-1}\left(\frac{x\cdot v}{|x||v|}\right)$, \cite{Batt} prueba que la solución del problema de Cauchy, $f$, depende únicamente de $r, u, \alpha, t$, esto es:
+
+\begin{equation}
+\label{eqn:f=phi}
+f(x,v,t) = \phi(r,u,\alpha, t)
+\end{equation}
+
+y que además se verifica, llamando:
+
+\begin{align*}
+ & M(r,t) = 4\pi \int_0^r \rho(s,t) s^2 ds\\
+ & \rho(s, t) = 2\pi \int_0^{\infty} \left(\int_0^\pi \phi(s, u, \alpha, t) sen(\alpha) d\alpha \right)u^2 du
+\end{align*}
+
+cumple que:
+
+\begin{align*}
+ & U(x,t) = 4\pi\gamma \int_0^{+\infty} \frac{\rho(s,t)}{\max(r,s)} s^2 ds\\
+ & F(x,t) = \gamma M(r,t) r^{-3} x\\
+\end{align*}
+
+De \eqref{eqn:f=phi} y de \eqref{eqn:v-poisson} deducimos:
+
+\[
+\partial_t \phi + v \nabla_x \phi + F(x,t) \cdot \nabla_v \phi = 0\\
+\]
+
+donde usando:
+
+\begin{align*}
+ v \nabla_x \phi(r, u, \alpha, t) &= v \left(\partial_r \phi \cdot \frac{\partial r}{\partial x} + \partial_\alpha \phi \cdot \frac{\partial \alpha}{\partial x} \right)\\
+ &= v\left(\partial_r \phi \frac{x}{|x|} + \partial_\alpha \phi \cdot \frac{-1}{\sqrt{1 - \left(\frac{xv}{|x||v|}\right)^2}} \cdot \frac{1}{|v||x|^2} \cdot\left(v|x| - xv \frac{x}{|x|}\right)\right)\\
+ &= \frac{xv}{|x||v|} u \cdot\partial_r \phi - \partial_\alpha \phi \cdot \frac{1}{\sqrt{1 - \left(\frac{xv}{|x||v|}\right)^2}} \cdot \frac{|v|^2|x|^2 - (xv)^2}{|v|^2|x|^2} \frac{|v|}{|x|}\\
+ &\underset{\left\{\begin{array}{c} \frac{xv}{|x||v|} = cos(\alpha)\\ \alpha \in ]0,\infty[\end{array}\right.}{=} \partial_r \phi \cdot cos(\alpha) u - \partial_\alpha \phi \cdot sen(\alpha) \frac{u}{r}
+\end{align*}
+
+y  por otro lado:
+\begin{align*}
+F(x,t) \nabla_v \phi(r, u, \alpha, t) &= F(x,t) \left(\partial_u \phi \cdot \frac{\partial u}{\partial v} + \partial_\alpha \phi \cdot \frac{\partial \alpha}{\partial v} \right) \\
+&= F(x,t) \left(\partial_u \phi \frac{v}{|v|} - \partial_\alpha \phi \cdot \frac{1}{\sqrt{1 - \left(\frac{xv}{|x||v|}\right)^2}} \cdot \frac{1}{|x||v|^2} \cdot\left(x|v| - xv \frac{v}{|v|}\right)\right) \\
+&= |x| \gamma M(r,t) r^{-3} x \cdot \partial_u \phi \frac{v}{|v||x|}\\
+&- \gamma M(r,t) r^{-3} x \cdot \partial_\alpha \phi \cdot \frac{1}{\sqrt{1 - \left(\frac{xv}{|x||v|}\right)^2}} \cdot \frac{1}{|x||v|^2} \cdot\left(x|v| - xv \frac{v}{|v|}\right)\\
+&= \partial_u \phi \cdot \gamma M(r,t) r^{-2} cos(\alpha) - \partial_\alpha \phi \cdot \gamma M(r,t) r^{-3} \cdot sen(\alpha) \frac{r}{u} \\
+&= \partial_u \phi \cdot \gamma M(r,t) r^{-2} cos(\alpha) - \partial_\alpha \phi \cdot \gamma M(r,t) r^{-2} u^{-1} \cdot sen(\alpha)
+\end{align*}
+
+Luego:
+
+\begin{equation}
+\label{eqn:sph-vlasov}
+\partial_t \phi + \underbrace{
+    \left(\begin{array}{c}
+        cos(\alpha)u\\
+        \gamma M(r,t) r^{-2} cos(\alpha)\\
+        (-\gamma M(r,t) r^{-2} u^{-1} - ur^{-1})\cdot sen(\alpha)
+    \end{array}\right)}_{\mathcal{F}(r,u,\alpha)}
+    \cdot \nabla_{(r,u,\alpha)} \phi = 0
+\end{equation}
+
+Sabemos que \eqref{eqn:sph-vlasov} tiene como curvas características $X(t; 0, (r,u,\alpha)) = 
+\left(\begin{array}{c} 
+       z(t; 0, (r, u, \alpha))\\ q(t; 0, (r, u, \alpha))\\ \theta(t; 0, (r, u, \alpha))
+      \end{array}\right)$
+verificando:
+
+\begin{equation}
+\label{eqn:sph-cc}
+\partial_t X(t; 0,(r,u,\alpha)) = \mathcal{F}(r,u,\alpha)
+\end{equation}
+
+Desde \eqref{eqn:sph-cc} deducimos que $zqsen(\theta)$ es independiente de $t$ (derivando sobre $t$) y también, derivando la primera componente de $X(t)$, y teniendo en cuenta que $\left(\begin{array}{c} z(0)\\ q(0)\\ \theta(0) \end{array}\right) = 
+\left(\begin{array}{c} r\\ u\\ \alpha\end{array}\right)$ llegamos a:
+
+\[
+ z_{tt} - (ru sen\alpha)^2 \cdot z^{-3} - \gamma M(z,t) z^{-2} = 0
+\]
+
+Llamando $\mathcal{C} \subseteq ]0, +\infty[^2 \times ]0, \pi[$ al soporte de $\phi_0$, puede verse fácilmente que existen $r_0, R_0, l_0, L_0, U_0, \rho_0$, dependientes sólo de $\phi_0$, verificando que para todo $(r,u,\alpha,t) \in \mathcal{C} \times ]0, +\infty[$ se cumple:
+
+\begin{align*}
+ r_0 \le z(r,u,\alpha,t) \le R_0 + U_0 t\\
+ l_o \le ru \le L_0\\
+ l_0 \le ru sen(\alpha) 0 = zq sen(\theta) \le L_0\\
+ q(r,u,\alpha, t) \le U_0
+ \rho(r,t) \le \rho_0
+\end{align*}
+
+Además tenemos que para todo $\varphi \in L^{\infty}(]0,+\infty[^2 \times ]0,\pi[)$:
+
+\[
+    \int_{\mathbb{R}^3}\int_{\mathbb{R}^3} \varphi(r,u,\alpha) \cdot \phi(r,u,\alpha,t) dv dx = 
+    \int_{\mathbb{R}^3}\int_{\mathbb{R}^3} \varphi(z,q,\theta) \cdot \phi_0(r,u,\alpha,t) dv_0 dx_0 = 
+\]
+
+donde en la última integral tenemos que $z,q,\theta$ son las curvas características verificando 
+\[
+    \left(\begin{array}{c} z(0)\\ q(0)\\ \theta(0) \end{array}\right) = 
+    \left(\begin{array}{c} x_0\\ v_0\\ \theta=cos^{-1}\left(\frac{x_0 v_0}{|x_0||v_0|}\right) \end{array}\right)
+\]
+
+En el caso particular $\varphi = 1$ tendríamos:
+
+\[ 
+    M = \int\int \phi_0(r,u,\alpha) dv_0 dx_0 = \int\int \phi(r,u,\alpha,t) dv dx = 4\pi \int_0^{\infty} \rho(s,t) s^2 ds 
+\]
+
+
+
+\newpage
+\begin{thebibliography}{10}
+    \expandafter\ifx\csname url\endcsname\relax
+    \def\url#1{\texttt{#1}}\fi
+    \expandafter\ifx\csname urlprefix\endcsname\relax\def\urlprefix{URL }\fi
+    \expandafter\ifx\csname href\endcsname\relax
+    \def\href#1#2{#2} \def\path#1{#1}\fi
+    
+    \bibitem{Schaeffer}
+    Discrete approximation of the Poisson-Vlasov system\\
+    Jack Shaeffer\\
+    Quaterly of applied mathematics\\
+    1987
+    
+    \bibitem{Batt}
+    Global symmetric solutions of the initial value problem of stellar dynamics\\
+    Jürgen Batt\\
+    Journal of Differential Equations\\
+    1977
+\end{thebibliography}
+	
+
+\end{document}
