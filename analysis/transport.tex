@@ -4,7 +4,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage[spanish]{babel}
 
-
+\usepackage{dsfont}
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{enumerate}
@@ -33,6 +33,9 @@
 \newtheorem{corollary}{Corolario}
 \newtheorem*{rmk*}{Nota}
 \newtheorem*{eg}{Ejemplo}
+
+
+\newcommand{\tildek}{\widetilde{K}}
 
 % Displaystyle por defecto
 \everymath{\displaystyle}
@@ -124,7 +127,7 @@ El problema de Cauchy consiste en resolver \eqref{eqn:v-poisson} con condición 
 La existencia de solución global es un problema abierto (está probada la existencia local en ciertos casos particulares).
 
 \section{Preliminares}
-Dada $f_0(x,v) = \phi(|x|, |v|, cos^{-1}\left(\frac{x\cdot v}{|x||v|}\right)$ donde $\phi \in C_0^1(]0,+\infty[^2 \times ]0,+\pi[)$. Llamando $r = |x|, u = |v|, \alpha = cos^{-1}\left(\frac{x\cdot v}{|x||v|}\right)$, \cite{Batt} prueba que la solución del problema de Cauchy, $f$, depende únicamente de $r, u, \alpha, t$, esto es:
+Dada $f_0(x,v) = \phi(|x|, |v|, \sphericalangle(x,v))$ donde $\phi \in C_0^1(]0,+\infty[^2 \times ]0,+\pi[)$. Llamando $r = |x|, u = |v|, \alpha = \sphericalangle(x,v) = cos^{-1}\left(\frac{x\cdot v}{|x||v|}\right)$, \cite{Batt} prueba que la solución del problema de Cauchy, $f$, depende únicamente de $r, u, \alpha, t$, esto es:
 
 \begin{equation}
 \label{eqn:f=phi}
@@ -197,9 +200,10 @@ verificando:
 Desde \eqref{eqn:sph-cc} deducimos que $zqsen(\theta)$ es independiente de $t$ (derivando sobre $t$) y también, derivando la primera componente de $X(t)$, y teniendo en cuenta que $\left(\begin{array}{c} z(0)\\ q(0)\\ \theta(0) \end{array}\right) = 
 \left(\begin{array}{c} r\\ u\\ \alpha\end{array}\right)$ llegamos a:
 
-\[
+\begin{equation}
+\label{eqn:curves}
  z_{tt} - (ru sen\alpha)^2 \cdot z^{-3} - \gamma M(z,t) z^{-2} = 0
-\]
+\end{equation}
 
 Llamando $\mathcal{C} \subseteq ]0, +\infty[^2 \times ]0, \pi[$ al soporte de $\phi_0$, puede verse fácilmente que existen $r_0, R_0, l_0, L_0, U_0, \rho_0$, dependientes sólo de $\phi_0$, verificando que para todo $(r,u,\alpha,t) \in \mathcal{C} \times ]0, +\infty[$ se cumple:
 
@@ -320,6 +324,53 @@ Entonces: $u(t) \le \alpha(t) \cdot exp\left\{\int_a^t \beta(s) ds\right\}$ para
  \]
  
 \end{proof}
+
+\section{Modelo discreto}
+Asumamos que $C$, soporte de $\phi_0$, puede escribirse como $C= \bigcup_{i=1}^N S_i$ donde $S_i$ son conexos, y que:
+\[
+    \delta = \max_{i=1,\ldots, N} diam(S_i) \le \{1,r_0\}
+\]
+
+Fijamos $c_i = (r_i, u_i, \alpha_i) \in S_i$ y llamamos:
+\begin{itemize}
+\item $L_i = r_i u_i sen(\alpha_i)$
+\item $M_i = \int_{S_i} \phi_0(r,u,\alpha) dxdv$
+\item $z_i = z(c_i)$
+\item $\xi(r) = \min\left(\frac{r}{\delta},1\right) \mathds{1}_{]0,\infty[}$
+\end{itemize}
+
+$z_i$ cumpliría la ecuación \eqref{eqn:curves}, luego:
+\begin{align*}
+ z_ii' - L_i^2 z_i^{-3} - \gamma M(z_i, t) z_i^{-2} = 0\\
+ z_i(0) = r_i\\
+ z_i'(0) = u_i cos(\alpha_i)
+\end{align*}
+
+Tomamos las ecuaciones diferenciales, para $i=1, \ldots, N$:
+\begin{align}
+ \label{eqn:approx-curves}
+ \bar{z}_ii' - L_i^{2} \bar{z}_i^{-3} - \gamma \bar{M}(\bar{z}_i, t) \bar{z}_i^{-2} = 0\\
+ \bar{z}_i(0) = r_i, \quad \bar{z}'_i(0) = u_i cos(\alpha_i) \nonumber
+\end{align}
+donde $\bar{M}(r,t) = \sum_{i=1}^N M_i \xi(r-\bar{z}_i(t))$.
+
+Con estas condiciones, \eqref{eqn:approx-curves} y como $r_0 \le r_i \le R_0$, puede tomarse la solución maximal (definida en $]0,T[$), verificando:
+\[
+    \frac{1}{2}r_0 \le \bar{z}_i(t) \le 2(R_0 + U_0t)
+\]
+
+\begin{theorem}
+ Existe una función $\widetilde{K}$ verificando que para todo $i = 1, \ldots, N$, para todo $t\in [0,T[$:
+ \begin{align*}
+  |z(c,t) - \bar{z}_i(t)| + |z'(c,t) - \bar{z}'_i(t)| &\le \tildek\delta \qquad \forall c= (r,u,\alpha) \in S_i \\
+  |M(s,t) - \bar{M}(s,t)| &\le \tildek\delta \qquad \forall s \ge 0
+ \end{align*}
+\end{theorem}
+
+\begin{proof}
+ 
+\end{proof}
+
 
 \newpage
 \begin{thebibliography}{10}
