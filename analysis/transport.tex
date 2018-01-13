@@ -18,6 +18,7 @@
 
 % Enlaces dentro del documento
 \usepackage{hyperref}
+\usepackage{cleveref}
 
 % Definiciones
 \theoremstyle{definition}
@@ -35,8 +36,8 @@
 \newtheorem*{eg}{Ejemplo}
 
 
-\newcommand{\tildek}{\widetilde{K}}
-
+\newcommand{\ktilde}{\widetilde{K}}
+\newcommand{\dtilde}[1]{\widetilde{\widetilde{#1}}}
 % Displaystyle por defecto
 \everymath{\displaystyle}
 
@@ -86,7 +87,7 @@ El campo electromagnético viene dado por las ecuaciones de Maxwell:
 \begin{align*}
  -\frac{1}{c^2} \frac{\partial E}{\partial t} + \nabla \times B = \mu_0 J\\
  \frac{\partial B}{\partial t} + \nabla \times E = 0\\
- \nabla \cdot E = \frac{\rho}{\epsilon_0}\\
+ \nabla \cdot E = \frac{\rho}{\varepsilon_0}\\
  \nabla \cdot B = 0
 \end{align*}
 
@@ -99,14 +100,14 @@ J(x,t) = q \int (x,v,t) v dv
 Cuando el campo magnético es despreciable en comparación con el eléctrico, las ecuaciones de Maxwell quedan reducidas a:
 
 \begin{equation*}
- \nabla \times E = 0, \quad \nabla \cdot E = \frac{\rho}{\epsilon_0}
+ \nabla \times E = 0, \quad \nabla \cdot E = \frac{\rho}{\varepsilon_0}
 \end{equation*}
 
-Bajo ciertas condiciones geométricas, $\nabla \times E = 0$ implica que existe un potencial electroestático, $U$, esto es, $E = - \nabla U$, verificando que es solución de la ecuación de Poisson $-\Delta U = \frac{\rho}{\epsilon_0}$ y nuestro modelo se reduce a la ecuación de Vlasov-Poisson:
+Bajo ciertas condiciones geométricas, $\nabla \times E = 0$ implica que existe un potencial electroestático, $U$, esto es, $E = - \nabla U$, verificando que es solución de la ecuación de Poisson $-\Delta U = \frac{\rho}{\varepsilon_0}$ y nuestro modelo se reduce a la ecuación de Vlasov-Poisson:
 \begin{align}
  \frac{\partial f}{\partial t} + v \nabla_x f + \frac{q}{m}\nabla_x U \cdot \nabla_v f = 0\\
  \rho(x,t) = q \int f(x,v,t) dv \nonumber\\
- -\Delta U = \frac{\rho}{\epsilon_0} \nonumber
+ -\Delta U = \frac{\rho}{\varepsilon_0} \nonumber
 \end{align}
 
 
@@ -207,13 +208,13 @@ Desde \eqref{eqn:sph-cc} deducimos que $zqsen(\theta)$ es independiente de $t$ (
 
 Llamando $\mathcal{C} \subseteq ]0, +\infty[^2 \times ]0, \pi[$ al soporte de $\phi_0$, puede verse fácilmente que existen $r_0, R_0, l_0, L_0, U_0, \rho_0$, dependientes sólo de $\phi_0$, verificando que para todo $(r,u,\alpha,t) \in \mathcal{C} \times ]0, +\infty[$ se cumple:
 
-\begin{align*}
- r_0 \le z(r,u,\alpha,t) \le R_0 + U_0 t\\
- l_o \le ru \le L_0\\
- l_0 \le ru sen(\alpha) 0 = zq sen(\theta) \le L_0\\
- q(r,u,\alpha, t) \le U_0
- \rho(r,t) \le \rho_0
-\end{align*}
+\begin{align}
+ r_0 \le z(r,u,\alpha,t) \le R_0 + U_0 t \nonumber\\
+ l_o \le ru \le L_0 \nonumber\\
+ l_0 \le ru sen(\alpha) 0 = zq sen(\theta) \le L_0 \nonumber\\
+ q(r,u,\alpha, t) \le U_0 \nonumber \\
+ \rho(r,t) \le \rho_0 \label{eqn:zbounds}
+\end{align}
 
 Además tenemos que para todo $\varphi \in L^{\infty}(]0,+\infty[^2 \times ]0,\pi[)$:
 
@@ -246,6 +247,7 @@ Entonces: $u(t) \le \alpha(t) \cdot exp\left\{\int_a^t \beta(s) ds\right\}$ para
 \begin{fact}
  Existe una función creciente $K(t) \ge 1$ dependiente sólo de $\phi_0$ verificando que para todo $c_1=(r_1,u_1,\alpha_1), \, c_2=(r_2,u_2,\alpha_2) \in \mathcal{C}$ y para todo $t\ge 0$:
  \[|z(c_1,t) - z(c_2,t)| + |z_t(c_1,t) - z_t(c_2,t)| \le K(t)|c_1 - c_2|\]
+ \label{fact:ineq-curves}
 \end{fact}
 
 \begin{proof}
@@ -301,26 +303,26 @@ Entonces: $u(t) \le \alpha(t) \cdot exp\left\{\int_a^t \beta(s) ds\right\}$ para
   &\le |r_1 - r_2| + |u_1 cos(\alpha_1) - u_2 cos(\alpha_2)| + \int_0^t \bigg(|z_1' - z_2'| + |z_1'' - z_2''|\bigg) \\
   &\le |r_1 - r_2| + |u_1 cos(\alpha_1) - u_2 cos(\alpha_2)| + \int_0^t \bigg(Q(s) + K|c_1 - c_2| + K(s)Q(s)\bigg) ds \\
   &\le |r_1 - r_2| + |u_1 cos(\alpha_1) - u_2 cos(\alpha_2)| + Kt|c_1 - c_2| + (1 + K(t)) \int_0^t Q(s) ds\\
-  &\le \bar{K}(t)|c_1 - c_2| + \bar{K}(t) \int_0^t Q(s) ds
+  &\le \widetilde{K}(t)|c_1 - c_2| + \widetilde{K}(t) \int_0^t Q(s) ds
  \end{align*}
 
- para cierta $\bar{K} \ge 1$ creciente. Pero $\bar{K}(t)$ es creciente, luego para todo $0 \le s \le t$:
+ para cierta $\widetilde{K} \ge 1$ creciente. Pero $\widetilde{K}(t)$ es creciente, luego para todo $0 \le s \le t$:
  \[
-    |z_1(s) - z_2(s)| + |z_1'(s) - z_2'(s)|  \le \bar{K}(t)|c_1 - c_2| + \bar{K}(t) \int_0^t Q(s)
+    |z_1(s) - z_2(s)| + |z_1'(s) - z_2'(s)|  \le \widetilde{K}(t)|c_1 - c_2| + \widetilde{K}(t) \int_0^t Q(s)
  \]
 
  Luego para $t\in [0,T]$:
  \[
-  Q(t) \le \bar{K}(t)|c_1 - c_2| + \bar{K}(t) \int_0^t Q(s) \le \bar{K}(T)|c_1 - c_2| + \bar{K}(T) \int_0^t Q(s)ds
+  Q(t) \le \widetilde{K}(t)|c_1 - c_2| + \widetilde{K}(t) \int_0^t Q(s) \le \widetilde{K}(T)|c_1 - c_2| + \widetilde{K}(T) \int_0^t Q(s)ds
  \]
  y por la desigualdad de Gronwall:
  \[
-  Q(t) \le \bar{K}(T)|c_1 - c_2| \cdot e^{C(T)t}
+  Q(t) \le \widetilde{K}(T)|c_1 - c_2| \cdot e^{C(T)t}
  \]
  
  Por consiguiente para $T$ arbitrario:
  \[
-  Q(T) \le \bar{K}(T)\cdot e^{TC(T)} \cdot |c_1 - c_2|
+  Q(T) \le \widetilde{K}(T)\cdot e^{TC(T)} \cdot |c_1 - c_2|
  \]
  
 \end{proof}
@@ -341,7 +343,7 @@ Fijamos $c_i = (r_i, u_i, \alpha_i) \in S_i$ y llamamos:
 
 $z_i$ cumpliría la ecuación \eqref{eqn:curves}, luego:
 \begin{align*}
- z_ii' - L_i^2 z_i^{-3} - \gamma M(z_i, t) z_i^{-2} = 0\\
+ z_i'' - L_i^2 z_i^{-3} - \gamma M(z_i, t) z_i^{-2} = 0\\
  z_i(0) = r_i\\
  z_i'(0) = u_i cos(\alpha_i)
 \end{align*}
@@ -349,28 +351,170 @@ $z_i$ cumpliría la ecuación \eqref{eqn:curves}, luego:
 Tomamos las ecuaciones diferenciales, para $i=1, \ldots, N$:
 \begin{align}
  \label{eqn:approx-curves}
- \bar{z}_ii' - L_i^{2} \bar{z}_i^{-3} - \gamma \bar{M}(\bar{z}_i, t) \bar{z}_i^{-2} = 0\\
- \bar{z}_i(0) = r_i, \quad \bar{z}'_i(0) = u_i cos(\alpha_i) \nonumber
+ \widetilde{z}_i'' - L_i^{2} \widetilde{z}_i^{-3} - \gamma \widetilde{M}(\widetilde{z}_i, t) \widetilde{z}_i^{-2} = 0\\
+ \widetilde{z}_i(0) = r_i, \quad \widetilde{z}'_i(0) = u_i cos(\alpha_i) \nonumber
 \end{align}
-donde $\bar{M}(r,t) = \sum_{i=1}^N M_i \xi(r-\bar{z}_i(t))$.
+donde $\widetilde{M}(r,t) = \sum_{i=1}^N M_i \xi(r-\widetilde{z}_i(t))$.
 
 Con estas condiciones, \eqref{eqn:approx-curves} y como $r_0 \le r_i \le R_0$, puede tomarse la solución maximal (definida en $]0,T[$), verificando:
-\[
-    \frac{1}{2}r_0 \le \bar{z}_i(t) \le 2(R_0 + U_0t)
-\]
+\begin{equation}
+    \frac{1}{2}r_0 \le \widetilde{z}_i(t) \le 2(R_0 + U_0t)
+\label{eqn:barzbounds}
+\end{equation}
 
+Además definiremos $\dtilde{M(r,t)} = \sum_{i=1}^N M_i \xi(r-z_i(t))$.
 \begin{theorem}
  Existe una función $\widetilde{K}$ verificando que para todo $i = 1, \ldots, N$, para todo $t\in [0,T[$:
  \begin{align*}
-  |z(c,t) - \bar{z}_i(t)| + |z'(c,t) - \bar{z}'_i(t)| &\le \tildek\delta \qquad \forall c= (r,u,\alpha) \in S_i \\
-  |M(s,t) - \bar{M}(s,t)| &\le \tildek\delta \qquad \forall s \ge 0
+  |z(c,t) - \widetilde{z}_i(t)| + |z'(c,t) - \widetilde{z}'_i(t)| &\le \ktilde\delta \qquad \forall c= (r,u,\alpha) \in S_i \\
+  |M(s,t) - \widetilde{M}(s,t)| &\le \ktilde\delta \qquad \forall s \ge 0
  \end{align*}
 \end{theorem}
 
 \begin{proof}
+ Fijamos $t \ge 0, c'\in C$ y llamamos $z = z(c',t)$. Definimos:
  
-\end{proof}
+ \begin{align*}
+ J_1 &= \{j: z_j(t) \le z\}\\
+ J_2 &= \{j: z_j(t) \le z - K(t)\delta\}
+ \end{align*}
+ 
+ Si $c\in S_j$ y $j\in J_1$, por \cref{fact:ineq-curves} se deduce:
+ \[
+    z(c,t) \le z(c_j,t)| + K(t)|c - c_j| = z_j(t) + K(t) |c - c_j| \le z_j(t) + K(t)\delta \le z + K(t) \delta
+ \]
+ 
+ Por tanto:
+ \[
+    \bigcup_{j\in J_1} S_j \subseteq \{c \in \mathbb{R}^3: z(c,t) \le z + K(t) \delta\} = \overline{A}
+ \]
+ 
+ 
+ \begin{align*}
+ \dtilde{M}(z,t) &= \sum_{j = 1}^M M_j \xi(z - z_j(t)) \underset{z >       
+ z_j(t) \Rightarrow \xi(z - z_j(t)) = 0}{\le} \sum_{j \in I} M_j\\
+  &= \int_{\bigcup_{j\in J_1} S_j} \phi_0(r,u,\alpha) dx dv \le \int_{\overline{A}} \phi_0(r,u,\alpha) dx dv\\
+  &= \int_{\{r \le z + K(t)\delta\}} \phi(r,u,\alpha,t) dx dv = M(z + K(t)\delta, t)\\
+  & = M(z,t) + \int_{z}^{z+K(t)\delta} 4\pi s^2 \rho(s,t) ds \\ 
+  &\le M(z,t) + 4\pi \rho_0 (R_0 + K(t) \delta)^2 K(t) \delta = M(z, t) + \ktilde_1(t) \delta
+ \end{align*}
 
+ Por otro lado, si $c \in S_j$ y $z(c,t) \le z - 2K(t) \delta$ entonces por \cref{fact:ineq-curves}, $z_j(t) \le z(c,t) + K(t) \delta \le z - K(t) \delta$. Por tanto:
+ \[
+  \underline{A} = C \cap \{c\in \mathbb{R}^3:z(c,t) \le z - 2K(t) \delta\} \subseteq \bigcup_{j\in J_2} S_j
+ \]
+ 
+ Por tanto:
+ \begin{align*}
+ \dtilde{M}(z,t) &= \sum_{j = 1}^M M_j \xi(z - z_j(t)) \underset{z_j \le < z - K(t)\delta \implies z - z_j(t) \ge \delta \Rightarrow \xi(z - z_j(t)) = 1}{\ge} \sum_{j \in J_2} M_j\\
+  &= \int_{\bigcup_{j\in J_2} S_j} \phi_0(r,u,\alpha) dx dv \ge \int_{\underline{A}} \phi_0(r,u,\alpha) dx dv\\
+  &= \int_{\{r \ge z - 2K(t)\delta\}} \phi(r,u,\alpha,t) dx dv = M(\max(0,z-2K(t)\delta), t)\\
+  & = M(z,t) - \int_{\max(0,z-2K(t)\delta)}^z 4\pi s^2 \rho(s,t) ds \\ 
+  &\ge M(z,t) - 4\pi \rho_0 R_0^2 2K(t)\delta \ge M(z, t) - \ktilde_2(t) \delta
+ \end{align*}
+ 
+ Tomando $\ktilde_3 = \max(\ktilde_1, \ktilde_2)$ hemos probado que:
+ 
+ \begin{equation}
+ |M(r,t) - \dtilde{M}(r,t)| \le \ktilde_3(t) \delta
+ \label{eqn:m-mdtilde1}
+ \end{equation}
+ para $r \in z(C,t)$, pero queremos el resultado para todo $r\ge 0$.
+ 
+ Observamos que si $r \ge R_0 + U_0 t + \delta$ entonces $M(r,t) = M = \dtilde{M}(r,t)$, y si $0\le r \le r_0$ entonces $M(r,t) = \dtilde{M}(r,t) = 0$. Así, nos restringimos al caso $r_0 \le r \le R_0 + U_0t + 1$. Supongamos que existe $r_1 \in ]r_0, R_0 + U_0t + 1[ \cap z(C, t)^c$ (caso opuesto ya habríamos acabdo la demostración).
+ 
+ Además, $C$ es compacto y $z$ continua, luego podemos considerar s.p.g. $z(C,t) = [r_0, r_2]$, donde $]r_2,r_1[ \cap z(C,t) = \emptyset$.
+ Deducimos:
+ 
+ \begin{align}
+  M(r_1, t) - M(r_2, t) &= \int_{r_2}^{r_1} 4\pi s^2 \rho(s,t) ds = \int_{\{(x,v): r\in ]r_2, r_1[\}} \phi(r,u,\alpha,t) dv dx \nonumber\\
+  &= \int_{\{c\in\mathbb{R}^3: z(c,t) \in ]r_2, r_1[\}} \phi_0(c) dv dx
+  \underset{\{c: z(c,t) \in ]r_2,r_1[\} \cap C = \emptyset}{=} 0
+  \label{eqn:mdiff}
+ \end{align}
+ 
+ Si $z_j(t) = z_j(c_j,t) \in ]r_2 - \delta, r_2]$ y dado $c'\in S_j$, por \cref{fact:ineq-curves} deducimos:
+ \[
+ -K(t)\delta -\delta \le z(c',t) - z_j(t) - \delta \le z(c',t) - (r_2 - \delta) - \delta = z(c',t) - r_2 \le z(c',t) - z_j(t) \le K(t)\delta
+ \]
+ 
+ Llamamos:
+ \[
+ J_3 = \{j: z_j(t) \in ]r_2 - \delta, r_2]\}
+ \]
+ 
+ De $z_j(t) \notin ]r_2,r_1[$ y usando $r_1 > r_2$ deducimos que si $z_j(t) \le r_2 - \delta$ entonces $\xi(r_1 - z_j) = \xi(r_2 - z_j) = 1$; si $z_j(t) > r_1$ entonces $\xi(r_1 - z_j) = \xi(r_2 - z_j) = 0$ y si $z_j \in ]r_2 - \delta, r_2[$ entonces $\xi(r_1 - z_j) > \xi(r_2 - z_j)$. Juntando toda esta información:
+ \begin{align}
+ &0 \le \dtilde{M}(r_1,t) - \dtilde{M}(r_2,t) = \sum_{j=1}^N M_j \bigg\{\xi(r_1 - z_j(t)) - \xi(r_2 - z_j(t))\bigg\} \le \sum_{j in J_3} M_j \nonumber\\ 
+ &=\int_{\cup_{j\in J_3} S_j} \phi_0(r,u,\alpha) dv dx \le \int_{\{c : z(c,t) - r_2| \le \delta + K(t) \delta\}} \phi_0(c)\\
+ &= \int_{\{(x,v): ||x| - r_2| \le \delta + K(t) \delta\}} \phi(c,t) dv dx = \int_{max(0, r_2 - \delta - K(t)\delta}^{r_2 + \delta + K(t) \delta} 4\pi s^2 \rho(s,t) ds \nonumber\\
+ &\le 4\pi (r_2 + 1 + K(t))^2 \rho_0 2(1+ K(t))\delta \nonumber\\
+ &\le 4\pi (R_0 + U_0t + 2 + K(t))^2 \rho_0 2 (1 + K(t))\delta \le \ktilde_4(t)\delta
+ \label{eqn:mtildediff}
+ \end{align}
+
+ Como $r_2 \in z(C,t)$, entonces $|M(r_2,t) - \dtilde{M}(r_2,t)| \le \ktilde_3(t) \delta$ por \eqref{eqn:m-mdtilde1}.
+ \end{proof}
+ 
+ En definitiva:
+ \begin{align}  
+|M(r_1,t) - \dtilde{M}(r_1,t)| &= |M(r_1,t) - M(r_2,t) + M(r_2,t) - \dtilde{M}(r_2,t) + \dtilde{M}(r_2,t) - \dtilde{M}(r_1,t)| \nonumber \\
+&\le \underbrace{|M(r_1,t) - M(r_2,t)|}_{\textrm{\eqref{eqn:mdiff}}} + |M(r_2,t) - \dtilde{M}(r_2,t)| + \underbrace{|\dtilde{M}(r_2,t) - \dtilde{M}(r_1,t)|}_{\textrm{\eqref{eqn:mtildediff}}} \nonumber \\
+&\le 0 + \ktilde_3(t) \delta + \ktilde_4(t) \delta \label{eqn:m-mdtilde2}
+ \end{align}
+
+ Hemos probado, por \eqref{eqn:m-mdtilde1} y  \eqref{eqn:m-mdtilde2}
+ \begin{equation}
+  |M(r,t) - \dtilde{M}(r,t)| \le \ktilde_5(t) \delta, \qquad r\ge 0, t\ge 0
+  \label{eqn:m-mdtilde}
+ \end{equation}
+ donde $\ktilde_5 = \ktilde_3 + \ktilde_4$
+
+ Sea $0\le t < T$ y definimos $||z-\widetilde{z}||(t) = \sup_{0\le s \le t} \max_{1\le i\le N} |z_i(s) - \widetilde{z}_i(s)|$.
+ 
+ Fijamos $r\ge 0, t\in [0, T[$. Si $z_j(t) \ge r + ||z - \widetilde{z}||(t) \ge r + ||z - \widetilde{z}||(t) - \delta$, entonces:
+ \begin{align*}
+  r - z_j(t) \le 0 \Rightarrow \xi(r - z_j(t)) = 0\\
+  r - \widetilde{z}_j(t) \le r - (z_j(t) - ||z-\widetilde{z}||(t)) \le 0 \Rightarrow \xi(r - \widetilde{z}_j(t)) = 0
+ \end{align*}
+ 
+ Análogamente, si $z_j(t) \le r - ||z - \widetilde{z}||(t) - \delta$, entonces:
+  \begin{align*}
+  \xi(r - z_j(t)) = 1\\
+  \xi(r - \widetilde{z}_j(t)) = 1
+ \end{align*}
+ 
+ Como $0 \le \xi(r - z_j(t)) \le 1, 0 \le \xi(r - \widetilde{z}_j(t)) \le 1$ entonces $|\xi(r - \widetilde{z}_j(t)) - \xi(r - z_j(t))| \le 1$. Llamaremos $J_4 = \{j: |r-z_j(t)| \le ||z - \widetilde{z}||(t) + \delta\}$.  Si $j\in J_4, c' \in S_j$, entonces, por \cref{fact:ineq-curves}:
+ \begin{align*}
+  |z(c',t) - r| &= |z(c',t) - z_j(t) + z_j(t) - r| \le |z(c',t) - z_j(t)| + |z_j(t) - r| \le ||z-\widetilde{z}||(t) + \delta + K(t)\delta\\
+  \bigcup_{j\in J_4} S_j &\subseteq \{c\in \mathbb{R}^3: |z(c,t) - r| \le ||z-\widetilde{z}||(t) + \delta + K(t)\delta\} = \underline{B}
+ \end{align*}
+
+ Se desprende, llamando $\varepsilon(t) = ||z-\widetilde{z}||(t) + \delta + K(t)\delta \underset{\textrm{\eqref{eqn:barzbounds}, \eqref{eqn:zbounds}}}{\le} 3(R_0 + U_0 t) + 1 + K(t)$:
+ \begin{align*}
+ |\widetilde{M}(r,t) - \dtilde{M}(r,t)| &= \left|\sum_{j=1}^N \xi(r - \widetilde{z}_j(t)) - \xi(r - z_j(t)) \right| \le \sum_{j\in J_4} M_j
+ \le \int_{\bigcup_{j\in J_4} S_j} \phi_0(c) dv dx\\
+ &\le \int_{\underline{B}} \phi_0(c) dv dx
+ = \int_{\{(x,v):||x| - r| < \varepsilon(t)\}} \phi(r,u,\alpha.t) dv dx \\
+ &= \int_{\max(0,r-\varepsilon(t))}^{r+\varepsilon(t)} 4\pi s^2 \rho(s,t) ds \le 4\pi(r + \varepsilon(t))^2 \rho_0 2\varepsilon(t)
+ \end{align*}
+ 
+ Si $r > 2(R_0 + U_0t) + 1$ entonces $\widetilde{M}(r,t) = \dtilde{M}(r,t) = M$. Si $r \le 2(R_0 + U_0t) + 1$ entonces:
+ \begin{align}
+  |\widetilde{M}(r,t) - \dtilde{M}(r,t)| &\le 4\pi\bigg\{5(R_0 + U_0t) + 2 + K(t)\bigg\}^2 \rho_0 2\epsilon(t) \nonumber\\
+  &\le \ktilde_6(t)\bigg\{||z-\widetilde{z}||(t) + \delta + K(t)\delta\bigg\} 
+  \nonumber \\
+  &\le \ktilde_7(t)||z - \widetilde{z}||(t) + \ktilde_7(t)\delta \label{eqn:barbarmbound}
+ \end{align}
+ 
+ Deducimos:
+ \begin{align}
+  |M(r,t) - \widetilde{M}(r,t)| &= |M(r,t) - \dtilde{M}(r,t) + \dtilde{M}(r,t) - \widetilde{M}(r,t)| \nonumber\\
+  &\le |M(r,t) - \dtilde{M}(r,t)| + |\dtilde{M}(r,t) - \widetilde{M}(r,t)| \nonumber\\
+  &\underset{\textrm{\eqref{eqn:m-mdtilde}, \eqref{eqn:barbarmbound}}}{\le} \ktilde_7(t)||z - \widetilde{z}||(t) + (\ktilde_5(t)+\ktilde_7(t))\delta \nonumber\\
+  &\le \ktilde_8(t)||z - \widetilde{z}||(t) + \ktilde_8(t)\delta
+ \end{align}
+donde $\ktilde_8 = \max(\ktilde_7, \ktilde_5 + \ktilde_7)$
 
 \newpage
 \begin{thebibliography}{10}
