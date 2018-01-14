@@ -242,6 +242,7 @@ Sean $\alpha, \beta, u$ funcones continuas, con $\alpha$ no decreciente, verific
 \]
 
 Entonces: $u(t) \le \alpha(t) \cdot exp\left\{\int_a^t \beta(s) ds\right\}$ para todo $t\in I$.
+\label{ineq:gronwall}
 \end{lemma}
 
 \begin{fact}
@@ -259,11 +260,12 @@ Entonces: $u(t) \le \alpha(t) \cdot exp\left\{\int_a^t \beta(s) ds\right\}$ para
  
  
  Usaremos:
- \begin{align*}
- |r_1 u_1 sen(\alpha_1) - r_2 u_2 sen(\alpha_2)| &= |r_1 u_1 (sen(\alpha_1) - sen(\alpha_2) + sen(\alpha_2)) - (r_2 - r_1 + r_1) u_2 sen(\alpha_2)| \\
- &\le r_1 u_1 |sen(\alpha_1) - sen(\alpha_2)| + r_1|u_1 - u_2| sen(\alpha_2) + u_2|r_1 - r_2| sen(\alpha_2) \\
+ \begin{align}
+ |r_1 u_1 sen(\alpha_1) - r_2 u_2 sen(\alpha_2)| &= |r_1 u_1 (sen(\alpha_1) - sen(\alpha_2) + sen(\alpha_2)) - (r_2 - r_1 + r_1) u_2 sen(\alpha_2)| \nonumber \\
+ &\le r_1 u_1 |sen(\alpha_1) - sen(\alpha_2)| + r_1|u_1 - u_2| sen(\alpha_2) + u_2|r_1 - r_2| sen(\alpha_2) \nonumber\\
  &\underset{|sen(\alpha_1) - sen(\alpha_2)| \le |\alpha_1 - \alpha_2|}{\le} L_0|\alpha_1 - \alpha_2| + R_0|u_1 - u_2| + U_0|r_1 - r_2| \le K|c_1 - c_2|
- \end{align*}
+ \label{ineq:sins}
+ \end{align}
  
  Análogamente:
  \[
@@ -362,13 +364,15 @@ Con estas condiciones, \eqref{eqn:approx-curves} y como $r_0 \le r_i \le R_0$, p
 \label{eqn:barzbounds}
 \end{equation}
 
-Además definiremos $\dtilde{M(r,t)} = \sum_{i=1}^N M_i \xi(r-z_i(t))$.
+Además definiremos $\dtilde{M}(r,t) = \sum_{i=1}^N M_i \xi(r-z_i(t))$.
 \begin{theorem}
- Existe una función $\widetilde{K}$ verificando que para todo $i = 1, \ldots, N$, para todo $t\in [0,T[$:
+ Existe una función $\widetilde{K}$ (dependiente sólo de $\phi_0$) verificando que para todo $i = 1, \ldots, N$, para todo $t\in [0,T[$:
  \begin{align*}
-  |z(c,t) - \widetilde{z}_i(t)| + |z'(c,t) - \widetilde{z}'_i(t)| &\le \ktilde\delta \qquad \forall c= (r,u,\alpha) \in S_i \\
-  |M(s,t) - \widetilde{M}(s,t)| &\le \ktilde\delta \qquad \forall s \ge 0
+  |z(c,t) - \widetilde{z}_i(t)| + |z'(c,t) - \widetilde{z}'_i(t)| &\le \ktilde(t) \delta \qquad \forall c= (r,u,\alpha) \in S_i \\
+  |M(s,t) - \widetilde{M}(s,t)| &\le \ktilde(t)\delta \qquad \forall s \ge 0
  \end{align*}
+ Además $T \rightarrow + \infty$ cuando $\delta \rightarrow 0$.
+ \label{th:fundamental}
 \end{theorem}
 
 \begin{proof}
@@ -454,7 +458,6 @@ Además definiremos $\dtilde{M(r,t)} = \sum_{i=1}^N M_i \xi(r-z_i(t))$.
  \end{align}
 
  Como $r_2 \in z(C,t)$, entonces $|M(r_2,t) - \dtilde{M}(r_2,t)| \le \ktilde_3(t) \delta$ por \eqref{eqn:m-mdtilde1}.
- \end{proof}
  
  En definitiva:
  \begin{align}  
@@ -513,8 +516,164 @@ Además definiremos $\dtilde{M(r,t)} = \sum_{i=1}^N M_i \xi(r-z_i(t))$.
   &\le |M(r,t) - \dtilde{M}(r,t)| + |\dtilde{M}(r,t) - \widetilde{M}(r,t)| \nonumber\\
   &\underset{\textrm{\eqref{eqn:m-mdtilde}, \eqref{eqn:barbarmbound}}}{\le} \ktilde_7(t)||z - \widetilde{z}||(t) + (\ktilde_5(t)+\ktilde_7(t))\delta \nonumber\\
   &\le \ktilde_8(t)||z - \widetilde{z}||(t) + \ktilde_8(t)\delta
+  \label{ineq:diffm}
  \end{align}
 donde $\ktilde_8 = \max(\ktilde_7, \ktilde_5 + \ktilde_7)$
+
+Nos queda acotar $||z - \widetilde{z}||(t)$. Fijamos $t \in [0,T[$.
+
+Partimos de:
+\begin{align}
+ |M(z_i,t) - M(\widetilde{z}_i,t)| = \bigg|\int_{\widetilde{z}_i}^{z_i} 4\pi s^2 \rho(s,t) ds \bigg| \le \ktilde_9(t) ||z-\widetilde{z}||(t) \nonumber\\
+ \widetilde{z}_i^{-n} \ge \bigg(\frac{1}{2} r_0\bigg)^{n} \qquad n\in\mathbb{N} \nonumber\\
+ \widetilde{z}_i^n \le (2(R_0+U_0t))^n \nonumber\\
+ z_i^n \le (R_0+U_0t)^n \nonumber\\
+ |z_i - \widetilde{z}_i| \le ||z-\widetilde{z}||(t) \nonumber\\
+ |z_i^2 - \widetilde{z}_i^2| = |z_i + \widetilde{z}_i||z_i - \widetilde{z}_i| \nonumber\\
+ |z_i^3 - \widetilde{z}_i^3| = |z_i^2 + z_i\widetilde{z}_i + \widetilde{z}_i^2||z_i - \widetilde{z}_i|
+ \label{ineq:basics}
+\end{align}
+
+y escribiendo:
+\begin{align}
+ |z_i''(t) - \widetilde{z}_i''(t)| &= \bigg|L_i^2 z_i^{-3} + \gamma M(z_i,t) z_i^{-2} - L_i^2 \widetilde{z}_i^{-3} - \gamma \widetilde{M}(\widetilde{z}_i, t) \widetilde{z}_i^{-2} \bigg| \nonumber\\
+ &\le L_i^2 |z_i^{-3} - \widetilde{z}_i^{-3}| + M(z_i, t) |z_i^{-2} - \widetilde{z}_i^{-2}| + \widetilde{z}_i^{-2} |M(z_i,t) - \widetilde{M}(\widetilde{z}_i, t)|\nonumber\\
+ &\le L_0 z_i^{-3}\widetilde{z}_i^{-3} |z_i^3 - \widetilde{z}_i^{3}| +
+ Mz_i^{-2} \widetilde{z}_i^{-2} |z_i^2 - \widetilde{z}_i^{2}| \nonumber \\
+ &+ \widetilde{z}_i^{-2} \bigg\{|M(z_i,t) - M(\widetilde{z}_i,t)| + |M(\widetilde{z}_i,t) - \widetilde{M}(\widetilde{z}_i,t)|\bigg\} \nonumber\\
+ &\underset{\textrm{\eqref{ineq:basics}}}{\le} \ktilde_9(t) \delta + \ktilde_9(t)||z - \widetilde{z}||(t)
+ \label{ineq:zibound}
+\end{align}
+
+Definimos:
+
+\[
+Q(t) := \max_{0 \le s \le t}\max_{i = 1, \ldots, N} \bigg\{|z_i(s) - \widetilde{z}_i(s)| + |z_i'(s) - \widetilde{z}'_i(s)| \bigg\} 
+\]
+
+Como $z_i(0) = \widetilde{z}_i(0), z_i'(0) = \widetilde{z}_i'(0)$, para todo $0\le v \le t$:
+
+\begin{align*}
+ |z_i(v) - \widetilde{z}_i(v)| + |z_i'(v) - \widetilde{z}_i'(v)| &\le \int_0^v (|z_i(s) - \widetilde{z}_i(s)| + |z_i'(s) - \widetilde{z}_i'(s)|) ds\\
+ &\le \int_0^t (|z_i(s) - \widetilde{z}_i(s)| + |z_i'(s) - \widetilde{z}_i'(s)|) ds\\
+ &\le \int_0^t \bigg\{Q(s) + \ktilde_9(s)\delta + \ktilde_9 Q(s)\bigg\} ds \\
+ &\le \ktilde_{10}(t)\delta + \ktilde_{10}(t) \int_0^{t} Q(s) ds
+\end{align*}
+
+Para $0\le v\le t$ arbitrario, luego $Q(t) \le \ktilde_{10}(t)\delta + \ktilde_{10}(t) \int_0^{t} Q(s) ds$, donde $0\le t < T$ era arbitrario. Por desigualdad de Gronwall \eqref{ineq:gronwall}:
+\[
+Q(v) \le C(t) \delta e^{C(t) v} \Rightarrow Q(t) \le \ktilde_{11}(t) \delta
+\]
+
+Por tanto, usando lo anterior y \cref{fact:ineq-curves}, si $c\in S_i$ y para todo $0\le t < T$, entonces:
+\begin{align}
+ |z(c,t) - \widetilde{z}_i(t)| + |z_t(c,t) - \widetilde{z}_i'(t)| &\le 
+ |z(c,t) - z_i(t)| + |z_i(t) - \widetilde{z}_i(t)| \nonumber\\
+ &+ |z'(c,t) - z_i'(t)| + |z_i'(t) - \widetilde{z}_i'(t)| \nonumber\\
+ &\le K(t)\delta +\widetilde{K}_{11}(t)\delta \le \widetilde{K}_{12}(t) \delta \label{ineq:diffz}
+\end{align}
+donde $\widetilde{K}_{12} = K(t) + \widetilde{K}_{11}$
+
+y por \eqref{ineq:diffm}, para $r\ge 0$ y para $0\le t < T$:
+\begin{align*}
+ |M(r,t) - \widetilde{M}(r,t)| &\underset{\textrm{\eqref{ineq:diffm}, \eqref{ineq:diffz}}}{\le} \widetilde{K}_{8}(t) \delta + \ktilde_{8}(t) ||z-\widetilde{z}||(t) \\
+ &\le \ktilde_8(t)\delta + \ktilde_8(t)\ktilde_{12}(t) \delta \\
+ &\le \ktilde_{13}(t)\delta
+\end{align*}
+
+Basta tomar $\ktilde = \max(\ktilde_{12}, \ktilde_{13})$.
+
+Nos queda probar que $T = + \infty$.
+
+Sea $T_0 > 0$ y sea $\delta < \frac{r_0}{3 \ktilde(T_0)}$
+Entonces para $0 \le t < T$, $0 \le t < T_0$ tenemos que:
+
+\begin{align*}
+\frac{2}{3}r_0 \le r_0 - \ktilde(T_0) \delta \le r_0 - \ktilde(t) \delta \le z_j(t) - |\widetilde{z}_j(t) - z_j(t)| \\
+\le \widetilde{z}_j(t) \le z_j(t) + |\widetilde{z}_j(t) - z_j(t)|
+\le R_0 + U_0t + \ktilde \delta \\
+\le R_0 + U_0t + \frac{1}{3}r_0 \le \frac{4}{3}(R_0 + U_0t)
+\end{align*}
+
+Si $T < T_0$ esto contravendría que $[0,T[$ sea el intervalo maximal en el que puede resolverse la ecuación diferencial verificando:
+
+\[
+\frac{1}{2}r_0 \le \widetilde{z}_j(t) \le 2(R_0 + U_0t)
+\]
+
+Tomando $T_0 \rightarrow +\infty$, llegamos a $\delta \rightarrow 0 \Rightarrow T\rightarrow +\infty$
+\end{proof}
+
+\begin{corollary}
+ Existe una función creciente $\dtilde{K}(t)$ (dependiente solamente de $\phi_0$) verificando que para todo $0 \le t < T$:
+ \[
+  \Bigg|E - \sum_{i=1}^N M_i\bigg\{\widetilde{z}_i'(t)^2 + L_i^2\widetilde{z}_i'(t)^{-2} + \sum_{j=1}^N \frac{\gamma M_j}{\max(\widetilde{z}_i(t), \widetilde{z}_j(t))}\bigg\} \Bigg| \le \dtilde{K}(t) \delta
+ \]
+\end{corollary}
+\begin{proof}
+ Fijamos $(r,u,\alpha) \in S_i, (r',u',\alpha') \in S_j$ y llamamos $z = z(r,u,\alpha,t)$ y $\widetilde{z} = z(r',u',\alpha',t)$. Entonces:
+ 
+ \begin{align*}
+ \Bigg|\frac{1}{\max(z,\widetilde{z})} - \frac{1}{\max(\widetilde{z}_i(t), \widetilde{z}_j(t))} \Bigg| &\le \Bigg|\frac{1}{\max(z,\widetilde{z})} - \frac{1}{\max(\widetilde{z}_i(t),\widetilde{z})} \Bigg|\\
+ &+ \Bigg|\frac{1}{\max(\widetilde{z}_i(t),\widetilde{z})} - \frac{1}{\max(\widetilde{z}_i(t), \widetilde{z}_j(t))}\Bigg|\\
+ &\le \frac{|z-\widetilde{z}_i(t)|}{(r_0/2)^2} + \frac{|\widetilde{z}-\widetilde{z}_j(t)|}{(r_0/2)^2}\\
+ &\underset{\textrm{Teorema \ref{th:fundamental}}}{\le} \frac{\ktilde(t)\delta}{(r_0/2)^2} + \frac{\ktilde(t)\delta}{(r_0/2)^2} = \frac{8\ktilde(t)\delta}{r_0^2}
+ \end{align*}
+donde en la última desigualdad se ha usado (lo hacemos para el segundo término):
+\[
+  \Bigg|\frac{1}{\max(\widetilde{z}_i(t),\widetilde{z})} - \frac{1}{\max(\widetilde{z}_i(t), \widetilde{z}_j(t))}\Bigg| = \Bigg|\frac{\max(\widetilde{z}_i(t), \widetilde{z}_j(t)) - \max(\widetilde{z}_i(t), \widetilde{z})}{\max(\widetilde{z}_i(t),\widetilde{z}) \max(\widetilde{z}_i(t), \widetilde{z}_j(t))} \Bigg|
+\]
+
+Para acotar el denominador basta usar $\widetilde{z}_i(t)^{-1} \le r_0^{-1}$. Para acotar el numerador, lo hacemos discutiendo casos, llamando $a = \max(\widetilde{z}_i(t), \widetilde{z}_j(t))$, y $b= - \max(\widetilde{z}_i(t), \widetilde{z})$ 
+
+\begin{enumerate}
+ \item Si $a= \widetilde{z}_i(t), b=\widetilde{z}_i(t)$ entonces $a-b = 0$.
+ \item Si $a = \widetilde{z}_i(t), b = \widetilde{z}(t)$ nos lleva a $\widetilde{z} \ge \widetilde{z}_i(t)\ge \widetilde{z}_j(t)$.
+ \item Si $a = \widetilde{z}_j(t), b = \widetilde{z}_i(t)$ nos lleva a $\widetilde{z}_j(t) \ge \widetilde{z}_i(t) \ge \widetilde{z}$.
+ \item El último caso es $a = \widetilde{z}_j(t), b = \widetilde{z}(t)$.
+\end{enumerate}
+En cualquiera de los casos $|a-b| \le |\widetilde{z} - \widetilde{z}_j(t)|$.
+
+Por un lado:
+\begin{align*}
+ &\Bigg|\int_{\mathbb{R}^6}\frac{\phi_0(r',u',\alpha')}{\max(z,\widetilde{z})} dv' dx' - \sum_{j=1}^N \frac{M_j}{\max(\widetilde{z}_i(t), \widetilde{z}_j(t))} \Bigg| \\
+ &= \Bigg|\sum_{j=1}^N \int_{S_j}\phi_0(r',u',\alpha') \Bigg(\frac{1}{\max(z,\widetilde{z})} - \frac{1}{\max(\widetilde{z}_i(t), \widetilde{z}_j(t))} \Bigg)dv' dx'\Bigg| \\
+ &\le \sum_{j=1}^N \int_{S_j} \phi_0(r',u',\alpha') \frac{8\ktilde(t)\delta}{r_0^2} dv' dx' = 8Mr_0^{-2} \ktilde(t) \delta = \dtilde{K}_1(t) \delta
+\end{align*}
+
+Por otro lado:
+\begin{align*}
+&\Bigg|\Bigg(z_t^2 + \frac{(ru sen(\alpha))^2}{z^2}\Bigg) - \Bigg(\widetilde{z}_i'(t)^2 + \frac{L_i^2}{\widetilde{z}_i(t)^2} \Bigg)\Bigg| \\
+&\le |z_t^2 - \widetilde{z}_i'(t)^2| + z^{-2}|(ru \cdot sen(\alpha)^2 - L_i^2| + L_i^2|z^{-2} - \widetilde{z}_i(t)^{-2}| \\
+&\le |z_t - \widetilde{z}_i'(t)||z_t +\widetilde{z}_i'(t)| \\
+&+ z^{-2}|ru \cdot sen(\alpha) - L_i||ru \cdot sen(\alpha) + L_i| \\
+&+ L_i^2 z^{-2} \widetilde{z}_i(t)^{-2} |\widetilde{z}_i(t) + z||\widetilde{z}_i(t) - z|
+\end{align*}
+
+Para acotar esta última desigualdad usaremos \eqref{ineq:sins} y el hecho de que:
+\[
+|z_t + \widetilde{z}_i'(t)| \le |2z_t| + |\widetilde{z}_i'(t) - z_t| \underset{\textrm{Teorema \eqref{th:fundamental}}}{\le} 2U_0 + \ktilde(t) \delta
+\]
+
+Así se prueba que: 
+\[
+ \Bigg|\Bigg(z_t^2 + \frac{(ru sen(\alpha))^2}{z^2}\Bigg) - \Bigg(\widetilde{z}_i'(t)^2 + \frac{L_i^2}{\widetilde{z}_i(t)^2} \Bigg)\Bigg| \le \dtilde{K}_2(t) \delta
+\]
+
+Tomamos $\dtilde{K}_3(t) = \max(\dtilde{K}_1(t), \dtilde{K}_2(t))$ y deducimos:
+\begin{align*}
+&\Bigg|E - \sum_{i=1}^N M_i\bigg\{\widetilde{z}_i'(t)^2 + L_i^2\widetilde{z}_i'(t)^{-2} + \sum_{j=1}^N \frac{\gamma M_j}{\max(\widetilde{z}_i(t), \widetilde{z}_j(t))}\bigg\} \Bigg| \\
+&= \Bigg|\sum_{i=1}^N \int_{S_i} \phi_0(r,u,\alpha) \Bigg(z_t^2 + \frac{(ru\cdot sen(\alpha))^2}{z^2} + \gamma \int \frac{\phi_0(r',u',\alpha')}{\max(z,\widetilde{z})} dv' dx' - \\
+&\widetilde{z}_i'(t)^2 - L_i^2\widetilde{z}_i'(t)^{-2} - \gamma \sum_{j=1}^N \frac{M_j}{\max(\widetilde{z}_i(t), \widetilde{z}_j(t))} dv dx \Bigg)\Bigg| \\
+&\le \sum_{i=1}^N \int_{S_i} |\phi_0(r,u,\alpha)| \Bigg(\Bigg| z_t^2 + \frac{(ru\cdot sen(\alpha))^2}{z^2} -
+\widetilde{z}_i'(t)^2 - L_i^2\widetilde{z}_i'(t)^{-2} \Bigg| + \\
+&\Bigg|\int_{\mathbb{R}^6} \frac{\phi_0(r',u',\alpha')}{\max(z,\widetilde{z})} dv' dx' - \sum_{j=1}^N \frac{M_j}{\max(\widetilde{z}_i(t), \widetilde{z}_j(t))} dv dx \Bigg)\Bigg|\Bigg) \\
+&\le \sum_{i=1}^N \int_{S_i} |\phi_0(r,u,\alpha)| 2\dtilde{K}_3(t)\delta \le \dtilde{K}(t) \delta
+\end{align*}
+
+
+ \end{proof}
+
 
 \newpage
 \begin{thebibliography}{10}
