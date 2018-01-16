@@ -10,6 +10,9 @@
 \usepackage{enumerate}
 \usepackage{verbatim}
 \usepackage{amsthm}
+
+%\usepackage{euler}
+
 % Imágenes
 \usepackage{graphicx}
 \usepackage{float}
@@ -22,7 +25,7 @@
 
 % Definiciones
 \theoremstyle{definition}
-\newtheorem*{mydef}{Definición}
+\newtheorem*{definition}{Definición}
 %\newtheorem{mydefn}{Definición}
 \newtheorem*{theorem*}{Teorema}
 \newtheorem{theorem}{Teorema}
@@ -50,7 +53,7 @@
 \setlength{\parskip}{0.3cm}
 
 
-\title{Aproximación discreta de la ecuación de Vlasov}
+\title{Aproximación discreta de la ecuación de Vlasov-Poisson}
 \author{
 	Ignacio Cordón
 }
@@ -64,10 +67,12 @@
 \tableofcontents
 \pagebreak
 
+El presente trabajo está principalmente basado en el artículo \cite{Schaeffer}. Introducimos primeramente las ecuaciones de Vlasov y de Vlasov-Poisson. A continuación proporcionamos una serie de preliminares para ecuaciones de Vlasov-Poisson con condición inicial esféricamente simétrica y de soporte compacto, para finalmente introducir un método numérico para aproximar las soluciones que hace uso de dicha simetría esférica.
+
 \section{Introducción}
 En la naturaleza podemos encontrar 4 estados de la materia: sólido, líquido, gaseoso y plasma. Este último se alcanza con grandes temperaturas a las que los electrones de los átomos abandonan la órbita alrededor del núcleo al que pertenecen, dando lugar a una mezcla de iones, electrones y particulas gobernadas por fuerzas electromagnéticas. Este estado de la materia cobra especial relevancia en procesos como la fusión termonuclear, para la que se necesitan grandes temperaturas.  
 
-La ecuación de \textit{Vlasov} modeliza la evolución de las partículas de un plasma desde un punto de vista estadístico-físico:
+La \textit{ecuación de Vlasov} es la encargada de modelar la evolución de las partículas de un plasma desde un punto de vista estadístico-físico:
 
 \begin{equation}
  \frac{\partial f}{\partial t} + v \frac{\partial f}{\partial x} + \frac{q}{m} (E + v\times B) \cdot \frac{\partial f}{\partial v} = 0
@@ -76,7 +81,7 @@ La ecuación de \textit{Vlasov} modeliza la evolución de las partículas de un 
 donde:
 
 \begin{itemize}
- \item $f = f(x,v,t)$ es una función de densidad representando la probabilida de tener una partícula con posición $x \in \mathbb{R}^3$ y velocidad $v \in \mathbb{R}^3$ en un instante de tiempo $t$.
+ \item $f:\mathbb{R}^3 \times \mathbb{R}^3 \times \mathbb{R}^{+}_0 \rightarrow \mathbb{R}$ es una función de densidad asociada a la probabilidad de tener una partícula con posición $x \in \mathbb{R}^3$ y velocidad $v \in \mathbb{R}^3$ en un instante de tiempo $t$. 
  \item $E$ representa el campo eléctrico.
  \item $B$ representa el campo de inducción magnética.
  \item $F(x,t) = \frac{q}{m}(E + v\times B)$ es la fuerza de Lorentz.
@@ -93,8 +98,8 @@ El campo electromagnético viene dado por las ecuaciones de Maxwell:
 
 donde 
 \begin{align*}
-\rho(x,t) = q \int f(x,v,t) dv\\
-J(x,t) = q \int (x,v,t) v dv
+\rho(x,t) &= q \int_{\mathbb{R}^3} f(x,v,t) dv\\
+J(x,t) &= q \int_{\mathbb{R}^3} f(x,v,t) v dv
 \end{align*}
 
 Cuando el campo magnético es despreciable en comparación con el eléctrico, las ecuaciones de Maxwell quedan reducidas a:
@@ -111,55 +116,123 @@ Bajo ciertas condiciones geométricas, $\nabla \times E = 0$ implica que existe 
 \end{align}
 
 
-La ecuación de Vlasov-Poisson modela el comportamiento de partículas sometidas a un campo eléctrico sin colisiones:
+La \textit{ecuación de Vlasov-Poisson} modela el comportamiento de partículas sometidas a un campo eléctrico sin colisiones:
 
 \begin{align}
 \label{eqn:v-poisson}
  \frac{\partial f}{\partial t} + v \nabla_x f + F(x,t) \cdot \nabla_v f = 0\\
  F(x,t) = - \nabla_x U(x,t) \nonumber \\ 
- U(x,t) = \gamma \int \frac{\sigma(y,t)}{|x-y|} dy \nonumber \\
- \sigma(x,t) = \int f(x,v,t) dv \nonumber
+ U(x,t) = \gamma \int_{\mathbb{R}^3} \frac{\sigma(y,t)}{|x-y|} dy \nonumber \\
+ \sigma(x,t) = \int_{\mathbb{R}^3} f(x,v,t) dv \nonumber
 \end{align}
 
-donde $f:\mathbb{R}^3 \times \mathbb{R}^3 \times \mathbb{R}^{+}_0 \rightarrow \mathbb{R}$ modela la densidad de partículas en el espacio de fases, $\gamma = -1$ en el caso gravitacional y $+1$ en el caso Coulombiano.
+donde $\gamma = -1$ en el caso gravitacional y $\gamma = 1$ en el caso Coulombiano.
 
 El problema de Cauchy consiste en resolver \eqref{eqn:v-poisson} con condición inicial $f(x,v,0) = f_0(x,v)$.
 
-La existencia de solución global es un problema abierto (está probada la existencia local en ciertos casos particulares).
+\section{Vlasov-Poisson con $f_0$ esféricamente simétrica}
+Partimos de dos resultados claves: la definición de simetría esférica, y el hecho de que si la condición inicial para la ecuación de Vlasov-Poisson es esféricamente simétrica la solución de \eqref{eqn:v-poisson} también lo es, resultado demostrado en \cite{Batt}.
 
-\section{Preliminares}
-Dada $f_0(x,v) = \phi(|x|, |v|, \sphericalangle(x,v))$ donde $\phi \in C_0^1(]0,+\infty[^2 \times ]0,+\pi[)$. Llamando $r = |x|, u = |v|, \alpha = \sphericalangle(x,v) = cos^{-1}\left(\frac{x\cdot v}{|x||v|}\right)$, \cite{Batt} prueba que la solución del problema de Cauchy, $f$, depende únicamente de $r, u, \alpha, t$, esto es:
+\begin{definition}
+ Una función $f_0:\mathbb{R}_3 \times \mathbb{R}_3 \rightarrow \mathbb{R}$ se dice esféricamente simétrica si y solo sii: 
+ \[
+ f_0(x,v) = f_0(Ax,Av)
+ \] 
+ donde $(x,v) \in \mathbb{R}^3\times \mathbb{R}^3$ arbitrario y $A\in O(n)$ es una isometría arbitraria.
+\end{definition}
 
+\begin{fact}
+ $f_0:\mathbb{R}_3 \times \mathbb{R}_3  \rightarrow \mathbb{R}$ es esféricamente simétrica si y solo podemos encontrar $\phi_0:[0,+\infty[ \times [0,+\infty[ \times [0, \pi]  \rightarrow \mathbb{R}$ verificando $f_0(x,v) = \phi_0(|x|, |v|, \sphericalangle(x,v))$.
+ \label{char:sph-symm}
+\end{fact}
+
+\begin{proof}
+
+ Si $f_0(x,v) = \phi(|x|,|v|,\sphericalangle(x,v))$ entonces dada $A\in O(n)$ isometría tenemos $f_0(Ax, Av) = \phi_0(|Ax|, |Av|, \sphericalangle(Ax, Av)) = \phi_0(|x|, |v|, \sphericalangle(x,v))$, puesto que las isometrías conservan la norma y los ángulos.
+ 
+ Sean $x,v,x',v'\in \mathbb{R}^3$ con $|x| = |x'|$, $|v| = |v'|$ y verificándose $\sphericalangle(x,v) = \sphericalangle(x',v')$ y sea $A$ la isometría verificando $Ax = x'$ y $Ay = y'$. Entonces $f_0(x,v) = f_0(x',v')$.
+ 
+ Por tanto podemos definir $\phi_0(x,u,\alpha) = f_0(x,v)$ donde $x,v\in\mathbb{R}^3$ arbitrarios tales que $\sphericalangle(x,v) = \alpha, |x|=r, |v|=u$.
+\end{proof}
+
+\begin{fact}
+Dada $f_0(x,v) = \phi_0(|x|, |v|, \sphericalangle(x,v))$ donde $\phi_0 \in C_0^1(]0,+\infty[^2 \times ]0,+\pi[)$, con $\phi_0\ge 0$. Entonces la solución de Vlasov-Poisson con condición inicial $f_0$ es esféricamente simétrica:
+\begin{equation*}
+f(x,v,t) = f(Ax, Av, t) \quad \forall x,v\in \mathbb{R}^3 \quad \forall A \in O(3)
+\end{equation*}
+\end{fact}
+
+Notaremos a partir de ahora $r = |x|, u = |v|, \alpha = \sphericalangle(x,v) = cos^{-1}\left(\frac{x\cdot v}{|x||v|}\right)$. 
+
+Usando la anterior notación y \cref{char:sph-symm}, la solución del problema de Cauchy, $f$, depende únicamente de $r, u, \alpha, t$. Por tanto existe $\phi \in C^1(]0,+\infty[^2\times ]0,\pi[ \times [0,+\infty[)$ verificando:
 \begin{equation}
 \label{eqn:f=phi}
-f(x,v,t) = \phi(r,u,\alpha, t)
+f(x,v,t) = \phi(r,u,\alpha, t) \quad \forall x,v,t
 \end{equation}
 
-y que además se verifica, llamando:
+A continuación damos un resultado básico de teoría de EDPs.
+\begin{lemma}
+ Sea $u$ una función armónica en el disco $B(0,r)$. Entonces:
+ \[
+  \frac{1}{|C(0,r)|}\int_{C(0,r)} u(x) dS_x = u(0)
+ \]
+ \label{lemma:median-h}
+\end{lemma}
 
+\begin{fact}
+Sea $\phi_0 \in C_0^1(]0,+\infty[^2 \times ]0,+\pi[)$ con $\phi_0 \ge 0$ y $f_0 = \phi_0$ condición inicial de la ecuación de Vlasov-Poisson. Entonces se cumple, para las cantidades definidas en \eqref{eqn:v-poisson}:
 \begin{align*}
- & M(r,t) = 4\pi \int_0^r \rho(s,t) s^2 ds\\
- & \rho(s, t) = 2\pi \int_0^{\infty} \left(\int_0^\pi \phi(s, u, \alpha, t) sen(\alpha) d\alpha \right)u^2 du
-\end{align*}
-
-cumple que:
-
-\begin{align*}
+ & \sigma(x,t) = \sigma(|x|,t) := \rho(r,t)\\
+ & \rho(r, t) = 2\pi \int_0^{\infty} \left(\int_0^\pi \phi(r, u, \alpha, t) sen(\alpha) d\alpha \right)u^2 du\\
  & U(x,t) = 4\pi\gamma \int_0^{+\infty} \frac{\rho(s,t)}{\max(r,s)} s^2 ds\\
  & F(x,t) = \gamma M(r,t) r^{-3} x\\
 \end{align*}
+donde definimos:
+\begin{align*}
+ M(r,t) &= \int_{\{x\in \mathbb{R}^3: |x|<r\}} \sigma(x,t) dx = 4\pi \int_0^r\rho(s,t) s^2 ds\\
+ M &= \int_{\mathbb{R}^3} \sigma(x,t) dx = 4\pi \int_0^{+\infty}\rho(s,t) s^2 ds\\
+\end{align*}
+\end{fact}
+\begin{proof}
+Fijamos $A \in O(3)$. Entonces, usando que $A$ es una matriz ortogonal:
+ \[
+ \sigma(Ax,t) = \int_{\mathbb{R}^3} f(Ax,v,t) dv \int_{\mathbb{R}^3} f(Ax,Av,t) dv = \int_{\mathbb{R}^3} f(x,v,t) dv = \sigma(x,t)
+ \]
+ 
+ Esto prueba que $\sigma(r,t) = \sigma(x,t)$ para todo $x\in \mathbb{R}^3, t\ge 0$.
+ 
+ Tomando ahora $\mathcal{J}:[0,+\infty[ \times [0,\pi[ \times [0,2\pi[ \rightarrow \mathbb{R}^3$, verificando:
+ \[\mathcal{J}(r,\alpha, \varphi) = (r\cdot sen(\alpha) \cdot cos(\varphi), r\cdot sen(\alpha) \cdot sen(\varphi), r\cdot cos(\alpha))\]
+ tendríamos $det(D\mathcal{J}) = u^2 \cdot sent(\alpha)$. Por teorema de cambio de variable: 
+ \begin{align*}
+  \sigma(|x|,t) = \sigma(x,t) &= \int_{\mathbb{R}^3} f(x,v,t) dv = \int_{\mathbb{R}^3} \phi(r,u,\alpha,t) dv \\
+  &= \int_0^{+\infty} \int_0^\pi \int_0^{2\pi} \phi(r,u,\alpha,t) u^2 \cdot sen(\alpha) d\varphi d\alpha du \\
+  &= 2\pi \int_0^{+\infty} \int_0^\pi \phi(r,u,\alpha,t) u^2 \cdot sen(\alpha) d\alpha du
+ \end{align*}
+ 
+ Fijamos $x\in \mathbb{R}^3$, y llamamos $r=|x|$.
+ \begin{align*}
+ U(x,t) &= \gamma \int_{\mathbb{R}^3} \frac{\sigma(y,t)}{|x-y|} dy = \int_0^r \Bigg(\int_{C(0,s)} \frac{\sigma(y,t)}{|x-y|} dS_y\Bigg)ds + 
+ \int_r^{+\infty} \Bigg(\int_{C(0,s)} \frac{\sigma(y,t)}{|x-y|} dS_y\Bigg)ds \\
+ &= \int_0^r \frac{\sigma(s,t)\cdot |C(0,s)|}{|C(0,s)|} \Bigg(\int_{C(0,s)} \frac{dS_y}{|x-y|}\Bigg) ds + \int_r^{+\infty} \sigma(s,t) \Bigg(\int_{C(0,s)} \frac{dS_y}{|x-y|}\Bigg) ds \\
+ &\underset{\textrm{lema \ref{lemma:median-h}}}{=} \int_0^r \frac{4\pi s^2 \sigma(s,t)}{r} ds + 
+ \int_r^{+\infty} \sigma(s,t) \Bigg(\int_{C(0,s)} \frac{dS_y}{|x-y|} \Bigg) ds \\
+ &= \int_0^r \frac{4\pi s^2 \sigma(s,t)}{r} ds + 
+ \int_r^{+\infty} \frac{4\pi s^2 \sigma(s,t)}{s} ds = \int_0^{+\infty} \frac{4\pi s^2 \sigma(s,t)}{\max(r,s)} ds
+ \end{align*}
+ 
+ $F(x,t)$ se puede deducir de fácilmente a partir de $\nabla_x U(x,t)$.
+\end{proof}
 
-De \eqref{eqn:f=phi} y de \eqref{eqn:v-poisson} deducimos:
-
+De \eqref{eqn:v-poisson} y de \eqref{eqn:f=phi} deducimos:
 \[
 \partial_t \phi + v \nabla_x \phi + F(x,t) \cdot \nabla_v \phi = 0\\
 \]
 
 donde usando:
-
 \begin{align*}
  v \nabla_x \phi(r, u, \alpha, t) &= v \left(\partial_r \phi \cdot \frac{\partial r}{\partial x} + \partial_\alpha \phi \cdot \frac{\partial \alpha}{\partial x} \right)\\
- &= v\left(\partial_r \phi \frac{x}{|x|} + \partial_\alpha \phi \cdot \frac{-1}{\sqrt{1 - \left(\frac{xv}{|x||v|}\right)^2}} \cdot \frac{1}{|v||x|^2} \cdot\left(v|x| - xv \frac{x}{|x|}\right)\right)\\
+ &= v\left(\partial_r \phi \cdot \frac{x}{|x|} + \partial_\alpha \phi \cdot \frac{-1}{\sqrt{1 - \left(\frac{xv}{|x||v|}\right)^2}} \cdot \frac{1}{|v||x|^2} \cdot\left(v|x| - xv \frac{x}{|x|}\right)\right)\\
  &= \frac{xv}{|x||v|} u \cdot\partial_r \phi - \partial_\alpha \phi \cdot \frac{1}{\sqrt{1 - \left(\frac{xv}{|x||v|}\right)^2}} \cdot \frac{|v|^2|x|^2 - (xv)^2}{|v|^2|x|^2} \frac{|v|}{|x|}\\
  &\underset{\left\{\begin{array}{c} \frac{xv}{|x||v|} = cos(\alpha)\\ \alpha \in ]0,\infty[\end{array}\right.}{=} \partial_r \phi \cdot cos(\alpha) u - \partial_\alpha \phi \cdot sen(\alpha) \frac{u}{r}
 \end{align*}
@@ -167,7 +240,7 @@ donde usando:
 y  por otro lado:
 \begin{align*}
 F(x,t) \nabla_v \phi(r, u, \alpha, t) &= F(x,t) \left(\partial_u \phi \cdot \frac{\partial u}{\partial v} + \partial_\alpha \phi \cdot \frac{\partial \alpha}{\partial v} \right) \\
-&= F(x,t) \left(\partial_u \phi \frac{v}{|v|} - \partial_\alpha \phi \cdot \frac{1}{\sqrt{1 - \left(\frac{xv}{|x||v|}\right)^2}} \cdot \frac{1}{|x||v|^2} \cdot\left(x|v| - xv \frac{v}{|v|}\right)\right) \\
+&= F(x,t) \left(\partial_u \phi \cdot \frac{v}{|v|} - \partial_\alpha \phi \cdot \frac{1}{\sqrt{1 - \left(\frac{xv}{|x||v|}\right)^2}} \cdot \frac{1}{|x||v|^2} \cdot\left(x|v| - xv \frac{v}{|v|}\right)\right) \\
 &= |x| \gamma M(r,t) r^{-3} x \cdot \partial_u \phi \frac{v}{|v||x|}\\
 &- \gamma M(r,t) r^{-3} x \cdot \partial_\alpha \phi \cdot \frac{1}{\sqrt{1 - \left(\frac{xv}{|x||v|}\right)^2}} \cdot \frac{1}{|x||v|^2} \cdot\left(x|v| - xv \frac{v}{|v|}\right)\\
 &= \partial_u \phi \cdot \gamma M(r,t) r^{-2} cos(\alpha) - \partial_\alpha \phi \cdot \gamma M(r,t) r^{-3} \cdot sen(\alpha) \frac{r}{u} \\
@@ -183,7 +256,7 @@ Luego:
         cos(\alpha)u\\
         \gamma M(r,t) r^{-2} cos(\alpha)\\
         (-\gamma M(r,t) r^{-2} u^{-1} - ur^{-1})\cdot sen(\alpha)
-    \end{array}\right)}_{\mathcal{F}(r,u,\alpha)}
+    \end{array}\right)}_{\mathcal{A}(r,u,\alpha,t)}
     \cdot \nabla_{(r,u,\alpha)} \phi = 0
 \end{equation}
 
@@ -195,48 +268,102 @@ verificando:
 
 \begin{equation}
 \label{eqn:sph-cc}
-\partial_t X(t; 0,(r,u,\alpha)) = \mathcal{F}(r,u,\alpha)
+\partial_t X(t; 0,(r,u,\alpha)) = \mathcal{A}\big(X(t;0(r,u,\alpha)),t\big) = \mathcal{A}\big(z,q,\theta,t\big)
 \end{equation}
 
-Desde \eqref{eqn:sph-cc} deducimos que $zqsen(\theta)$ es independiente de $t$ (derivando sobre $t$) y también, derivando la primera componente de $X(t)$, y teniendo en cuenta que $\left(\begin{array}{c} z(0)\\ q(0)\\ \theta(0) \end{array}\right) = 
-\left(\begin{array}{c} r\\ u\\ \alpha\end{array}\right)$ llegamos a:
+\begin{fact} Se cumple:
+ $zq \cdot sen(\theta)$ es independiente de $t$ y además $z$ es solución de la ecuación diferencial:
+ \begin{align}
+ z_{tt} - (ru \cdot sen\alpha)^2 \cdot z^{-3} - \gamma M(z,t) z^{-2} = 0\nonumber\\
+ z(r,u,\alpha, 0) = r \nonumber\\
+ z_t(r,u,\alpha,0) = u\cdot cos(\alpha)
+ \label{eqn:curves}
+ \end{align}
+\end{fact}
+\begin{proof}
+ \begin{align*}
+  \partial_t(zq \cdot sen(\theta)) &= z_t q\cdot sen(\theta) + zq_t \cdot sen(\theta) + zq \cdot cos(\theta) \cdot \theta_t \\
+  &= cos(\theta) q^2 \cdot sen(\theta) + z\gamma M(z,t) z^{-2} \cdot cos(\theta) \cdot sen(\theta) \\
+  &- zq \cdot cos(\theta) \Bigg(\gamma M(z,t) z^{-2} q^{-1} \cdot sen(\theta)  + qz^{-1}\cdot sen(\theta) \Bigg) = 0
+ \end{align*}
 
+Por otro lado, derivando la primera componente de $X(t)$, y teniendo en cuenta que $\left(\begin{array}{c} z(0)\\ q(0)\\ \theta(0) \end{array}\right) = 
+\left(\begin{array}{c} r\\ u\\ \alpha\end{array}\right)$ y por tanto $zq\cdot sen(\theta) = ru\cdot sen(\alpha)$:
 \begin{equation}
-\label{eqn:curves}
- z_{tt} - (ru sen\alpha)^2 \cdot z^{-3} - \gamma M(z,t) z^{-2} = 0
+ z_{tt} - (ru \cdot sen(\alpha))^2 \cdot z^{-3} - \gamma M(z,t) z^{-2} = 0
 \end{equation}
+\end{proof}
 
-Llamando $\mathcal{C} \subseteq ]0, +\infty[^2 \times ]0, \pi[$ al soporte de $\phi_0$, puede verse fácilmente que existen $r_0, R_0, l_0, L_0, U_0, \rho_0$, dependientes sólo de $\phi_0$, verificando que para todo $(r,u,\alpha,t) \in \mathcal{C} \times ]0, +\infty[$ se cumple:
+\begin{lemma}
+Fijado $t\ge 0$, $\mathcal{J}_t:(x,v) \mapsto \bigg(X(t;0,x,v), V(t;0,x,v)\bigg)$ es un cambio de variable con jacobiano idénticamente $1$ para el problema de Vlassov-Poisson \eqref{eqn:v-poisson}.
+\label{lemma:cv-vp}
+\end{lemma}
+\begin{proof}
+Por simplicidad de notación, llamaremos:
+\begin{align*}
+(X_1, X_2, X_3) &:= X\\
+(X_4, X_5, X_6) &:= V\\
+\mathcal{J}(t,x,v) &:= \mathcal{J}_t(x,v)
+\end{align*}
 
+Sabemos que $\mathcal{J}_t(x,v)$ es una biyección de $\mathbb{R}^3 \times \mathbb{R}^3$ en sí mismo, por la teoría clásica de transporte, y con la notación antes descrita:
+ \[
+ det(D\mathcal{J}(t,x,v)) := det\bigg(\frac{\partial{X_i}}{\partial x_j}(t;0,x,v)\bigg)_{i,j}
+ \]
+
+ Por un teorema de clase sabemos:
+ \[
+ \frac{\partial det(D\mathcal{J}(t,x,v))}{\partial t} = det(D\mathcal{J}(t,x,v)) \cdot \underbrace{div_{x,v}((x,v) \mapsto (v,F(x,t)))}_0 = 0
+ \]
+ Luego $det(D\mathcal{J}(t,x,v)) = det(D\mathcal{J}(0,x,v)) = 1$.
+\end{proof}
+
+\begin{fact}
+Llamando $z = z(t;0,r,u,\alpha), q = q(t;0,r,u,\alpha), \theta = \theta(t;0,r,u,\alpha)$, tenemos que para todo $\varphi \in L^{\infty}(]0,+\infty[^2 \times ]0,\pi[)$:
+\[
+    \int_{\mathbb{R}^3}\int_{\mathbb{R}^3} \varphi(r,u,\alpha) \cdot \phi(r,u,\alpha,t) dv dx = 
+    \int_{\mathbb{R}^3}\int_{\mathbb{R}^3} \varphi(z,q,\theta) \cdot \phi_0(r,u,\alpha,t) dv dx
+\]
+
+En particular:
+\[
+M = 4\pi \int_0^{\infty} \rho(s,t) s^2 ds = \int_{\mathbb{R}^3} \int_{\mathbb{R}^3} \phi(r,u,\alpha,t) dv dx = \int_{\mathbb{R}^3}\int_{\mathbb{R}^3} \phi_0(r,u,\alpha,t) dv dx
+\]
+\end{fact}
+
+\begin{proof}
+Sean $X(t; 0, x_0, v_0), V(t; 0, x_0, v_0)$ las curvas características del problema \eqref{eqn:v-poisson} con $f_0$ esféricamente simétrica.
+
+ \begin{align*}
+ &\int_{\mathbb{R}^3}\int_{\mathbb{R}^3} \varphi(r,u,\alpha) \cdot \phi(r,u,\alpha,t) dv dx = \int_{\mathbb{R}^3}\int_{\mathbb{R}^3} \varphi(|x|,|v|,\sphericalangle(x,v)) \cdot f(x,v,t) dv dx \\
+ &= \int_{\mathbb{R}^3}\int_{\mathbb{R}^3} \varphi(|x|,|v|,\sphericalangle(x,v)) \cdot f_0(X(0;t,x,v)) dv dx \underset{\textrm{Haciendo el cambio } x,v \rightarrow \mathcal{J}_t(x,v)}{=}\\
+ &=\int_{\mathbb{R}^3}\int_{\mathbb{R}^3} \varphi\bigg(|X(t;0,x,v)|,|V(t;0,x,v)|,\sphericalangle\bigg(X(t;0,x,v), V(t;0,x,v)\bigg)\bigg) \cdot f_0(x,v) dv dx \\
+ &= \int_{\mathbb{R}^3}\int_{\mathbb{R}^3} \varphi(z,q,\theta) \cdot \phi_0(r,u,\alpha) dv dx
+ \end{align*}
+
+ donde se ha usado el lema \ref{lemma:cv-vp} en el cambio de variable y $X\bigg(0;t,X(t,0,x,v)\bigg) = (x,v)$
+\end{proof}
+
+
+Llamando $\mathcal{C} \subseteq ]0, +\infty[^2 \times ]0, \pi[$ al soporte de $\phi_0$, puede verse fácilmente que existen $r_0, R_0, l_0, L_0, U_0, \rho_0 > 0$, dependientes sólo de $\phi_0$, verificando que para todo $(r,u,\alpha,t) \in \mathcal{C} \times ]0, +\infty[$ se cumple:
 \begin{align}
  r_0 \le z(r,u,\alpha,t) \le R_0 + U_0 t \nonumber\\
  l_o \le ru \le L_0 \nonumber\\
- l_0 \le ru sen(\alpha) 0 = zq sen(\theta) \le L_0 \nonumber\\
+ l_0 \le ru \cdot sen(\alpha) = zq \cdot sen(\theta) \le L_0 \nonumber\\
  q(r,u,\alpha, t) \le U_0 \nonumber \\
  \rho(r,t) \le \rho_0 \label{eqn:zbounds}
 \end{align}
 
-Además tenemos que para todo $\varphi \in L^{\infty}(]0,+\infty[^2 \times ]0,\pi[)$:
-
-\[
-    \int_{\mathbb{R}^3}\int_{\mathbb{R}^3} \varphi(r,u,\alpha) \cdot \phi(r,u,\alpha,t) dv dx = 
-    \int_{\mathbb{R}^3}\int_{\mathbb{R}^3} \varphi(z,q,\theta) \cdot \phi_0(r,u,\alpha,t) dv_0 dx_0 = 
-\]
-
-donde en la última integral tenemos que $z,q,\theta$ son las curvas características verificando 
+donde en la última integral tenemos que $z,q,\theta$ son las curvas características de \eqref{eqn:sph-vlasov} verificando 
 \[
     \left(\begin{array}{c} z(0)\\ q(0)\\ \theta(0) \end{array}\right) = 
-    \left(\begin{array}{c} x_0\\ v_0\\ \theta=cos^{-1}\left(\frac{x_0 v_0}{|x_0||v_0|}\right) \end{array}\right)
+    \left(\begin{array}{c} r_0\\ u_0\\ \alpha_0 =\sphericalangle(x_0, v_0) \end{array}\right)
 \]
 
-En el caso particular $\varphi = 1$ tendríamos:
-
-\[ 
-    M = \int\int \phi_0(r,u,\alpha) dv_0 dx_0 = \int\int \phi(r,u,\alpha,t) dv dx = 4\pi \int_0^{\infty} \rho(s,t) s^2 ds 
-\]
+Usaremos una desigualdad fundamental para demostrar la última proposición de esta introducción: la desigualdad de Gronwall.
 
 \begin{lemma}[Desigualdad de Gronwall]
-Sean $\alpha, \beta, u$ funcones continuas, con $\alpha$ no decreciente, verificando para todo $t\in I$ intervalo:
+Sean $\alpha, \beta \ge 0, u$ funciones continuas, con $\alpha$ no decreciente, verificando para todo $t\in I$, siendo $I$ es un intervalo de tipo $[a,b], [a,b[$ o $[a,+\infty[$, se cumple:
 \[
  u(t) \le \alpha(t) + \int_a^t \beta(s) u(s)
 \]
@@ -259,18 +386,20 @@ Entonces: $u(t) \le \alpha(t) \cdot exp\left\{\int_a^t \beta(s) ds\right\}$ para
  \end{align*}
  
  
- Usaremos:
+ Usando que $sen$ es una función Lipschitziana con constante de Lipschitzianidad $1$:
  \begin{align}
- |r_1 u_1 sen(\alpha_1) - r_2 u_2 sen(\alpha_2)| &= |r_1 u_1 (sen(\alpha_1) - sen(\alpha_2) + sen(\alpha_2)) - (r_2 - r_1 + r_1) u_2 sen(\alpha_2)| \nonumber \\
- &\le r_1 u_1 |sen(\alpha_1) - sen(\alpha_2)| + r_1|u_1 - u_2| sen(\alpha_2) + u_2|r_1 - r_2| sen(\alpha_2) \nonumber\\
- &\underset{|sen(\alpha_1) - sen(\alpha_2)| \le |\alpha_1 - \alpha_2|}{\le} L_0|\alpha_1 - \alpha_2| + R_0|u_1 - u_2| + U_0|r_1 - r_2| \le K|c_1 - c_2|
+ \bigg|r_1 u_1 \cdot sen(\alpha_1) - r_2 u_2 \cdot sen(\alpha_2)\bigg| &= \nonumber\\
+ \bigg|r_1 u_1 (sen(\alpha_1) - sen(\alpha_2) + sen(\alpha_2)) - (r_2 - r_1 + r_1) u_2 \cdot sen(\alpha_2)\bigg| \nonumber \\
+ \le r_1 u_1 \bigg|sen(\alpha_1) - sen(\alpha_2)\bigg| + r_1\bigg|u_1 - u_2\bigg| \cdot sen(\alpha_2) + u_2\bigg|r_1 - r_2\bigg| \cdot sen(\alpha_2) \nonumber\\
+ \underset{|sen(\alpha_1) - sen(\alpha_2)| \le |\alpha_1 - \alpha_2|}{\le} L_0|\alpha_1 - \alpha_2| + R_0|u_1 - u_2| + U_0|r_1 - r_2| \le K|c_1 - c_2|
  \label{ineq:sins}
  \end{align}
  
  Análogamente:
  \[
-  |r_1 u_1 cos(\alpha_1) - r_2 u_2 cos(\alpha_2)| \le K|c_1 - c_2|
+  \bigg|r_1 u_1 cos(\alpha_1) - r_2 u_2 cos(\alpha_2)\bigg| \le K|c_1 - c_2|
  \]
+ donde s.p.g. podemos suponer idéntica constante $K$.
  
  Además:
  
@@ -279,36 +408,38 @@ Entonces: $u(t) \le \alpha(t) \cdot exp\left\{\int_a^t \beta(s) ds\right\}$ para
 \]
 
  
- 
- Así, para todo $t\ge 0$ se cumple:
- 
+ Así, para todo $t\ge 0$ se cumple, usando fuertemente \eqref{eqn:curves}:
  \begin{align*}
   |z_1'' - z_2''| &=
-  \bigg|(r_1 u_1 sen(\alpha_1))^2 z_1^{-3} - (r_2 u_2 sen(\alpha_2))^2 z_2^{-3} + \gamma M(z_1, t) z_1^{-2} - \gamma M(z_2, t) z_2^{-2} \bigg| \\
-  &= \bigg|(r_1 u_1 sen(\alpha_1))^2 z_1^{-3} - (r_2 u_2 sen(\alpha_2))^2 (z_2^{-3} - z_1^{-3} + z_1^{-3}) \\
+  \bigg|(r_1 u_1 \cdot sen(\alpha_1))^2 z_1^{-3} - (r_2 u_2 \cdot sen(\alpha_2))^2 z_2^{-3} + \gamma M(z_1, t) z_1^{-2} - \gamma M(z_2, t) z_2^{-2} \bigg| \\
+  &= \bigg|(r_1 u_1 \cdot sen(\alpha_1))^2 z_1^{-3} - (r_2 u_2 \cdot sen(\alpha_2))^2 (z_2^{-3} - z_1^{-3} + z_1^{-3}) \\
   &+ \gamma M(z_1, t) z_1^{-2} - \gamma M(z_2, t) (z_2^{-2} - z_1^{-2} + z_1^{2}) \bigg| \\
-  &\le \bigg|(r_1 u_1 sen(\alpha_1)^2 - (r_2 u_2 sen(\alpha_2)^2 \bigg| z_1^{-3} + (r_2 u_2 sen(\alpha_2))^2 \bigg|z_1^{-3} - z_2^{-3}\bigg| \\
+  &\le \bigg|(r_1 u_1 \cdot sen(\alpha_1)^2 - (r_2 u_2 \cdot sen(\alpha_2)^2 \bigg| z_1^{-3} + (r_2 u_2 \cdot sen(\alpha_2))^2 \bigg|z_1^{-3} - z_2^{-3}\bigg| \\
   &+ \bigg|M(z_1,t) - M(z_2,t) \bigg|z_1^{-2} + M(z_2, t) \bigg|z_1^{-2} - z_2^{-2}\bigg| \\
-  &\le (r_1 u_1 sen(\alpha_1)+ r_2 u_2 sen(\alpha_2))\bigg|r_1 u_1 sen(\alpha_1) - r_2 u_2 sen(\alpha_2)\bigg| r_0^{-3} \\
+  &\underset{\textrm{\eqref{eqn:zbounds}}}{\le} \bigg|r_1 u_1 \cdot sen(\alpha_1)+ r_2 u_2 \cdot sen(\alpha_2))\bigg|\bigg|r_1 u_1 \cdot sen(\alpha_1) - r_2 u_2 \cdot sen(\alpha_2)\bigg| r_0^{-3} \\
   &+ L_0^2 z_1^{-3}z_2^{-3} \bigg|z_2^3 - z_1^3 \bigg| + \bigg|M(z_1,t) - M(z_2,t)\bigg| r_0^{-2} + Mz_1^{-2} z_2^{-2} \bigg|z_2^2 - z_1^2\bigg| \\
-  &\le 2L_0 r_0^{-3}\bigg|r_1 u_1 sen(\alpha_1) - r_2 u_2 sen(\alpha_2)\bigg|
-  + L_0 r_0^{-6}(z_1^2 + z_1 z_2 + z_2^2)\bigg|z_1 - z_2\bigg|\\
-  &+ r_0^{-2}\bigg|M(z_1,t) - M(z_2,t)\bigg| + Mr_0^{-4}(z_1 + z_2) \bigg|z_1 - z_2\bigg| \le 2L_0 r_0^{-3} K|c_1 - c_2| \\
-  &+ L_0 r_0^{-6} 3(R_0 + U_0t)^2 |z_1 - z_2| + r_0^{-2} 4\pi (R_0 + U_0t)^2 \rho_0 |z_1 - z_2| + Mr_0^{-4} 2(R_0 + U_0t) |z_1 - z_2|\\
+  &\underset{\label{eqn:zbounds}}{\le} 2L_0 r_0^{-3}\bigg|r_1 u_1 \cdot sen(\alpha_1) - r_2 u_2 \cdot sen(\alpha_2)\bigg|
+  + L_0^{2} r_0^{-6}\bigg|z_1^2 + z_1 z_2 + z_2^2\bigg|\bigg|z_1 - z_2\bigg|\\
+  &+ r_0^{-2}\bigg|M(z_1,t) - M(z_2,t)\bigg| + Mr_0^{-4}\bigg|z_1 + z_2\bigg| \bigg|z_1 - z_2\bigg| \\
+  &\le 2L_0 r_0^{-3} K|c_1 - c_2| 
+  + L_0 r_0^{-6} 3(R_0 + U_0t)^2 |z_1 - z_2| \\
+  &+ r_0^{-2} 4\pi (R_0 + U_0t)^2 \rho_0 |z_1 - z_2| + Mr_0^{-4} 2(R_0 + U_0t) |z_1 - z_2|\\
   &= K|c_1 - c_2| + K(t)|z_1 - z_2|
  \end{align*}
  
- donde $K(t)$ es una función creciente.
+ donde $K(t)$ es una función creciente y se ha renombrado la constante $K$.
  
+ Se desprende:
  \begin{align*}
-  |z_1 - z_2| + |z_1' - z_2'| &= \left|r_1 - r_2 + \int_0^t (z_1' - z_2')\right| + \left|u_1 cos(\alpha_1) - u_2 cos(\alpha_2) + \int_0^t (z_1'' - z_2'') \right|\\
-  &\le |r_1 - r_2| + |u_1 cos(\alpha_1) - u_2 cos(\alpha_2)| + \int_0^t \bigg(|z_1' - z_2'| + |z_1'' - z_2''|\bigg) \\
-  &\le |r_1 - r_2| + |u_1 cos(\alpha_1) - u_2 cos(\alpha_2)| + \int_0^t \bigg(Q(s) + K|c_1 - c_2| + K(s)Q(s)\bigg) ds \\
-  &\le |r_1 - r_2| + |u_1 cos(\alpha_1) - u_2 cos(\alpha_2)| + Kt|c_1 - c_2| + (1 + K(t)) \int_0^t Q(s) ds\\
-  &\le \widetilde{K}(t)|c_1 - c_2| + \widetilde{K}(t) \int_0^t Q(s) ds
+  |z_1 - z_2| + |z_1' - z_2'| = \left|r_1 - r_2 + \int_0^t (z_1' - z_2')\right| + \left|u_1 \cdot cos(\alpha_1) - u_2 \cdot cos(\alpha_2) + \int_0^t (z_1'' - z_2'') \right|\\
+  \le |r_1 - r_2| + |u_1 \cdot cos(\alpha_1) - u_2 \cdot cos(\alpha_2)| + \int_0^t \bigg(|z_1' - z_2'| + |z_1'' - z_2''|\bigg) \\
+  \le |r_1 - r_2| + |u_1 \cdot cos(\alpha_1) - u_2 \cdot cos(\alpha_2)| + \int_0^t \bigg(Q(s) + K|c_1 - c_2| + K(s)Q(s)\bigg) ds \\
+  \le |r_1 - r_2| + |u_1 \cdot cos(\alpha_1) - u_2 \cdot cos(\alpha_2)| + Kt|c_1 - c_2| + (1 + K(t)) \int_0^t Q(s) ds\\
+  \le \widetilde{K}(t)|c_1 - c_2| + \widetilde{K}(t) \int_0^t Q(s) ds
  \end{align*}
-
- para cierta $\widetilde{K} \ge 1$ creciente. Pero $\widetilde{K}(t)$ es creciente, luego para todo $0 \le s \le t$:
+ para cierta $\widetilde{K} \ge 1$ creciente. 
+ 
+ Al ser $\widetilde{K}(t)$ es creciente, para todo $0 \le s \le t$:
  \[
     |z_1(s) - z_2(s)| + |z_1'(s) - z_2'(s)|  \le \widetilde{K}(t)|c_1 - c_2| + \widetilde{K}(t) \int_0^t Q(s)
  \]
@@ -317,7 +448,7 @@ Entonces: $u(t) \le \alpha(t) \cdot exp\left\{\int_a^t \beta(s) ds\right\}$ para
  \[
   Q(t) \le \widetilde{K}(t)|c_1 - c_2| + \widetilde{K}(t) \int_0^t Q(s) \le \widetilde{K}(T)|c_1 - c_2| + \widetilde{K}(T) \int_0^t Q(s)ds
  \]
- y por la desigualdad de Gronwall:
+ y por la desigualdad de Gronwall \ref{ineq:gronwall}:
  \[
   Q(t) \le \widetilde{K}(T)|c_1 - c_2| \cdot e^{C(T)t}
  \]
@@ -329,6 +460,7 @@ Entonces: $u(t) \le \alpha(t) \cdot exp\left\{\int_a^t \beta(s) ds\right\}$ para
  
 \end{proof}
 
+\newpage
 \section{Modelo discreto}
 Asumamos que $C$, soporte de $\phi_0$, puede escribirse como $C= \bigcup_{i=1}^N S_i$ donde $S_i$ son conexos, y que:
 \[
@@ -337,9 +469,9 @@ Asumamos que $C$, soporte de $\phi_0$, puede escribirse como $C= \bigcup_{i=1}^N
 
 Fijamos $c_i = (r_i, u_i, \alpha_i) \in S_i$ y llamamos:
 \begin{itemize}
-\item $L_i = r_i u_i sen(\alpha_i)$
-\item $M_i = \int_{S_i} \phi_0(r,u,\alpha) dxdv$
-\item $z_i = z(c_i)$
+\item $L_i = r_i u_i \cdot sen(\alpha_i)$
+\item $M_i = \int_{S_i} \phi_0(r,u,\alpha) dv dx$
+\item $z_i(t) = z(t;0,c_i)$
 \item $\xi(r) = \min\left(\frac{r}{\delta},1\right) \mathds{1}_{]0,\infty[}$
 \end{itemize}
 
@@ -347,18 +479,19 @@ $z_i$ cumpliría la ecuación \eqref{eqn:curves}, luego:
 \begin{align*}
  z_i'' - L_i^2 z_i^{-3} - \gamma M(z_i, t) z_i^{-2} = 0\\
  z_i(0) = r_i\\
- z_i'(0) = u_i cos(\alpha_i)
+ z_i'(0) = u_i \cdot cos(\alpha_i)
 \end{align*}
 
-Tomamos las ecuaciones diferenciales, para $i=1, \ldots, N$:
+Tomaremos las siguientes ecuaciones diferenciales, que intuitivamente deberían aproximar $z_i$ para $i=1, \ldots, N$:
 \begin{align}
  \label{eqn:approx-curves}
- \widetilde{z}_i'' - L_i^{2} \widetilde{z}_i^{-3} - \gamma \widetilde{M}(\widetilde{z}_i, t) \widetilde{z}_i^{-2} = 0\\
- \widetilde{z}_i(0) = r_i, \quad \widetilde{z}'_i(0) = u_i cos(\alpha_i) \nonumber
+ \widetilde{z}_i'' - L_i^{2} \widetilde{z}_i^{-3} - \gamma \widetilde{M}(\widetilde{z}_i, t) \widetilde{z}_i^{-2} = 0 \nonumber\\
+ \widetilde{z}_i(0) = r_i \nonumber\\
+ \widetilde{z}'_i(0) = u_i \cdot cos(\alpha_i)
 \end{align}
-donde $\widetilde{M}(r,t) = \sum_{i=1}^N M_i \xi(r-\widetilde{z}_i(t))$.
+donde $\widetilde{M}(r,t) = \sum_{i=1}^N M_i \xi(r-\widetilde{z}_i(t))$, que se puede pensar como una suma ponderada de las masas de los conexos cuya $z_i \le r$.
 
-Con estas condiciones, \eqref{eqn:approx-curves} y como $r_0 \le r_i \le R_0$, puede tomarse la solución maximal (definida en $]0,T[$), verificando:
+Con estas condiciones, \eqref{eqn:approx-curves} y como $r_0 \le r_i \le R_0$, puede tomarse la solución maximal (definida en $[0,T[$), verificando:
 \begin{equation}
     \frac{1}{2}r_0 \le \widetilde{z}_i(t) \le 2(R_0 + U_0t)
 \label{eqn:barzbounds}
@@ -377,7 +510,6 @@ Además definiremos $\dtilde{M}(r,t) = \sum_{i=1}^N M_i \xi(r-z_i(t))$.
 
 \begin{proof}
  Fijamos $t \ge 0, c'\in C$ y llamamos $z = z(c',t)$. Definimos:
- 
  \begin{align*}
  J_1 &= \{j: z_j(t) \le z\}\\
  J_2 &= \{j: z_j(t) \le z - K(t)\delta\}
@@ -395,12 +527,12 @@ Además definiremos $\dtilde{M}(r,t) = \sum_{i=1}^N M_i \xi(r-z_i(t))$.
  
  
  \begin{align*}
- \dtilde{M}(z,t) &= \sum_{j = 1}^M M_j \xi(z - z_j(t)) \underset{z >       
- z_j(t) \Rightarrow \xi(z - z_j(t)) = 0}{\le} \sum_{j \in I} M_j\\
-  &= \int_{\bigcup_{j\in J_1} S_j} \phi_0(r,u,\alpha) dx dv \le \int_{\overline{A}} \phi_0(r,u,\alpha) dx dv\\
-  &= \int_{\{r \le z + K(t)\delta\}} \phi(r,u,\alpha,t) dx dv = M(z + K(t)\delta, t)\\
-  & = M(z,t) + \int_{z}^{z+K(t)\delta} 4\pi s^2 \rho(s,t) ds \\ 
-  &\le M(z,t) + 4\pi \rho_0 (R_0 + K(t) \delta)^2 K(t) \delta = M(z, t) + \ktilde_1(t) \delta
+ \dtilde{M}(z,t) &= \sum_{j = 1}^M M_j \xi(z - z_j(t)) \underset{z <      
+ z_j(t) \Rightarrow \xi(z - z_j(t)) = 0}{\le} \sum_{j \in J_1} M_j\\
+  &= \int_{\bigcup_{j\in J_1} S_j} \phi_0(r,u,\alpha) dv dx \le \int_{\overline{A}} \phi_0(r,u,\alpha) dv dx\\
+  &= \int_{\{(x,v):r \le z + K(t)\delta\}} \phi(r,u,\alpha,t) dv dx = M(z + K(t)\delta, t)\\
+  & = M(z,t) + 4\pi \int_{z}^{z+K(t)\delta} s^2 \rho(s,t) ds \\ 
+  &\le M(z,t) + 4\pi \rho_0 (R_0 + U_0t + K(t) \delta)^2 K(t) \delta = M(z, t) + \ktilde_1(t) \delta
  \end{align*}
 
  Por otro lado, si $c \in S_j$ y $z(c,t) \le z - 2K(t) \delta$ entonces por \cref{fact:ineq-curves}, $z_j(t) \le z(c,t) + K(t) \delta \le z - K(t) \delta$. Por tanto:
@@ -410,15 +542,14 @@ Además definiremos $\dtilde{M}(r,t) = \sum_{i=1}^N M_i \xi(r-z_i(t))$.
  
  Por tanto:
  \begin{align*}
- \dtilde{M}(z,t) &= \sum_{j = 1}^M M_j \xi(z - z_j(t)) \underset{z_j \le < z - K(t)\delta \implies z - z_j(t) \ge \delta \Rightarrow \xi(z - z_j(t)) = 1}{\ge} \sum_{j \in J_2} M_j\\
-  &= \int_{\bigcup_{j\in J_2} S_j} \phi_0(r,u,\alpha) dx dv \ge \int_{\underline{A}} \phi_0(r,u,\alpha) dx dv\\
-  &= \int_{\{r \ge z - 2K(t)\delta\}} \phi(r,u,\alpha,t) dx dv = M(\max(0,z-2K(t)\delta), t)\\
-  & = M(z,t) - \int_{\max(0,z-2K(t)\delta)}^z 4\pi s^2 \rho(s,t) ds \\ 
+ \dtilde{M}(z,t) &= \sum_{j = 1}^M M_j \xi(z - z_j(t)) \underset{z_j \le z - K(t)\delta \implies z - z_j(t) \ge \delta \Rightarrow \xi(z - z_j(t)) = 1}{\ge} \sum_{j \in J_2} M_j\\
+  &= \int_{\bigcup_{j\in J_2} S_j} \phi_0(r,u,\alpha) dv dx \ge \int_{\underline{A}} \phi_0(r,u,\alpha) dv dx\\
+  &= \int_{\{(x,v):r \le z - 2K(t)\delta\}} \phi(r,u,\alpha,t) dv dx = M(\max(0,z-2K(t)\delta), t)\\
+  & = M(z,t) - 4\pi \int_{\max(0,z-2K(t)\delta)}^z  s^2 \rho(s,t) ds \\ 
   &\ge M(z,t) - 4\pi \rho_0 R_0^2 2K(t)\delta \ge M(z, t) - \ktilde_2(t) \delta
  \end{align*}
  
  Tomando $\ktilde_3 = \max(\ktilde_1, \ktilde_2)$ hemos probado que:
- 
  \begin{equation}
  |M(r,t) - \dtilde{M}(r,t)| \le \ktilde_3(t) \delta
  \label{eqn:m-mdtilde1}
@@ -429,9 +560,8 @@ Además definiremos $\dtilde{M}(r,t) = \sum_{i=1}^N M_i \xi(r-z_i(t))$.
  
  Además, $C$ es compacto y $z$ continua, luego podemos considerar s.p.g. $z(C,t) = [r_0, r_2]$, donde $]r_2,r_1[ \cap z(C,t) = \emptyset$.
  Deducimos:
- 
  \begin{align}
-  M(r_1, t) - M(r_2, t) &= \int_{r_2}^{r_1} 4\pi s^2 \rho(s,t) ds = \int_{\{(x,v): r\in ]r_2, r_1[\}} \phi(r,u,\alpha,t) dv dx \nonumber\\
+  M(r_1, t) - M(r_2, t) &= 4\pi\int_{r_2}^{r_1} s^2 \rho(s,t) ds = \int_{\{(x,v): r\in ]r_2, r_1[\}} \phi(r,u,\alpha,t) dv dx \nonumber\\
   &= \int_{\{c\in\mathbb{R}^3: z(c,t) \in ]r_2, r_1[\}} \phi_0(c) dv dx
   \underset{\{c: z(c,t) \in ]r_2,r_1[\} \cap C = \emptyset}{=} 0
   \label{eqn:mdiff}
@@ -449,9 +579,9 @@ Además definiremos $\dtilde{M}(r,t) = \sum_{i=1}^N M_i \xi(r-z_i(t))$.
  
  De $z_j(t) \notin ]r_2,r_1[$ y usando $r_1 > r_2$ deducimos que si $z_j(t) \le r_2 - \delta$ entonces $\xi(r_1 - z_j) = \xi(r_2 - z_j) = 1$; si $z_j(t) > r_1$ entonces $\xi(r_1 - z_j) = \xi(r_2 - z_j) = 0$ y si $z_j \in ]r_2 - \delta, r_2[$ entonces $\xi(r_1 - z_j) > \xi(r_2 - z_j)$. Juntando toda esta información:
  \begin{align}
- &0 \le \dtilde{M}(r_1,t) - \dtilde{M}(r_2,t) = \sum_{j=1}^N M_j \bigg\{\xi(r_1 - z_j(t)) - \xi(r_2 - z_j(t))\bigg\} \le \sum_{j in J_3} M_j \nonumber\\ 
- &=\int_{\cup_{j\in J_3} S_j} \phi_0(r,u,\alpha) dv dx \le \int_{\{c : z(c,t) - r_2| \le \delta + K(t) \delta\}} \phi_0(c)\\
- &= \int_{\{(x,v): ||x| - r_2| \le \delta + K(t) \delta\}} \phi(c,t) dv dx = \int_{max(0, r_2 - \delta - K(t)\delta}^{r_2 + \delta + K(t) \delta} 4\pi s^2 \rho(s,t) ds \nonumber\\
+ &0 \le \dtilde{M}(r_1,t) - \dtilde{M}(r_2,t) = \sum_{j=1}^N M_j \bigg\{\xi(r_1 - z_j(t)) - \xi(r_2 - z_j(t))\bigg\} \le \sum_{j \in J_3} M_j \nonumber\\ 
+ &=\int_{\cup_{j\in J_3} S_j} \phi_0(r,u,\alpha) dv dx \le \int_{\{c : |z(c,t) - r_2| \le \delta + K(t) \delta\}} \phi_0(c) \nonumber\\
+ &= \int_{\{(x,v): ||x| - r_2| \le \delta + K(t) \delta\}} \phi(c,t) dv dx = 4\pi \int_{max(0, r_2 - \delta - K(t)\delta}^{r_2 + \delta + K(t) \delta} s^2 \rho(s,t) ds \nonumber\\
  &\le 4\pi (r_2 + 1 + K(t))^2 \rho_0 2(1+ K(t))\delta \nonumber\\
  &\le 4\pi (R_0 + U_0t + 2 + K(t))^2 \rho_0 2 (1 + K(t))\delta \le \ktilde_4(t)\delta
  \label{eqn:mtildediff}
@@ -489,7 +619,8 @@ Además definiremos $\dtilde{M}(r,t) = \sum_{i=1}^N M_i \xi(r-z_i(t))$.
  
  Como $0 \le \xi(r - z_j(t)) \le 1, 0 \le \xi(r - \widetilde{z}_j(t)) \le 1$ entonces $|\xi(r - \widetilde{z}_j(t)) - \xi(r - z_j(t))| \le 1$. Llamaremos $J_4 = \{j: |r-z_j(t)| \le ||z - \widetilde{z}||(t) + \delta\}$.  Si $j\in J_4, c' \in S_j$, entonces, por \cref{fact:ineq-curves}:
  \begin{align*}
-  |z(c',t) - r| &= |z(c',t) - z_j(t) + z_j(t) - r| \le |z(c',t) - z_j(t)| + |z_j(t) - r| \le ||z-\widetilde{z}||(t) + \delta + K(t)\delta\\
+  |z(c',t) - r| &= |z(c',t) - z_j(t) + z_j(t) - r| \le |z(c',t) - z_j(t)| + |z_j(t) - r|  \\
+  &\le ||z-\widetilde{z}||(t) + \delta + K(t)\delta\\
   \bigcup_{j\in J_4} S_j &\subseteq \{c\in \mathbb{R}^3: |z(c,t) - r| \le ||z-\widetilde{z}||(t) + \delta + K(t)\delta\} = \underline{B}
  \end{align*}
 
@@ -499,7 +630,7 @@ Además definiremos $\dtilde{M}(r,t) = \sum_{i=1}^N M_i \xi(r-z_i(t))$.
  \le \int_{\bigcup_{j\in J_4} S_j} \phi_0(c) dv dx\\
  &\le \int_{\underline{B}} \phi_0(c) dv dx
  = \int_{\{(x,v):||x| - r| < \varepsilon(t)\}} \phi(r,u,\alpha.t) dv dx \\
- &= \int_{\max(0,r-\varepsilon(t))}^{r+\varepsilon(t)} 4\pi s^2 \rho(s,t) ds \le 4\pi(r + \varepsilon(t))^2 \rho_0 2\varepsilon(t)
+ &= 4\pi \int_{\max(0,r-\varepsilon(t))}^{r+\varepsilon(t)}  s^2 \rho(s,t) ds \le 4\pi(r + \varepsilon(t))^2 \rho_0 2\varepsilon(t)
  \end{align*}
  
  Si $r > 2(R_0 + U_0t) + 1$ entonces $\widetilde{M}(r,t) = \dtilde{M}(r,t) = M$. Si $r \le 2(R_0 + U_0t) + 1$ entonces:
@@ -510,7 +641,7 @@ Además definiremos $\dtilde{M}(r,t) = \sum_{i=1}^N M_i \xi(r-z_i(t))$.
   &\le \ktilde_7(t)||z - \widetilde{z}||(t) + \ktilde_7(t)\delta \label{eqn:barbarmbound}
  \end{align}
  
- Deducimos:
+ Deducimos para todo $r\ge 0$ y para todo $t \ge 0$:
  \begin{align}
   |M(r,t) - \widetilde{M}(r,t)| &= |M(r,t) - \dtilde{M}(r,t) + \dtilde{M}(r,t) - \widetilde{M}(r,t)| \nonumber\\
   &\le |M(r,t) - \dtilde{M}(r,t)| + |\dtilde{M}(r,t) - \widetilde{M}(r,t)| \nonumber\\
@@ -518,7 +649,7 @@ Además definiremos $\dtilde{M}(r,t) = \sum_{i=1}^N M_i \xi(r-z_i(t))$.
   &\le \ktilde_8(t)||z - \widetilde{z}||(t) + \ktilde_8(t)\delta
   \label{ineq:diffm}
  \end{align}
-donde $\ktilde_8 = \max(\ktilde_7, \ktilde_5 + \ktilde_7)$
+donde $\ktilde_8 = 2(\ktilde_5 + \ktilde_7)$
 
 Nos queda acotar $||z - \widetilde{z}||(t)$. Fijamos $t \in [0,T[$.
 
@@ -560,9 +691,9 @@ Como $z_i(0) = \widetilde{z}_i(0), z_i'(0) = \widetilde{z}_i'(0)$, para todo $0\
  &\le \ktilde_{10}(t)\delta + \ktilde_{10}(t) \int_0^{t} Q(s) ds
 \end{align*}
 
-Para $0\le v\le t$ arbitrario, luego $Q(t) \le \ktilde_{10}(t)\delta + \ktilde_{10}(t) \int_0^{t} Q(s) ds$, donde $0\le t < T$ era arbitrario. Por desigualdad de Gronwall \eqref{ineq:gronwall}:
+Para $0\le v\le t$ arbitrario, luego $Q(t) \le \ktilde_{10}(t)\delta + \ktilde_{10}(t) \int_0^{t} Q(s) ds$, donde $0\le t < T$ era arbitrario. Por desigualdad de Gronwall \ref{ineq:gronwall} :
 \[
-Q(v) \le C(t) \delta e^{C(t) v} \Rightarrow Q(t) \le \ktilde_{11}(t) \delta
+Q(v) \le \ktilde_{10}(t) \delta e^{\ktilde_{10}(t) v} \Rightarrow Q(t) \le \ktilde_{11}(t) \delta
 \]
 
 Por tanto, usando lo anterior y \cref{fact:ineq-curves}, si $c\in S_i$ y para todo $0\le t < T$, entonces:
@@ -581,9 +712,9 @@ y por \eqref{ineq:diffm}, para $r\ge 0$ y para $0\le t < T$:
  &\le \ktilde_{13}(t)\delta
 \end{align*}
 
-Basta tomar $\ktilde = \max(\ktilde_{12}, \ktilde_{13})$.
+Basta tomar $\ktilde = \max(\ktilde_{12}, \ktilde_{13})$ para llegar al resultado del teorema.
 
-Nos queda probar que $T = + \infty$.
+Nos queda probar que $T = + \infty$ cuando $\delta$ se acerca a $0$.
 
 Sea $T_0 > 0$ y sea $\delta < \frac{r_0}{3 \ktilde(T_0)}$
 Entonces para $0 \le t < T$, $0 \le t < T_0$ tenemos que:
@@ -624,7 +755,7 @@ donde en la última desigualdad se ha usado (lo hacemos para el segundo término
   \Bigg|\frac{1}{\max(\widetilde{z}_i(t),\widetilde{z})} - \frac{1}{\max(\widetilde{z}_i(t), \widetilde{z}_j(t))}\Bigg| = \Bigg|\frac{\max(\widetilde{z}_i(t), \widetilde{z}_j(t)) - \max(\widetilde{z}_i(t), \widetilde{z})}{\max(\widetilde{z}_i(t),\widetilde{z}) \max(\widetilde{z}_i(t), \widetilde{z}_j(t))} \Bigg|
 \]
 
-Para acotar el denominador basta usar $\widetilde{z}_i(t)^{-1} \le r_0^{-1}$. Para acotar el numerador, lo hacemos discutiendo casos, llamando $a = \max(\widetilde{z}_i(t), \widetilde{z}_j(t))$, y $b= - \max(\widetilde{z}_i(t), \widetilde{z})$ 
+Para acotar el denominador basta usar $\widetilde{z}_i(t)^{-1} \le r_0^{-1}$. Para acotar el numerador, lo hacemos discutiendo casos, llamando $a = \max(\widetilde{z}_i(t), \widetilde{z}_j(t))$, y $b= \max(\widetilde{z}_i(t), \widetilde{z})$ 
 
 \begin{enumerate}
  \item Si $a= \widetilde{z}_i(t), b=\widetilde{z}_i(t)$ entonces $a-b = 0$.
@@ -643,7 +774,7 @@ Por un lado:
 
 Por otro lado:
 \begin{align*}
-&\Bigg|\Bigg(z_t^2 + \frac{(ru sen(\alpha))^2}{z^2}\Bigg) - \Bigg(\widetilde{z}_i'(t)^2 + \frac{L_i^2}{\widetilde{z}_i(t)^2} \Bigg)\Bigg| \\
+&\Bigg|\Bigg(z_t^2 + \frac{(ru \cdot sen(\alpha))^2}{z^2}\Bigg) - \Bigg(\widetilde{z}_i'(t)^2 + \frac{L_i^2}{\widetilde{z}_i(t)^2} \Bigg)\Bigg| \\
 &\le |z_t^2 - \widetilde{z}_i'(t)^2| + z^{-2}|(ru \cdot sen(\alpha)^2 - L_i^2| + L_i^2|z^{-2} - \widetilde{z}_i(t)^{-2}| \\
 &\le |z_t - \widetilde{z}_i'(t)||z_t +\widetilde{z}_i'(t)| \\
 &+ z^{-2}|ru \cdot sen(\alpha) - L_i||ru \cdot sen(\alpha) + L_i| \\
@@ -663,12 +794,12 @@ Así se prueba que:
 Tomamos $\dtilde{K}_3(t) = \max(\dtilde{K}_1(t), \dtilde{K}_2(t))$ y deducimos:
 \begin{align*}
 &\Bigg|E - \sum_{i=1}^N M_i\bigg\{\widetilde{z}_i'(t)^2 + L_i^2\widetilde{z}_i'(t)^{-2} + \sum_{j=1}^N \frac{\gamma M_j}{\max(\widetilde{z}_i(t), \widetilde{z}_j(t))}\bigg\} \Bigg| \\
-&= \Bigg|\sum_{i=1}^N \int_{S_i} \phi_0(r,u,\alpha) \Bigg(z_t^2 + \frac{(ru\cdot sen(\alpha))^2}{z^2} + \gamma \int \frac{\phi_0(r',u',\alpha')}{\max(z,\widetilde{z})} dv' dx' - \\
+&= \Bigg|\sum_{i=1}^N \int_{S_i} \phi_0(r,u,\alpha) \Bigg(z_t^2 + \frac{(ru\cdot sen(\alpha))^2}{z^2} + \gamma \int_{\mathbb{R}^6} \frac{\phi_0(r',u',\alpha')}{\max(z,\widetilde{z})} dv' dx' - \\
 &\widetilde{z}_i'(t)^2 - L_i^2\widetilde{z}_i'(t)^{-2} - \gamma \sum_{j=1}^N \frac{M_j}{\max(\widetilde{z}_i(t), \widetilde{z}_j(t))} dv dx \Bigg)\Bigg| \\
-&\le \sum_{i=1}^N \int_{S_i} |\phi_0(r,u,\alpha)| \Bigg(\Bigg| z_t^2 + \frac{(ru\cdot sen(\alpha))^2}{z^2} -
-\widetilde{z}_i'(t)^2 - L_i^2\widetilde{z}_i'(t)^{-2} \Bigg| + \\
-&\Bigg|\int_{\mathbb{R}^6} \frac{\phi_0(r',u',\alpha')}{\max(z,\widetilde{z})} dv' dx' - \sum_{j=1}^N \frac{M_j}{\max(\widetilde{z}_i(t), \widetilde{z}_j(t))} dv dx \Bigg)\Bigg|\Bigg) \\
-&\le \sum_{i=1}^N \int_{S_i} |\phi_0(r,u,\alpha)| 2\dtilde{K}_3(t)\delta \le \dtilde{K}(t) \delta
+&\le \sum_{i=1}^N \int_{S_i} \phi_0(r,u,\alpha) \Bigg\{\Bigg| z_t^2 + \frac{(ru\cdot sen(\alpha))^2}{z^2} -
+\widetilde{z}_i'(t)^2 - L_i^2\widetilde{z}_i'(t)^{-2} \Bigg| \\
+&+ \Bigg|\int_{\mathbb{R}^6} \frac{\phi_0(r',u',\alpha')}{\max(z,\widetilde{z})} dv' dx' - \sum_{j=1}^N \frac{M_j}{\max(\widetilde{z}_i(t), \widetilde{z}_j(t))} dv dx \Bigg|\Bigg\}\Bigg) \\
+&\le \sum_{i=1}^N \int_{S_i} \phi_0(r,u,\alpha) 2\dtilde{K}_3(t)\delta \le \dtilde{K}(t) \delta
 \end{align*}
 
 
@@ -694,6 +825,11 @@ Tomamos $\dtilde{K}_3(t) = \max(\dtilde{K}_1(t), \dtilde{K}_2(t))$ y deducimos:
     Jürgen Batt\\
     Journal of Differential Equations\\
     1977
+    
+    \bibitem{Sonnendrucker}
+    Numerical methods for the Vlasov equations\\
+    Eric Sonnendrücker\\
+    Lecture Notes, Instituto Max-Plank
 \end{thebibliography}
 	
 
