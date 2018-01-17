@@ -67,7 +67,7 @@
 \tableofcontents
 \pagebreak
 
-El presente trabajo está principalmente basado en el artículo \cite{Schaeffer}. Introducimos primeramente las ecuaciones de Vlasov y de Vlasov-Poisson. A continuación proporcionamos una serie de preliminares para ecuaciones de Vlasov-Poisson con condición inicial esféricamente simétrica y de soporte compacto, para finalmente introducir un método numérico para aproximar las soluciones que hace uso de dicha simetría esférica.
+El presente trabajo está principalmente basado en el artículo \cite{Schaeffer}. Introducimos primeramente las ecuaciones de Vlasov y de Vlasov-Poisson. A continuación proporcionamos una serie de preliminares para ecuaciones de Vlasov-Poisson con condición inicial esféricamente simétrica y de soporte compacto, para finalmente introducir un método numérico para aproximar la masa del sistema, haciendo uso de dicha simetría esférica.
 
 \section{Introducción}
 En la naturaleza podemos encontrar 4 estados de la materia: sólido, líquido, gaseoso y plasma. Este último se alcanza con grandes temperaturas a las que los electrones de los átomos abandonan la órbita alrededor del núcleo al que pertenecen, dando lugar a una mezcla de iones, electrones y particulas gobernadas por fuerzas electromagnéticas. Este estado de la materia cobra especial relevancia en procesos como la fusión termonuclear, para la que se necesitan grandes temperaturas.  
@@ -88,48 +88,46 @@ donde:
 \end{itemize}
 
 El campo electromagnético viene dado por las ecuaciones de Maxwell:
-
 \begin{align*}
  -\frac{1}{c^2} \frac{\partial E}{\partial t} + \nabla \times B = \mu_0 J\\
  \frac{\partial B}{\partial t} + \nabla \times E = 0\\
- \nabla \cdot E = \frac{\rho}{\varepsilon_0}\\
+ \nabla \cdot E = \frac{\sigma}{\varepsilon_0}\\
  \nabla \cdot B = 0
 \end{align*}
 
 donde 
 \begin{align*}
-\rho(x,t) &= q \int_{\mathbb{R}^3} f(x,v,t) dv\\
+\sigma(x,t) &= q \int_{\mathbb{R}^3} f(x,v,t) dv\\
 J(x,t) &= q \int_{\mathbb{R}^3} f(x,v,t) v dv
 \end{align*}
 
 Cuando el campo magnético es despreciable en comparación con el eléctrico, las ecuaciones de Maxwell quedan reducidas a:
-
 \begin{equation*}
- \nabla \times E = 0, \quad \nabla \cdot E = \frac{\rho}{\varepsilon_0}
+ \nabla \times E = 0, \quad \nabla \cdot E = \frac{\sigma}{\varepsilon_0}
 \end{equation*}
 
-Bajo ciertas condiciones geométricas, $\nabla \times E = 0$ implica que existe un potencial electroestático, $U$, esto es, $E = - \nabla U$, verificando que es solución de la ecuación de Poisson $-\Delta U = \frac{\rho}{\varepsilon_0}$ y nuestro modelo se reduce a la ecuación de Vlasov-Poisson:
+Bajo ciertas condiciones geométricas, $\nabla \times E = 0$ implica que existe un potencial electroestático, $U$, esto es, $E = - \nabla U$, verificando que es solución de la ecuación de Poisson $-\Delta U = \frac{\sigma}{\varepsilon_0}$ y nuestro modelo se reduce a la ecuación de Vlasov-Poisson, que modela el comportamiento de partículas sometidas a un campo eléctrico sin colisiones:
 \begin{align}
- \frac{\partial f}{\partial t} + v \nabla_x f + \frac{q}{m}\nabla_x U \cdot \nabla_v f = 0\\
- \rho(x,t) = q \int f(x,v,t) dv \nonumber\\
- -\Delta U = \frac{\rho}{\varepsilon_0} \nonumber
+ \frac{\partial f}{\partial t} + v \nabla_x f + \frac{q}{m}\nabla_x U \cdot \nabla_v f = 0 \nonumber\\
+ \sigma(x,t) = q \int f(x,v,t) dv \nonumber\\
+ -\Delta U = \frac{\sigma}{\varepsilon_0}
 \end{align}
 
 
-La \textit{ecuación de Vlasov-Poisson} modela el comportamiento de partículas sometidas a un campo eléctrico sin colisiones:
-
+Adimensionalizando:
 \begin{align}
 \label{eqn:v-poisson}
- \frac{\partial f}{\partial t} + v \nabla_x f + F(x,t) \cdot \nabla_v f = 0\\
+ \frac{\partial f}{\partial t} + v \nabla_x f + F(x,t) \cdot \nabla_v f = 0 \nonumber \\
  F(x,t) = - \nabla_x U(x,t) \nonumber \\ 
  U(x,t) = \gamma \int_{\mathbb{R}^3} \frac{\sigma(y,t)}{|x-y|} dy \nonumber \\
- \sigma(x,t) = \int_{\mathbb{R}^3} f(x,v,t) dv \nonumber
+ \sigma(x,t) = \int_{\mathbb{R}^3} f(x,v,t) dv
 \end{align}
 
 donde $\gamma = -1$ en el caso gravitacional y $\gamma = 1$ en el caso Coulombiano.
 
 El problema de Cauchy consiste en resolver \eqref{eqn:v-poisson} con condición inicial $f(x,v,0) = f_0(x,v)$.
 
+\newpage
 \section{Vlasov-Poisson con $f_0$ esféricamente simétrica}
 Partimos de dos resultados claves: la definición de simetría esférica, y el hecho de que si la condición inicial para la ecuación de Vlasov-Poisson es esféricamente simétrica la solución de \eqref{eqn:v-poisson} también lo es, resultado demostrado en \cite{Batt}.
 
@@ -201,9 +199,9 @@ Fijamos $A \in O(3)$. Entonces, usando que $A$ es una matriz ortogonal:
  
  Esto prueba que $\sigma(r,t) = \sigma(x,t)$ para todo $x\in \mathbb{R}^3, t\ge 0$.
  
- Tomando ahora $\mathcal{J}:[0,+\infty[ \times [0,\pi[ \times [0,2\pi[ \rightarrow \mathbb{R}^3$, verificando:
+ Tomando ahora $\mathcal{J}:[0,+\infty[ \times [0,\pi] \times [0,2\pi[ \rightarrow \mathbb{R}^3$, verificando:
  \[\mathcal{J}(r,\alpha, \varphi) = (r\cdot sen(\alpha) \cdot cos(\varphi), r\cdot sen(\alpha) \cdot sen(\varphi), r\cdot cos(\alpha))\]
- tendríamos $det(D\mathcal{J}) = u^2 \cdot sent(\alpha)$. Por teorema de cambio de variable: 
+ tendríamos $det(D\mathcal{J}) = u^2 \cdot sen(\alpha)$. Por teorema de cambio de variable: 
  \begin{align*}
   \sigma(|x|,t) = \sigma(x,t) &= \int_{\mathbb{R}^3} f(x,v,t) dv = \int_{\mathbb{R}^3} \phi(r,u,\alpha,t) dv \\
   &= \int_0^{+\infty} \int_0^\pi \int_0^{2\pi} \phi(r,u,\alpha,t) u^2 \cdot sen(\alpha) d\varphi d\alpha du \\
@@ -260,18 +258,24 @@ Luego:
     \cdot \nabla_{(r,u,\alpha)} \phi = 0
 \end{equation}
 
-Sabemos que \eqref{eqn:sph-vlasov} tiene como curvas características $X(t; 0, (r,u,\alpha)) = 
-\left(\begin{array}{c} 
+Sabemos que \eqref{eqn:sph-vlasov} tiene como curvas características 
+\[
+ X(t; 0, (r,u,\alpha)) = 
+    \left(\begin{array}{c} 
        z(t; 0, (r, u, \alpha))\\ q(t; 0, (r, u, \alpha))\\ \theta(t; 0, (r, u, \alpha))
-      \end{array}\right)$
+    \end{array}\right) :=
+    \left(\begin{array}{c} 
+       z(r, u, \alpha, t)\\ q(r, u, \alpha, t)\\ \theta(r, u, \alpha, t)
+    \end{array}\right)
+\]
 verificando:
-
 \begin{equation}
 \label{eqn:sph-cc}
 \partial_t X(t; 0,(r,u,\alpha)) = \mathcal{A}\big(X(t;0(r,u,\alpha)),t\big) = \mathcal{A}\big(z,q,\theta,t\big)
 \end{equation}
 
-\begin{fact} Se cumple:
+\begin{fact} \label{fact:curves}
+Se cumple:
  $zq \cdot sen(\theta)$ es independiente de $t$ y además $z$ es solución de la ecuación diferencial:
  \begin{align}
  z_{tt} - (ru \cdot sen\alpha)^2 \cdot z^{-3} - \gamma M(z,t) z^{-2} = 0\nonumber\\
@@ -293,6 +297,17 @@ Por otro lado, derivando la primera componente de $X(t)$, y teniendo en cuenta q
  z_{tt} - (ru \cdot sen(\alpha))^2 \cdot z^{-3} - \gamma M(z,t) z^{-2} = 0
 \end{equation}
 \end{proof}
+
+\begin{lemma}\label{lemma:qsquare}
+ Se cumple $q(r,u,\alpha,t)^2 = z_t^2(r,u,\alpha,t) + (ru \cdot \frac{sen(\alpha)^2}{z^2(r,u,\alpha,t)}$
+\end{lemma}
+\begin{proof}
+Llamamos $z = z(r,u,\alpha,t)$, $q = q(r,u,\alpha,t)$ y $\theta = \theta(r,u,\alpha,t)$.
+ \[
+    q^2 = q^2 \bigg\{cos^2(\theta) + sen^2(\theta)\bigg\} \underset{\textrm{proposición \ref{fact:curves}}}{=} z_t^2 + (ru\cdot sen(\alpha))^2 \cdot z^{-2}
+ \]
+\end{proof}
+
 
 \begin{lemma}
 Fijado $t\ge 0$, $\mathcal{J}_t:(x,v) \mapsto \bigg(X(t;0,x,v), V(t;0,x,v)\bigg)$ es un cambio de variable con jacobiano idénticamente $1$ para el problema de Vlassov-Poisson \eqref{eqn:v-poisson}.
@@ -319,7 +334,8 @@ Sabemos que $\mathcal{J}_t(x,v)$ es una biyección de $\mathbb{R}^3 \times \math
 \end{proof}
 
 \begin{fact}
-Llamando $z = z(t;0,r,u,\alpha), q = q(t;0,r,u,\alpha), \theta = \theta(t;0,r,u,\alpha)$, tenemos que para todo $\varphi \in L^{\infty}(]0,+\infty[^2 \times ]0,\pi[)$:
+\label{eqn:varphi}
+Llamando $z = z(r,u,\alpha,t), q = q(r,u,\alpha,t), \theta = \theta(r,u,\alpha,t)$, tenemos que para todo $\varphi \in L^{\infty}(]0,+\infty[^2 \times ]0,\pi[)$:
 \[
     \int_{\mathbb{R}^3}\int_{\mathbb{R}^3} \varphi(r,u,\alpha) \cdot \phi(r,u,\alpha,t) dv dx = 
     \int_{\mathbb{R}^3}\int_{\mathbb{R}^3} \varphi(z,q,\theta) \cdot \phi_0(r,u,\alpha,t) dv dx
@@ -372,10 +388,9 @@ Entonces: $u(t) \le \alpha(t) \cdot exp\left\{\int_a^t \beta(s) ds\right\}$ para
 \label{ineq:gronwall}
 \end{lemma}
 
-\begin{fact}
+\begin{fact} \label{fact:ineq-curves}
  Existe una función creciente $K(t) \ge 1$ dependiente sólo de $\phi_0$ verificando que para todo $c_1=(r_1,u_1,\alpha_1), \, c_2=(r_2,u_2,\alpha_2) \in \mathcal{C}$ y para todo $t\ge 0$:
  \[|z(c_1,t) - z(c_2,t)| + |z_t(c_1,t) - z_t(c_2,t)| \le K(t)|c_1 - c_2|\]
- \label{fact:ineq-curves}
 \end{fact}
 
 \begin{proof}
@@ -471,7 +486,7 @@ Fijamos $c_i = (r_i, u_i, \alpha_i) \in S_i$ y llamamos:
 \begin{itemize}
 \item $L_i = r_i u_i \cdot sen(\alpha_i)$
 \item $M_i = \int_{S_i} \phi_0(r,u,\alpha) dv dx$
-\item $z_i(t) = z(t;0,c_i)$
+\item $z_i(t) = z(c_i,t)$
 \item $\xi(r) = \min\left(\frac{r}{\delta},1\right) \mathds{1}_{]0,\infty[}$
 \end{itemize}
 
@@ -735,6 +750,42 @@ Si $T < T_0$ esto contravendría que $[0,T[$ sea el intervalo maximal en el que 
 Tomando $T_0 \rightarrow +\infty$, llegamos a $\delta \rightarrow 0 \Rightarrow T\rightarrow +\infty$
 \end{proof}
 
+\begin{definition}[Energía de Vlasov-Poisson]
+La energía de la ecuación de Vlasov-Poisson se define como:
+\[
+ E(t): = \int_{\mathbb{R}^3}\int_{\mathbb{R}^3} f(x,v,t) v^2 dv dx + \int_{\mathbb{R}^3} \sigma(x,t) U(x,t) dx
+\]
+\end{definition}
+
+Supondremos conocido el siguiente resultado para la ecuación de Vlasov-Poisson:
+\begin{fact}
+ $E(t)$ es constante. Notaremos $E := E(t)$ para $t\ge 0$ arbitrario.
+\end{fact}
+
+Se cumple según la anterior proposición que:
+\begin{align*}
+ E &= \int_{\mathbb{R}^3}\int_{\mathbb{R}^3} f(x,v,t) v^2 dv dx + \int_{\mathbb{R}^3} \sigma(x,t) U(x,t) dx \\
+ &= \int_{\mathbb{R}^3}\int_{\mathbb{R}^3} \phi(r,u,\alpha,t) u^2 dv dx + 4\pi\gamma\int_{\mathbb{R}^3} \rho(r,t) \int_0^{+\infty} \frac{\rho(s,t)\cdot s^2}{\max(r,s)} ds dx \\
+ &= \int_{\mathbb{R}^3}\int_{\mathbb{R}^3} \phi(r,u,\alpha,t) u^2 dv dx + 4\pi\gamma\int_{\mathbb{R}^3} \sigma(x,t) \int_0^{+\infty} \frac{\rho(s,t)\cdot s^2}{\max(r,s)} ds dx \\
+ &= \int_{\mathbb{R}^3}\int_{\mathbb{R}^3} \phi(r,u,\alpha,t) u^2 dv dx + 4\pi\gamma\int_{\mathbb{R}^3} \int_{\mathbb{R}^3} f(x,v,t) dv \bigg(\int_0^{+\infty} \frac{\rho(s,t)\cdot s^2}{\max(r,s)} ds \bigg)dx \\
+ &= \int_{\mathbb{R}^3}\int_{\mathbb{R}^3} \phi(r,u,\alpha,t) u^2 dv dx + 4\pi\gamma\int_{\mathbb{R}^3} \int_{\mathbb{R}^3} \phi(r,u,\alpha,t) dv \bigg(\int_0^{+\infty} \frac{\rho(s,t)\cdot s^2}{\max(r,s)} ds \bigg)dx \\
+ &= \int_{\mathbb{R}^3}\int_{\mathbb{R}^3} \phi(r,u,\alpha,t) \bigg(u^2 + 4\pi\gamma\int_0^{+\infty} \frac{\rho(s,t)\cdot s^2}{\max(r,s)} ds \bigg)dv dx \\
+ &= \int_{\mathbb{R}^3}\int_{\mathbb{R}^3} \phi(r,u,\alpha,t) \bigg(u^2 + \gamma\int_0^{+\infty} \int_{C(0,s)}\frac{\rho(s,t) dS_{\nu}}{\max(r,s)} ds \bigg)dv dx \\
+ &= \int_{\mathbb{R}^3}\int_{\mathbb{R}^3} \phi(r,u,\alpha,t) \bigg(u^2 + \gamma\int_{\mathbb{R}^3} \frac{\rho(|x'|, t)}{\max(r,|x'|)} dx' \bigg)dv dx \\
+ &= \int_{\mathbb{R}^3}\int_{\mathbb{R}^3} \phi(r,u,\alpha,t) \bigg(u^2 + \gamma\int_{\mathbb{R}^3} \int_{\mathbb{R}^3} \frac{\phi(r',u',\alpha',t)}{\max(r,r')} dv' dx' \bigg)dv dx \\
+ &\underset{\textrm{proposión \ref{eqn:varphi}}}{=} \int_{\mathbb{R}^3}\int_{\mathbb{R}^3} \phi_0(r,u,\alpha) \bigg\{q^2(r,u,\alpha,t)\\
+ &+ \gamma\int_{\mathbb{R}^3} \int_{\mathbb{R}^3} \frac{\phi_0(r',u',\alpha')}{\max(z(r,u,\alpha,t), z(r',u',\alpha',t))} dv' dx' \bigg\}dv dx \\
+ &\underset{\textrm{lema \ref{fact:curves}}}{=} \int_{\mathbb{R}^3}\int_{\mathbb{R}^3} \phi_0(r,u,\alpha) \bigg\{z_t^2(r,u,\alpha,t) + \frac{ru\cdot sen(\alpha)^2}{z^2(r,u,\alpha,t)} \\
+ &+ \gamma\int_{\mathbb{R}^3} \int_{\mathbb{R}^3} \frac{\phi_0(r',u',\alpha')}{\max(z(r,u,\alpha,t), z(r',u',\alpha',t))} dv' dx' \bigg\}dv dx 
+\end{align*}
+
+Para el siguiente corolario usaremos:
+\begin{align*}
+ E &= \int_{\mathbb{R}^3}\int_{\mathbb{R}^3} \phi_0(r,u,\alpha) \bigg\{z_t^2(r,u,\alpha,t) + \frac{ru\cdot sen(\alpha)^2}{z^2(r,u,\alpha,t)}\\
+ &+ \gamma\int_{\mathbb{R}^3} \int_{\mathbb{R}^3} \frac{\phi_0(r',u',\alpha')}{\max(z(r,u,\alpha,t), z(r',u',\alpha',t))} dv' dx' \bigg\}dv dx 
+\end{align*}
+
+
 \begin{corollary}
  Existe una función creciente $\dtilde{K}(t)$ (dependiente solamente de $\phi_0$) verificando que para todo $0 \le t < T$:
  \[
@@ -817,14 +868,14 @@ Tomamos $\dtilde{K}_3(t) = \max(\dtilde{K}_1(t), \dtilde{K}_2(t))$ y deducimos:
     \bibitem{Schaeffer}
     Discrete approximation of the Poisson-Vlasov system\\
     Jack Shaeffer\\
-    Quaterly of applied mathematics\\
-    1987
+    Quaterly of applied mathematics, Volume XLV, Number 1\\
+    April 1987, p. 59-73
     
     \bibitem{Batt}
     Global symmetric solutions of the initial value problem of stellar dynamics\\
     Jürgen Batt\\
-    Journal of Differential Equations\\
-    1977
+    Journal of Differential Equations 25\\
+    1977, p. 342-364 
     
     \bibitem{Sonnendrucker}
     Numerical methods for the Vlasov equations\\
