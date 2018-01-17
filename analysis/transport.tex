@@ -184,11 +184,13 @@ Sea $\phi_0 \in C_0^1(]0,+\infty[^2 \times ]0,+\pi[)$ con $\phi_0 \ge 0$ y $f_0 
  & \rho(r, t) = 2\pi \int_0^{\infty} \left(\int_0^\pi \phi(r, u, \alpha, t) sen(\alpha) d\alpha \right)u^2 du\\
  & U(x,t) = 4\pi\gamma \int_0^{+\infty} \frac{\rho(s,t)}{\max(r,s)} s^2 ds\\
  & F(x,t) = \gamma M(r,t) r^{-3} x\\
+ & M(r,t) = 4\pi \int_0^r\rho(s,t) s^2 ds\\
+ & M = 4\pi \int_0^{+\infty}\rho(s,t) s^2 ds
 \end{align*}
 donde definimos:
 \begin{align*}
- M(r,t) &= \int_{\{x\in \mathbb{R}^3: |x|<r\}} \sigma(x,t) dx = 4\pi \int_0^r\rho(s,t) s^2 ds\\
- M &= \int_{\mathbb{R}^3} \sigma(x,t) dx = 4\pi \int_0^{+\infty}\rho(s,t) s^2 ds\\
+ M(r,t) &= \int_{\{x\in \mathbb{R}^3: |x|\le r\}} \sigma(x,t) dx\\
+ M &= \int_{\mathbb{R}^3} \sigma(x,t) dx
 \end{align*}
 \end{fact}
 \begin{proof}
@@ -220,6 +222,14 @@ Fijamos $A \in O(3)$. Entonces, usando que $A$ es una matriz ortogonal:
  \end{align*}
  
  $F(x,t)$ se puede deducir de fácilmente a partir de $\nabla_x U(x,t)$.
+ 
+ Por otro lado:
+ \begin{align*}
+ M(r,t) &= \int_{\{x\in\mathbb{R}^3:|x| \le r\}} \sigma(x,t) dx\\
+ &= \int_0^r \int_{C(0,s)} \rho(s,t) dS_{x} ds = \int_0^r \rho(s,t) 4 \pi s^2 ds
+ \end{align*}
+ 
+ y $M$ se deduce de forma análoga.
 \end{proof}
 
 De \eqref{eqn:v-poisson} y de \eqref{eqn:f=phi} deducimos:
@@ -338,13 +348,14 @@ Sabemos que $\mathcal{J}_t(x,v)$ es una biyección de $\mathbb{R}^3 \times \math
 Llamando $z = z(r,u,\alpha,t), q = q(r,u,\alpha,t), \theta = \theta(r,u,\alpha,t)$, tenemos que para todo $\varphi \in L^{\infty}(]0,+\infty[^2 \times ]0,\pi[)$:
 \[
     \int_{\mathbb{R}^3}\int_{\mathbb{R}^3} \varphi(r,u,\alpha) \cdot \phi(r,u,\alpha,t) dv dx = 
-    \int_{\mathbb{R}^3}\int_{\mathbb{R}^3} \varphi(z,q,\theta) \cdot \phi_0(r,u,\alpha,t) dv dx
+    \int_{\mathbb{R}^3}\int_{\mathbb{R}^3} \varphi(z,q,\theta) \cdot \phi_0(r,u,\alpha) dv dx
 \]
 
 En particular:
-\[
-M = 4\pi \int_0^{\infty} \rho(s,t) s^2 ds = \int_{\mathbb{R}^3} \int_{\mathbb{R}^3} \phi(r,u,\alpha,t) dv dx = \int_{\mathbb{R}^3}\int_{\mathbb{R}^3} \phi_0(r,u,\alpha,t) dv dx
-\]
+\begin{align*}
+M &= 4\pi \int_0^{\infty} \rho(s,t) s^2 ds = \int_{\mathbb{R}^3} \int_{\mathbb{R}^3} \phi(r,u,\alpha,t) dv dx = \int_{\mathbb{R}^3}\int_{\mathbb{R}^3} \phi_0(r,u,\alpha) dv dx\\
+M(r,t) &= \int_{\{(x,v)\in \mathbb{R}^3:|x| \le r\}} \phi(r,u,\alpha,t) dv dx = \int_{\{(x,v): z(r,u,\alpha,t) \le r\}} \phi_0(r,u,\alpha) dv dx
+\end{align*}
 \end{fact}
 
 \begin{proof}
@@ -358,6 +369,18 @@ Sean $X(t; 0, x_0, v_0), V(t; 0, x_0, v_0)$ las curvas características del prob
  \end{align*}
 
  donde se ha usado el lema \ref{lemma:cv-vp} en el cambio de variable y $X\bigg(0;t,X(t,0,x,v)\bigg) = (x,v)$
+ 
+ Para deducir:
+ \[
+  M = 4\pi \int_0^{\infty} \rho(s,t) s^2 ds = \int_{\mathbb{R}^3} \int_{\mathbb{R}^3} \phi(r,u,\alpha,t) dv dx = \int_{\mathbb{R}^3}\int_{\mathbb{R}^3} \phi_0(r,u,\alpha) dv dx  
+ \]
+ basta tomar $\varphi=1$
+ 
+ Para deducir:
+ \[
+  M(r,t) = \int_{\{(x,v)\in \mathbb{R}^3:|x| \le r\}} \phi(r,u,\alpha,t) dv dx = \int_{\{(x,v): z(r,u,\alpha,t) \le r\}} \phi_0(r,u,\alpha) dv dx
+ \]
+ basta tomar $\varphi(a,b,c) = \mathds{1}_{[0,r]}$
 \end{proof}
 
 
@@ -514,7 +537,7 @@ Con estas condiciones, \eqref{eqn:approx-curves} y como $r_0 \le r_i \le R_0$, p
 
 Además definiremos $\dtilde{M}(r,t) = \sum_{i=1}^N M_i \xi(r-z_i(t))$.
 \begin{theorem}
- Existe una función $\widetilde{K}$ (dependiente sólo de $\phi_0$) verificando que para todo $i = 1, \ldots, N$, para todo $t\in [0,T[$:
+ Existe una función creciente $\widetilde{K}$ (dependiente sólo de $\phi_0$) verificando que para todo $i = 1, \ldots, N$, para todo $t\in [0,T[$:
  \begin{align*}
   |z(c,t) - \widetilde{z}_i(t)| + |z'(c,t) - \widetilde{z}'_i(t)| &\le \ktilde(t) \delta \qquad \forall c= (r,u,\alpha) \in S_i \\
   |M(s,t) - \widetilde{M}(s,t)| &\le \ktilde(t)\delta \qquad \forall s \ge 0
