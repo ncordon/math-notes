@@ -139,7 +139,7 @@ El método es consistente y estable, luego por un teorema de clase es convergent
 ** Caso particular
 Para $f(t) = cos(\pi t)$ y $N = 20$ se tiene:
 
-#+begin_src octave :exports both :results file :tangle ejercicio1.m :cache yes
+#+begin_src octave :exports both :results file :tangle ejercicio1.m :eval yes
 % solve the periodic boundary value problem 
 %       u'' - u = f(t) on [0,1] 
 % with Dirichlet conditions u(0) = u(1), u'(0) = u'(1).  
@@ -210,11 +210,7 @@ errores máximos cometidso en función de $h$ y compara con el análisis de conv
 anteriormente.
 #+end_wording
 
-
-
-
-
-#+begin_src octave :session :results none :exports both :tangle ejercicio2-approx.m
+#+begin_src octave :session :results none :exports both :tangle ejercicio2-approx.m :eval yes
 % Solve the Poisson problem u_{xx} + u_{yy} = f(x,y) on [a,b] x [a,b]
 %
 % Based on  http://www.amath.washington.edu/~rjl/fdmbook/chapter3
@@ -309,7 +305,7 @@ utrue = arrayfun(truefn, X, Y);
 
 Representamos la solución real y la solución aproximada en 3D, comprobándose que son prácticamente indistinguibles.
 
-#+begin_src octave :session :results file :exports both
+#+begin_src octave :session :results file :exports both :eval yes
 % plot approximation
 figure(1, "visible", "off" )
 clf
@@ -323,7 +319,7 @@ ans = "ejercicio2-meshapprox.png";
 
 #+RESULTS:
 [[file:ejercicio2-meshapprox.png]]
-#+begin_src octave :session :results file :exports both
+#+begin_src octave :session :results file :exports both :eval yes
 % plot true solution
 figure(1, "visible", "off" )
 
@@ -337,8 +333,8 @@ ans = "ejercicio2-meshsol.png";
 #+RESULTS:
 [[file:ejercicio2-meshsol.png]]
 
-Y representamos los errores de aproximación, comprobando que tienden a 0 conforme $h \rightarrow 0$ 
-#+begin_src octave :session :results file :exports both :eval never :tangle ejercicio2-error.m
+Y representamos los errores de aproximación, comprobando que tienden a 0 conforme $h \rightarrow 0$. 
+#+begin_src octave :session :results file :exports both :eval never :tangle ejercicio2-error.m :eval yes
 function error = poissonError(N, a, b, f, truefn)
   approx = poissonApprox(N, a, b, f, truefn)
   h = (b - a)/(N + 1);
@@ -392,12 +388,14 @@ El método de Euler implícito consiste en hacer:
 
 \[U_j^{n+1} = U_{j}^n + \frac{k}{h^2}\left(U_{j+1}^{n+1} - 2U_{j}^{n+1} + U_{j-1}^{n+1}\right), \quad j=1, \ldots, \frac{1}{h}-1, \quad n= 0, \ldots\]
 
-#+begin_src octave :session :exports both :tangle ejercicio3.m
+Puede observarse como al hacer la representación de las aproximaciones frente al verdadereo valor de la $u$ encontramos que a medida que evolucionamos en tiempo ambas convergen a la función constantemente $0$ (eje de abscisas).
+#+begin_src octave :session :results file :exports both :tangle ejercicio3.m :eval yes
 % Solve u_t = u * u_{xx} on [ax,bx] with Dirichlet boundary conditions,
 % using the Crank-Nicolson method with m interior points.
 %
 %
 % Based on http://www.amath.washington.edu/~rjl/fdmbook/heat_CN.m
+
 
 
 % Number of interior points
@@ -442,7 +440,6 @@ ufine = utrue(0, xfine);
 tn = 0;
 u = u0;
 
-figure(1, "visible", "off" )
 clf
 hold on
 
@@ -474,11 +471,12 @@ for n = 1:nsteps
 
   %Plot results
   ufine = utrue(tnp, xfine);
-  plot(x, u, 'b.-', xfine, ufine, 'r')
+  plot(x, u, 'b.-', xfine, ufine, 'r', sleep(0.8))
 
   % for next time step
   tn = tnp;
-end
+end % del for
+
 
 print -dpng ejercicio3.png;
 ans = "ejercicio3.png";
@@ -497,12 +495,16 @@ Deduzca a partir de esta aproximación un método de tipo Beam Warming para la e
 \[
 U_j^{n+1} = U_j^n - \frac{ak}{2h}(3U_j^n - 4U^n_{j-1} + U^n_{j-2}) + \frac{a^2 k^2}{2h^2}(U_j^n - 2U_{j-1}^n + U^n_{j-2})
 \]
-combinándolo con una discretización temporal de TAylor de orden 2(al igua que para deducir el método de Lax-Wendroff).
+combinándolo con una discretización temporal de Taylor de orden 2 (al igual que para deducir el método de Lax-Wendroff).
 
 Indique todo lo que pueda sobre dicho método: error de truncatura local, consistencia, condición CFL, estabilidad \ldots
 
 Implemente este método a partir del código visto para el algoritmo de Lax-Wendroff para aproximar la ecuación de advección con condiciones de contorno periódicas.
 #+end_wording
+
+Suponiendo $f$ suficientemente regular para poder aplicar desarrollo de Taylor:
+
+
 * Ejercicio 5
 #+begin_wording
 Deduce la expresión que adoptaría el método de Lax-Wendrof para arpoximar la solución de la ecuación:
