@@ -139,7 +139,7 @@ El método es consistente y estable, luego por un teorema de clase es convergent
 ** Caso particular
 Para $f(t) = cos(\pi t)$ y $N = 20$ se tiene:
 
-#+begin_src octave :results file :exports results :tangle ejercicio1.m :cache yes
+#+begin_src octave :exports both :results file :tangle ejercicio1.m :cache yes
 % solve the periodic boundary value problem 
 %       u'' - u = f(t) on [0,1] 
 % with Dirichlet conditions u(0) = u(1), u'(0) = u'(1).  
@@ -210,41 +210,40 @@ errores máximos cometidso en función de $h$ y compara con el análisis de conv
 anteriormente.
 #+end_wording
 
-#+begin_src octave :session :results none :exports none :tangle poissonErrorEx2.m
+
+
+
+
+#+begin_src octave :session :results none :exports both :tangle ejercicio2-approx.m
 % Solve the Poisson problem u_{xx} + u_{yy} = f(x,y) on [a,b] x [a,b]
 %
 % Based on  http://www.amath.washington.edu/~rjl/fdmbook/chapter3
-function err = poissonErrorEx2(N)
-  a = 0; 
-  b = 1;
-  h = (b - a)/(N+1);
+function approx = poissonApprox(N, a, b, f, truefn)
+  h = (b - a)/(N + 1);
   % grid points x including boundaries
-  x = linspace(a, b, N+2);  
+  x = linspace(a, b, N + 2);
   % grid points y including boundaries 
-  y = linspace(a, b, N+2);
+  y = linspace(a, b, N + 2);
 
   % 2d arrays of x,y values
-  [X,Y] = meshgrid(x,y);
+  [X, Y] = meshgrid(x,y);
   X = X';
   Y = Y';
 
   % indices of interior points in x
-  Iint = 2:N+1;
+  Iint = 2:(N + 1);
   % indices of interior points in y
-  Jint = 2:N+1;
+  Jint = 2:(N + 1);
   % interior points
   Xint = X(Iint, Jint);
   Yint = Y(Iint, Jint);
 
-  % f(x,y) function
-  f = @(x, y) 2 * pi * pi * cos(pi * y) * sin(pi * x);
-
   % evaluate f at interior points for right hand side
   % rhs is modified below for boundary conditions.
-  rhs = f(Xint, Yint);        
+  rhs = arrayfun(f, Xint, Yint);        
   
   % true solution for test problem
-  utrue = -cos(pi * Y) * sin(pi * X);
+  utrue = arrayfun(truefn, X, Y);
 
   % set boundary conditions around edges of usoln array:
   % use true solution for this test problem
@@ -257,19 +256,20 @@ function err = poissonErrorEx2(N)
 
   % adjust the rhs to include boundary terms:
   rhs(:, 1) = rhs(:, 1) - usoln(Iint, 1)/h^2;
-  rhs(:, N) = rhs(:, N) - usoln(Iint, N+2)/h^2;
+  rhs(:, N) = rhs(:, N) - usoln(Iint, N + 2)/h^2;
   rhs(1, :) = rhs(1, :) - usoln(1, Jint)/h^2;
-  rhs(N, :) = rhs(N, :) - usoln(N+2, Jint)/h^2;
+  rhs(N, :) = rhs(N, :) - usoln(N + 2, Jint)/h^2;
 
 
   % convert the 2d grid function rhs into a column vector for rhs of system:
   % reshape runs through the matrix by columns
-  F = reshape(rhs, N*N, 1);
+  F = reshape(rhs, N * N, 1);
 
   % form matrix A:
   I = speye(N); % sparse identity matrix
   e = ones(N, 1);
-  % [-1 0 1] indicates order of diags, where -1 is the lower-diagonal, 0 is the main diagonal and 1 is the upper-diagonal
+  % [-1 0 1] indicates order of diags, where -1 is the lower-diagonal, 
+  % 0 is the main diagonal and 1 is the upper-diagonal
   T = spdiags([e -4*e e], [-1 0 1], N, N);
   S = spdiags([e e], [-1 1], N, N);
   A = (kron(I, T) + kron(S, I)) / h^2;
@@ -283,29 +283,98 @@ function err = poissonErrorEx2(N)
   % (recall boundary conditions in usoln are already set) 
   usoln(Iint, Jint) = reshape(uvec, N, N);
 
-  % assuming true solution is known and stored in utrue:
-  err = max(max(abs(usoln - utrue)));
+  approx = usoln
 endfunction
+
+f = @(x, y) 2 * pi * pi * cos(pi * y) * sin(pi * x);
+truefn = @(x, y) -cos(pi * y) * sin(pi * x);
+% number of points to use
+N = 10;
+a = 0;
+b = 1;
+
+x = linspace(a, b, N + 2);
+% grid points y including boundaries 
+y = linspace(a, b, N + 2);
+
+% 2d arrays of x,y values
+[X, Y] = meshgrid(x, y);
+X = X';
+Y = Y';
+
+% Compute approximated solution and true solution
+approx = poissonApprox(N, a, b, f, truefn)
+utrue = arrayfun(truefn, X, Y);
 #+end_src
 
-#+begin_src octave :session :results file :exports results :tangle ejercicio2.m
+Representamos la solución real y la solución aproximada en 3D, comprobándose que son prácticamente indistinguibles.
+
+#+begin_src octave :session :results file :exports both
+% plot approximation
+figure(1, "visible", "off" )
+clf
+
+% plot surface of the original and the approximation values
+mesh(X, Y, approx)
+title('Surface of approximated solution')
+print -dpng ejercicio2-meshapprox.png;
+ans = "ejercicio2-meshapprox.png";
+#+end_src
+
+#+RESULTS:
+[[file:ejercicio2-meshapprox.png]]
+#+begin_src octave :session :results file :exports both
+% plot true solution
+figure(1, "visible", "off" )
+
+% plot surface of the original and the approximation values
+mesh(X, Y, utrue)
+title('Surface of real solution')
+print -dpng ejercicio2-meshsol.png;
+ans = "ejercicio2-meshsol.png";
+#+end_src
+
+#+RESULTS:
+[[file:ejercicio2-meshsol.png]]
+
+Y representamos los errores de aproximación, comprobando que tienden a 0 conforme $h \rightarrow 0$ 
+#+begin_src octave :session :results file :exports both :eval never :tangle ejercicio2-error.m
+function error = poissonError(N, a, b, f, truefn)
+  approx = poissonApprox(N, a, b, f, truefn)
+  h = (b - a)/(N + 1);
+  % grid points x including boundaries
+  x = linspace(a, b, N + 2);
+  % grid points y including boundaries 
+  y = linspace(a, b, N + 2);
+
+  % 2d arrays of x,y values
+  [X, Y] = meshgrid(x,y);
+  X = X';
+  Y = Y';
+  
+  % true solution for test problem
+  utrue = arrayfun(truefn, X, Y);
+  % assuming true solution is known and stored in utrue:
+  error = max(max(abs(approx - utrue)));
+endfunction
+
+% plot approximation errors
 Ns = 1:1:100
 hs = 1./(Ns + 1)
-errs = arrayfun(@poissonErrorEx2, Ns);
+errors = arrayfun(@poissonError, Ns, a, b, f, truefn);
 
-% plot results:
 figure(1, "visible", "off" )
 clf
 hold on
-
-% plot approximation errors
-plot(hs, errs)
+plot(hs, errors, 'k')
+xlabel('h value')
+ylabel('maximum error')
 title('Approximation errors')
 print -dpng ejercicio2.png;
 ans = "ejercicio2.png";
 #+end_src
 
-#+RESULTS[b7b47182c14f0f3ca9fe08a795e119496bc9c68d]:
+#+RESULTS:
 [[file:ejercicio2.png]]
 
 * Ejercicio 3
@@ -323,7 +392,7 @@ El método de Euler implícito consiste en hacer:
 
 \[U_j^{n+1} = U_{j}^n + \frac{k}{h^2}\left(U_{j+1}^{n+1} - 2U_{j}^{n+1} + U_{j-1}^{n+1}\right), \quad j=1, \ldots, \frac{1}{h}-1, \quad n= 0, \ldots\]
 
-#+begin_src octave :session :results file :exports results :tangle ejercicio3.m
+#+begin_src octave :session :exports both :tangle ejercicio3.m
 % Solve u_t = u * u_{xx} on [ax,bx] with Dirichlet boundary conditions,
 % using the Crank-Nicolson method with m interior points.
 %
@@ -415,6 +484,8 @@ print -dpng ejercicio3.png;
 ans = "ejercicio3.png";
 #+end_src
 
+#+RESULTS:
+[[file:ejercicio3.png]]
 
 * Ejercicio 4
 #+begin_wording
