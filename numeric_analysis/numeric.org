@@ -23,7 +23,6 @@
 #+OPTIONS: num:nil
 #+SETUPFILE: ../theme-readtheorg.setup
 #+attr_latex: :float t :width 4cm
-[[../by-nc-sa.png]]
 
 * Ejercicio 1
 #+begin_wording
@@ -432,7 +431,7 @@ tfinal = 2;
 h = (bx - ax)/(N + 1);
 x = linspace(ax, bx, N + 2)';
 
-% time step, 4* not necessary, since this algorithm hasn't got an stability condition
+% time step, 4* not necessary, since there's no stability condition
 k = 4*h;
 % number of time steps
 nsteps = round(tfinal / k);
@@ -530,14 +529,110 @@ Suponiendo $f$ suficientemente regular para poder aplicar desarrollo de Taylor:
 Justificamos las dos fórmulas de derivación:
 
 \begin{align*}
-\frac{3f(a) - 4f(a-h) + f(a -2h)}{2h} &= \frac{3f(a) - 4f(a) + 4f'(a)h + o(h^2) + f(a) -f'(a)2h + o(h^2)}{2h} =\\
-&= \frac{2hf'(a)}{2h} = f'(a) + \frac{o(h^2)}{2h} \underset{h\rightarrow 0}{\longrightarrow} f'(a)
+\frac{3f(a) - 4f(a-h) + f(a -2h)}{2h} &= \frac{3f(a) - 4f(a) + 4f'(a)h -\frac{4}{2} f''(a) h^2 + o(h^3)}{2h} + \\
+&+ \frac{f(a) -f'(a)2h + \frac{4}{2} f''(a) h^2 + o(h^3)}{2h} = \\
+&= f'(a) + \frac{o(h^3)}{2h} = f'(a) + o(h^2) \underset{h\rightarrow 0}{\longrightarrow} f'(a)
 \end{align*}
 
 \begin{align*}
-\frac{f(a) - 2f(a-h) + f(a -2h)}{h^2} &= \frac{f(a) - 2f(a) + 2f'(a)h - \frac{2}{2}f''(a)h^2 + o(h^3) + f(a) -f'(a)2h + \frac{f''(a)}{2}4h^2 + o(h^3)}{h^2} =\\
-&= f''(a) + \frac{o(h^3)}{h^2} \underset{h\rightarrow 0}{\longrightarrow} f''(a)
+\frac{f(a) - 2f(a-h) + f(a -2h)}{h^2} &= \frac{f(a) - 2f(a) + 2f'(a)h - \frac{2}{2}f''(a)h^2 + o(h^3)}{h^2} + \\
+&+ \frac{f(a) -f'(a)2h + \frac{f''(a)}{2}4h^2 + o(h^3)}{h^2} = \\
+&= f''(a) + \frac{o(h^3)}{h^2} = f''(a) + o(h) \underset{h\rightarrow 0}{\longrightarrow} f''(a)
 \end{align*}
+
+Tomamos ahora la ecuación de advección $u_t + au_x = 0 \implies u_t = -a u_x$, y también se deduce $u_{tt} = -a u_{tx} = a^2 u_{xx}$.
+
+Aplicando Taylor de orden 2:
+\[ 
+ u(t + k, x) \approx u(t,x) + ku_t(t,x) + \frac{k^2}{2} u_{tt} = u(t,x) - aku_x(t,x) + \frac{a^2 k^2}{2} u_{xx}(t,x) + o(k^3)
+\]
+
+Usando en $u_x$ y $u_{xx}$ las fórmulas de aproximacion demostradas anteriormente llegamos a:
+\[
+  u_i^{j+1} = u_i^j - \frac{ak}{2k}(-3u_i^j + 4u_{i+1}^j - u_{i+2}^j) + o(kh^2) + \frac{a^2k^2}{2h^2} (u_i^j - 2u_{i+1}^j + u_{i+2}^j) + o(k^2h) + o(k^3)
+\]
+
+Es decir, llamando 
+\[
+A = \begin{pmatrix}
+\left(1 + \frac{3ak}{2h} + \frac{a^2 k^2}{2h^2} \right) & \left(-\frac{2ak}{h} - {a^2 k^2}{h^2} \right) & \left(\frac{ak}{2h} + {a^2 k^2}{2h^2} \right) & 0 & \ldots & 0 \\
+0 &\left(1 + \frac{3ak}{2h} + \frac{a^2 k^2}{2h^2} \right) & \left(-\frac{2ak}{h} - {a^2 k^2}{h^2} \right) & \left(\frac{ak}{2h} + {a^2 k^2}{2h^2} \right) & \ldots & 0\\
+\ddots & \ddots & \ddots & \ddots & \ddots & \ddots \\
+\end{pmatrix}
+\]
+tenemos el método de aproximación $U^{j+1} = A \cdot U^{j}$.
+
+El error de truncatura local es $o(kh^2) + o(k^2h) + o(k^3)$, que tiende a $0$ cuando $(\tau, h) \longrightarrow (0,0)$. Luego el método es consistente.
+
+#+begin_src octave :session :results none :exports both :tangle ejercicio4.m :eval yes
+function [x, uint] = BeamWarming(N, a, ax, bx, initCond, f)
+  % maximum time
+  tfinal = 1;
+
+  % Discretizations
+  h = (bx - ax)/(N + 1);
+  k = 0.05*h;
+  % Courant parameter
+  nu = a*k/h;
+  % Recall that x(1) = 0, x(N + 2) = 1
+  x = linspace(ax, bx, N + 2)';
+  % Number of time steps
+  nsteps = round(tfinal / k);
+  % Frequency of plot
+  nplot = 20;
+  
+  % With periodic conditions we have N + 1 unknowns and u(1) = u(N + 2)
+  I = 2:(N + 2); 
+
+  % Definition of initial conditions
+  tn = 0;
+  u0 = initCond(x);
+  u = u0;
+  xs = x;
+  xs(N + 3) = bx + k;
+  
+  % Periodic boundary conditions
+  u(1) = u(N + 2);   
+  u(N + 3) = u(2);
+
+  % Plot initial condition
+  clf
+  plot(x, u0)
+  axis([0 1 -.2 1.2])
+  title('Initial condition at 0 time')
+  
+  % Temporal loop
+  for n = 1:nsteps  
+    tnp = tn + k;   % = t_{n+1}
+    % Compute values for f_i^j
+    fs = f(tn, xs);
+    nextfs = f(tnp, xs);
+    
+    % Lax-Wendroff
+    u(I) = u(I) - a * k / (2 * h) * (3*u(I) - 4*u(I - 1) + U(I - 2)) + ...
+           a^2 * k^2 / (2 * h^2) * (u(I) - 2*u(I - 1) + U(I - 2));
+    
+    % plot results each nplot steps
+    if mod(n, nplot) == 0 || n == nsteps
+      uint = u(1:m+2);
+      plot(x, uint)
+      axis([0 1 -.2 1.2])
+      title(sprintf('t = %9.5e  tras %4i pasos con %5i nodos',...
+                    tnp, n, m+1))
+      if n < nsteps, pause(0.2); end;
+    end
+
+    % Periodic conditions
+    u(1) = u(N + 2);   
+    u(N + 3) = u(2);
+
+    % Set next temporal step
+    tn = tnp;
+  endfor
+  
+endfunction
+#+end_src
+
 
 * Ejercicio 5
 #+begin_wording
@@ -598,7 +693,7 @@ function ans = advectionPeriodicLW(N, a, ax, bx, initCond, f)
 
   % Discretizations
   h = (bx - ax)/(N + 1);
-  k = 0.09*h;
+  k = 0.05*h;
   % Courant parameter
   nu = a*k/h;
   % Recall that x(1) = 0, x(N + 2) = 1
@@ -634,10 +729,10 @@ function ans = advectionPeriodicLW(N, a, ax, bx, initCond, f)
     nextfs = f(tnp, xs);
     
     % Lax-Wendroff
-   u(I) = u(I) - 0.5*nu*(u(I + 1) - u(I - 1)) + ...
-          0.5*nu^2 * (u(I - 1) - 2*u(I) + u(I + 1)) - ...
-          a * k^2 / (4 * h) * (fs(I + 1) - fs(I - 1)) + ...
-          0.5* k * (nextfs(I) - fs(I)) + k * fs(I);
+    u(I) = u(I) - 0.5*nu*(u(I + 1) - u(I - 1)) + ...
+           0.5*nu^2 * (u(I - 1) - 2*u(I) + u(I + 1)) - ...
+           a * k^2 / (4 * h) * (fs(I + 1) - fs(I - 1)) + ...
+           0.5* k * (nextfs(I) - fs(I)) + k * fs(I);
     
     % Periodic conditions
     u(1) = u(N + 2);   
@@ -649,7 +744,6 @@ function ans = advectionPeriodicLW(N, a, ax, bx, initCond, f)
   
   uint = u(1:N+2);
   plot(x, uint)
-  axis([0 1 -.2 1.2])
   title(sprintf('t = %9.5e  after %4i steps, %5i nodes', tnp, nsteps, N + 1))
   print -dpng ejercicio5.png;
   ans = "ejercicio5.png";
