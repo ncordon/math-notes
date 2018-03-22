@@ -136,7 +136,7 @@ Luego $\lim_{h\rightarrow 0} ||A_h||_2 = \max_{p} \frac{1}{(2\pi p)^2 + 1} \le 1
 *** Convergencia
 El método es consistente y estable, luego por un teorema de clase es convergente.
 ** Caso particular
-Para $f(t) = cos(\pi t)$ y $N = 20$ se tiene:
+Para $f(t) = cos(\pi t)$ y $N = 20$ se tiene (archivo =ejercicio1.m=):
 
 #+begin_src octave :exports both :results file :tangle ejercicio1.m :eval yes
 % solve the periodic boundary value problem 
@@ -144,14 +144,14 @@ Para $f(t) = cos(\pi t)$ y $N = 20$ se tiene:
 % with Dirichlet conditions u(0) = u(1), u'(0) = u'(1).  
 % Modified from http://www.amath.washington.edu/~rjl/fdmbook/chapter3
 
-f = @(t) cos(pi * t)
+f = @(t) cos(pi * t);
 % True solution to Poisson problem
-truefn = @(t) (exp(1-t) - exp(t) -(-1+e)*f(t)) / ((e-1)*(1 + pi*pi))
+truefn = @(t) (exp(1-t) - exp(t) -(-1+e)*f(t)) / ((e-1)*(1 + pi*pi));
 
 % number of interior points 
 N = 20; 
 h = 1/(N + 1);
-a = -2 - h*h
+a = -2 - h*h;
 
 % grid points x including boundaries
 x = linspace(0, 1, N+1);
@@ -161,32 +161,32 @@ rhs = f(X);
 % form matrix A:
 A = sparse(N+1, N+1);
 % Assign diagonals
-A(1:N+2:end) = a
-A(2:N+2:end) = 1
-A(N+2:N+2:end) = 1
+A(1:N+2:end) = a;
+A(2:N+2:end) = 1;
+A(N+2:N+2:end) = 1;
 % Assign firs/last 1 of last/first row resp.
-A(1 + (N+1)*N) = A(N+1) = 1
-A *= 1/(h*h)
+A(1 + (N+1)*N) = A(N+1) = 1;
+A *= 1/(h*h);
 
 % Approximated solution
 uapprox = A\rhs;
 
 % True solution for test problem
-utrue = truefn(X)
+utrue = truefn(X);
 
 err = max(max(abs(uapprox - utrue)));
-fprintf('Error relative to true solution of PDE = %10.3e \n', err)
+fprintf('Error relative to true solution of PDE = %10.3e \n', err);
 
 
 % plot results:
-figure( 1, "visible", "off" )
-clf
-hold on
+figure( 1, "visible", "off" );
+clf;
+hold on;
 
 % plot true and aproximated solution:
-plot(X, utrue, X, uapprox)
-title('Plot of approximated and true solution')
-legend("True solution", "Approximated solution")
+plot(X, utrue, X, uapprox);
+title('Plot of approximated and true solution');
+legend("True solution", "Approximated solution");
 print -dpng ejercicio1.png;
 ans = "ejercicio1.png";
 #+end_src
@@ -209,11 +209,11 @@ errores máximos cometidso en función de $h$ y compara con el análisis de conv
 anteriormente.
 #+end_wording
 
-#+begin_src octave :session :results none :exports both :tangle ejercicio2-approx.m :eval yes
+#+begin_src octave :session :results none :exports both :tangle ejercicio2Approx.m :eval yes
 % Solve the Poisson problem u_{xx} + u_{yy} = f(x,y) on [a,b] x [a,b]
 %
 % Based on  http://www.amath.washington.edu/~rjl/fdmbook/chapter3
-function approx = poissonApprox(N, a, b, f, truefn)
+function approx = ejercicio2Approx(N, a, b, f, truefn)
   h = (b - a)/(N + 1);
   % grid points x including boundaries
   x = linspace(a, b, N + 2);
@@ -278,9 +278,13 @@ function approx = poissonApprox(N, a, b, f, truefn)
   % (recall boundary conditions in usoln are already set) 
   usoln(Iint, Jint) = reshape(uvec, N, N);
 
-  approx = usoln
+  approx = usoln;
 endfunction
+#+end_src
 
+Representamos la solución real y la solución aproximada en 3D, comprobándose que son prácticamente indistinguibles (=ejercicio2-parte1.m=):
+
+#+begin_src octave :session :results file :exports both :eval yes :tangle ejercicio2-parte1.m
 f = @(x, y) 2 * pi * pi * cos(pi * y) * sin(pi * x);
 truefn = @(x, y) -cos(pi * y) * sin(pi * x);
 % number of points to use
@@ -298,44 +302,39 @@ X = X';
 Y = Y';
 
 % Compute approximated solution and true solution
-approx = poissonApprox(N, a, b, f, truefn)
+approx = ejercicio2Approx(N, a, b, f, truefn);
 utrue = arrayfun(truefn, X, Y);
-#+end_src
 
-Representamos la solución real y la solución aproximada en 3D, comprobándose que son prácticamente indistinguibles.
-
-#+begin_src octave :session :results file :exports both :eval yes
 % plot approximation
-figure(1, "visible", "off" )
-clf
+figure(1, "visible", "off" );
+clf;
 
 % plot surface of the original and the approximation values
-mesh(X, Y, approx)
-title('Surface of approximated solution')
+mesh(X, Y, approx);
+title('Surface of approximated solution');
 print -dpng ejercicio2-meshapprox.png;
 ans = "ejercicio2-meshapprox.png";
-#+end_src
 
-#+RESULTS:
-[[file:ejercicio2-meshapprox.png]]
-#+begin_src octave :session :results file :exports both :eval yes
 % plot true solution
-figure(1, "visible", "off" )
+figure(1, "visible", "off" );
 
 % plot surface of the original and the approximation values
-mesh(X, Y, utrue)
-title('Surface of real solution')
+mesh(X, Y, utrue);
+title('Surface of real solution');
 print -dpng ejercicio2-meshsol.png;
 ans = "ejercicio2-meshsol.png";
 #+end_src
 
 #+RESULTS:
+[[file:ejercicio2-meshapprox.png]]
+
+#+RESULTS:
 [[file:ejercicio2-meshsol.png]]
 
-Y representamos los errores de aproximación, comprobando que tienden a 0 conforme $h \rightarrow 0$. 
-#+begin_src octave :session :results file :exports both :eval never :tangle ejercicio2-error.m :eval yes
-function error = poissonError(N, a, b, f, truefn)
-  approx = poissonApprox(N, a, b, f, truefn)
+Y representamos los errores de aproximación (fichero principal =ejercicio2-parte2.m=, NOTA: tarda un poco en dar la solución), comprobando que tienden a 0 conforme $h \rightarrow 0$. 
+#+begin_src octave :session :results file :exports both :eval never :tangle ejercicio2Error.m :eval yes
+function error = ejercicio2Error(N, a, b, f, truefn)
+  approx = ejercicio2Approx(N, a, b, f, truefn);
   h = (b - a)/(N + 1);
   % grid points x including boundaries
   x = linspace(a, b, N + 2);
@@ -352,19 +351,28 @@ function error = poissonError(N, a, b, f, truefn)
   % assuming true solution is known and stored in utrue:
   error = max(max(abs(approx - utrue)));
 endfunction
+#+end_src
 
+#+begin_src octave :session :results file :exports both :eval never :tangle ejercicio2-parte2.m :eval yes
 % plot approximation errors
-Ns = 1:1:100
-hs = 1./(Ns + 1)
-errors = arrayfun(@poissonError, Ns, a, b, f, truefn);
 
-figure(1, "visible", "off" )
-clf
-hold on
-plot(hs, errors, 'k')
-xlabel('h value')
-ylabel('maximum error')
-title('Approximation errors')
+f = @(x, y) 2 * pi * pi * cos(pi * y) * sin(pi * x);
+truefn = @(x, y) -cos(pi * y) * sin(pi * x);
+% number of points to use
+a = 0;
+b = 1;
+
+Ns = 1:1:100;
+hs = 1./(Ns + 1);
+errors = arrayfun(@ejercicio2Error, Ns, a, b, f, truefn);
+
+figure(1, "visible", "off" );
+clf;
+hold on;
+plot(hs, errors, 'k');
+xlabel('h value');
+ylabel('maximum error');
+title('Approximation errors');
 print -dpng ejercicio2.png;
 ans = "ejercicio2.png";
 #+end_src
@@ -383,7 +391,7 @@ u_t = u_{xx}, \quad x\in [0,1], t\in [0,2], \quad u(t,0) = u(t,1) = 0, \quad u(0
 y compara los resultados con la solución exacta $u(t,x) = exp(-\pi^2 t) \cdot sin(\pi x)$.
 #+end_wording
 
-El método de Euler implícito consiste en hacer:
+Tenemos la ecuación $u_t = \nu u_{xx}$. El método de Euler implícito consiste en hacer:
 
 \[U_j^{n+1} = U_{j}^n + \frac{k}{h^2}\left(U_{j+1}^{n+1} - 2U_{j}^{n+1} + U_{j-1}^{n+1}\right), \quad j=1, \ldots, \frac{1}{h}-1, \quad n= 0, \ldots\]
 
@@ -405,16 +413,14 @@ Habíamos demostrado en clase que los valores propios de $A$, $\lambda_i$, estab
 
 Por tanto $|\mu_i| \ge 1$.
 
-Como $B_{h,k}$ es simétrica, $||B_{h,k}^{-1}||_2 \le \frac{1}{min\{|\mu_i|}} \le 1$
+Como $B_{h,k}$ es simétrica, $||B_{h,k}^{-1}||_2 \le \frac{1}{min\{|\mu_i|\}} \le 1$
 
 Hemos probado $||B_{h,k}^{-1}||_2 \le 1 + \alpha k$ con $\alpha = 0$, luego el método es incondicionalmente convergente.
 
-Puede observarse como al hacer la representación de las aproximaciones frente al verdadereo valor de la $u$ encontramos que a medida que evolucionamos en tiempo ambas convergen a la función constantemente $0$ (eje de abscisas).
+Puede observarse como al hacer la representación de las aproximaciones frente al verdadereo valor de la $u$ encontramos que a medida que evolucionamos en tiempo ambas convergen a la función constantemente $0$ (eje de abscisas). El código de este método se encuentra en =ejercicio3.m=.
 
 #+begin_src octave :session :results file :exports both :tangle ejercicio3.m :eval yes
-% Solve u_t = u * u_{xx} on [ax,bx] with Dirichlet boundary conditions,
-% using the Crank-Nicolson method with m interior points.
-%
+% Solve u_t = u_{xx} on [ax,bx] with Dirichlet boundary conditions
 %
 % Based on http://www.amath.washington.edu/~rjl/fdmbook/heat_CN.m
 
@@ -438,7 +444,7 @@ nsteps = round(tfinal / k);
 
 
 % true solution for comparison and definition of the boundary conditions
-utrue = @(t, x) exp(-pi * pi * t) * sin(pi * x)
+utrue = @(t, x) exp(-pi * pi * t) * sin(pi * x);
 
 % initial conditions:
 u0 = utrue(0, x);
@@ -462,11 +468,11 @@ ufine = utrue(0, xfine);
 tn = 0;
 u = u0;
 
-clf
-hold on
+clf;
+hold on;
 
-plot(x, u, 'b.-', xfine, ufine, 'r')
-legend('computed', 'true')
+plot(x, u, 'b.-', xfine, ufine, 'r');
+legend('computed', 'true');
 
 % main time-stepping loop:
 for n = 1:nsteps
@@ -493,7 +499,7 @@ for n = 1:nsteps
 
   %Plot results
   ufine = utrue(tnp, xfine);
-  plot(x, u, 'b.-', xfine, ufine, 'r', sleep(0.8))
+  plot(x, u, 'b.-', xfine, ufine, 'r');
 
   % for next time step
   tn = tnp;
@@ -564,8 +570,16 @@ tenemos el método de aproximación $U^{j+1} = A \cdot U^{j}$.
 
 El error de truncatura local es $o(kh^2) + o(k^2h) + o(k^3)$, que tiende a $0$ cuando $(\tau, h) \longrightarrow (0,0)$. Luego el método es consistente.
 
+En clase se vio que para la ecuación de advección $U^j_n = U_0(x_j - at_n)$. El dominio de dependencia numérico es $(x_j - 2nh, x_j)$ en el caso de nuestro método. Luego el punto $x_j - at_n$ debe pertenecer a dicho dominio:
+
+\[x_j - 2nh < x_j - at_n = x_j - a\cdot kn < x_j \Leftrightarrow 1 < \frac{2h}{ak}\]
+
+donde se ha usado $a > 0$. Nuestra condición CFL es $1 < \frac{2h}{ak}$.
+
+El código implementado está en =ejercicio4.m=.
+
 #+begin_src octave :session :results none :exports both :tangle ejercicio4.m :eval yes
-function [x, uint] = BeamWarming(N, a, ax, bx, initCond, f)
+function [x, uint] = ejercicio4(N, a, ax, bx, initCond, f)
   % maximum time
   tfinal = 1;
 
@@ -633,10 +647,9 @@ function [x, uint] = BeamWarming(N, a, ax, bx, initCond, f)
 endfunction
 #+end_src
 
-
 * Ejercicio 5
 #+begin_wording
-Deduce la expresión que adoptaría el método de Lax-Wendrof para arpoximar la solución de la ecuación:
+Deduce la expresión que adoptaría el método de Lax-Wendrof para aproximar la solución de la ecuación:
 
 \[ u_t = - au_x + f(t,x) \]
 
@@ -663,7 +676,7 @@ Aproximamos $f_x = \frac{f_{i+1}^j - f_{i-1}^j}{2h} + o(h^2)$ y $f_t = \frac{f_{
 Por otro lado, usando Taylor de orden 2:
 
 \[
-  u(t+k, x) \approx  u(t,x) + ku_t(t,x) + \frac{k^2}{2}u_{tt} + o(h^3)
+  u(t+k, x) \approx  u(t,x) + ku_t(t,x) + \frac{k^2}{2}u_{tt} + o(k^3)
 \]
 
 Así: 
@@ -686,8 +699,10 @@ El método a usar es:
 
 Resolvemos el problema con $a = -4, u_0(x) = 1 - e^{-x^2}, f(t,x) = e^t - e^{t-(x+4t)^2}$, simulando el método en el dominio $x\in [-10, 2]$ hasta $T=1$, con condiciones periódicas.
 
-#+begin_src octave :session :results file :exports both :tangle ejercicio5.m :eval yes
-function ans = advectionPeriodicLW(N, a, ax, bx, initCond, f)
+El código para este método está en los ficheros =ejercicio5Approx.m= y =ejercicio5.m=.
+
+#+begin_src octave :session :results file :exports both :tangle ejercicio5Approx.m :eval yes
+function ans = ejercicio5Approx(N, a, ax, bx, initCond, f)
   % maximum time
   tfinal = 1;
 
@@ -748,7 +763,9 @@ function ans = advectionPeriodicLW(N, a, ax, bx, initCond, f)
   print -dpng ejercicio5.png;
   ans = "ejercicio5.png";
 endfunction
+#+end_src
 
+#+begin_src octave :session :results file :exports both :tangle ejercicio5.m :eval yes
 % equation parameter
 a = -4;
 % Bounds for the space interval
@@ -760,7 +777,7 @@ N = 100;
 initCond = @(x) 1 - exp(-x.^2);
 f = @(t,x) exp(t) - exp(t - (x + 4*t).^2);
 
-ans = advectionPeriodicLW(N, a, ax, bx, initCond, f)
+ans = ejercicio5Approx(N, a, ax, bx, initCond, f)
 #+end_src
 
 #+RESULTS:

@@ -1,0 +1,79 @@
+#+TITLE: Análisis numérico de EDP, Fisymat
+#+SUBTITLE:
+#+AUTHOR: Ignacio Cordón, Bartolomé Ortiz, Julián Pozuelo
+#+OPTIONS: toc:nil
+#+LANGUAGE: es
+#+STARTUP: indent
+#+DATE:
+
+#+latex_header: \usepackage{amsmath}
+#+latex_header: \usepackage{amsthm}
+#+latex_header: \usepackage[spanish]{babel}
+#+latex_header: \newtheorem*{theorem}{Teorema}
+#+latex_header: \newtheorem*{fact}{Proposición}
+#+latex_header: \newtheorem*{corollary}{Corolario}
+#+latex_header: \newtheorem*{lemma}{Proposición}
+#+latex_header: \newtheorem*{definition}{Definición}
+#+latex_header: \setlength{\parindent}{0pt}
+#+latex_header: \setlength{\parskip}{1em}
+#+latex_header: \usepackage{color}
+#+latex_header: \newenvironment{wording}{\setlength{\parskip}{0pt}\rule{\textwidth}{0.5em}}{~\\\rule{\textwidth}{0.5em}}
+#+latex_header: \everymath{\displaystyle}
+#+latex_header: \usepackage[left=3.5cm, right=3cm, top=3cm]{geometry}
+#+OPTIONS: num:nil
+#+attr_latex: :float t :width 4cm
+
+* Método de colocación
+Dada la ecuación $u''(x) = f(x), x\in [-1,1]$, $u(-1) = a$, $u(1) = b$, sabemos que podemos aproximar:
+
+\[u(x) \approx u_n(x) = \sum_{k = 0}^n c_k T_k(x)\]
+
+Los $T_k$ son los polinomios de Chebyshev, que cumplen la recurrencia a tres términos \[T_k(x) = 2x\cdot T_{k-1}(x) - T_{k-2}(x)\] pcon $T_0 = 1, T_1 = id$.
+
+Donde los $c_k$ cumplen, por las condiciones de frontera:
+\[
+  \sum_{k = 0}^{n}' (-1)^k = a \qquad \sum_{k = 0}^{n}' c_k = b
+\]
+
+Y además, dados $x_j = cos\left(\frac{j-\frac{1}{2}}{n-1} \pi\right)$ con $j=1, \ldots, n-1$, los ceros del polinomio de Chebyshev $T_{n-1}$, se cumple:
+
+\[
+\sum^n_{k=r+2, k-r \textrm{ par}} (k-r) * k * (k+r) c_k = \frac{2}{n-1} \sum_{j=1}^{n-1} T_r(x_j) f(x_j)
+\]
+
+para $r= 0, \ldots, n-2$.
+
+Se ha implementado el siguiente algoritmo para el cálculo de los $c_k$, usando C++:
++ Cálculo de los puntos de colocación $x_j$ y evaluación de los $f(x_j)$.
++ Uso de la recurrencia a tres términos para calcular los $T(x_j)$.
++ Cálculo de los $c_{n}, c_{n-1}, \ldots, c_2$.
++ Cálculo de $c_0$ y $c_1$ usando las condiciones de frontera.
+
+El código, incluido en el archivo =collocation.cc=, calcula la aproximación para $n = 10$, del problema particular $u''(x) = e^x \cdot sen(x)$, con condiciones de frontera $u(-1) = u(1) = 1$ y la grafica en pantalla, junto a la solución real.
+
+El resultado obtenido ha sido el siguiente:
+
+[[./collocation.png]]
+
+* Ejecución del programa
+Para la ejecución del programa, hecho en C++, son necesarios los siguientes prerrequisitos:
+
+- Librería =boost= de C++.
+- Programa =gnuplot=, para que funcione la impresión de la gráfica.
+- =g++=, para poder compilar el programa.
+
+Los anteriores prerrequisitos pueden instalarse en Ubuntu haciendo:
+#+begin_src bash eval:false
+sudo apt-get install g++ gnuplot libboost-dev
+#+end_src
+
+Para la compilación del programa basta hacer, desde una terminal en el directorio donde se aloja el código fuente:
+#+begin_src bash eval:false
+./make
+#+end_src
+y para su ejecución:
+#+begin_src bash eval:false
+     ./collocation
+#+end_src
+
+Se ha usado la interfaz =gnuplot-iostream= hecha por Dan Stahlke, que se distribuye en el archivo =gnuplot-iostream.h= junto al presente ejercicio.

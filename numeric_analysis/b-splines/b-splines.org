@@ -1,0 +1,305 @@
+#+TITLE: Análisis numérico de EDP, Fisymat
+#+SUBTITLE:
+#+AUTHOR: Ignacio Cordón Castillo
+#+OPTIONS: toc:nil
+#+LANGUAGE: es
+#+STARTUP: indent
+#+DATE:
+
+#+latex_header: \usepackage{amsmath}
+#+latex_header: \usepackage{amsthm}
+#+latex_header: \usepackage[spanish]{babel}
+#+latex_header: \newtheorem*{theorem}{Teorema}
+#+latex_header: \newtheorem*{fact}{Proposición}
+#+latex_header: \newtheorem*{corollary}{Corolario}
+#+latex_header: \newtheorem*{lemma}{Proposición}
+#+latex_header: \newtheorem*{definition}{Definición}
+#+latex_header: \setlength{\parindent}{0pt}
+#+latex_header: \setlength{\parskip}{1em}
+#+latex_header: \usepackage{color}
+#+latex_header: \newenvironment{wording}{\setlength{\parskip}{0pt}\rule{\textwidth}{0.5em}}{~\\\rule{\textwidth}{0.5em}}
+#+latex_header: \everymath{\displaystyle}
+#+latex_header: \usepackage[left=3.5cm, right=3cm, top=3cm]{geometry}
+#+OPTIONS: num:nil
+#+SETUPFILE: ../theme-readtheorg.setup
+#+attr_latex: :float t :width 4cm
+
+* Ejercicio 3
+Se ha tomado el problema $u''(x) + p(x) u'(x) + q(x) u(x) = f(x)$ con $p(x) = -2$, $q(x) = 1$, $f(x) = -2 + x$, con $u(0) = 1$ y $u(10) = e^{10} + 10$. Este problema tiene solución exacta \[u(x) = e^x + x, \qquad x \in [0,10]\].
+
+El código, realizado en Octave, se incluye en los archivos =ejercicio3.m= (archivo principal, ejecutable) y =ContourApproxEjercicio3.m=. Para el anterior ejemplo y $N = 10$ se obtiene:
+
+#+begin_src octave :session :results file :exports results :tangle ejercicio3.m :eval yes
+% Approximate solution of
+% y''(x) + p(x) y'(x) + q(x)y(x) = f(x)
+% y(0) = alpha, y(l) = beta
+% using B-splines
+
+function value = TPower(center, t, degree)
+  if t < 0
+    value = 0;
+  elseif t > center
+    value = 0;
+  else
+    value = (center - t)^degree;
+  endif
+endfunction
+
+% 0 <= t <= N+1
+function value = CubicBspline(i, t, N)
+  if i == 0
+    value = TPower(1, t, 3);
+  elseif i == 1
+    value = 1/4 * TPower(2, t, 3) - 2 * TPower(1, t, 3);
+  elseif i == 2
+    value = 1/6 * TPower(3, t, 3) - 3/4 * TPower(2, t, 3) + 3/2 * TPower(1, t, 3);
+  elseif i == 3
+    value = 1/6 * TPower(4, t, 3) - 4/6 * TPower(3, t, 3) + TPower(2, t, 3) - 4/6 * TPower(1, t, 3);
+  elseif i > 3 && i <= N
+    value = CubicBspline(3, t - (i-3), N);
+  elseif i > N && i <= N + 3
+    value = CubicBspline((N + 3) - i, N + 1 - t, N);
+  endif
+endfunction
+
+
+function approx = ContourApprox(N, ax, bx, p, q, f, alpha, beta)
+  h = (bx - ax)/(N + 1);
+  x = linspace(ax, bx, N + 2)';
+  
+  lower_diag =  zeros(1, N + 2);
+  middle_diag = zeros(1, N + 2);
+  upper_diag =  zeros(1, N + 2);
+  
+  qs = q(x)';
+  ps = p(x)';
+  fs = f(x)';
+  
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  % Compute middle diagonal
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  pmid_coeffs = zeros(1, N + 2);
+  pmid_coeffs(1) = 3/h;
+  pmid_coeffs(2) = 1/(4 * h);
+  pmid_coeffs(N + 2) = -3/h;
+  pmid_coeffs(N + 1) = -1/(4 * h);
+  
+  middle_diag += pmid_coeffs .* ps;
+  
+  hhmid_coeffs = ones(1, N+2) * -2/h^2;
+  hhmid_coeffs(1) = hhmid_coeffs(N + 2) = -9/h^2;
+  hhmid_coeffs(2) = hhmid_coeffs(N + 1) = -5/(2 * h^2);
+  
+  middle_diag += hhmid_coeffs;
+  
+  qmid_coeffs = ones(1, N+2) * 2/3;
+  qmid_coeffs(1) = qmid_coeffs(N + 2) = 0;
+  qmid_coeffs(2) = qmid_coeffs(N + 1) = 7/12;
+  
+  middle_diag += qmid_coeffs .* qs;
+  
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  % Compute lower diagonal
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  plower_coeffs = ones(1, N + 2) * -1/(2 * h);
+  plower_coeffs(2) = -3/(4 * h);
+  plower_coeffs(N + 2) = 0;
+  plower_coeffs = plower_coeffs .* ps;
+  plower_coeffs = [plower_coeffs(2:N+2), 0];
+  
+  lower_diag += plower_coeffs;
+  
+  hhlower_coeffs = ones(1, N + 2) * 1/h^2;
+  hhlower_coeffs(2) = 3/(2 * h^2);
+  hhlower_coeffs(N + 2) = 3/h^2;
+  hhlower_coeffs = [hhlower_coeffs(2:N+2), 0];
+  
+  lower_diag += hhlower_coeffs;
+  
+  qlower_coeffs = ones(1, N + 2) * 1/6;
+  qlower_coeffs(2) = 1/4;
+  qlower_coeffs(N + 2) = 0;
+  qlower_coeffs = qlower_coeffs .* qs;
+  qlower_coeffs = [qlower_coeffs(2:N+2), 0];
+  
+  lower_diag += qlower_coeffs;
+  
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  % Compute upper diagonal
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  pupper_coeffs = ones(1, N + 2) * 1/(2 * h);
+  pupper_coeffs(1) = 0;
+  pupper_coeffs(N + 1) = 3/(4 * h);
+  pupper_coeffs = pupper_coeffs .* ps;
+  pupper_coeffs = [0, pupper_coeffs(1:N+1)];
+  
+  upper_diag += pupper_coeffs;
+  
+  hhupper_coeffs = ones(1, N + 2) * 1/h^2;
+  hhupper_coeffs(1) = 3/h^2;
+  hhupper_coeffs(N + 1) = 3/(2 * h^2);
+  hhupper_coeffs = [0, hhupper_coeffs(1:N+1)];
+  
+  upper_diag += hhupper_coeffs;
+  
+  qupper_coeffs = ones(1, N + 2) * 1/6;
+  qupper_coeffs(1) = 0;
+  qupper_coeffs(N + 1) = 1/4;
+  qupper_coeffs = qupper_coeffs .* qs;
+  qupper_coeffs = [0, qupper_coeffs(1:N+1)];
+  
+  upper_diag += qupper_coeffs;
+  
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  % Compute coefficients of linear combination of B-splines
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  A = spdiags([lower_diag' middle_diag' upper_diag'], [-1 0 1], N + 2, N + 2);
+  rhs = fs;
+  rhs(1) += -q(1)*alpha + 3*p(1)*alpha/h - 6/h^2 * alpha;
+  rhs(N + 2) += -q(N + 2)*beta - 3*p(N + 2)*beta/h - 6/h^2 * beta;
+  
+  coeffs = A\rhs';
+  coeffs = [alpha, coeffs', beta];
+  approx = 0 .* x;
+  
+  for i = 1:N+4
+    bspline = @(t) CubicBspline(i - 1, t/h, N);
+    approx += coeffs(i) .* arrayfun(bspline, x);
+  endfor
+end
+
+N = 10;
+ax = 0;
+bx = 10;
+truesol = @(x) exp(x) .+ x;
+alpha = truesol(ax);
+beta = truesol(bx);
+x = linspace(ax, bx, N + 2);
+utrue = @arrayfun(truesol,x);
+p = @(x) -2 .+ x .* 0;
+q = @(x) 1 .+ x .* 0;
+f = @(x) -2 .+ x
+approx = ContourApprox(N, ax, bx, p, q, f, alpha, beta);
+
+clf
+hold on
+plot(x,utrue, x, approx)
+legend("true solution", "approximation")
+hold off
+
+print -dpng ejercicio3.png;
+ans = "ejercicio3.png";
+#+end_src
+
+#+RESULTS:
+[[file:ejercicio3.png]]
+
+Para $N = 30$ se obtiene:
+
+[[./ejercicio3-best.png]]
+* Ejercicio 4
+Se ha escogido como problema particular $u_t = u_{xx}$ con $x\in [0,1], t\in[0,2]$, verificando $u(t,0) = u(t,1) = 0$, y $u(0,x) = sin(\pi\cdot x)$, que tiene como solución exacta \[u(t,x) = e^{-\pi^2 t} \cdot sin(\pi \cdot x)\].
+
+El código del ejercicio, realizado en Octave, se encuentra en los archivos =ejercicio4.m= (archivo principal, ejecutable) y =ContourApproxEjercicio4.m=
+
+A continuación se incluye un plot de la aproximación para $N = 10$ nodos espaciales y $M = 100$ nodos temporales, así como la verdadera solución, donde se puede observar que ambas resultan prácticamente indistinguibles.
+
+#+begin_src octave :session :results file :exports results :tangle ejercicio4.m :eval yes
+
+% Approximate solution of
+%
+% u_{xx} = u_{t}, 0 < x < l; t > 0
+% u(0,t) = 0, t >= 0;  u(l,t) = 0, t >= 0
+% u(x,0) = g(x), 0 <= x <= l
+%
+% using B-splines
+
+function value = TPower(center, t, degree)
+  if t < 0
+    value = 0;
+  elseif t > center
+    value = 0;
+  else
+    value = (center - t)^degree;
+  endif
+endfunction
+
+% 0 <= t <= N+1
+function value = CubicBspline(i, t, N)
+  if i == 0
+    value = TPower(1, t, 3);
+  elseif i == 1
+    value = 1/4 * TPower(2, t, 3) - 2 * TPower(1, t, 3);
+  elseif i == 2
+    value = 1/6 * TPower(3, t, 3) - 3/4 * TPower(2, t, 3) + 3/2 * TPower(1, t, 3);
+  elseif i == 3
+    value = 1/6 * TPower(4, t, 3) - 4/6 * TPower(3, t, 3) + TPower(2, t, 3) - 4/6 * TPower(1, t, 3);
+  elseif i > 3 && i <= N
+    value = CubicBspline(3, t - (i-3), N);
+  elseif i > N && i <= N + 3
+    value = CubicBspline((N + 3) - i, N + 1 - t, N);
+  endif
+endfunction
+
+function approx = ContourApprox(ax, bx, N, T, M, g)
+  % space and time steps
+  h = (bx - ax)/(N + 1);
+  k = T / M;
+  x = linspace(ax, bx, N + 2)';
+  t = linspace(0, T, M + 1)';
+  % Evaluate g only in inner nodes
+  gs = g(x(2:N+1));
+  ones_v = ones(1, N);
+  ones_v = ones_v';
+  
+  % Adjust matrixes for the method
+  A = spdiags([1/6*ones_v 2/3*ones_v 1/6*ones_v], [-1 0 1], N, N); 
+  B = 1/h^2 * spdiags([1*ones_v -2*ones_v 1*ones_v], [-1 0 1], N, N);
+  
+  a = inv(A) * gs;
+  a = a';
+  
+  for j = 0:M
+    % Insert first and last term
+    a = [1/3 * a(1), a, 1/3 * a(N)];
+    for i = 0:N+1
+      bspline = @(q) CubicBspline(q, i, N); 
+      approx(i + 1, j + 1) = sum(a .* arrayfun(bspline, 1:N+2));
+    endfor
+    
+    a = a(2:N+1);
+    a = (A - k/2 * B) \ (A + k/2 * B) * a';
+    a = a';
+  endfor
+end
+
+% Number of space and time evolutions
+N = 10;
+M = 100;
+% Time and space intervals
+ax = 0;
+bx = 1;
+T = 2;
+g = @(x) sin(pi * x);
+truesol = @(x,t) exp(-pi^2 * t) .* sin(pi * x);
+x = linspace(ax, bx, N + 2)';
+t = linspace(0, T, M + 1)';
+[xs, ts] = meshgrid(x, t);
+utrue = truesol(xs, ts);
+utrue = utrue';
+
+approx = ContourApprox(ax, bx, N, T, M, g);
+mesh(xs', ts', utrue);
+title("True solution");
+mesh(xs', ts', approx);
+title("Approximation")
+print -dpng ejercicio4.png;
+ans = "ejercicio4.png";
+#+end_src
+
+#+RESULTS:
+[[file:ejercicio4.png]]
+
+[[./ejercicio4-true.png]]
+
+
